@@ -5,12 +5,17 @@
 
 #include <QWidget>
 #include <QColor>
+#include <QBrush>
 #include <QImage>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPolygonF>
 #include <QVector>
 #include <QPointF>
+
+#include "Model/piece_model.h"
+#include "Model/cell.h"
+#include "Model/board_model.h"
 
 class PiecesWidget : public QWidget
 {
@@ -19,9 +24,11 @@ private :
     QImage* buffer;
     QColor* color;
     QPainter* bufferPainter;
+    Board*  board;
 
 public:
     explicit PiecesWidget(QWidget *parent = 0);
+
     /**
      * Imprime une cellule à une position donnée, utilise la couleur courante
      * @author Florian
