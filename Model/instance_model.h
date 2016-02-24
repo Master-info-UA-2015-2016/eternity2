@@ -2,12 +2,16 @@
 #define INSTANCE_MODEL_H
 
 #include "piece_model.h"
-#include "vector"
-#include "string"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iterator>
+#include <cstdlib>
+#include <algorithm>
+#include <fstream>
+#include <sstream>
 
-using namespace std;
-
-/*
+/**
  * Classe définissant une instance de puzzle eternity2 à partir
  * d'un fichier source dont on suppose à l'heure actuelle qu'il
  * est bien formé.
@@ -22,17 +26,41 @@ class instance_model
 {
 private:
     int nbRows, nbCols;
-    vector<piece_model> *vectPieces;
+    std::vector<Piece> *vectPieces;
 
 public:
 
-    /*
+    /**
      * Constructeurs
      */
     instance_model();
-    instance_model(string filename); // TODO
 
-    /*
+    /**
+     * Découpe une ligne du fichier et retourne chaque élément dans un tableau.
+     * @param str chaine en entrée à découper
+     * @return vecteur de chaine
+     */
+    std::vector< std::string >& explode(const std::string& str);
+
+    /**
+     * Impression sur un flux de l'instance
+     * @param out
+     * @return le flux donné en paramètre avec l'instance 'imprimé'
+     */
+    std::ostream& print(std::ostream& out);
+
+    friend std::ostream& operator<<(std::ostream& out, instance_model& r)
+    { return r.print(out); }
+
+    /**
+     * Chargement d'un graphe sous forme de matrice
+     * à partir d'un fichier d'exemple
+     * @param fileName
+     * @return
+     */
+    bool tryLoadFile(const std::string& fileName);
+
+    /**
      * Affichage par défaut sur terminal (print et <<)
      * initialisation avec lecture du fichier (explode et tryLoad)
      * Voir sur grapheMat du projet VisualGraph
@@ -44,7 +72,7 @@ public:
      */
     int get_nbRows() { return nbRows; }
     int get_nbCols() { return nbCols; }
-    const vector<piece_model>* get_vectPieces() { return vectPieces; }
+    const vector<Piece>* get_vectPieces() { return vectPieces; }
 
     void set_nbRows(int n) { nbRows = n; }
     void set_nbCols(int m) { nbCols = m; }

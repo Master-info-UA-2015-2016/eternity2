@@ -1,9 +1,31 @@
 # eternity2
 
-Petite application afin de représenter les instances des puzzles eternity2.
+Application graphique développée avec les librairies Qt 5.5 ayant pour but
+de supporter le projet à effectuer au cours de l'option "Résolutions de
+problèmes" suivie en 1ère année de Master à l'Université d'Angers.
 
-Interface graphique developpée en Qt 5.5.
+Projet collaboratif à l'initiative de :
 
-Modèle developpé en c++11.
+Ugo Rayer : "https://github.com/Seymour49/"
 
-Pour plus d'infos, contactez un des participants.
+Contributeurs majeurs :
+
+Florian David : "https://github.com/Flodavid/"
+
+
+Présentation du projet
+
+Le projet a pour but de mettre en place différents algorithmes de recherche
+de solutions approchées à plusieurs instances de puzzle eternity et de comparer
+leurs efficacités.
+Afin de mieux cerner la typologie d'un puzzle eternity, nous développons cette
+interface graphique permettant de charger une instance d'un puzzle mais également
+de charger/sauvegarder une configuration.
+De plus, un système permettant de construire sa propre configuration après chargement
+d'une instance est à l'étude.
+
+A terme, cette application devra permettre, à partir d'une instance chargée, de
+choisir l'algorithme à utiliser afin d'effectuer la recherche de la solution approchée
+tout en affichant à l'écran la solution optimale courante et l'évolution de l'éxecution
+de l'algorithme.
+

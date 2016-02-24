@@ -2,16 +2,74 @@
 
 using namespace std;
 
-instance_model::instance_model()
-{
+instance_model::instance_model(){
     nbRows = 0;
     nbCols = 0;
     vectPieces = new vector<piece_model>();
 }
 
-instance_model::instance_model(string filename){
+vector<string>& instance_model::explode(const string &str){
+
+    istringstream split(str);
+    vector< string >* tokens = new vector<string>;
+
+    for(string each; getline(split, each, ' '); tokens->push_back( each.c_str()) );
+
+    return *tokens;
+}
+
+ostream& instance_model::print(ostream& out){
+
+    int nbPiece = nbRows * nbCols;
+
+    for(int i=0; i < nbPiece; ++i){
+        out << vectPieces[i];
+    }
+    return out;
+}
+
+bool instance_model::tryLoadFile(const string& fileName){
+    ifstream f(fileName.c_str());
+
+    if(!f){
+        cerr << "Erreur pendant l'ouverture du fichier" << endl;
+        return false;
+    }else{
+        string line;
+        int indice = -1;
+        while(getline(f,line)){
+
+            vector<string>& tokens = explode(line);
+
+            // Lecture de la première ligne renseignant nombre de lignes et nombre de colonnes
+            if(indice < 0){
+                /*
+                 * tokens[0] : nombre de lignes
+                 * tokens[1] : nombre de colonnes
+                 */
+                nbRows = atoi(tokens[0].c_str());
+                nbCols = atoi(tokens[1].c_str());
+
+            }else{
+                /*
+                 * tokens[0] : couleur Sud
+                 * tokens[1] : couleur Ouest
+                 * tokens[2] : couleur Nord
+                 * tokens[3] : couleur Est
+                 */
+                int tab[MAX_CARD];
+                for(int i=0; i < MAX_CARD; ++i){
+                    tab[i] = atoi(tokens[i].c_str());
+                }
+                Piece p(indice, tab);
+                vectPieces->push_back(p);
+            }
+            ++indice;
+            delete(&tokens);
+            }
+        }
 
 
-
+    return true;
 
 }
