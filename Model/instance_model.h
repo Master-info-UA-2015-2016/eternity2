@@ -22,7 +22,7 @@
  *
  * @author Ugo
  */
-class instance_model
+class Instance
 {
 private:
     int nbRows, nbCols;
@@ -33,7 +33,7 @@ public:
     /**
      * Constructeurs
      */
-    instance_model();
+    Instance();
 
     /**
      * Découpe une ligne du fichier et retourne chaque élément dans un tableau.
@@ -49,7 +49,7 @@ public:
      */
     std::ostream& print(std::ostream& out);
 
-    friend std::ostream& operator<<(std::ostream& out, instance_model& r)
+    friend std::ostream& operator<<(std::ostream& out, Instance& r)
     { return r.print(out); }
 
     /**

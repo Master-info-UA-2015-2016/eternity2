@@ -2,13 +2,13 @@
 
 using namespace std;
 
-instance_model::instance_model(){
+Instance::Instance(){
     nbRows = 0;
     nbCols = 0;
     vectPieces = new vector<piece_model>();
 }
 
-vector<string>& instance_model::explode(const string &str){
+vector<string>& Instance::explode(const string &str){
 
     istringstream split(str);
     vector< string >* tokens = new vector<string>;
@@ -18,7 +18,7 @@ vector<string>& instance_model::explode(const string &str){
     return *tokens;
 }
 
-ostream& instance_model::print(ostream& out){
+ostream& Instance::print(ostream& out){
 
     int nbPiece = nbRows * nbCols;
 
@@ -28,7 +28,7 @@ ostream& instance_model::print(ostream& out){
     return out;
 }
 
-bool instance_model::tryLoadFile(const string& fileName){
+bool Instance::tryLoadFile(const string& fileName){
     ifstream f(fileName.c_str());
 
     if(!f){
