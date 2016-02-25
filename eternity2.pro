@@ -15,15 +15,17 @@ SOURCES += main.cpp \
     pieceswidget.cpp \
     Model/instance_model.cpp \
     Model/piece_model.cpp \
-    Model/coordinates.cpp \
-    model/board_model.cpp
+    Model/board_model.cpp \
+    View/coordinates.cpp \
+    View/piece_view.cpp
 
 HEADERS  += mainwindow.h \
     pieceswidget.h \
     Model/instance_model.h \
     Model/piece_model.h \
-    Model/coordinates.h \
-    Model/cell.h \
-    Model/board_model.h
+    Model/board_model.h \
+    View/cell.h \
+    View/coordinates.h \
+    View/piece_view.h
 
 FORMS    += mainwindow.ui

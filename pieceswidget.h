@@ -13,9 +13,9 @@
 #include <QVector>
 #include <QPointF>
 
-#include "Model/piece_model.h"
-#include "Model/cell.h"
-#include "Model/board_model.h"
+#include "View/piece_view.h"
+#include "View/cell.h"
+#include "Model/board_model.h" // TODO A remplacer par board_view à priori
 
 class PiecesWidget : public QWidget
 {
@@ -41,13 +41,13 @@ public:
      * @param ab arbre à dessiner
      * @deprecated
      */
-    void drawPiece(const Piece* p);
+    void drawPiece(const PieceView *p);
     /**
      * Dessine l'ensemble des arbres de la liste passée en paramètre
      * @param arbres liste des arbres à dessiner
      * @author Florian et Ugo (commentaires :p )
      */
-    void drawList(std::list< Piece* >* pieces);
+    void drawList(std::list<PieceView *> *pieces);
     /**
      * Dessine les arbres et cellules vides dans le buffer
      * @author Ugo et Florian

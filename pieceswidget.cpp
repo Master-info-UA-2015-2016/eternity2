@@ -32,7 +32,7 @@ void PiecesWidget::drawCell(int colonne, int ligne)
     #endif
 }
 
-void PiecesWidget::drawPiece(const Piece* p)
+void PiecesWidget::drawPiece(const PieceView* p)
 {
 // 	drawCell(ab->getPos().col, ab->getPos().row);
     bufferPainter->fillRect(p->getPos().col, p->getPos().row, 1, 1, *(color));
@@ -41,9 +41,9 @@ void PiecesWidget::drawPiece(const Piece* p)
     #endif
 }
 
-void PiecesWidget::drawList( list< Piece* > * pieces){
+void PiecesWidget::drawList( list< PieceView* > * pieces){
 
-    for( list< Piece * >::const_iterator j( pieces->begin() ); j != pieces->end(); ++j){
+    for( list< PieceView * >::const_iterator j( pieces->begin() ); j != pieces->end(); ++j){
         drawPiece(*j);
     }
     pieces->clear();

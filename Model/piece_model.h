@@ -15,30 +15,17 @@
 
 #define MAX_CARD 4
 
-#include "coordinates.h"
-#include "cell.h"
-
-class Piece : public Cell
+class Piece
 {
 private:
     int id;
     int color[MAX_CARD];
-    Coordinates pos;
 
 public:
     /**
      * Constructeur
      */
-    Piece(int col, int row, int _id, int tab[]);
     Piece(int _id, int tab[]);
-
-    bool has_piece() const { return true; }
-    /**
-     * @brief getPos
-     * @return position de la pièce dans le plateau
-     * @author Florian
-     */
-    const Coordinates& getPos()	const	{ return pos; }
 
     /**
      * Impression sur un flux de l'instance
