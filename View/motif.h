@@ -5,6 +5,11 @@
 
 class Motif
 {
+private:
+    int id;
+    QColor* color_int;
+    QColor* color_ext;
+
 public:
     Motif();
 //    TODO @Antoine (@AsCris)
