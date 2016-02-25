@@ -35,9 +35,21 @@ int main(int argc, char *argv[])
         tab_tmp[i] =  (1+i)*5;
     }
 
-    Piece p(1, tab_tmp);
+    Piece *p = new Piece(1, tab_tmp);
+    cout << *p;
 
-    cout << p;
+    cout << "Fin test piece, statique et pointeur ok" << endl;
+
+    Instance inst;
+    inst.tryLoadFile("../eternity2/instances_puzzles/pieces_05x05.txt");
+    cout << "Instance statique" << endl;
+    cout << inst ;
+
+    Instance *inst2 = new Instance();
+    inst2->tryLoadFile("../eternity2/instances_puzzles/pieces_03x03.txt");
+    cout << "Pointeur sur instance" << endl;
+    cout << *inst2 ;
+    cout << "Fin test instance, statique et pointeur ok" << endl;
 
     return 0;
 

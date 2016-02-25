@@ -29,6 +29,7 @@ ostream& Instance::print(ostream& out){
 }
 
 bool Instance::tryLoadFile(const string& fileName){
+    cout << fileName << endl;
     ifstream f(fileName.c_str());
 
     if(!f){
@@ -61,7 +62,7 @@ bool Instance::tryLoadFile(const string& fileName){
                 for(int i=0; i < MAX_CARD; ++i){
                     tab[i] = atoi(tokens[i].c_str());
                 }
-                Piece p(indice, tab);
+                Piece p(indice+1, tab); // Utiliser indice pour id = indice, indice+1 pour id = indice +1
                 vectPieces->push_back(p);
             }
             ++indice;

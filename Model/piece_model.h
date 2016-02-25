@@ -19,7 +19,7 @@ class Piece
 {
 private:
     int id;
-    int color[MAX_CARD];
+    int motif[MAX_CARD];
 
 public:
     /**
@@ -44,6 +44,14 @@ public:
      *
      */
     void rotate();
+
+    /**
+     * Getters
+     *
+     */
+    int get_id() { return id;  }
+    int* get_motif() { return motif;   }
+
 };
 
 #endif // PIECE_MODEL_H

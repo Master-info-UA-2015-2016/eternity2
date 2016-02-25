@@ -67,7 +67,7 @@ public:
      *
      */
 
-    /*
+    /**
      * Getters et Setters
      */
     int get_nbRows() { return nbRows; }

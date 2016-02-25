@@ -6,21 +6,21 @@ Piece::Piece(int _id, int tab[]) :
     id(_id)
 {
     for(int i=0; i<MAX_CARD; ++i){
-        color[i] = tab[i];
+        motif[i] = tab[i];
     }
 }
 
 void Piece::rotate(){
     int tmp[MAX_CARD];
 
-    tmp[0] = color[MAX_CARD-1];
+    tmp[0] = motif[MAX_CARD-1];
 
     for(int i=1; i<MAX_CARD;++i){
-        tmp[i] = color[i-1];
+        tmp[i] = motif[i-1];
     }
 
     for(int j= 0; j < MAX_CARD; ++j){
-        color[j] = tmp[j];
+        motif[j] = tmp[j];
     }
 }
 
@@ -29,10 +29,10 @@ ostream& Piece::print(ostream& out){
 
     // Affichage des n-1 premières couleurs chacune suivie d'un espace
     for(int i = 0; i < MAX_CARD-1; ++i)
-        out << color[i] << " ";
+        out << motif[i] << " ";
 
     // Affichage de la n-ième couleur suivie d'un ; et d'un saut de ligne
-    out << color[MAX_CARD-1] << ";" << endl;
+    out << motif[MAX_CARD-1] << ";" << endl;
 
     return out;
 }
