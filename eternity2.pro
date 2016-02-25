@@ -28,4 +28,5 @@ HEADERS  += mainwindow.h \
     View/coordinates.h \
     View/piece_view.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    exemple.ui
