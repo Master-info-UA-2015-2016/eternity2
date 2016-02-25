@@ -17,7 +17,7 @@
 #include "View/cell.h"
 #include "Model/board_model.h" // TODO A remplacer par board_view à priori
 
-class PiecesWidget : public QWidget
+class BoardWidget : public QWidget
 {
     Q_OBJECT
 private :
@@ -27,7 +27,7 @@ private :
     Board*  board;
 
 public:
-    explicit PiecesWidget(QWidget *parent = 0);
+    explicit BoardWidget(Board* b, QWidget *parent = 0);
 
     /**
      * Imprime une cellule à une position donnée, utilise la couleur courante
@@ -47,7 +47,13 @@ public:
      * @param arbres liste des arbres à dessiner
      * @author Florian et Ugo (commentaires :p )
      */
-    void drawList(std::list<PieceView *> *pieces);
+    void drawList(std::map<Piece *, Coordinates> *cells);
+    /**
+     * Dessine l'ensemble des arbres de la liste passée en paramètre
+     * @param arbres liste des arbres à dessiner
+     * @author Florian et Ugo (commentaires :p )
+     */
+    void drawList(std::list< Coordinates> *cells);
     /**
      * Dessine les arbres et cellules vides dans le buffer
      * @author Ugo et Florian

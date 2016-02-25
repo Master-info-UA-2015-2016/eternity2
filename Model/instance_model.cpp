@@ -5,7 +5,7 @@ using namespace std;
 Instance::Instance(){
     nbRows = 0;
     nbCols = 0;
-    vectPieces = new vector<piece_model>();
+    vectPieces = new vector<Piece>();
 }
 
 vector<string>& Instance::explode(const string &str){
@@ -23,7 +23,7 @@ ostream& Instance::print(ostream& out){
     int nbPiece = nbRows * nbCols;
 
     for(int i=0; i < nbPiece; ++i){
-        out << vectPieces[i];
+        out << (vectPieces->at(i));
     }
     return out;
 }

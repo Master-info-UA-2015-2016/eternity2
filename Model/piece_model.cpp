@@ -8,7 +8,6 @@ Piece::Piece(int _id, int tab[]) :
     for(int i=0; i<MAX_CARD; ++i){
         color[i] = tab[i];
     }
-    return 0;
 }
 
 void Piece::rotate(){

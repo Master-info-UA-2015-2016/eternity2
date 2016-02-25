@@ -1,17 +1,17 @@
-#include "pieceswidget.h"
+#include "board_view.h"
 
 using namespace std;
 
-PiecesWidget::PiecesWidget(QWidget *parent) : QWidget(parent)
+BoardWidget::BoardWidget(Board *b, QWidget *parent) :
+    QWidget(parent), board(b)
 {
 
 }
 
-
 // ########################
 /***		Affichages	***/
 // ########################
-void PiecesWidget::drawCell(int colonne, int ligne)
+void BoardWidget::drawCell(int colonne, int ligne)
 {
     //        QVector<QPointF> tri_points(3);
     //        tri_points.push_back(QPointF(0.0, 0.0));
@@ -32,7 +32,7 @@ void PiecesWidget::drawCell(int colonne, int ligne)
     #endif
 }
 
-void PiecesWidget::drawPiece(const PieceView* p)
+void BoardWidget::drawPiece(const PieceView* p)
 {
 // 	drawCell(ab->getPos().col, ab->getPos().row);
     bufferPainter->fillRect(p->getPos().col, p->getPos().row, 1, 1, *(color));
@@ -41,66 +41,68 @@ void PiecesWidget::drawPiece(const PieceView* p)
     #endif
 }
 
-void PiecesWidget::drawList( list< PieceView* > * pieces){
+//void BoardWidget::drawList(std::map<Cell*, Coordinates> cells){
 
-    for( list< PieceView * >::const_iterator j( pieces->begin() ); j != pieces->end(); ++j){
-        drawPiece(*j);
-    }
-    pieces->clear();
-}
+//    for( map< Cell *, Coordinates>::const_iterator j( cells->begin() ); j != cells->end(); ++j){
+//        if (j.first().has_piece())
+//            drawPiece(*j);
+//        else drawCell(j.second().col, j.second().row);
+//    }
+//    cells->clear();
+//}
 
-void PiecesWidget::drawBoard()
-{
-    // essai de dessin de l'image de fond, et de la foret, si présente
-//    if (!tryDrawPictureForest()){   // Dessin d'image
-        // si il n"y a oas d'image, on dessine toute la foret dont les arbre
+//void BoardWidget::drawBoard()
+//{
+//    // essai de dessin de l'image de fond, et de la foret, si présente
+////    if (!tryDrawPictureForest()){   // Dessin d'image
+//        // si il n"y a oas d'image, on dessine toute la foret dont les arbre
 
-        bufferPainter->begin(buffer);
+//        bufferPainter->begin(buffer);
 
-        int current_hauteur= 0;
-        for(int i=0; i < board->height(); ++i){
-            // On ne passe pas la hauteur de la grille mais le nombre de colonne*taille de colonne pour
-            // éviter la petite zone en bas de grille
-            vector< Cell* >* ligne= (*board)[i];
+//        int current_hauteur= 0;
+//        for(int i=0; i < board->height(); ++i){
+//            // On ne passe pas la hauteur de la grille mais le nombre de colonne*taille de colonne pour
+//            // éviter la petite zone en bas de grille
+//            vector< Cell* >* ligne= (*board)[i];
 
-            int current_largeur= 0;
-            for( vector< Cell* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
-                Cell* cell= *j;
+//            int current_largeur= 0;
+//            for( vector< Cell* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
+//                Cell* cell= *j;
 
-                if(cell->has_piece()){
+//                if(cell->has_piece()){
 
-//                    if (pictureForest->isNull()){
+////                    if (pictureForest->isNull()){
 
-                            // Il faut ici vérifier l'essence de l'arbre pour lui attribuer une variante de vert
-//                            const Essence* ess= dynamic_cast < Piece* >(cell)->getEssence();
-//                            getColor(...)
-//                            setColor(...);
+//                            // Il faut ici vérifier l'essence de l'arbre pour lui attribuer une variante de vert
+////                            const Essence* ess= dynamic_cast < Piece* >(cell)->getEssence();
+////                            getColor(...)
+////                            setColor(...);
 
-                        drawCell(current_largeur, current_hauteur);
-//                    }
-                }
-                else {
-//                    setColor(Qt::white);
+//                        drawCell(current_largeur, current_hauteur);
+////                    }
+//                }
+//                else {
+////                    setColor(Qt::white);
 
-                    drawCell(current_largeur, current_hauteur);
-                }
+//                    drawCell(current_largeur, current_hauteur);
+//                }
 
-                // Incrémentation des positions des Cells
-                current_largeur += 1;
-            }
-            #if DEBUG_TMATRICE
-            cout << endl;
-            #endif
-            current_hauteur += 1;
-        }
+//                // Incrémentation des positions des Cells
+//                current_largeur += 1;
+//            }
+//            #if DEBUG_TMATRICE
+//            cout << endl;
+//            #endif
+//            current_hauteur += 1;
+//        }
 
-        bufferPainter->end();
+//        bufferPainter->end();
 
-        #if DEBUG_TMATRICE
-        cout <<"fin draw forest ; "<< endl;
-        #endif
-//    } // FIN_Dessin d'image
-}
+//        #if DEBUG_TMATRICE
+//        cout <<"fin draw forest ; "<< endl;
+//        #endif
+////    } // FIN_Dessin d'image
+//}
 
 //bool PiecesWidget::tryDrawPicture()
 //{
@@ -163,27 +165,27 @@ void PiecesWidget::drawBoard()
 //}
 
 
-void PiecesWidget::drawChanged()
-{
-    bufferPainter->begin(buffer);
+//void BoardWidget::drawChanged()
+//{
+//    bufferPainter->begin(buffer);
 
-//    setColor(Red);
-    drawList(board->getPlaced());
-    board->clearPlaced();
+////    setColor(Red);
+//    drawList(board->getPlaced());
+//    board->clearPlaced();
 
-//    setColor(Qt::White);
-    drawList(board->getUnplaced());
-    board->clearUnplaced();
+////    setColor(Qt::White);
+//    drawList(board->getUnplaced());
+//    board->clearUnplaced();
 
-    bufferPainter->end();
-}
+//    bufferPainter->end();
+//}
 
 // Test perf
 #if PERF_REDRAW
 int num_redraw= 0;
 #endif
 
-void PiecesWidget::redraw()
+void BoardWidget::redraw()
 {
     #if PERF_REDRAW
     ++num_redraw;
@@ -195,7 +197,7 @@ void PiecesWidget::redraw()
     }
     buffer = new QImage(board->width(), board->height(), QImage::Format_ARGB32);
 
-    drawBoard();
-    drawChanged();
+//    drawBoard();
+//    drawChanged();
     update();	// TODO apparemment non utile, update fait resize
 }

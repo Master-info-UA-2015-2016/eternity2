@@ -5,8 +5,6 @@ class Cell
 {
 
 public:
-    Cell();
-
     virtual bool has_piece() const { return false; }
 
 };

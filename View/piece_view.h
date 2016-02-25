@@ -4,15 +4,15 @@
 #include <QWidget>
 
 #include "../Model/piece_model.h"
-#include "coordinates.h"
+#include "../Model/coordinates.h"
 #include "cell.h"
 
 class PieceView : public Cell
 {
 
 private:
-    const Piece& piece;
     Coordinates pos;
+    const Piece& piece;
 
 public:
     PieceView(int col, int row, const Piece& p);
