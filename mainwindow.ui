@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="PiecesWidget" name="widget" native="true">
+   <widget class="BoardWidget" name="board" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -31,7 +31,7 @@
      <x>0</x>
      <y>0</y>
      <width>847</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">
@@ -102,9 +102,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>PiecesWidget</class>
+   <class>BoardWidget</class>
    <extends>QWidget</extends>
-   <header>pieceswidget.h</header>
+   <header>View/board_view.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

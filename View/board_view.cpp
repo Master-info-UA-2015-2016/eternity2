@@ -2,10 +2,21 @@
 
 using namespace std;
 
+BoardWidget::BoardWidget(QWidget *parent) :
+    QWidget(parent)
+{
+
+}
+
 BoardWidget::BoardWidget(Board *b, QWidget *parent) :
     QWidget(parent), board(b)
 {
 
+}
+
+void BoardWidget::init_board(Board *b)
+{
+    board= b;
 }
 
 // ########################

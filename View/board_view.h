@@ -28,6 +28,9 @@ private :
 
 public:
     explicit BoardWidget(Board* b, QWidget *parent = 0);
+    explicit BoardWidget(QWidget *parent = 0);
+
+    void init_board(Board* b);
 
     /**
      * Imprime une cellule à une position donnée, utilise la couleur courante
