@@ -6,11 +6,15 @@ problèmes" suivie en 1ère année de Master à l'Université d'Angers.
 
 Projet collaboratif à l'initiative de :
 
-Ugo Rayer : "https://github.com/Seymour49/"
+Ugo Rayer : https://github.com/Seymour49/
 
 Contributeurs majeurs :
 
-Florian David : "https://github.com/Flodavid/"
+Florian David : https://github.com/Flodavid/
+
+Autres contributeurs :
+
+Antoine Garnier : https://github.com/Ascris
 
 
 Présentation du projet
