@@ -1,0 +1,9 @@
+Fonctionnalités attendues et fonctions à développer :
+
+Chargement et sauvegarde d'une instance
+Chargement et sauvegarde d'une configuration
+Création à la souris d'une configuration (contrôle : une instance est déjà chargée)
+
+
+Widget permettant d'afficher une piece.
+Widget pour afficher un plateau.

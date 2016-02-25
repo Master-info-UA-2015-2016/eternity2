@@ -30,3 +30,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     exemple.ui
+
+OTHER_FILES += \
+    TODO.txt
