@@ -22,7 +22,37 @@ void BoardWidget::init_board(Board *b)
 // ########################
 /***		Affichages	***/
 // ########################
-void BoardWidget::drawCell(int colonne, int ligne)
+void BoardWidget::drawCell(int column, int line)
+{
+    // 	drawCell(ab->getPos().col, ab->getPos().row);
+    bufferPainter->fillRect(column, line, 3, 3, Qt::white);
+    #if DEBUG_TMATRICE
+    cout <<"draw cell ; "<< p->getPos().col << p->getPos().row ;
+    #endif
+}
+
+//void BoardWidget::drawPiece(const PieceView* p)
+//{
+//    //        QVector<QPointF> tri_points(3);
+//    //        tri_points.push_back(QPointF(0.0, 0.0));
+//    //        tri_points.push_back(QPointF(-1.5, -1.5));
+//    //        tri_points.push_back(QPointF(0.0, -3.0));
+
+//    //        QPolygonF triangle(tri_points);
+
+//    QPainterPath path(QPointF(0.0, 0.0));
+//    path.lineTo(QPointF(-1.5, -1.5));
+//    path.lineTo(QPointF(0.0, -3.0));
+//    //        path.addPolygon(triangle);
+
+//    bufferPainter->fillPath(path, QBrush(motif->get_color_ext()));
+//    bufferPainter->fillRect(colonne *3 +1, ligne *3 +1, 1, 1, motif->get_color_int());
+//    #if DEBUG_TMATRICE
+//    cout <<"draw piece ; ";
+//    #endif
+//}
+
+void BoardWidget::drawPiece(int column, int line, Motif* motif)
 {
     //        QVector<QPointF> tri_points(3);
     //        tri_points.push_back(QPointF(0.0, 0.0));
@@ -31,26 +61,18 @@ void BoardWidget::drawCell(int colonne, int ligne)
 
     //        QPolygonF triangle(tri_points);
 
-            QPainterPath path(QPointF(0.0, 0.0));
-            path.lineTo(QPointF(-1.5, -1.5));
-            path.lineTo(QPointF(0.0, -3.0));
+    QPainterPath path(QPointF(0.0, 0.0));
+    path.lineTo(QPointF(-1.5, -1.5));
+    path.lineTo(QPointF(0.0, -3.0));
     //        path.addPolygon(triangle);
 
-    bufferPainter->fillPath(path, QBrush(Qt::red));
-    bufferPainter->fillRect(colonne *3 +1, ligne *3 +1, 1, 1, Qt::blue);
+//    bufferPainter->fillPath(path, QBrush(*(motif->get_color_ext())));
+//    bufferPainter->fillRect(column *3 +1, line *3 +1, 1, 1, *(motif->get_color_int()));
     #if DEBUG_TMATRICE
-    cout <<"draw cell ; ";
+    cout <<"draw piece ; ";
     #endif
 }
 
-void BoardWidget::drawPiece(const PieceView* p)
-{
-// 	drawCell(ab->getPos().col, ab->getPos().row);
-    bufferPainter->fillRect(p->getPos().col, p->getPos().row, 1, 1, *(color));
-    #if DEBUG_TMATRICE
-    cout <<"draw tree ; "<< p->getPos().col << p->getPos().row ;
-    #endif
-}
 
 //void BoardWidget::drawList(std::map<Cell*, Coordinates> cells){
 
@@ -62,58 +84,46 @@ void BoardWidget::drawPiece(const PieceView* p)
 //    cells->clear();
 //}
 
-//void BoardWidget::drawBoard()
-//{
-//    // essai de dessin de l'image de fond, et de la foret, si présente
-////    if (!tryDrawPictureForest()){   // Dessin d'image
-//        // si il n"y a oas d'image, on dessine toute la foret dont les arbre
+void BoardWidget::drawBoard()
+{
+    bufferPainter->begin(buffer);
 
-//        bufferPainter->begin(buffer);
+    int current_height= 0;
+    for(int i=0; i < board->height(); ++i){
+        vector< Piece* >* ligne= (*board)[i];
 
-//        int current_hauteur= 0;
-//        for(int i=0; i < board->height(); ++i){
-//            // On ne passe pas la hauteur de la grille mais le nombre de colonne*taille de colonne pour
-//            // éviter la petite zone en bas de grille
-//            vector< Cell* >* ligne= (*board)[i];
+        int current_width= 0;
+        for( vector< Piece* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
+            if ((*j) != NULL){
+                // TODO Decommenter
+//                Piece* piece= *j;
+//
+//                // On récupère le motif de la pièce
+//                int ind_motif= piece->get_motif();
+//                Motif* motif= setColor(ind_motif);
+//
+//                drawPiece(current_width, current_height, motif);
+            }
+            else {
+                drawCell(current_width, current_height);
+            }
 
-//            int current_largeur= 0;
-//            for( vector< Cell* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
-//                Cell* cell= *j;
+            // Incrémentation des positions des Cells
+            current_width+= 1;
+        }
+        #if DEBUG_TMATRICE
+        cout << endl;
+        #endif
+        current_height += 1;
+    }
 
-//                if(cell->has_piece()){
+    bufferPainter->end();
 
-////                    if (pictureForest->isNull()){
-
-//                            // Il faut ici vérifier l'essence de l'arbre pour lui attribuer une variante de vert
-////                            const Essence* ess= dynamic_cast < Piece* >(cell)->getEssence();
-////                            getColor(...)
-////                            setColor(...);
-
-//                        drawCell(current_largeur, current_hauteur);
-////                    }
-//                }
-//                else {
-////                    setColor(Qt::white);
-
-//                    drawCell(current_largeur, current_hauteur);
-//                }
-
-//                // Incrémentation des positions des Cells
-//                current_largeur += 1;
-//            }
-//            #if DEBUG_TMATRICE
-//            cout << endl;
-//            #endif
-//            current_hauteur += 1;
-//        }
-
-//        bufferPainter->end();
-
-//        #if DEBUG_TMATRICE
-//        cout <<"fin draw forest ; "<< endl;
-//        #endif
-////    } // FIN_Dessin d'image
-//}
+    #if DEBUG_TMATRICE
+    cout <<"fin draw forest ; "<< endl;
+    #endif
+//    } // FIN_Dessin d'image
+}
 
 //bool PiecesWidget::tryDrawPicture()
 //{

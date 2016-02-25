@@ -15,6 +15,7 @@
 
 #include "View/piece_view.h"
 #include "View/cell.h"
+#include "View/motif.h"
 #include "Model/board_model.h" // TODO A remplacer par board_view à priori
 
 class BoardWidget : public QWidget
@@ -37,7 +38,14 @@ public:
      * @author Florian
      * @param int col,row indices de la colonne et de la ligne de la cellules
      */
-    void drawCell(int colonne, int ligne);
+    void drawCell(int column, int line);
+    /**
+     * Imprime une pièce selon sa position, utilise la couleur courante.
+     * @author Florian
+     * @param ab arbre à dessiner
+     * @deprecated
+     */
+    void drawPiece(int column, int line, Motif *motif);
     /**
      * Imprime une pièce selon sa position, utilise la couleur courante.
      * @author Florian
