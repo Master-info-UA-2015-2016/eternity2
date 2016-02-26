@@ -7,15 +7,11 @@ problèmes**" suivie en 1ère année de Master à l'Université d'Angers.
 - - -
 
 Projet collaboratif à l'initiative de :
-
  * [Ugo Rayer](https://github.com/Seymour49)
 
 Contributeurs :
-
 * [Florian David](https://github.com/Flodavid)
-
 * [Jerôme Fourmond](https://github.com/jfourmond)
-
 * [Antoine Garnier](https://github.com/Ascris)
 
 - - -
