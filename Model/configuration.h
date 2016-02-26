@@ -23,7 +23,7 @@ public:
     /**
      * Constructeur
      */
-    Configuration();
+    Configuration(const std::string& fileNameInstance);
 
     /**
       * Getters
@@ -72,6 +72,16 @@ public:
       * @author Ugo
       */
     int* rotate(int* motif,int nbRotation);
+
+    /**
+     * Chargement d'un graphe sous forme de matrice
+     * à partir d'un fichier d'exemple
+     * @param fileName
+     * @return
+     */
+    bool tryLoadFile(const std::string& fileName);
+
+
 
 };
 

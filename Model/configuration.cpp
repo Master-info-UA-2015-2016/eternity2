@@ -3,7 +3,9 @@
 
 using namespace std;
 
-Configuration::Configuration() {}
+Configuration::Configuration(const string &fileNameInstance) {
+    Instance::tryLoadFile(fileNameInstance);
+}
 
 vector<pair<int, int> >& Configuration::getVectPosition() {
     return vectPosition;
@@ -34,7 +36,7 @@ bool Configuration::isValid() {
 }
 
 int* Configuration::rotate(int* motif,int nbRotation){
-    int* tmp ;
+    int* tmp = NULL;
 
     for(int i = 0; i < nbRotation; ++i){
         tmp[0] = motif[MAX_CARD-1];
@@ -73,4 +75,38 @@ ostream& Configuration::print(ostream& out){
     }
     return out;
 
+}
+
+bool Configuration::tryLoadFile(const string &fileName){
+
+    if( (nbCols*nbRows) == 0){
+        cerr << "Aucune instance n'est chargée" << endl;
+        return false;
+    }else{
+        ifstream f(fileName.c_str());
+
+        if(!f){
+            cerr << "Erreur pendant l'ouverture du fichier" << endl;
+            return false;
+        }else{
+
+            string line;
+
+            while(getline(f,line)){
+
+                vector<string>& tokens = explode(line);
+
+                vectPosition.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
+            }
+
+            if(vectPosition.size() != (unsigned)(nbRows*nbCols) ){
+                cerr << "Fichier de configuration incomplet" << endl;
+                return false;
+            }
+
+        }
+
+    }
+
+    return true;
 }

@@ -19,7 +19,7 @@ ostream& Instance::print(ostream& out){
 }
 
 bool Instance::tryLoadFile(const string& fileName){
-    cout << fileName << endl;
+
     ifstream f(fileName.c_str());
 
     if(!f){
