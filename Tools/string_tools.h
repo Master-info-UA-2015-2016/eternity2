@@ -1,8 +1,12 @@
 #ifndef STRING_TOOLS
 #define STRING_TOOLS
 
-#include <vector>
+#include <iostream>
 #include <string>
+#include <vector>
+#include <cstdlib>
+#include <sstream>
+
 
 /**
  * Découpe une ligne du fichier et retourne chaque élément dans un tableau.
