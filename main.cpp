@@ -1,6 +1,8 @@
 #include <QApplication>
 
 #include "mainwindow.h"
+#include "Model/configuration.h"
+//#include "Controller/controller_config.h"
 #include "Model/piece_model.h"
 #include "Model/instance_model.h"
 #include "Model/board_model.h"
@@ -14,7 +16,7 @@ int main(int argc, char *argv[])
      * Utiliser le bloc ci-dessous pour Appli Qt
      * @return
      */
-//    /*
+    /*
     QApplication a(argc, argv);
 
 
@@ -32,7 +34,7 @@ int main(int argc, char *argv[])
     w.showBoard();
 
     return a.exec();
-//    */
+    */
 
     /**
       * Utiliser le bloc suivant pour debug console
@@ -59,5 +61,4 @@ int main(int argc, char *argv[])
     cout << "Fin test instance, statique et pointeur ok" << endl;
 
     return 0;
-
 }
