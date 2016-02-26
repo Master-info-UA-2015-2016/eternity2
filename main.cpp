@@ -1,10 +1,10 @@
 #include <QApplication>
 
-//#include "pieceswidget.h"
-//#include "mainwindow.h"
-
+#include "mainwindow.h"
 #include "Model/piece_model.h"
 #include "Model/instance_model.h"
+#include "Model/board_model.h"
+#include "View/board_view.h"
 
 using namespace std;
 
@@ -14,13 +14,15 @@ int main(int argc, char *argv[])
      * Utiliser le bloc ci-dessous pour Appli Qt
      * @return
      */
-    /*
+//    /*
     QApplication a(argc, argv);
-    MainWindow w;
+
+    Board* board_model= new Board( *(new Coordinates(4,4)));
+    MainWindow w(board_model);
     w.show();
 
     return a.exec();
-    */
+//    */
 
     /**
       * Utiliser le bloc suivant pour debug console

@@ -16,6 +16,7 @@ class Configuration : public Instance
 {
 private:
     std::vector<std::pair<int, int> > vectPosition;
+
 public:
 
     /**

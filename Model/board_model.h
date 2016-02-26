@@ -15,7 +15,7 @@ private:
     Coordinates size;
 
 public:
-    Board(Coordinates _size);
+    Board(Coordinates& _size);
 
     int height()    const { return size.row; }
     int width()     const { return size.col; }
