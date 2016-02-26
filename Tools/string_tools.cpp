@@ -1,4 +1,5 @@
 #include "string_tools.h"
+
 using namespace std;
 
 vector<string>& explode(const string &str){
