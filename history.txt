@@ -1,0 +1,1000 @@
+ 1007  ./knapbb knapsack.txt
+ 1008  make
+ 1009  ./knapbb knapsack.txt
+ 1010  make
+ 1011  ./knapbb knapsack.txt
+ 1012  make
+ 1013  ./knapbb knapsack.txt
+ 1014  make
+ 1015  ./knapbb knapsack.txt
+ 1016  make
+ 1017  ./knapbb knapsack.txt
+ 1018  make
+ 1019  ./knapbb knapsack.txt
+ 1020  make
+ 1021  ./knapbb knapsack.txt
+ 1022  make
+ 1023  ./knapbb knapsack.txt
+ 1024  make
+ 1025  ./knapbb knapsack.txt
+ 1026  make
+ 1027  ./knapbb knapsack.txt
+ 1028  make
+ 1029  ./knapbb knapsack.txt
+ 1030  make
+ 1031  ./knapbb knapsack.txt
+ 1032  make
+ 1033  ./knapbb knapsack.txt
+ 1034  make
+ 1035  ./knapbb knapsack.txt
+ 1036  make
+ 1037  ./knapbb knapsack.txt
+ 1038  make
+ 1039  ./knapbb knapsack.txt
+ 1040  make
+ 1041  ./knapbb knapsack.txt
+ 1042  make
+ 1043  ./knapbb knapsack.txt
+ 1044  make
+ 1045  ./knapbb knapsack.txt
+ 1046  make
+ 1047  ./knapbb knapsack.txt
+ 1048  make
+ 1049  ./knapbb knapsack.txt
+ 1050  make
+ 1051  ./knapbb knapsack.txt
+ 1052  make
+ 1053  ./knapbb knapsack.txt
+ 1054  make
+ 1055  ./knapbb knapsack.txt
+ 1056  make
+ 1057  ./knapbb knapsack.txt
+ 1058  make
+ 1059  ./knapbb knapsack.txt
+ 1060  make
+ 1061  ./knapbb knapsack.txt
+ 1062  make
+ 1063  ./knapbb knapsack.txt
+ 1064  make
+ 1065  ./knapbb knapsack.txt
+ 1066  make
+ 1067  ./knapbb knapsack.txt
+ 1068  make
+ 1069  ./knapbb knapsack.txt
+ 1070  make
+ 1071  ./knapbb knapsack.txt
+ 1072  make
+ 1073  ./knapbb knapsack.txt
+ 1074  make
+ 1075  ./knapbb knapsack.txt
+ 1076  make
+ 1077  ./knapbb knapsack.txt
+ 1078  make
+ 1079  ./knapbb knapsack.txt
+ 1080  make
+ 1081  ./knapbb knapsack.txt
+ 1082  ./run FOURMOND_Jerome.txt 
+ 1083  make
+ 1084  ./run FOURMOND_Jerome.txt 
+ 1085  make
+ 1086  ./run FOURMOND_Jerome.txt 
+ 1087  make
+ 1088  ./run FOURMOND_Jerome.txt 
+ 1089  make
+ 1090  ./run FOURMOND_Jerome.txt 
+ 1091  make
+ 1092  ./run FOURMOND_Jerome.txt 
+ 1093  ls
+ 1094  cd Linear\ Programming/
+ 1095  ls
+ 1096  glpsol --math FOURMOND_Jerome.mod 
+ 1097  glpsol --math RAYER_Ugo.mod 
+ 1098  ls
+ 1099  cd ..
+ 1100  cd Branch-And-Bound/
+ 1101  ls
+ 1102  make
+ 1103  ./knapbb FOURMOND_Jerome.txt 
+ 1104  ./knapbb RAYER_Ugo.txt 
+ 1105  make mrproper 
+ 1106  ls
+ 1107  vim Makefile 
+ 1108  make mrproper 
+ 1109  rm --help
+ 1110  cd ..
+ 1111  vim Makefile 
+ 1112  cd ..
+ 1113  ls
+ 1114  make
+ 1115  cd Part\ 
+ 1116  cd Part\ 2/
+ 1117  make
+ 1118  ./knapbb FOURMOND_Jerome.txt 
+ 1119  ./knapbb RAYER_Ugo.txt 
+ 1120  make mrproper 
+ 1121  vim Makefile 
+ 1122  make mrproper 
+ 1123  ls
+ 1124  cd Branch-And-Bound/
+ 1125  ls
+ 1126  vim Makefile 
+ 1127  ls
+ 1128  cd ..
+ 1129  ls
+ 1130  cd Dynamic\ Programming/
+ 1131  ls
+ 1132  ls -a
+ 1133  exit
+ 1134  ./snow.sh 
+ 1135  clear;while :;do echo $LINES $COLUMNS $(($RANDOM%$COLUMNS));sleep 0.1;done|gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH*\033[0;0H",a[x],x;}}'
+ 1136  make
+ 1137  clear;while :;do echo $LINES $COLUMNS $(($RANDOM%$COLUMNS));sleep 0.1;done|gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH*\033[0;0H",a[x],x;}}'make
+ 1138  make
+ 1139  ./alphabeta 
+ 1140  ./test 60
+ 1141  ls
+ 1142  ./test.sh 60
+ 1143  ls
+ 1144  mv test.sh test
+ 1145  mv test-to-file.sh test-to-file
+ 1146  ls
+ 1147  make
+ 1148  ./test.sh 60
+ 1149  ./test. 60
+ 1150  ./test 60
+ 1151  make
+ 1152  ./test 60
+ 1153  make
+ 1154  ./test 60
+ 1155  setxkbmap fr
+ 1156  exit
+ 1157  flex -V
+ 1158  vim ex1.lex
+ 1159  geany ex1.lex ex1.txt &
+ 1160  flex ex1.lex 
+ 1161  l
+ 1162  ls
+ 1163  gcc lex.yy.c -lfl
+ 1164  gedit ex1.lex &
+ 1165  man flex
+ 1166  flex ex1.lex 
+ 1167  gcc lex.yy.c -lfl
+ 1168  ./a.out ex1.txt 
+ 1169  flex ex1.lex 
+ 1170  gcc lex.yy.c -lfl
+ 1171  ./a.out ex1.txt 
+ 1172  gedit ex2.lex
+ 1173  flex ex2.lex
+ 1174  ./a.out ex1.txt 
+ 1175  gcc lex.yy.c -lfl
+ 1176  flex ex2.lex
+ 1177  gcc lex.yy.c -lfl
+ 1178  ./a.out
+ 1179  flex ex2.lex
+ 1180  gcc lex.yy.c -lfl
+ 1181  flex ex2.lex
+ 1182  gcc lex.yy.c -lfl
+ 1183  ./a.out
+ 1184  gcc lex.yy.c -lfl
+ 1185  flex ex2.lex
+ 1186  gcc lex.yy.c -lfl
+ 1187  ./a.out
+ 1188  flex ex2.lex
+ 1189  gcc lex.yy.c -lfl
+ 1190  ./a.out
+ 1191  flex ex2.lex
+ 1192  gcc lex.yy.c -lfl
+ 1193  ./a.out
+ 1194  flex ex2.lex
+ 1195  gcc lex.yy.c -lfl
+ 1196  ./a.out
+ 1197  flex ex2.lex
+ 1198  gcc lex.yy.c -lfl
+ 1199  ./a.out
+ 1200  flex ex2.lex
+ 1201  gcc lex.yy.c -lfl
+ 1202  ./a.out
+ 1203  flex ex2.lex
+ 1204  gcc lex.yy.c -lfl
+ 1205  ./a.out
+ 1206  flex ex2.lex
+ 1207  gcc lex.yy.c -lfl
+ 1208  ./a.out
+ 1209  flex ex2.lex
+ 1210  gcc lex.yy.c -lfl
+ 1211  ./a.out
+ 1212  cd TP3
+ 1213  ls
+ 1214  cd Exo3/
+ 1215  gedit exo3.lex 
+ 1216  ls
+ 1217  flex exo3.lex
+ 1218  gcc lex.yy.c -lfl
+ 1219  flex exo3.lex
+ 1220  gcc lex.yy.c -lfl
+ 1221  flex exo3.lex
+ 1222  gcc lex.yy.c -lfl
+ 1223  ./a.out 
+ 1224  flex exo3.lex
+ 1225  gcc lex.yy.c -lfl
+ 1226  ./a.out 
+ 1227  flex exo3.lex
+ 1228  gcc lex.yy.c -lfl
+ 1229  ./a.out 
+ 1230  flex exo3.lex
+ 1231  gcc lex.yy.c -lfl
+ 1232  ./a.out 
+ 1233  flex exo3.lex
+ 1234  gcc lex.yy.c -lfl
+ 1235  ./a.out 
+ 1236  gcc lex.yy.c -lfl
+ 1237  flex exo3.lex
+ 1238  gcc lex.yy.c -lfl
+ 1239  ./a.out 
+ 1240  cd ..
+ 1241  mkdir Exo4
+ 1242  cd Exo4/
+ 1243  ls
+ 1244  gedit exo4.lex &
+ 1245  flex exo4.lex
+ 1246  gcc lex.yy.c -lfl
+ 1247  ./a.out 
+ 1248  flex exo4.lex ; gcc lex.yy.c -lfl
+ 1249  ./a.out 
+ 1250  flex exo4.lex ; gcc lex.yy.c -lfl
+ 1251  ./a.out 
+ 1252  flex exo4.lex ; gcc lex.yy.c -lfl
+ 1253  ./a.out 
+ 1254  flex exo4.lex ; gcc lex.yy.c -lfl
+ 1255  cd ../Exo4/
+ 1256  flex exo4.lex ; gcc lex.yy.c -lfl
+ 1257  ./a.out 
+ 1258  flex exo4.lex ; gcc lex.yy.c -lfl
+ 1259  ./a.out 
+ 1260  flex exo4.lex ; gcc lex.yy.c -lfl
+ 1261  ./a.out 
+ 1262  mkdir ../Exo5
+ 1263  cd ../Exo5/
+ 1264  ls
+ 1265  exit
+ 1266  cd Documents/Cours/Semestre\ 2/Developpement\ Web/Projet/rails_projects/first_app/
+ 1267  ls -a
+ 1268  sudo gem install heroku
+ 1269  cd /home/.ssh
+ 1270  cd ~/.ssh/
+ 1271  ls
+ 1272  cat id_rsa.pub 
+ 1273  cd ~/Documents/Cours/Semestre\ 2/Developpement\ Web/Projet/
+ 1274  ls
+ 1275  cd rails_projects/
+ 1276  cd first_app/
+ 1277  ls
+ 1278  heroku keys:add
+ 1279  heroku create
+ 1280  git push heroku master
+ 1281  gem install sqlite3 -v '1.3.11'
+ 1282  port install sqlite3 +universal
+ 1283  sudo gem install sqlite3 -v '1.3.11'
+ 1284  git push heroku master
+ 1285  gem install sqlite3 -v '1.3.11'
+ 1286  sudo gem install sqlite3 -v '1.3.11'
+ 1287  sudo apt-get install libsqlite3-devapt-get install libsqlite3-dev
+ 1288  sudo apt-get install libsqlite3-dev
+ 1289  source 'http://rubygems.org'
+ 1290  sudo source 'http://rubygems.org'
+ 1291  gem 'rails', '3.0.5'
+ 1292  sudo gem 'rails', '3.0.5'
+ 1293  ls
+ 1294  ls -a
+ 1295  gedit Gemfile &
+ 1296  git push heroku master
+ 1297  gedit Gemfile &
+ 1298  git push heroku master
+ 1299  gem install sqlite3 -v '1.3.11'4
+ 1300  gem install sqlite3 -v '1.3.11'
+ 1301  sudo gem install sqlite3 -v '1.3.11'
+ 1302  gem install sqlite3 -v '1.3.11'
+ 1303  git push heroku master
+ 1304  source Gemfile
+ 1305  git push heroku master
+ 1306  git add .
+ 1307  git commit
+ 1308  git push heroku master
+ 1309  bundle install
+ 1310  ls
+ 1311  git add .
+ 1312  git commit
+ 1313  git push heroku master
+ 1314  gem install rdoc-data; rdoc-data --install
+ 1315  sudo gem install rdoc-data; rdoc-data --install
+ 1316  git push heroku master
+ 1317  git add .
+ 1318  git commit
+ 1319  git push heroku master
+ 1320  bundle install
+ 1321  git push heroku master
+ 1322  cd ..
+ 1323  bundle install
+ 1324  cd first_app/
+ 1325  bundle install
+ 1326  git add .
+ 1327  git commit
+ 1328  git push heroku master
+ 1329  git add .
+ 1330  git commit
+ 1331  bundle install
+ 1332  git add .
+ 1333  git commit
+ 1334  git push heroku master
+ 1335  sudo gem install rdoc-data; rdoc-data --install
+ 1336  rdoc-date --install
+ 1337  rdoc-data --install
+ 1338  sudo rdoc-data --install
+ 1339  git add .
+ 1340  git commit
+ 1341  git push heroku master
+ 1342  sudo gem i
+ 1343  sudo rdoc-data --install
+ 1344  sudo gem install rdoc-data --install
+ 1345  gedit Gemfile &
+ 1346  bundle instal
+ 1347  bundle install
+ 1348  bundle update
+ 1349  bundle install
+ 1350  git add .
+ 1351  git commit
+ 1352  git push heroku master
+ 1353  geany Gemfile.lock &
+ 1354  bundle install
+ 1355  git add .
+ 1356  git commit
+ 1357  git push heroku master
+ 1358  bundle install
+ 1359  bundle update
+ 1360  git add .
+ 1361  git commit
+ 1362  rails server
+ 1363  ls
+ 1364  cd ..
+ 1365  ls
+ 1366  rails new demo_app
+ 1367  cd demo_app/
+ 1368  ls
+ 1369  gedit Gemfile &
+ 1370  bundle install
+ 1371  git init
+ 1372  ls
+ 1373  git add .
+ 1374  git commit -m "Initial commit"
+ 1375  git remote add git@github.com:jfourmond/demo_app.git
+ 1376  git remote add origin git@github.com:jfourmond/demo_app.git
+ 1377  git push origin master
+ 1378  rails generate scaffold User nom:string email:string
+ 1379  gedit Gemfile &
+ 1380  bundle install
+ 1381  rails generate scaffold User nom:string email:string
+ 1382  rails generate scaffold --force User nom:string email:string
+ 1383  rails generate scaffold User nom:string email:string --force
+ 1384  rails generate scaffold User name:string email:string --force
+ 1385  rake db:migrate
+ 1386  rails s
+ 1387  cd config/
+ 1388  ls
+ 1389  cat routes.rb 
+ 1390  cd ..
+ 1391  ls
+ 1392  cat app/controllers/users_controller.rb 
+ 1393  cat app/models/user.rb 
+ 1394  cat app/views/users/index.html.erb 
+ 1395  rails generate scaffold Micropost content:string user_id:integer
+ 1396  rake db:migrate
+ 1397  cat config/routes.rb 
+ 1398  rails s
+ 1399  gedit app/models/micropost.rb &
+ 1400  rails s
+ 1401  gedit app/models/user.rb &
+ 1402  rails console
+ 1403  rails s
+ 1404  rails console
+ 1405  exit
+ 1406  cd Documents/Cours/Semestre\ 2/Developpement\ Web/Projet/rails_projects/
+ 1407  ls
+ 1408  cd demo_app/
+ 1409  ls
+ 1410  git add .
+ 1411  git commit -m "Modélisation des utilisateurs et microposts"
+ 1412  git push
+ 1413  exit
+ 1414  cd Documents/Cours/Semestre\ 2/Developpement\ Web/Projet/rails_projects/
+ 1415  ls
+ 1416  cd demo_app/
+ 1417  ls
+ 1418  exit
+ 1419  ruby -v
+ 1420  gedit .gitignore &
+ 1421  cd Documents/Cours/Semestre\ 2/Developpement\ Web/Projet/rails_projects/
+ 1422  ls
+ 1423  rails new sample_app -T
+ 1424  ls
+ 1425  cd sample_app/
+ 1426  ls
+ 1427  gedit Gemfile &
+ 1428  bundle install
+ 1429  bundle update
+ 1430  bundle install
+ 1431  bundle update
+ 1432  sudo apt-get install libxslt-dev libxml2-dev libsqlite3-dev 
+ 1433  sudo apt-get install curl
+ 1434  sudo \curl -L https://get.rvm.io | bash -s stable --ruby
+ 1435  source ~/.rvm/scripts/rvm 
+ 1436  rvm get head
+ 1437  rvm reload
+ 1438  rvm list known
+ 1439  rvm install 1.9.3
+ 1440  rvm use 1.9.3 --default
+ 1441  rvm --create use 1.9.3@r3
+ 1442  rvm --default 1.9.3@r3
+ 1443  gem update --system
+ 1444  gem install rails --version 3.0.5
+ 1445  rails -v
+ 1446  gem install rails
+ 1447  rails -v
+ 1448  cd ~
+ 1449  rails -v
+ 1450  ruby -v
+ 1451  which gem
+ 1452  ls
+ 1453  cd public_html/
+ 1454  ls
+ 1455  mkdir rails
+ 1456  ks
+ 1457  ls
+ 1458  cd rails/
+ 1459  ls
+ 1460  rails new first_app
+ 1461  ruby -v
+ 1462  go rails
+ 1463  cd first_app/
+ 1464  ls
+ 1465  mate Gemfile
+ 1466  gedit Gemfile &
+ 1467  bundle install
+ 1468  rails s
+ 1469  rails server
+ 1470  bundle install
+ 1471  rails server
+ 1472  find . | wc -l 
+ 1473  cd ..
+ 1474  find . | wc -l 
+ 1475  ls
+ 1476  cd first_app/
+ 1477  ls
+ 1478  git init
+ 1479  vim .gitignore 
+ 1480  git add .
+ 1481  git status
+ 1482  git commit -m "Initial commit"
+ 1483  git status
+ 1484  git log
+ 1485  git remote add origin git@github.com:jfourmond/first_app.git
+ 1486  git push origin master
+ 1487  git checkout -b modify-README
+ 1488  git branch
+ 1489  git mv README README.markdown
+ 1490  git mv README.rdoc README.markdown
+ 1491  geany README.markdown &
+ 1492  git status
+ 1493  git commit -a -m "Amélioration du fichier README"
+ 1494  git checkout master
+ 1495  git merge modify-README 
+ 1496  git branch -d modify-README 
+ 1497  git push
+ 1498  ls
+ 1499  exit
+ 1500  cd public_html/
+ 1501  cd rails/sample_app/
+ 1502  ls
+ 1503  vim Gemfile
+ 1504  bundle install
+ 1505  spork --bootstrap
+ 1506  vim Gemfile
+ 1507  cd public_html/
+ 1508  ls
+ 1509  cd rails/
+ 1510  ls
+ 1511  rails new demo_app
+ 1512  cd demo_app/
+ 1513  vim Gemfile
+ 1514  bundle install
+ 1515  git init
+ 1516  git add .
+ 1517  git commit -m "Initial commit"
+ 1518  git remote add origin git@github.com:jfourmond/demo_app.git
+ 1519  git push origin master
+ 1520  ls
+ 1521  mv README.rdoc README.markdown
+ 1522  vim README.markdown 
+ 1523  git status 
+ 1524  rails generate scaffold User name:string email:string
+ 1525  rake db:migrate
+ 1526  rails s
+ 1527  rails generate scaffold Micropost content:string user_id:integer
+ 1528  rails
+ 1529  rails s
+ 1530  rake db:migrate
+ 1531  rails s
+ 1532  cat app/controllers/users_controller.rb 
+ 1533  cat config/routes.rb 
+ 1534  vim app/models/micropost.rb 
+ 1535  vim app/models/user.rb 
+ 1536  vim app/models/micropost.rb 
+ 1537  rails s
+ 1538  rails console
+ 1539  git add .
+ 1540  gedit .gitignore &
+ 1541  cd ../first_app/
+ 1542  gedit .gitignore &
+ 1543  cd ../demo_app/
+ 1544  ls
+ 1545  git add .
+ 1546  git add --all .
+ 1547  git commit -a -m "Fin de l'application demo"
+ 1548  git push
+ 1549  ls
+ 1550  cd ..
+ 1551  rails new sample_app -T
+ 1552  cd sample_app/
+ 1553  vim Gemfile
+ 1554  bundle install
+ 1555  bundle update
+ 1556  vim Gemfile
+ 1557  bundle install
+ 1558  gedit Gemfile
+ 1559  bundle install
+ 1560  rails generate rspec:install
+ 1561  gedit Gemfile &
+ 1562  rails -v
+ 1563  cd ..
+ 1564  rails -v
+ 1565  cd sample_app/
+ 1566  bundle install
+ 1567  rails generate rspec:install
+ 1568  rspec -v
+ 1569  spring stop
+ 1570  bundle install
+ 1571  rails generate rspec:install
+ 1572  rails g rspec:install
+ 1573  sprint stop
+ 1574  spring stop
+ 1575  sudo gem install rspec
+ 1576  bundle install
+ 1577  bundle update
+ 1578  rails g rspec:install
+ 1579  rspec 
+ 1580  ls
+ 1581  bundle install
+ 1582  cd ..
+ 1583  rails --help
+ 1584  cd sample_app/
+ 1585  ls
+ 1586  cd ..
+ 1587  cd demo_app/
+ 1588  cd ../sample_app/
+ 1589  rails generate rspec
+ 1590  rails generate rspec:install
+ 1591  ls
+ 1592  cd ..
+ 1593  ls
+ 1594  rm -h
+ 1595  rm --help
+ 1596  rm --rf sample_app/
+ 1597  rm -rf sample_app/
+ 1598  ls
+ 1599  rails new sample_app -T
+ 1600  cd sample_app/
+ 1601  gedit Gemfile &
+ 1602  bundle install$
+ 1603  bundle install
+ 1604  rails generate rspec:install
+ 1605  git init
+ 1606  git add .
+ 1607  git commit -m "Depot Initial"
+ 1608  gedit README.rdoc &
+ 1609  mv README.rdoc README.markdown
+ 1610  git commit -a -m "Amélioration du README"
+ 1611  git remote add origin git@github.com:jfourmond/sample_app.git
+ 1612  git push origin master
+ 1613  git add .
+ 1614  git remote add origin git@github.com:jfourmond/sample_app.git
+ 1615  git push origin master
+ 1616  git status
+ 1617  git add .
+ 1618  git commit -a -m "Amélioration du README"
+ 1619  git push origin master
+ 1620  cat public/index.html
+ 1621  ls public/
+ 1622  rails s
+ 1623  gedit public/hello.html &
+ 1624  rails s
+ 1625  rm public/hello.html 
+ 1626  git checkout -b static-pages
+ 1627  rails generate controller Pages home contact
+ 1628  ls
+ 1629  cat config/routes.rb 
+ 1630  rails s
+ 1631  cat app/controllers/pages_controller.rb 
+ 1632  cat app/views/pages/home.html.erb 
+ 1633  cat app/views/pages/contact.html.erb 
+ 1634  git add .
+ 1635  git commit -m "Ajout d'un controleur Pages"
+ 1636  sudo gem install autotest -v 4.4.6
+ 1637  sudo gem install ZenTest
+ 1638  sudo gem install autotest -v 4.4.6
+ 1639  sudo gem install ZenTest -v 4.4.1
+ 1640  sudo gem install autotest -v 4.4.6
+ 1641  sudo gem install autotest-rails-pure -v 4.1.2
+ 1642  bundle update
+ 1643  sudo gem install ZenTest -v 4.11.0
+ 1644  sudo gem install autotest -v 4.4.6
+ 1645  sudo gem install autotest-fsevent -v 0
+ 1646  sudo gem install autotest-fsevent -v 0.2.4
+ 1647  an-install
+ 1648  git rm -r spec/views/
+ 1649  git rm -r spec/helpers/
+ 1650  ls
+ 1651  ls spec/
+ 1652  cat spec/controllers/pages_controller_spec.rb 
+ 1653  curl --head www.google.fr
+ 1654  curl --head www.google.com
+ 1655  rspec spec/
+ 1656  rake db:migrate
+ 1657  rspec spec/
+ 1658  rspec spec/controllers/
+ 1659  rspec spec/controllers/pages_controller_spec.rb 
+ 1660  autotest
+ 1661  sudo gem install ZenTest
+ 1662  autotest
+ 1663  bundle exec autotes
+ 1664  bundle exec autotest
+ 1665  vim Gemfile
+ 1666  bundle exec autotest
+ 1667  bundle install
+ 1668  bundle exec autotest
+ 1669  cd public_html/rails/sample_app/
+ 1670  autotest
+ 1671  sudo gem install autotest-growl
+ 1672  autotest
+ 1673  vim .autotest 
+ 1674  autotest
+ 1675  rm .autotest 
+ 1676  autotest
+ 1677  cd public_html/rails/sample_app/
+ 1678  time rspec --drb spec/
+ 1679  spork 
+ 1680  sudo apt-get install libnotify-bin
+ 1681  sudo gem install autotest-notification
+ 1682  an-install
+ 1683  cd public_html/rails/sample_app/
+ 1684  ls
+ 1685  gedit Gemfile &
+ 1686  bundle install
+ 1687  bundle update
+ 1688  gem install ZenTest -v '4.8.3'
+ 1689  gem update --system
+ 1690  gem install ZenTest -v '4.8.3'
+ 1691  gem install ZenTest -v '4.4.1'
+ 1692  gem install ZenTest -v '4.8.3'
+ 1693  gem install ZenTest -v '4.8.4'
+ 1694  gem -v 
+ 1695  rubygems -v 
+ 1696  gem install ZenTest
+ 1697  gem -v 
+ 1698  bundle update
+ 1699  gem install
+ 1700  bundle install
+ 1701  bundle update
+ 1702  gem install autotest -v 4.4.6
+ 1703  gem install autotest
+ 1704  gem install autotest-rails-pure 
+ 1705  vim .autotest
+ 1706  an-install
+ 1707  sudo gem install autotest-notification
+ 1708  gedit /var/lib/gems/1.9.1/specifications/ZenTest-4.11.0.gemspec
+ 1709  sudo gedit /var/lib/gems/1.9.1/specifications/ZenTest-4.11.0.gemspec &
+ 1710  sudo gem install autotest-notification
+ 1711  an-install 
+ 1712  sudo gem install autotest-notification
+ 1713  sudo apt-get install libnotify-bin
+ 1714  sudo gem install autotest
+ 1715  sudo gem install autotest-rails-pure
+ 1716  an-install 
+ 1717  sudo gem install autotest-notification
+ 1718  an-install 
+ 1719  bundle update
+ 1720  vim .autotest 
+ 1721  an-install 
+ 1722  gedit /usr/lib/ruby/1.9.1/rubygems/dependency.rb &
+ 1723  vim .autotest 
+ 1724  notify-send Hello Hello 2
+ 1725  notify-send --help
+ 1726  notify-send HELLO hello
+ 1727  sudo gem install ruby-snarl
+ 1728  an-install 
+ 1729  rspec spec/controllers/
+ 1730  vim Gemfile
+ 1731  bundle install
+ 1732  spork --bootstrap
+ 1733  gedit Gemfile &
+ 1734  bundle install
+ 1735  spork --bootstrap
+ 1736  bundle install
+ 1737  bundle update
+ 1738  spork --bootstrap
+ 1739  gedit spec/spec_helper.rb &
+ 1740  time rspec spec/
+ 1741  spork
+ 1742  spork --bootstrap
+ 1743  time rspec spec/
+ 1744  ls
+ 1745  rspec spec/
+ 1746  gedit spec/controllers/pages_controller_spec.rb &
+ 1747  rspec spec/
+ 1748  vim app/controllers/pages_controller.rb 
+ 1749  rspec spec/
+ 1750  gedot app/controllers/pages_controller.rb &
+ 1751  gedit app/controllers/pages_controller.rb &
+ 1752  gedit app/views/pages/about.html.erb &
+ 1753  gedit app/views/pages/contact.html.erb &
+ 1754  rspec spec/
+ 1755  rails s
+ 1756  rspec spec/
+ 1757  rm app/views/layouts/application.html.erb 
+ 1758  cat app/views/pages/home.html.erb 
+ 1759  gedit app/views/pages/home.html.erb &
+ 1760  rspec spec/
+ 1761  cat app/views/pages/about.html.erb &
+ 1762  rspec spec/
+ 1763  cat Gemfile
+ 1764  rspec spec/
+ 1765  cd public_html/rails/sample_app/
+ 1766  rspec spec/
+ 1767  bundle exec rake test
+ 1768  gedit spec/controllers/pages_controller_spec.rb &
+ 1769  rspec spec/
+ 1770  ls
+ 1771  rspec spec/
+ 1772  gedit app/views/pages/home.html.erb &
+ 1773  rails s
+ 1774  gedit app/views/pages/home.html.erb &
+ 1775  rspec spec/
+ 1776  rspec spec/controllers/pages_controller_spec.rb
+ 1777  cat spec/spec_helper.rb
+ 1778  cat spec/rails_helper.rb 
+ 1779  rspec spec/
+ 1780  gedit app/views/pages/contact.html.erb app/views/pages/about.html.erb &
+ 1781  rspec spec/
+ 1782  geany app/controllers/pages_controller.rb &
+ 1783  gedit app/controllers/pages_controller.rb &
+ 1784  rspec spec/
+ 1785  touch app/views/layouts/application.html.erb
+ 1786  gedit app/views/layouts/application.html.erb &
+ 1787  git add .
+ 1788  git commit -m "Fini avec les pages statiques"
+ 1789  git checkout master
+ 1790  git merge static-pages
+ 1791  rspec spec/
+ 1792  git push
+ 1793  vim config/routes.rb
+ 1794  gedit app/views/pages/help.html.erb &
+ 1795  rspec spec/
+ 1796  gedit config/routes.rb &
+ 1797  rspec spec/
+ 1798  rails s
+ 1799  rspec spec/
+ 1800  git add .
+ 1801  git commit -a -m "Exercice"
+ 1802  git push
+ 1803  cd Downloads/
+ 1804  ls
+ 1805  cd ..
+ 1806  cd Téléchargements/
+ 1807  ls
+ 1808  cd ..
+ 1809  cp -r Téléchargements/joshuaclayton-blueprint-css-9bf9513/blueprint/ public_html/rails/sample_app/public/stylesheets/
+ 1810  cp -r Téléchargements/joshuaclayton-blueprint-css-9bf9513/blueprint public_html/rails/sample_app/public/stylesheets/
+ 1811  cp -r Téléchargements/joshuaclayton-blueprint-css-9bf9513/blueprint \ public_html/rails/sample_app/public/stylesheets/
+ 1812  exit
+ 1813  cd public_html/rails/sample_app/
+ 1814  gedit app/helpers/application_helper.rb &
+ 1815  gedit app/views/layouts/application.html.erb &
+ 1816  rspec  spec/
+ 1817  rspec spec/
+ 1818  gedit app/views/layouts/application.html.erb &
+ 1819  rspec spec/
+ 1820  rails s
+ 1821  rails console
+ 1822  rails c
+ 1823  rails s
+ 1824  rails c
+ 1825  gedit example_user.rb &
+ 1826  rails c
+ 1827  gedit exercice.rb &
+ 1828  rails c
+ 1829  sudo apt-get update
+ 1830  sudo gedit .bashrc &
+ 1831  sudo gedit .bashrc
+ 1832  source .bashrc
+ 1833  android
+ 1834  android-studio
+ 1835  ls
+ 1836  vim script.sh 
+ 1837  vim hello.sh 
+ 1838  chmod +x hello.
+ 1839  chmod +x hello.sh 
+ 1840  ./hello.sh 
+ 1841  vim hello.sh &
+ 1842  vim hello.sh
+ 1843  whoami
+ 1844  vim hello.sh
+ 1845  ./hello.sh 
+ 1846  gedit hello.sh  &
+ 1847  ./hello.sh 
+ 1848  notify-send help
+ 1849  notify-send --help
+ 1850  ./hello.sh 
+ 1851  ls /usr/share/icons/gnome/32x32/
+ 1852  ls /usr/share/icons/gnome/32x32/emotes/
+ 1853  ./hello.sh 
+ 1854  ls -l /etc/init.d/
+ 1855  init -help
+ 1856  sudo init -help
+ 1857  sudo init --help
+ 1858  cd /etc/init.d/
+ 1859  ls
+ 1860  mv hello ~/hello.sh
+ 1861  mv ~/hello.sh hello
+ 1862  sudo mv ~/hello.sh hello
+ 1863  ls
+ 1864  cat hello 
+ 1865  update-rc.d hello defaults
+ 1866  sudo update-rc.d hello defaults
+ 1867  ls
+ 1868  cd /etc/init.d/
+ 1869  ls
+ 1870  sudo vim hello 
+ 1871  sudo update-rc.d hello defaults
+ 1872  less reboot 
+ 1873  sudo gedit hello &
+ 1874  gedit reboot &
+ 1875  ls
+ 1876  cat single 
+ 1877  ls /lib/lsb/init-functions
+ 1878  ls /sbin:/usr/
+ 1879  ls /usr/bin/
+ 1880  ls usr/bin | grep "notify-send"
+ 1881  ls usr/bin/ | grep "notify-send"
+ 1882  ls /usr/bin/ | grep "notify-send"
+ 1883  sudo update-rc.d hello defaults
+ 1884  cd /etc/init.d/
+ 1885  ls
+ 1886  less README 
+ 1887  mv hello hello.sh
+ 1888  sudo mv hello hello.sh
+ 1889  ls
+ 1890  gedit hello.sh &
+ 1891  cat README 
+ 1892  cat /usr/share/doc/insserv/README.Debian
+ 1893  insserv hello.sh
+ 1894  man insserv 
+ 1895  sudo insserv
+ 1896  aptitude
+ 1897  aptitude install insserv graphviz
+ 1898  sudo apt-get install aptitude
+ 1899  aptitude install insserv graphviz
+ 1900  sudo aptitude install insserv graphviz
+ 1901  boot.dot
+ 1902  cd ~
+ 1903  /usr/share/insserv/check-initd-order -g > boot.dot
+ 1904  sudo /usr/share/insserv/check-initd-order -g > boot.dot
+ 1905  cat /etc/init.d/reboot 
+ 1906  sudo /usr/share/insserv/check-initd-order -g > boot.dot
+ 1907  cat /etc/init.d/reboot 
+ 1908  sudo /usr/share/insserv/check-initd-order -g > boot.dot
+ 1909  sudo /usr/share/insserv/check-initd-order -g -k > reboot.dot
+ 1910  dotty boot.dot
+ 1911  dotty reboot.dot 
+ 1912  cd /etc/init.d/
+ 1913  sudo gedit hello.sh &
+ 1914  sudo gedit hello.sh
+ 1915  sudo gedit hello.sh &
+ 1916  sudo update-rc.d hello defaults
+ 1917  sudo update-rc.d hello.sh defaults
+ 1918  cat /etc/rc2.d/
+ 1919  ls /etc/rc2.d/
+ 1920  rm /etc/rc2.d/S20hello
+ 1921  sudo rm /etc/rc2.d/S20hello
+ 1922  ls /etc/rc6.d/
+ 1923  sudo rm /etc/rc6.d/K20hello
+ 1924  history
+ 1925  sudo /usr/share/insserv/check-initd-order -g > boot.dot
+ 1926  sudo /usr/share/insserv/check-initd-order -g -k > reboot.dot
+ 1927  dotty boot.dot
+ 1928  cd /etc/init.d/
+ 1929  ls
+ 1930  rm hello~
+ 1931  sudo rm hello~
+ 1932  sudo rm hello.sh~
+ 1933  sudo gedit hello.sh &
+ 1934  history
+ 1935  sudo update-rc.d hello.sh defaults
+ 1936  /usr/share/insserv/check-initd-order -g > boot.dot
+ 1937  sudo /usr/share/insserv/check-initd-order -g > boot.dot
+ 1938  pwd
+ 1939  cd /etc/init.d/
+ 1940  ls
+ 1941  sudo vim hello.sh 
+ 1942  ./hello.sh 
+ 1943  update-rc.d hello.sh defaults
+ 1944  sudo rm hello.sh 
+ 1945  ls
+ 1946  cd ~
+ 1947  ls
+ 1948  mv hello.sh notify_user.sh
+ 1949  vim notify_user.sh 
+ 1950  ls
+ 1951  chmod +x notify_user.sh 
+ 1952  ./notify_user.sh 
+ 1953  vim notify_user.sh 
+ 1954  ./notify_user.sh 
+ 1955  update-rc.d notify_user.sh defaults
+ 1956  sudo mv notify_user.sh /etc/init.d/
+ 1957  update-rc.d notify_user.sh defaults
+ 1958  vim notify_user.sh
+ 1959  ls
+ 1960  sudo cp /etc/init.d/notify_user.sh ~/notify_user.sh
+ 1961  ls
+ 1962  vim notify_user.sh 
+ 1963  ls
+ 1964  cat notify_user.sh 
+ 1965  ./notify_user.sh 
+ 1966  ls
+ 1967  rm cafonctionne.txt 
+ 1968  gedit notify_user.sh &
+ 1969  sudo gedit /etc/init.d/notify_user.sh
+ 1970  update-rc.d notify_user.sh defaults
+ 1971  sudo gedit notify_user.sh 
+ 1972  sudo gedit notify_user.sh &
+ 1973  sudo gedit /etc/init.d/notify_user.sh &
+ 1974  update-rc.d notify_user.sh defaults
+ 1975  update-rc.d /etc/init.d/notify_user.sh defaults
+ 1976  update-rc.d notify_user.sh defaults
+ 1977  insserv
+ 1978  update-rc.d notify_user.sh defaults
+ 1979  cd /etc/init.d/
+ 1980  update-rc.d notify_user.sh defaults
+ 1981  sudo update-rc.d notify_user.sh defaults
+ 1982  update-rc.d notify_user.sh test
+ 1983  man update-rc.d 
+ 1984  cat skeleton 
+ 1985  test - x notify_user.sh
+ 1986  test -x notify_user.sh
+ 1987  cd /etc/init.d/
+ 1988  :
+ 1989  ls
+ 1990  sudo gedit notify_user.sh
+ 1991  update-rc.d notify_user.sh test
+ 1992  update-rc.d notify_user.sh default
+ 1993  update-rc.d notify_user.sh defaults
+ 1994  update-rc.d -f notify_user.sh defaults
+ 1995  sudo update-rc.d -f notify_user.sh defaults
+ 1996  exit
+ 1997  cd Documents/Cours/Semestre\ 2/Introduction\ Resolution\ Probleme/
+ 1998  ls
+ 1999  mkdir Projet
+ 2000  cd Seymour
+ 2001  mkdir Seymour
+ 2002  cd Seymour/
+ 2003  ls
+ 2004  git init
+ 2005  git branch origin master
+ 2006  history > history.txt | less history.txt
