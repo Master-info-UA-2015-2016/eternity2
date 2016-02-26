@@ -1,6 +1,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include <algorithm>
+
 #include "instance_model.h"
 
 /**
@@ -21,9 +23,13 @@ private:
 public:
 
     /**
-     * Constructeur
+     * Constructeurs
      */
     Configuration();
+
+    Configuration(const std::string& fileName);
+
+    static std::vector<Configuration*>& generateRandomConfigurations(Instance instance, int limit);
 
     /**
       * Getters
@@ -73,6 +79,9 @@ public:
       */
     int* rotate(int* motif,int nbRotation);
 
+    // TODO generateRandom @jfourmond
+    void generateRandom();
 };
+
 
 #endif // CONFIGURATION_H
