@@ -15,7 +15,6 @@
 class Configuration : public Instance
 {
 private:
-
     std::vector<std::pair<int, int> > vectPosition;
 
 public:
@@ -25,9 +24,7 @@ public:
      */
     Configuration();
 
-    /**
-      * Getters
-      */
+    /*** Getters ***/
 
     std::vector<std::pair<int, int> >& getVectPosition();
 
@@ -37,7 +34,7 @@ public:
      * @param y : Y
      * @return position : int
      */
-    std::pair<int, int> getPiece(int x, int y);
+    const std::pair<int, int> & getPiece(int x, int y) const ;
 
     /**
      * Retourne la position dans le vecteur de positions de la piece P
@@ -45,15 +42,19 @@ public:
      * @param p : Piece
      * @return position : p
      */
-    int getPosition(Piece p);
+    int getPosition(Piece p) const;
 
     /**
      * Ajout d'une position
      * @param position
      */
-    void addPosition(std::pair<int, int> position);
+    void placePiece(std::pair<int, int> piece){ vectPosition.push_back(piece); }
 
-    bool isValid();
+    /**
+     * Vérifie que la forme de la configuration correspond à la taille de l'instance
+     * @return vrai la configuration est bien formée
+     */
+    bool isValid() { return (unsigned)(nbRows * nbCols) == vectPosition.size(); }
 
     /**
      * Impression sur un flux de l'instance

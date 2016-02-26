@@ -5,13 +5,16 @@ using namespace std;
 BoardWidget::BoardWidget(QWidget *parent) :
     QWidget(parent)
 {
-
+    buffer= new QImage;
+    bufferPainter= new QPainter;
+    board= new Board( new Configuration());
 }
 
 BoardWidget::BoardWidget(Board *b, QWidget *parent) :
     QWidget(parent), board(b)
 {
-
+    buffer= new QImage;
+    bufferPainter= new QPainter;
 }
 
 void BoardWidget::init_board(Board *b)
@@ -24,11 +27,13 @@ void BoardWidget::init_board(Board *b)
 // ########################
 void BoardWidget::drawCell(int column, int line)
 {
-    // 	drawCell(ab->getPos().col, ab->getPos().row);
+//    buffer = new QImage(100, 100, QImage::Format_ARGB32); // TODO Temporaire, à déplacer
+    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
     bufferPainter->fillRect(column, line, 3, 3, Qt::white);
     #if DEBUG_TMATRICE
     cout <<"draw cell ; "<< p->getPos().col << p->getPos().row ;
     #endif
+    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
 }
 
 //void BoardWidget::drawPiece(const PieceView* p)
@@ -88,13 +93,14 @@ void BoardWidget::drawBoard()
 {
     bufferPainter->begin(buffer);
 
-    int current_height= 0;
-    for(int i=0; i < board->height(); ++i){
-        vector< Piece* >* ligne= (*board)[i];
+    int current_height, current_width;
+    for(int i=0; i < board->height() * board->width(); ++i){
+        current_width= i % board->width();
+        current_height= i / board->height();
+        board->getConfig().getPiece(current_width, current_height);
 
-        int current_width= 0;
-        for( vector< Piece* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
-            if ((*j) != NULL){
+//        for( vector< Piece* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
+//            if ((*j) != NULL){
                 // TODO Decommenter
 //                Piece* piece= *j;
 //
@@ -103,18 +109,16 @@ void BoardWidget::drawBoard()
 //                Motif* motif= setColor(ind_motif);
 //
 //                drawPiece(current_width, current_height, motif);
-            }
-            else {
-                drawCell(current_width, current_height);
-            }
+//            }
+//            else {
+//                drawCell(current_width, current_height);
+//            }
 
             // Incrémentation des positions des Cells
-            current_width+= 1;
-        }
+//        }
         #if DEBUG_TMATRICE
         cout << endl;
         #endif
-        current_height += 1;
     }
 
     bufferPainter->end();
@@ -218,7 +222,23 @@ void BoardWidget::redraw()
     }
     buffer = new QImage(board->width(), board->height(), QImage::Format_ARGB32);
 
-//    drawBoard();
+    drawBoard();
 //    drawChanged();
     update();	// TODO apparemment non utile, update fait resize
+}
+
+// ###################
+/*** 		Events 	***/
+// ##################
+void BoardWidget::resizeEvent(QPaintEvent *event)
+{
+    redraw();
+}
+
+void BoardWidget::paintEvent(QPaintEvent* event)
+{
+    QWidget::paintEvent(event);
+    QPainter paint(this);
+//    paint.scale(tailleCell, tailleCell);
+    paint.drawImage(0, 0, *buffer);
 }

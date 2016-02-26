@@ -1,5 +1,6 @@
 #include "Model/configuration.h"
 #include <algorithm>
+#include <time.h>
 
 using namespace std;
 
@@ -26,11 +27,11 @@ vector<Configuration*>& generateRandomConfiguration(Instance instance, int limit
             // Choix aléatoire de la rotation
             i_rot = rand() % 4;
             // Création de la pair
-            pair<int, int> position;
-                position.first = p.get_id();
-                position.second = i_rot;
+            pair<int, int> piece;
+                piece.first = p.get_id();
+                piece.second = i_rot;
             // Ajout de la pair
-            configuration->addPosition(position);
+            configuration->placePiece(piece);
         }
         configurations.push_back(configuration);
     }

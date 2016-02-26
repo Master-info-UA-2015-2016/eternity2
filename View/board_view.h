@@ -23,7 +23,6 @@ class BoardWidget : public QWidget
     Q_OBJECT
 private :
     QImage* buffer;
-    QColor* color;
     QPainter* bufferPainter;
     Board*  board;
 
@@ -82,10 +81,14 @@ public:
      */
     void redraw();
 
+protected:
+    void resizeEvent(QPaintEvent* event);
+    void paintEvent(QPaintEvent* event);
 
 signals:
 
 public slots:
+
 };
 
 #endif // PIECESWIDGET_H

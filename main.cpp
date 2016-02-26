@@ -17,9 +17,19 @@ int main(int argc, char *argv[])
 //    /*
     QApplication a(argc, argv);
 
-    Board* board_model= new Board( *(new Coordinates(4,4)));
+
+
+/// TODO A placer dans mainwindow
+    Configuration* config= new Configuration;
+    config->tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
+    cout << "Instance (configuration) statique" << endl;
+//    cout << ((Instance)config)<< endl;
+
+    Board* board_model= new Board(config);
     MainWindow w(board_model);
     w.show();
+
+    w.showBoard();
 
     return a.exec();
 //    */
@@ -41,11 +51,6 @@ int main(int argc, char *argv[])
     cout << *p;
 
     cout << "Fin test piece, statique et pointeur ok" << endl;
-
-    Instance inst;
-    inst.tryLoadFile("../eternity2/instances_puzzles/pieces_05x05.txt");
-    cout << "Instance statique" << endl;
-    cout << inst ;
 
     Instance *inst2 = new Instance();
     inst2->tryLoadFile("../eternity2/instances_puzzles/pieces_03x03.txt");
