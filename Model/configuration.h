@@ -27,7 +27,7 @@ public:
 
     /**
       * Getters
-      */
+     */
 
     std::vector<std::pair<int, int> >& getVectPosition();
 

@@ -1,11 +1,57 @@
-
 #include "configuration.h"
 
 using namespace std;
 
+<<<<<<< HEAD
 Configuration::Configuration(const string &fileNameInstance) {
     Instance::tryLoadFile(fileNameInstance);
 }
+=======
+
+Configuration::Configuration() {}
+>>>>>>> bf3b22020f04f27c08c030ffb100aae7d182a65d
+
+Configuration::Configuration(const string& fileName) {
+    Instance::tryLoadFile(fileName);
+}
+
+
+/**
+ * Génération de configurations aléatoires à partir de l'instance
+ * @param instance : Instance en question
+ * @param limit : nombre de configuration-s généré-es
+ * @return Configuration -s généré-es
+ * @author FOURMOND Jérôme
+ */
+vector<Configuration*>&  Configuration::generateRandomConfigurations(Instance instance, int limit) {
+    vector<Configuration*>& configurations= *(new vector<Configuration*>);
+
+    srand(time(NULL));
+
+    for(int ind_conf=0 ; ind_conf < limit ; ind_conf++) {
+        vector<Piece>* remaining_pieces = instance.get_vectPieces();
+        random_shuffle(remaining_pieces->begin(), remaining_pieces->end());
+        int i_rot;
+        Configuration* configuration = new Configuration();
+        while(!remaining_pieces->empty()) {
+            Piece p = remaining_pieces->back();
+            remaining_pieces->pop_back();
+            // Choix aléatoire de la rotation
+            i_rot = rand() % 4;
+            // Création de la pair
+            pair<int, int> position;
+                position.first = p.get_id();
+                position.second = i_rot;
+            // Ajout de la pair
+            configuration->addPosition(position);
+        }
+        cout << (*configuration).nbCols << endl;
+        configurations.push_back(configuration);
+    }
+
+    return configurations;
+}
+
 
 vector<pair<int, int> >& Configuration::getVectPosition() {
     return vectPosition;
@@ -54,7 +100,7 @@ int* Configuration::rotate(int* motif,int nbRotation){
 }
 
 ostream& Configuration::print(ostream& out){
-    int* sone;
+    int* swne; // ???
 
     for(int i=1; i <= nbCols; ++i){
         for(int j = 1; j <= nbRows; ++j){
@@ -63,7 +109,6 @@ ostream& Configuration::print(ostream& out){
                    (vectPosition.at(i+j-2)).first << " .SONE : ";
 
             if((vectPosition.at(i+j-2)).second != 0 ){
-
                 sone = rotate(vectPieces->at(i+j-2).get_motif(), vectPosition.at(i+j-2).second );
             }
 
