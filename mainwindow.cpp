@@ -21,6 +21,11 @@ void MainWindow::set_board(Board *_board)
     ui->board= new BoardWidget(_board, this);
 }
 
+void MainWindow::showBoard()
+{
+    ui->board->show();
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;

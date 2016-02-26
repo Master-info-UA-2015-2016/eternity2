@@ -19,6 +19,8 @@ public:
 
     void set_board(Board* _board);
 
+    void showBoard();
+
 private:
     Ui::MainWindow *ui;
 };
