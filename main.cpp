@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     /**
-     * @brief Utiliser le bloc ci-dessous pour Appli Qt
+     * Utiliser le bloc ci-dessous pour Appli Qt
      * @return
      */
     /*
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     */
 
     /**
-      * @brief Utiliser le bloc suivant pour debug console
+      * Utiliser le bloc suivant pour debug console
       * @return
       */
 
