@@ -15,6 +15,7 @@
 class Configuration : public Instance
 {
 private:
+
     std::vector<std::pair<int, int> > vectPosition;
 
 public:
@@ -27,6 +28,7 @@ public:
     /**
       * Getters
       */
+
     std::vector<std::pair<int, int> >& getVectPosition();
 
     /**
@@ -52,6 +54,8 @@ public:
     void addPosition(std::pair<int, int> position);
 
     bool isValid();
+
+
 };
 
 #endif // CONFIGURATION_H

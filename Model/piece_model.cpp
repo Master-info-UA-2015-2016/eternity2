@@ -10,20 +10,6 @@ Piece::Piece(int _id, int tab[]) :
     }
 }
 
-void Piece::rotate(){
-    int tmp[MAX_CARD];
-
-    tmp[0] = motif[MAX_CARD-1];
-
-    for(int i=1; i<MAX_CARD;++i){
-        tmp[i] = motif[i-1];
-    }
-
-    for(int j= 0; j < MAX_CARD; ++j){
-        motif[j] = tmp[j];
-    }
-}
-
 ostream& Piece::print(ostream& out){
     out << "Pièce n° " << id << " : ";
 

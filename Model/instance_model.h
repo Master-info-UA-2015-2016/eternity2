@@ -49,13 +49,6 @@ public:
     bool tryLoadFile(const std::string& fileName);
 
     /**
-     * Affichage par défaut sur terminal (print et <<)
-     * initialisation avec lecture du fichier (explode et tryLoad)
-     * Voir sur grapheMat du projet VisualGraph
-     *
-     */
-
-    /**
      * Getters et Setters
      */
     int get_nbRows() { return nbRows; }
