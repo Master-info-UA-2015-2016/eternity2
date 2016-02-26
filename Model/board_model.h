@@ -6,21 +6,22 @@
 #include <map>
 
 #include "coordinates.h"
+#include "configuration.h"
 #include "piece_model.h"
 
-class Board : public std::vector< std::vector<Piece*>* >
+class Board/* : public std::vector< std::vector<Piece*>* >*/
 {
 private:
-//    Configuration disposition;
-    Coordinates size;
+    Configuration* disposition;
 
 public:
-    Board(Coordinates& _size);
+    Board(Configuration* config);
 
-    int height()    const { return size.row; }
-    int width()     const { return size.col; }
+    int height()    const { return disposition->height(); }
+    int width()     const { return disposition->width(); }
+    const Configuration& getConfig() const { return *disposition; }
 
-    std::map<Piece*, Coordinates>* getPlaced();
+    std::vector<std::pair<Piece*, Coordinates>* >* getPlaced();
     std::list<Coordinates>* getUnplaced();
     void clearPlaced();
     void clearUnplaced();

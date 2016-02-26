@@ -23,6 +23,9 @@ void MainWindow::set_board(Board *_board)
 
 void MainWindow::showBoard()
 {
+    ui->board->drawCell(1,1);
+//    bufferPainter->end();
+//    ui->board->redraw();
     ui->board->show();
 }
 

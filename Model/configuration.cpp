@@ -3,6 +3,7 @@
 using namespace std;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Configuration::Configuration(const string &fileNameInstance) {
     Instance::tryLoadFile(fileNameInstance);
 }
@@ -12,6 +13,13 @@ Configuration::Configuration() {}
 >>>>>>> bf3b22020f04f27c08c030ffb100aae7d182a65d
 
 Configuration::Configuration(const string& fileName) {
+=======
+Configuration::Configuration() :
+    Instance()
+{}
+
+Configuration::Configuration(const string& fileName):Instance() {
+>>>>>>> 0043fb95d876475933c9e1976cb1eb846cc2d0cb
     Instance::tryLoadFile(fileName);
 }
 
@@ -39,11 +47,11 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(Instance in
             // Choix aléatoire de la rotation
             i_rot = rand() % 4;
             // Création de la pair
-            pair<int, int> position;
-                position.first = p.get_id();
-                position.second = i_rot;
+            pair<int, int> piece;
+                piece.first = p.get_id();
+                piece.second = i_rot;
             // Ajout de la pair
-            configuration->addPosition(position);
+            configuration->placePiece(piece);
         }
         cout << (*configuration).nbCols << endl;
         configurations.push_back(configuration);
@@ -57,12 +65,12 @@ vector<pair<int, int> >& Configuration::getVectPosition() {
     return vectPosition;
 }
 
-pair<int, int> Configuration::getPiece(int x, int y) {
+const pair<int, int>& Configuration::getPiece(int x, int y) const {
     pair<int, int> position = vectPosition.at(x*nbRows + y*nbCols - (x+y));
     return position;
 }
 
-int Configuration::getPosition(Piece p) {
+int Configuration::getPosition(Piece p) const {
     bool found = false;
     int ind = 0;
     while(!found) {
@@ -71,14 +79,6 @@ int Configuration::getPosition(Piece p) {
         else ind++;
     }
     return ind;
-}
-
-void Configuration::addPosition(pair<int, int> position) {
-    vectPosition.push_back(position);
-}
-
-bool Configuration::isValid() {
-    return (unsigned)(nbRows * nbCols) == vectPosition.size();
 }
 
 int* Configuration::rotate(int* motif,int nbRotation){
@@ -109,11 +109,11 @@ ostream& Configuration::print(ostream& out){
                    (vectPosition.at(i+j-2)).first << " .SONE : ";
 
             if((vectPosition.at(i+j-2)).second != 0 ){
-                sone = rotate(vectPieces->at(i+j-2).get_motif(), vectPosition.at(i+j-2).second );
+                swne = rotate(vectPieces->at(i+j-2).get_motif(), vectPosition.at(i+j-2).second );
             }
 
             for(int l=0; l<MAX_CARD; ++l){
-                out << sone[l] << " ; ";
+                out << swne[l] << " ; ";
             }
             out << endl;
         }
