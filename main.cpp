@@ -55,14 +55,12 @@ int main(int argc, char *argv[])
 
     cout << "Fin test piece, statique et pointeur ok" << endl;
 
-<<<<<<< HEAD
+
     Instance inst;
     inst.tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
     cout << "Instance statique" << endl;
     cout << inst ;
 
-=======
->>>>>>> 0043fb95d876475933c9e1976cb1eb846cc2d0cb
     Instance *inst2 = new Instance();
     inst2->tryLoadFile("../eternity2/instances_puzzles/pieces_03x03.txt");
     cout << "Pointeur sur instance" << endl;

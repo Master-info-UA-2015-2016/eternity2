@@ -1,12 +1,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-<<<<<<< HEAD
-=======
 #include <algorithm>
 #include "time.h"
-
->>>>>>> 0043fb95d876475933c9e1976cb1eb846cc2d0cb
 #include "instance_model.h"
 
 /**
@@ -28,15 +24,10 @@ public:
     /**
      * Constructeur
      */
+    Configuration();
     Configuration(const std::string& fileNameInstance);
 
-<<<<<<< HEAD
-    /**
-      * Getters
-     */
-=======
     /*** Getters ***/
->>>>>>> 0043fb95d876475933c9e1976cb1eb846cc2d0cb
 
     std::vector<std::pair<int, int> >& getVectPosition();
 
@@ -93,8 +84,6 @@ public:
      * @return
      */
     bool tryLoadFile(const std::string& fileName);
-
-
 
 };
 

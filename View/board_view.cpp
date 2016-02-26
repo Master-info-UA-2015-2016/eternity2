@@ -7,7 +7,7 @@ BoardWidget::BoardWidget(QWidget *parent) :
 {
     buffer= new QImage;
     bufferPainter= new QPainter;
-    board= new Board( new Configuration());
+    board= new Board( new Configuration() );
 }
 
 BoardWidget::BoardWidget(Board *b, QWidget *parent) :

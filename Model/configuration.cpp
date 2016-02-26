@@ -2,24 +2,11 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-Configuration::Configuration(const string &fileNameInstance) {
-    Instance::tryLoadFile(fileNameInstance);
+Configuration::Configuration() :Instance(){
+
 }
-=======
-
-Configuration::Configuration() {}
->>>>>>> bf3b22020f04f27c08c030ffb100aae7d182a65d
-
-Configuration::Configuration(const string& fileName) {
-=======
-Configuration::Configuration() :
-    Instance()
-{}
 
 Configuration::Configuration(const string& fileName):Instance() {
->>>>>>> 0043fb95d876475933c9e1976cb1eb846cc2d0cb
     Instance::tryLoadFile(fileName);
 }
 
