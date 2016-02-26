@@ -39,13 +39,6 @@ public:
     friend std::ostream& operator<<(std::ostream& out, Piece& r)
     { return r.print(out); }
 
-    /**
-     * Rotation de la pièce.
-     * On décalera simplement la valeur de chaque case d'un rang vers la
-     * droite. Ainsi, on effectuera systématiquement une rotation horaire.
-     *
-     */
-    void rotate();
 
     /**
      * Getters

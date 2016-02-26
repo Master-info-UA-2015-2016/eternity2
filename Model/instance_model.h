@@ -19,7 +19,7 @@
  */
 class Instance
 {
-private:
+protected:
     int nbRows, nbCols;
     std::vector<Piece> *vectPieces;
 
@@ -47,13 +47,6 @@ public:
      * @return
      */
     bool tryLoadFile(const std::string& fileName);
-
-    /**
-     * Affichage par défaut sur terminal (print et <<)
-     * initialisation avec lecture du fichier (explode et tryLoad)
-     * Voir sur grapheMat du projet VisualGraph
-     *
-     */
 
     /**
      * Getters et Setters

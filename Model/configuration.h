@@ -17,7 +17,7 @@
 class Configuration : public Instance
 {
 private:
-    std::vector<pair<int, int>> vectPosition;
+    std::vector< std::pair <int, int> > vectPosition;
 public:
 
     /**
@@ -28,6 +28,31 @@ public:
     /**
       * Getters et Setters, ne pas hésiter à en faire plein
       */
+
+    /**
+     * Impression sur un flux de l'instance
+     * @param out
+     * @return le flux donné en paramètre avec l'instance 'imprimé'
+     */
+    std::ostream& print(std::ostream& out);
+
+    friend std::ostream& operator<<(std::ostream& out, Configuration& r)
+    { return r.print(out); }
+
+    /**
+      * Charge une configuration à partir d'un fichier source.
+      * @param filePath
+      * @return bool
+      */
+     bool tryLoadFile(const std::string& fileName);
+
+     /**
+      * Rotation de la pièce.
+      * On décalera simplement la valeur de chaque case d'un rang vers la
+      * droite. Ainsi, on effectuera systématiquement une rotation horaire.
+      *
+      */
+     int* rotate(int* motif, int nbRotation); // 1, 2, 3
 };
 
 #endif // CONFIGURATION_H
