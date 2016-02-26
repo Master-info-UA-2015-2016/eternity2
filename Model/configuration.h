@@ -55,6 +55,23 @@ public:
 
     bool isValid();
 
+    /**
+     * Impression sur un flux de l'instance
+     * @param out
+     * @return le flux donné en paramètre avec l'instance 'imprimé'
+     */
+    std::ostream& print(std::ostream& out);
+
+    friend std::ostream& operator<<(std::ostream& out, Configuration& r)
+    { return r.print(out); }
+
+    /**
+      * Rotation d'une pièce.
+      * @param tableau_motif nbRotation
+      * @return tab_result
+      * @author Ugo
+      */
+    int* rotate(int* motif,int nbRotation);
 
 };
 

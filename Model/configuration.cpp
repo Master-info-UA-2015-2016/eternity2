@@ -3,7 +3,6 @@
 
 using namespace std;
 
-<<<<<<< HEAD
 Configuration::Configuration() {}
 
 vector<pair<int, int> >& Configuration::getVectPosition() {
@@ -32,9 +31,6 @@ void Configuration::addPosition(pair<int, int> position) {
 
 bool Configuration::isValid() {
     return (unsigned)(nbRows * nbCols) == vectPosition.size();
-=======
-Configuration::Configuration(){
-
 }
 
 int* Configuration::rotate(int* motif,int nbRotation){
@@ -73,5 +69,5 @@ ostream& Configuration::print(ostream& out){
         }
     }
     return out;
->>>>>>> load_config
+
 }
