@@ -38,21 +38,21 @@
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionQuitter"/>
+    <addaction name="action_quit"/>
    </widget>
    <widget class="QMenu" name="menuInstance">
     <property name="title">
      <string>Instance</string>
     </property>
     <addaction name="actionCharger"/>
-    <addaction name="actionSauvegarder"/>
+    <addaction name="action_save"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
      <string>Configuration</string>
     </property>
-    <addaction name="actionCharger_2"/>
-    <addaction name="actionSauvegarder_2"/>
+    <addaction name="action_load_2"/>
+    <addaction name="action_save_2"/>
    </widget>
    <widget class="QMenu" name="menuAlgorithmes">
     <property name="title">
@@ -73,7 +73,7 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionQuitter">
+  <action name="action_quit">
    <property name="text">
     <string>Quitter</string>
    </property>
@@ -83,17 +83,17 @@
     <string>Charger</string>
    </property>
   </action>
-  <action name="actionSauvegarder">
+  <action name="action_save">
    <property name="text">
     <string>Sauvegarder</string>
    </property>
   </action>
-  <action name="actionCharger_2">
+  <action name="action_load_2">
    <property name="text">
     <string>Charger</string>
    </property>
   </action>
-  <action name="actionSauvegarder_2">
+  <action name="action_save_2">
    <property name="text">
     <string>Sauvegarder</string>
    </property>
@@ -109,5 +109,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>action_quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>423</x>
+     <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
