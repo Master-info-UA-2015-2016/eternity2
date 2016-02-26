@@ -1,9 +1,18 @@
 Fonctionnalités attendues et fonctions à développer :
 
-Chargement et sauvegarde d'une instance
-Chargement et sauvegarde d'une configuration
-Création à la souris d'une configuration (contrôle : une instance est déjà chargée)
+ Model
+    ~Sauvegarde d'une instance~
+    Chargement et sauvegarde d'une configuration
+    Effectuer une résolution
+    Déterminer une solution d’une instance de puzzle
+        Local
+        Evolutionnaire
+        SAT
+        Si pas de solution trouvée, déterminer la solution approchée minimisant le nombre d’erreurs
 
+ Controller
+    Création à la souris d'une configuration (contrôle : une instance est déjà chargée)
 
-Widget permettant d'afficher une piece.
-Widget pour afficher un plateau.
+ View
+    Widget permettant d'afficher une piece.
+    Widget pour afficher un plateau.
