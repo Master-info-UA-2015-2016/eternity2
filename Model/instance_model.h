@@ -19,7 +19,7 @@
  */
 class Instance
 {
-private:
+protected:
     int nbRows, nbCols;
     std::vector<Piece> *vectPieces;
 
@@ -60,7 +60,7 @@ public:
      */
     int get_nbRows() { return nbRows; }
     int get_nbCols() { return nbCols; }
-    const std::vector<Piece>* get_vectPieces() { return vectPieces; }
+    std::vector<Piece>* get_vectPieces() { return vectPieces; }
 
     void set_nbRows(int n) { nbRows = n; }
     void set_nbCols(int m) { nbCols = m; }

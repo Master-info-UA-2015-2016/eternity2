@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     View/board_view.cpp \
     View/motif.cpp \
     Model/configuration.cpp \
-    Tools/string_tools.cpp
+    Tools/string_tools.cpp \
+    Controller/controller_config.cpp
 
 HEADERS  += mainwindow.h \
     Model/instance_model.h \
