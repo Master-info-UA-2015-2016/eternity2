@@ -2,12 +2,9 @@
 #define INSTANCE_MODEL_H
 
 #include "piece_model.h"
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cstdlib>
+#include "Tools/string_tools.h"
 #include <fstream>
-#include <sstream>
+
 
 /**
  * Classe définissant une instance de puzzle eternity2 à partir

@@ -1,5 +1,4 @@
 #include "instance_model.h"
-#include "../Tools/string_tools.h"
 
 using namespace std;
 
