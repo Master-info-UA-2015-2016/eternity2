@@ -27,6 +27,8 @@ public:
     Configuration();
     Configuration(const std::string& fileNameInstance);
 
+    std::vector<Configuration*>&  generateRandomConfigurations(Instance instance, int limit);
+
     /*** Getters ***/
 
     std::vector<std::pair<int, int> >& getVectPosition();

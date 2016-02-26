@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 Configuration::Configuration() :Instance(){
 
 }
