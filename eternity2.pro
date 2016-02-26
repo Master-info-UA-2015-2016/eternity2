@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     Model/coordinates.cpp \
     View/piece_view.cpp \
     View/board_view.cpp \
-    View/motif.cpp
+    View/motif.cpp \
+    Model/configuration.cpp
 
 HEADERS  += mainwindow.h \
     Model/instance_model.h \
@@ -28,7 +29,9 @@ HEADERS  += mainwindow.h \
     View/cell.h \
     View/piece_view.h \
     View/board_view.h \
-    View/motif.h
+    View/motif.h \
+    Model/configuration.h \
+    Tools/string_tools.h
 
 FORMS    += mainwindow.ui \
     exemple.ui

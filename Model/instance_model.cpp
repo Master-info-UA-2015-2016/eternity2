@@ -1,4 +1,5 @@
 #include "instance_model.h"
+#include "../Tools/string_tools.h"
 
 using namespace std;
 
@@ -6,16 +7,6 @@ Instance::Instance(){
     nbRows = 0;
     nbCols = 0;
     vectPieces = new vector<Piece>();
-}
-
-vector<string>& Instance::explode(const string &str){
-
-    istringstream split(str);
-    vector< string >* tokens = new vector<string>;
-
-    for(string each; getline(split, each, ' '); tokens->push_back( each.c_str()) );
-
-    return *tokens;
 }
 
 ostream& Instance::print(ostream& out){

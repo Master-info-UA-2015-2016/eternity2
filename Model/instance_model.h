@@ -5,9 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <iterator>
 #include <cstdlib>
-#include <algorithm>
 #include <fstream>
 #include <sstream>
 
@@ -34,13 +32,6 @@ public:
      * Constructeurs
      */
     Instance();
-
-    /**
-     * Découpe une ligne du fichier et retourne chaque élément dans un tableau.
-     * @param str chaine en entrée à découper
-     * @return vecteur de chaine
-     */
-    std::vector< std::string >& explode(const std::string& str);
 
     /**
      * Impression sur un flux de l'instance
