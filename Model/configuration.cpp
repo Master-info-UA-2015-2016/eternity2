@@ -62,10 +62,13 @@ ostream& Configuration::print(ostream& out){
 
             if((vectPosition.at(i+j-2)).second != 0 ){
 
-                sone = rotate(this->vectPieces->at(i+j-2).get_motif(), vectPosition.at(i+j-2).second );
+                sone = rotate(vectPieces->at(i+j-2).get_motif(), vectPosition.at(i+j-2).second );
             }
 
-            out << "toto" << endl;
+            for(int l=0; l<MAX_CARD; ++l){
+                out << sone[l] << " ; ";
+            }
+            out << endl;
         }
     }
     return out;
