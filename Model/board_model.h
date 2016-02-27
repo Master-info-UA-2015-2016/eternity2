@@ -9,7 +9,7 @@
 #include "configuration.h"
 #include "piece_model.h"
 
-class Board/* : public std::vector< std::vector<Piece*>* >*/
+class Board : public std::vector< Piece* >
 {
 private:
     Configuration* disposition;

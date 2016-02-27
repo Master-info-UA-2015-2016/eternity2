@@ -28,12 +28,15 @@ void BoardWidget::init_board(Board *b)
 void BoardWidget::drawCell(int column, int line)
 {
 //    buffer = new QImage(100, 100, QImage::Format_ARGB32); // TODO Temporaire, à déplacer
+
+    cout <<"draw cell : "<< column<< " ; " << line<< endl ;
     bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
     bufferPainter->fillRect(column, line, 3, 3, Qt::white);
-    #if DEBUG_TMATRICE
-    cout <<"draw cell ; "<< p->getPos().col << p->getPos().row ;
-    #endif
+//    #if DEBUG_TMATRICE
+    cout <<"draw cell : "<< column<< " ; " << line<< endl ;
+//    #endif
     bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
+    update();
 }
 
 //void BoardWidget::drawPiece(const PieceView* p)
@@ -72,7 +75,9 @@ void BoardWidget::drawPiece(int column, int line, Motif* motif)
     //        path.addPolygon(triangle);
 
 //    bufferPainter->fillPath(path, QBrush(*(motif->get_color_ext())));
+    bufferPainter->fillPath(path, QBrush(Qt::red));
 //    bufferPainter->fillRect(column *3 +1, line *3 +1, 1, 1, *(motif->get_color_int()));
+    bufferPainter->fillRect(column *3 +1, line *3 +1, 1, 1,     Qt::blue);
     #if DEBUG_TMATRICE
     cout <<"draw piece ; ";
     #endif
@@ -97,7 +102,7 @@ void BoardWidget::drawBoard()
     for(int i=0; i < board->height() * board->width(); ++i){
         current_width= i % board->width();
         current_height= i / board->height();
-        board->getConfig().getPiece(current_width, current_height);
+        pair<int, int> piece= board->getConfig().getPiece(current_width, current_height);
 
 //        for( vector< Piece* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
 //            if ((*j) != NULL){
@@ -220,7 +225,7 @@ void BoardWidget::redraw()
     if (!buffer->isNull()){
         delete(buffer);
     }
-    buffer = new QImage(board->width(), board->height(), QImage::Format_ARGB32);
+    buffer = new QImage(board->width() *3, board->height() *3, QImage::Format_ARGB32);
 
     drawBoard();
 //    drawChanged();
@@ -232,13 +237,15 @@ void BoardWidget::redraw()
 // ##################
 void BoardWidget::resizeEvent(QPaintEvent *event)
 {
+    cell_size= event->rect().height() / board->height();
     redraw();
 }
 
 void BoardWidget::paintEvent(QPaintEvent* event)
 {
     QWidget::paintEvent(event);
+    std::cout << "BoardWidget_paintEvent : affichage plateau"<< std::endl;
     QPainter paint(this);
-//    paint.scale(tailleCell, tailleCell);
+    paint.scale(cell_size/3, cell_size/3);
     paint.drawImage(0, 0, *buffer);
 }

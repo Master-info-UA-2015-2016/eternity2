@@ -20,8 +20,6 @@ int main(int argc, char *argv[])
     /*
     QApplication a(argc, argv);
 
-
-
 /// TODO A placer dans mainwindow
     Configuration* config= new Configuration;
     config->tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
@@ -31,7 +29,6 @@ int main(int argc, char *argv[])
     Board* board_model= new Board(config);
     MainWindow w(board_model);
     w.show();
-
     w.showBoard();
 
     return a.exec();

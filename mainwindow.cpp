@@ -23,13 +23,18 @@ void MainWindow::set_board(Board *_board)
 
 void MainWindow::showBoard()
 {
-    ui->board->drawCell(1,1);
-//    bufferPainter->end();
-//    ui->board->redraw();
+    ui->board->redraw();
     ui->board->show();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+    QWidget::paintEvent(event);
+    std::cout << "MainWindow_paintEvent : affichage fenêtre"<< std::endl;
+    ui->board->show(); // TODO vérifier utilité
 }

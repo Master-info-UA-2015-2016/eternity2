@@ -54,7 +54,7 @@ vector<pair<int, int> >& Configuration::getVectPosition() {
 }
 
 const pair<int, int>& Configuration::getPiece(int x, int y) const {
-    pair<int, int> position = vectPosition.at(x*nbRows + y*nbCols - (x+y));
+    const pair<int, int>& position = vectPosition[ x *nbRows + y *nbCols - (x +y)];
     return position;
 }
 

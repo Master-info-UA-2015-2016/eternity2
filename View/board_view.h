@@ -10,8 +10,10 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QPolygonF>
+#include <QPaintEvent>
 #include <QVector>
 #include <QPointF>
+#include <QtGui/qevent.h>	// IMPROVEIT pas d'equivalent sans .h ?
 
 #include "View/piece_view.h"
 #include "View/cell.h"
@@ -25,6 +27,7 @@ private :
     QImage* buffer;
     QPainter* bufferPainter;
     Board*  board;
+    int cell_size;
 
 public:
     explicit BoardWidget(Board* b, QWidget *parent = 0);
@@ -85,9 +88,9 @@ protected:
     void resizeEvent(QPaintEvent* event);
     void paintEvent(QPaintEvent* event);
 
-signals:
+//signals:
 
-public slots:
+//public slots:
 
 };
 

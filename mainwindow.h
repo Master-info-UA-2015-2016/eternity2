@@ -23,6 +23,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+protected:
+    void paintEvent(QPaintEvent* event);
 };
 
 #endif // MAINWINDOW_H
