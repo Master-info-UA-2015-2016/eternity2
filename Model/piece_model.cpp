@@ -10,7 +10,7 @@ Piece::Piece(int _id, int tab[]) :
     }
 }
 
-ostream& Piece::print(ostream& out){
+ostream& Piece::print(ostream& out) const{
     out << "Pièce n° " << id << " : ";
 
     // Affichage des n-1 premières couleurs chacune suivie d'un espace

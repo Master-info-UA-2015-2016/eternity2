@@ -34,7 +34,7 @@ public:
      * @param out
      * @return le flux donné en paramètre avec l'instance 'imprimé'
      */
-    std::ostream& print(std::ostream& out);
+    std::ostream& print(std::ostream& out) const;
 
     friend std::ostream& operator<<(std::ostream& out, Piece& r)
     { return r.print(out); }
@@ -44,8 +44,8 @@ public:
      * Getters
      *
      */
-    int get_id() { return id;  }
-    int* get_motif() { return motif;   }
+    int get_id() const  { return id; }
+    int* get_motif()    { return motif; }
 
 };
 

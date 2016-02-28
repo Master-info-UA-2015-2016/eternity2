@@ -25,10 +25,16 @@ protected:
 
 public:
 
-    /**
-     * Constructeurs
-     */
+    /*** Constructeurs ***/
     Instance();
+
+    /**
+     * Constructeur par recopie
+     * @param instance Instance à recopier
+     * @author Florian
+     */
+    Instance(const Instance& instance);
+
 
     /**
      * Impression sur un flux de l'instance
@@ -53,7 +59,7 @@ public:
      */
     int height() { return nbRows; }
     int width() { return nbCols; }
-    std::vector<Piece>* get_vectPieces() { return vectPieces; }
+    const std::vector<Piece>* get_vectPieces() const { return vectPieces; }
 
     void set_nbRows(int n) { nbRows = n; }
     void set_nbCols(int m) { nbCols = m; }

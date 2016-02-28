@@ -17,22 +17,31 @@ int main(int argc, char *argv[])
      * Utiliser le bloc ci-dessous pour Appli Qt
      * @return
      */
-    /*
+//    /*
     QApplication a(argc, argv);
 
 /// TODO A placer dans mainwindow
-    Configuration* config= new Configuration;
-    config->tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
-    cout << "Instance (configuration) statique" << endl;
-//    cout << ((Instance)config)<< endl;
+    Configuration* config= new Configuration("../eternity2/instances_puzzles/pieces_04x04.txt");
+    config->randomConfiguration();
+//    if (config->tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt")){
+        cout << "Instance (configuration) statique" << endl;
+    //    cout << ((Instance)config)<< endl;
 
-    Board* board_model= new Board(config);
-    MainWindow w(board_model);
-    w.show();
-    w.showBoard();
+        Board* board_model= new Board(config);
+    //    MainWindow w(board_model);
+    //    w.show();
+    //    w.showBoard();
+        BoardWidget* board_view= new BoardWidget(board_model);
+        board_view->show();
+        board_view->drawCell(1,1);
 
-    return a.exec();
-    */
+        return a.exec();
+//    }
+//    else {
+//        cerr<< "Impossible d'ouvrir le fichier d'instance"<< endl;
+
+//    }
+//    */
 
     /**
       * Utiliser le bloc suivant pour debug console

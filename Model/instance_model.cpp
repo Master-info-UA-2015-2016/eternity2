@@ -2,11 +2,18 @@
 
 using namespace std;
 
-Instance::Instance(){
-    nbRows = 0;
-    nbCols = 0;
-    vectPieces = new vector<Piece>();
+Instance::Instance() :
+    nbRows(0), nbCols(0)
+{
+    vectPieces = new vector<Piece>;
 }
+
+Instance::Instance(const Instance& instance) :
+    nbRows(instance.nbRows), nbCols(instance.nbCols)
+{
+    vectPieces= new vector<Piece>( *(instance.get_vectPieces()) );
+}
+
 
 ostream& Instance::print(ostream& out){
 

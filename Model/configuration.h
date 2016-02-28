@@ -25,13 +25,17 @@ public:
      * Constructeur
      */
     Configuration();
+    /**
+     * Construit une configuration par recopie d'une instance existante
+     * @param instance Instance utilisée pour recopie de ses paramètres
+     * @author Florian
+     */
+    Configuration(const Instance& instance);
     Configuration(const std::string& fileNameInstance);
-
-    static std::vector<Configuration*>&  generateRandomConfigurations(Instance instance, int limit);
 
     /*** Getters ***/
 
-    std::vector<std::pair<int, int> >& getVectPosition();
+    std::vector<std::pair<int, int> >& getVectPosition() ;
 
     /**
      * Récupération de l'idée de la pièce en position (x, y)
@@ -47,7 +51,7 @@ public:
      * @param p : Piece
      * @return position : p
      */
-    int getPosition(Piece p) const;
+    int getPosition(const Piece &p) const;
 
     /**
      * Ajout d'une position
@@ -86,6 +90,10 @@ public:
      * @return
      */
     bool tryLoadFile(const std::string& fileName);
+
+
+    void randomConfiguration();
+    static std::vector<Configuration*>&  generateRandomConfigurations(Instance instance, int limit);
 
 };
 

@@ -99,9 +99,9 @@ void BoardWidget::drawBoard()
     bufferPainter->begin(buffer);
 
     int current_height, current_width;
-    for(int i=0; i < board->height() * board->width(); ++i){
-        current_width= i % board->width();
-        current_height= i / board->height();
+    for(int i= 0; i < board->height() * board->width(); ++i){
+        current_width= 1 + i % board->width();
+        current_height= 1 + i / board->height();
         pair<int, int> piece= board->getConfig().getPiece(current_width, current_height);
 
 //        for( vector< Piece* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
@@ -219,8 +219,10 @@ void BoardWidget::redraw()
 {
     #if PERF_REDRAW
     ++num_redraw;
-    cout << "test redraw PiecesWidget"<< num_redraw<< endl;
+    cout << "test redraw BoardWidget"<< num_redraw<< endl;
     #endif
+
+    cout << "redraw BoardWidget"<< endl;
 
     if (!buffer->isNull()){
         delete(buffer);
@@ -235,9 +237,25 @@ void BoardWidget::redraw()
 // ###################
 /*** 		Events 	***/
 // ##################
-void BoardWidget::resizeEvent(QPaintEvent *event)
+
+void BoardWidget::mousePressEvent(QMouseEvent *event)
 {
-    cell_size= event->rect().height() / board->height();
+
+}
+
+void BoardWidget::mouseMoveEvent(QMouseEvent *event)
+{
+
+}
+
+void BoardWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+
+}
+
+void BoardWidget::resizeEvent(QResizeEvent *event)
+{
+    cell_size= event->size().height() / board->height();
     redraw();
 }
 
