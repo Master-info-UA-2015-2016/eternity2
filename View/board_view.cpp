@@ -59,9 +59,9 @@ void BoardWidget::init_board(Board *b)
 
 void BoardWidget::drawPiece(int column, int line, int motif[4])
 {
-    QPointF top= column* DRAW_SCALE,      line* DRAW_SCALE;
-    QPointF middle= column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE;
-    QPointF bottom= (column* DRAW_SCALE,      line* DRAW_SCALE);
+    QPointF top(column* DRAW_SCALE,      line* DRAW_SCALE);
+    QPointF middle(column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE);
+    QPointF bottom(column + 6.0, line + 6.0);
 
     /*
     bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
@@ -75,6 +75,7 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
 //    QPainterPath path;
 //    path.addPolygon(triangle);
 
+//    QPainterPath path(QPointF(column, line));
     QPainterPath path1(top);           // Coin en haut à gauche
         path1.lineTo(middle); // Coin milieu droit
         path1.lineTo(bottom);  // Coin en bas à gauche
