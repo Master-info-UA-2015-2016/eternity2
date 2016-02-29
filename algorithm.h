@@ -16,7 +16,7 @@ class Algorithm
     public:
         Algorithm();
 
-        static void local_search(Instance instance);
+        static void local_search(const Instance * instance);
 };
 
 #endif // ALGORITHM_H
