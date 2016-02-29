@@ -94,7 +94,7 @@ public:
       * @return tab_result
       * @author Ugo
       */
-    int* rotate(int* motif,int nbRotation);
+    int* rotate(const int* motif,int nbRotation);
 
     /**
      * Chargement d'un graphe sous forme de matrice

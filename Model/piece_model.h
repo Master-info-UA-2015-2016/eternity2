@@ -43,7 +43,7 @@ public:
      *
      */
     int get_id() const  { return id; }
-    int* get_motif()    { return motif; }
+    const int* get_motif() const   { return motif; }
 
 };
 

@@ -28,7 +28,7 @@ vector<pair<int, int> >& Configuration::getVectPosition() {
 }
 
 const pair<int, int>& Configuration::getPiece(int x, int y) const {
-    const pair<int, int>& position = vectPosition[ x *instance->height() + y *instance->width() - (x +y)];
+    const pair<int, int>& position = vectPosition[x + y * instance->width()];
     return position;
 }
 
@@ -44,18 +44,18 @@ int Configuration::getPosition(const Piece& p) const {
 }
 
 ostream& Configuration::print(ostream& out){
-    const int* swne;
+    for(int i=0 ; i<instance->width() ; ++i) {
+        for(int j=0 ; j<instance->height() ; ++j) {
+            pair<int, int> p = getPiece(i, j);
+            out << "Case (" << i << "," << j << ") : " << p.first << " Rotation : " << p.second << endl;
+            const Piece& P = instance->get_vectPieces()->at(p.first-1);
 
-    for(int i=1; i <= instance->width(); ++i){
-        for(int j = 1; j <= instance->height(); ++j){
-
-            out << "Case " << i << "," << j << " : " <<
-                   getPiece(i, j).first << " .SONE : ";
-
-            /*
-            if(getPiece(i,j).second != 0 ){
-                swne = rotate(instance->get_vectPieces()->at(i+j-2).get_motif(), getPiece(i,j).second );
-            }*/
+            const int* swne ;
+            if(p.second != 0) {
+                swne = rotate(P.get_motif(), p.second );
+            } else {
+                swne = P.get_motif();
+            }
 
             for(int l=0; l<MAX_CARD; ++l){
                 out << swne[l] << " ; ";
@@ -67,17 +67,12 @@ ostream& Configuration::print(ostream& out){
 
 }
 
-int* Configuration::rotate(int* motif,int nbRotation){
+int* Configuration::rotate(const int* motif,int nbRotation){
     int* tmp = new int;
     copy(motif, motif+4, tmp);
 
-    cout << tmp[0] << " " << tmp[1] << " " << tmp[2] << " " << tmp[3] << endl;
-
-    cout << "Rotation" << endl;
-
-    std::rotate(tmp, tmp+nbRotation , tmp+4);
-
-    cout << tmp[0] << " " << tmp[1] << " " << tmp[2] << " " << tmp[3] << endl;
+    for(int i=0 ; i<nbRotation ; i++)
+        std::rotate(tmp, tmp+3 , tmp+4);
 
     return tmp;
 }
