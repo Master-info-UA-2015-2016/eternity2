@@ -7,11 +7,7 @@ problèmes**" suivie en 1ère année de Master à l'Université d'Angers.
 - - -
 
 Projet collaboratif à l'initiative de :
-<<<<<<< HEAD
- * [Ugo Rayer](https://github.com/Seymour49) -  Abandon.
-=======
- * [Ugo Rayer](https://github.com/Seymour49)
->>>>>>> cb0f8b3889fe0de364ee40a8b6758008239eca21
+ * [Ugo Rayer](https://github.com/Seymour49) -  Abandon
 
 Contributeurs :
 * [Florian David](https://github.com/Flodavid)
