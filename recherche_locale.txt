@@ -1,0 +1,27 @@
+Données :   (X, f) : une instance de problème ;
+	    N : une fonction de voisinage ;
+	    f : une fonction d'évaluation (éventuellement f).
+Résultat : x*, solution approchée de argmax (x € X) f(x)
+
+1.  Sélectionner une solution initiale x0 € X ;
+2.  x	<- x0;	// x est la solution courante
+3.  x*	<- x;	// x* est la meilleure solution rencontrée au sens de f
+4.  tant que le critère d'arrêt n'est pas respecté faire
+5.	sélectionner une solution voisine x' € N(x);
+6.	x <- x';
+7.	si f(x) > f(x*) alors
+8.	    x* <- x
+9.	fin
+10. fin
+11. retourner x*
+
+Sélection de la solution initiale :
+    - Aléatoire (après avoir généré une liste de Configurations)
+
+Critère d'arrêt
+    - Spécification d'un nombre total de solutions évaluées
+	-> depuis la dernière sauvegarde de la meilleure solution
+
+Politique de mouvement
+    - Sélectionner une solution voisine :
+	- solution semblable
