@@ -48,7 +48,9 @@ ostream& Configuration::print(ostream& out){
     for(int i=0 ; i<instance->width() ; ++i) {
         for(int j=0 ; j<instance->height() ; ++j) {
             pair<int, int> p = getPiece(i, j);
+
             out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tSONE = ";
+
             const Piece& P = instance->get_vectPieces()->at(p.first-1);
 
             const int* swne ;

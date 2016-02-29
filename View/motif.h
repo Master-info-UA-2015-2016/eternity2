@@ -18,10 +18,12 @@ private:
 public:
     Motif();
     Motif(QColor* inte, QColor* exte);
-    Motif(AvailableColors col1, AvailableColors col2);
+    Motif(AvailableColors col_int, AvailableColors col_ext);
 
     void set_color_int(QColor* col);
     void set_color_ext(QColor* col);
+
+    QColor* getQColorFromInt(int color);
 
 //    TODO @Antoine (@AsCris)
     QColor* get_color_int();

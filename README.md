@@ -1,26 +1,26 @@
-# Eternity2
+# eternity2
 
 Application graphique développée avec les librairies Qt 5.5 ayant pour but
-de supporter le projet à effectuer au cours de l'option **Résolutions de
-problèmes**" suivie en 1ère année de Master à l'Université d'Angers.
-
-- - -
+de supporter le projet à effectuer au cours de l'option "Résolutions de
+problèmes" suivie en 1ère année de Master à l'Université d'Angers.
 
 Projet collaboratif à l'initiative de :
-<<<<<<< HEAD
- * [Ugo Rayer](https://github.com/Seymour49) -  Abandon.
-=======
- * [Ugo Rayer](https://github.com/Seymour49)
->>>>>>> cb0f8b3889fe0de364ee40a8b6758008239eca21
+
+Ugo Rayer : https://github.com/Seymour49
+  -> Abandon du projet.
 
 Contributeurs :
-* [Florian David](https://github.com/Flodavid)
-* [Jerôme Fourmond](https://github.com/jfourmond)
-* [Antoine Garnier](https://github.com/Ascris)
 
-- - -
+Florian David : https://github.com/Flodavid
 
-## Présentation du projet
+Jerôme Fourmond : https://github.com/jfourmond
+
+Antoine Garnier : https://github.com/Ascris
+
+
+
+
+Présentation du projet
 
 Le projet a pour but de mettre en place différents algorithmes de recherche
 de solutions approchées à plusieurs instances de puzzle eternity et de comparer
