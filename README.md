@@ -7,6 +7,7 @@ problèmes" suivie en 1ère année de Master à l'Université d'Angers.
 Projet collaboratif à l'initiative de :
 
 Ugo Rayer : https://github.com/Seymour49
+  -> Abandon du projet.
 
 Contributeurs :
 
