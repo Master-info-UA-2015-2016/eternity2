@@ -13,28 +13,28 @@ TEMPLATE = app
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    mainwindow.cpp \
     Model/instance_model.cpp \
     Model/piece_model.cpp \
     Model/board_model.cpp \
     Model/coordinates.cpp \
+    Model/configuration.cpp \
     View/piece_view.cpp \
     View/board_view.cpp \
     View/motif.cpp \
-    Model/configuration.cpp \
+    View/mainwindow.cpp \
     Tools/string_tools.cpp
-#    Controller/controller_config.cpp
 
 HEADERS  += mainwindow.h \
     Model/instance_model.h \
     Model/piece_model.h \
     Model/board_model.h \
     Model/coordinates.h \
+    Model/configuration.h \
     View/cell.h \
     View/piece_view.h \
     View/board_view.h \
     View/motif.h \
-    Model/configuration.h \
+    View/mainwindow.h \
     Tools/string_tools.h
 
 FORMS    += mainwindow.ui \

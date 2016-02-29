@@ -57,8 +57,8 @@ public:
     /**
      * Getters et Setters
      */
-    int height() { return nbRows; }
-    int width() { return nbCols; }
+    int height()    const { return nbRows; }
+    int width()     const { return nbCols; }
     const std::vector<Piece>* get_vectPieces() const { return vectPieces; }
 
     void set_nbRows(int n) { nbRows = n; }

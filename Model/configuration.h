@@ -16,7 +16,7 @@
 class Configuration
 {
 private:
-    Instance* instance;
+    const Instance* instance;
     std::vector<std::pair<int, int> > vectPosition;
 
 public:
@@ -30,7 +30,7 @@ public:
      * @param instance Instance utilisée pour recopie de ses paramètres
      * @author Florian
      */
-    Configuration(const Instance& instance);
+    Configuration(const Instance *instance);
     Configuration(const std::string& fileNameInstance);
 
     /*** Getters ***/

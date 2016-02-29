@@ -9,18 +9,19 @@ Configuration::Configuration() :
 
 }
 
-Configuration::Configuration(const Instance& _instance)
-{
-    instance = new Instance(_instance);
-}
+Configuration::Configuration(const Instance* _instance) :
+    instance(_instance)
+{}
 
 Configuration::Configuration(const string& fileName)
 {
-    instance = new Instance();
-    if (!instance->tryLoadFile(fileName)){
+    Instance* inst= new Instance();
+
+    if (!inst->tryLoadFile(fileName)){
         cerr << "Impossible de charger le fichier " << fileName << endl;
         exit(EXIT_FAILURE);
     }
+    else { instance = inst; }
 }
 
 vector<pair<int, int> >& Configuration::getVectPosition() {
@@ -139,7 +140,7 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(Instance in
     srand(time(NULL));
 
     for(int ind_conf=0 ; ind_conf < limit ; ind_conf++) {
-        Configuration* configuration= new Configuration(instance);
+        Configuration* configuration= new Configuration(&instance);
         configuration->randomConfiguration();
 
         cout << configuration->instance->width() << endl;

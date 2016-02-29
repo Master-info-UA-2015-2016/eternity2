@@ -17,7 +17,11 @@ public:
     explicit MainWindow(Board *b, QWidget *parent = 0);
     ~MainWindow();
 
+private:
     void set_board(Board* _board);
+
+public:
+    bool init_configuration(std::string filename);
 
     void showBoard();
 
