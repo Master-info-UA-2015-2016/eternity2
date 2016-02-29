@@ -63,7 +63,6 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
     QPointF middle(column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE);
     QPointF bottom(column + 6.0, line + 6.0);
 
-    /*
     bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
 
 //        QVector<QPointF> tri_points(3);
@@ -81,9 +80,11 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
         path1.lineTo(bottom);  // Coin en bas à gauche
         path1.lineTo(top);          // Coin en haut à gauche
     for (int i= 0; i < 4; ++i) {
+        Motif colors= get_color(motif[i]);
         bufferPainter->fillPath(path1, QBrush(Qt::red));
-        bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,     Qt::blue);
-        bufferPainter->rotate(10.0);
+        bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
+                                Qt::blue);
+//        bufferPainter->rotate(10.0);
     }
 
     #if DEBUG_TMATRICE
@@ -92,7 +93,7 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
 //    bufferPainter->rotate();
 
     bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
-    */
+
 }
 
 void BoardWidget::drawBoard()

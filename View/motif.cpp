@@ -11,98 +11,59 @@ Motif::Motif(QColor *inte, QColor *exte) :
 
 }
 
-Motif::Motif(AvailableColors col1, AvailableColors col2)
-{
-    QColor* tmp;
+QColor* Motif::getQColorFromInt(int color){
+    QColor* tmp= new QColor;
 
     //couleur interieure
-    switch(col1){
+    switch(color){
         case White:
-            *tmp = White;
+            tmp->setRgb(255,255,255);
             break;
         case Black:
-            *tmp = Black;
+            tmp->setRgb(0,0,0);
             break;
         case Gray:
-            *tmp = Gray;
+            tmp->setRgb(128,128,128);
             break;
         case Brown:
-            *tmp = Brown;
+            tmp->setRgb(100,50,0);
             break;
         case Orange:
-            *tmp = Orange;
+            tmp->setRgb(250,128,0);
             break;
         case Pink:
-            *tmp = Pink;
+            tmp->setRgb(250,100,250);
             break;
         case Red:
-            *tmp = Yellow;
+            tmp->setRgb(255,0,0);
             break;
         case Yellow:
-            *tmp = Yellow;
+            tmp->setRgb(250,250,0);
             break;
         case LightGreen:
-            *tmp = LightGreen;
+            tmp->setRgb(100,250,100);
             break;
         case DarkGreen:
-            *tmp = DarkGreen;
+            tmp->setRgb(0,150,0);
             break;
         case LightBlue:
-            *tmp = LightBlue;
+            tmp->setRgb(100,250,250);
             break;
         case DarkBlue:
-            *tmp = DarkBlue;
+            tmp->setRgb(0,0,250);
             break;
         case Purple:
-            *tmp = Purple;
+            tmp->setRgb(150,50,250);
             break;
 
     }
-    color_int = tmp;
+    return tmp;
+}
 
-    //couleur exterieure
-    switch(col2){
-        case White:
-            *tmp = White;
-            break;
-        case Black:
-            *tmp = Black;
-            break;
-        case Gray:
-            *tmp = Gray;
-            break;
-        case Brown:
-            *tmp = Brown;
-            break;
-        case Orange:
-            *tmp = Orange;
-            break;
-        case Pink:
-            *tmp = Pink;
-            break;
-        case Red:
-            *tmp = Yellow;
-            break;
-        case Yellow:
-            *tmp = Yellow;
-            break;
-        case LightGreen:
-            *tmp = LightGreen;
-            break;
-        case DarkGreen:
-            *tmp = DarkGreen;
-            break;
-        case LightBlue:
-            *tmp = LightBlue;
-            break;
-        case DarkBlue:
-            *tmp = DarkBlue;
-            break;
-        case Purple:
-            *tmp = Purple;
-            break;
-    }
-    color_ext = tmp;
+Motif::Motif(AvailableColors col_int, AvailableColors col_ext)
+{
+    color_int= getQColorFromInt(col_int);
+    color_ext= getQColorFromInt(col_ext);
 }
 
 void Motif::set_color_int(QColor *col)
