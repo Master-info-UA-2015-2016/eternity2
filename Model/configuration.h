@@ -13,8 +13,6 @@
  * mais une configuration dépend d'une et une seule instance.
  * @author Ugo
  */
-
-
 class Configuration
 {
 private:

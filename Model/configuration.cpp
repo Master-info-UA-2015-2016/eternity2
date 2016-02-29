@@ -64,7 +64,6 @@ ostream& Configuration::print(ostream& out){
         }
     }
     return out;
-
 }
 
 int* Configuration::rotate(const int* motif,int nbRotation){
@@ -78,7 +77,6 @@ int* Configuration::rotate(const int* motif,int nbRotation){
 }
 
 bool Configuration::tryLoadFile(const string &fileName){
-
     if( instance->width() * instance->height() == 0){
         cerr << "Aucune instance n'est chargée" << endl;
         return false;
@@ -105,7 +103,6 @@ bool Configuration::tryLoadFile(const string &fileName){
             } else {
                 return true;
             }
-
         }
     }
 }
