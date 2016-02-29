@@ -47,7 +47,7 @@ public:
      * @param ab arbre à dessiner
      * @deprecated
      */
-    void drawPiece(int column, int line, Motif *motif);
+    void drawPiece(int column, int line, int motif[4]);
     /**
      * Imprime une pièce selon sa position, utilise la couleur courante.
      * @author Florian
