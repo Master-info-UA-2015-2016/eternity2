@@ -2,8 +2,8 @@
 #define CONFIGURATION_H
 
 #include <algorithm>
-#include <iterator>
 #include "time.h"
+
 #include "instance_model.h"
 
 /**
@@ -15,33 +15,28 @@
  */
 
 
-class Configuration
+class Configuration : public Instance
 {
 private:
-    Instance* instance;
     std::vector<std::pair<int, int> > vectPosition;
 
 public:
 
     /**
-     * Constructeur
+     * Constructeurs
      */
     Configuration();
-    /**
-     * Construit une configuration par recopie d'une instance existante
-     * @param instance Instance utilisée pour recopie de ses paramètres
-     * @author Florian
-     */
-    Configuration(const Instance& instance);
-    Configuration(const std::string& fileNameInstance);
+
+    Configuration(const std::string& fileName);
+
+    static std::vector<Configuration*>& generateRandomConfigurations(Instance instance, int limit);
 
     /*** Getters ***/
 
-    std::vector<std::pair<int, int> >& getVectPosition() ;
+    std::vector<std::pair<int, int> >& getVectPosition();
 
     /**
      * Récupération de l'idée de la pièce en position (x, y)
-     * (x*nbRows + y*nbCols - (x+y))
      * @param x : X
      * @param y : Y
      * @return position : int
@@ -50,21 +45,11 @@ public:
 
     /**
      * Retourne la position dans le vecteur de positions de la piece P
+     * (x*nbRows + y*nbCols - (x+y))
      * @param p : Piece
      * @return position : p
      */
-    int getPosition(const Piece &p) const;
-
-    /**
-     * @brief height
-     * @return
-     */
-    int height()    const { return instance->height(); }
-    /**
-     * @brief width
-     * @return
-     */
-    int width()     const { return instance->width(); }
+    int getPosition(Piece p) const;
 
     /**
      * Ajout d'une position
@@ -76,7 +61,7 @@ public:
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
-    bool isValid() { return (unsigned)(instance->width()* instance->height()) == vectPosition.size(); }
+    bool isValid() { return (unsigned)(nbRows * nbCols) == vectPosition.size(); }
 
     /**
      * Impression sur un flux de l'instance
@@ -96,28 +81,9 @@ public:
       */
     int* rotate(int* motif,int nbRotation);
 
-    /**
-     * Chargement d'un graphe sous forme de matrice
-     * à partir d'un fichier d'exemple
-     * @param fileName
-     * @return
-     */
-    bool tryLoadFile(const std::string& fileName);
-
-    /**
-     * Création des placements aléatoires des pièces (nécessaire pour l'affichage)
-     */
-    void randomConfiguration();
-
-    /**
-     * Génération de configurations aléatoires à partir de l'instance
-     * @param instance : Instance en question
-     * @param limit : nombre de configuration-s généré-es
-     * @return Configuration -s généré-es
-     * @author FOURMOND Jérôme
-     */
-    static std::vector<Configuration*>&  generateRandomConfigurations(Instance instance, int limit);
-
+    // TODO generateRandom @jfourmond
+    void generateRandom();
 };
+
 
 #endif // CONFIGURATION_H

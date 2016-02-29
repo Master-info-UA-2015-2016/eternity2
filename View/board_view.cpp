@@ -76,14 +76,18 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
 //    path.addPolygon(triangle);
 
 
+    bufferPainter->setBrushOrigin(QPointF(column* DRAW_SCALE,      line* DRAW_SCALE));
 
 //    QPainterPath path(QPointF(column, line));
-    QPainterPath path1(QPointF(column* DRAW_SCALE,      line* DRAW_SCALE));           // Coin en haut à gauche
-    path1.lineTo(QPointF(column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE )); // Coin milieu droit
-    path1.lineTo(QPointF((column + 1.5) * DRAW_SCALE,   (line + 1.5) * DRAW_SCALE));  // Coin en bas à gauche
-    path1.lineTo(QPointF(column * DRAW_SCALE,           line * DRAW_SCALE));          // Coin en haut à gauche
-    bufferPainter->fillPath(path1, QBrush(Qt::red));
-    bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,     Qt::blue);
+        QPainterPath path1(QPointF(column* DRAW_SCALE,      line* DRAW_SCALE));           // Coin en haut à gauche
+        path1.lineTo(QPointF(column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE )); // Coin milieu droit
+        path1.lineTo(QPointF((column + 1.5) * DRAW_SCALE,   (line + 1.5) * DRAW_SCALE));  // Coin en bas à gauche
+        path1.lineTo(QPointF(column * DRAW_SCALE,           line * DRAW_SCALE));          // Coin en haut à gauche
+    for (int i= 0; i < 4; ++i) {
+        bufferPainter->fillPath(path1, QBrush(Qt::red));
+        bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,     Qt::blue);
+        bufferPainter->rotate(10.0);
+    }
 
 //    QPainterPath path2(QPointF( (column +1.5)* DRAW_SCALE, line* DRAW_SCALE));          // Coin en haut à droite
 //    path2.lineTo(QPointF( column * DRAW_SCALE,          (line + 3.0) * DRAW_SCALE ));   // Coin milieu gauche
