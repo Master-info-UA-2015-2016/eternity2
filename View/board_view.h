@@ -1,11 +1,10 @@
-#ifndef PIECESWIDGET_H
-#define PIECESWIDGET_H
+#ifndef BOARDWIDGET_H
+#define BOARDWIDGET_H
 
 #include <list>
 
 #include <QWidget>
 #include <QColor>
-#include <QBrush>
 #include <QImage>
 #include <QPainter>
 #include <QPainterPath>
@@ -13,7 +12,7 @@
 #include <QPaintEvent>
 #include <QVector>
 #include <QPointF>
-#include <QtGui/qevent.h>	// IMPROVEIT pas d'equivalent sans .h ?
+#include <QtGui/qevent.h>
 
 #include "View/piece_view.h"
 #include "View/cell.h"
@@ -33,41 +32,38 @@ public:
     explicit BoardWidget(Board* b, QWidget *parent = 0);
     explicit BoardWidget(QWidget *parent = 0);
 
+    /**
+     * @brief init_board
+     * @param b
+     * @author Ugo
+     * @deprecated
+     */
     void init_board(Board* b);
     /**
-     * Imprime une pièce selon sa position, utilise la couleur courante.
+     * Imprime une pièce selon sa position, et ses identifiants de motifs
+     * @param column
+     * @param row
+     * @param motifs tableau d'identifiants de motifs
      * @author Florian
-     * @param ab arbre à dessiner
-     * @deprecated
      */
-    void drawPiece(int column, int line, int motif[4]);
-    /**
-     * Imprime une pièce selon sa position, utilise la couleur courante.
-     * @author Florian
-     * @param ab arbre à dessiner
-     * @deprecated
-     */
-    void drawPiece(const PieceView *p);
+    void drawPiece(int column, int row, int motifs[4]);
 
     /**
-     * Commentaires ???
+     * Dessine l'ensemble du plateau dans le buffer
      * @author Ugo et Florian
      */
     void drawBoard();
 
     /**
      * Vide le buffer et rafraichit l'affichage
-     * @author Florian et Ugo
+     * @author Florian
      */
     void redraw();
 
-    /**
-      * A partir d'un id, créé et retourne un motif (unique)
-      * @author Antoine
-      */
-    Motif get_color(int id);
-
 protected:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent* event);
 
@@ -77,4 +73,4 @@ protected:
 
 };
 
-#endif // PIECESWIDGET_H
+#endif // BOARDWIDGET_H

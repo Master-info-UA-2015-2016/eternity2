@@ -38,8 +38,8 @@ bool MainWindow::init_configuration(std::string filename)
             BoardWidget* board_view= new BoardWidget(board_model);
             board_view->show();
     //        board_view->drawCell(1,1);
-            int motif[4]= {1,2,3,4};
-            board_view->drawPiece(2,2, motif);
+            int motifs[4]= {1,2,3,4};
+            board_view->drawPiece(2,2, motifs);
 
         return true;
     } else {

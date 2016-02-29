@@ -16,21 +16,27 @@ private:
     QColor* color_ext;
 
 public:
-    Motif();
     Motif(QColor* inte, QColor* exte);
     Motif(AvailableColors col_int, AvailableColors col_ext);
+    Motif(int id_motif);
+
+    QColor* get_color_int();
+    QColor* get_color_ext();
 
     void set_color_int(QColor* col);
     void set_color_ext(QColor* col);
 
+//definition de 2 couleurs propres a un motif en fonction de son id
+    void set_colors(AvailableColors inte, AvailableColors exte);
+
     QColor* getQColorFromInt(int color);
 
-//    TODO @Antoine (@AsCris)
-    QColor* get_color_int();
-    QColor* get_color_ext();
-
-//definition de 2 couleurs propres a un motif en fonction de son id
-    void set_colors(AvailableColors color_1, AvailableColors color_2);
+    /**
+      * A partir d'un id correspondant aux couleurs d'un motif,
+      * créé et retourne le motif (unique) associé
+      * @author Antoine
+      */
+    Motif get_color(int id);
 };
 
 #endif // MOTIF_H

@@ -36,35 +36,7 @@ void BoardWidget::init_board(Board *b)
 /***		Affichages	***/
 // ########################
 
-//void BoardWidget::drawPiece(const PieceView* p)
-//{
-//    //        QVector<QPointF> tri_points(3);
-//    //        tri_points.push_back(QPointF(0.0, 0.0));
-//    //        tri_points.push_back(QPointF(-1.5, -1.5));
-//    //        tri_points.push_back(QPointF(0.0, -3.0));
-
-//    //        QPolygonF triangle(tri_points);
-
-//    QPainterPath path(QPointF(0.0, 0.0));
-//    path.lineTo(QPointF(-1.5, -1.5));
-//    path.lineTo(QPointF(0.0, -3.0));
-//    //        path.addPolygon(triangle);
-
-//    bufferPainter->fillPath(path, QBrush(motif->get_color_ext()));
-//    bufferPainter->fillRect(colonne *3 +1, ligne *3 +1, 1, 1, motif->get_color_int());
-//    #if DEBUG_TMATRICE
-//    cout <<"draw piece ; ";
-//    #endif
-//}
-
-void BoardWidget::drawPiece(int column, int line, int motif[4])
-{
-    QPointF top(column* DRAW_SCALE,      line* DRAW_SCALE);
-    QPointF middle(column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE);
-    QPointF bottom(column + 6.0, line + 6.0);
-
-    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
-
+// INUTILISE POUR L'INSTANT : dessine un triangle à partir d'un QVector
 //        QVector<QPointF> tri_points(3);
 //        tri_points.push_back(top);
 //        tri_points.push_back(middle);
@@ -74,26 +46,37 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
 //    QPainterPath path;
 //    path.addPolygon(triangle);
 
-//    QPainterPath path(QPointF(column, line));
-    QPainterPath path1(top);           // Coin en haut à gauche
-        path1.lineTo(middle); // Coin milieu droit
-        path1.lineTo(bottom);  // Coin en bas à gauche
-        path1.lineTo(top);          // Coin en haut à gauche
-    for (int i= 0; i < 4; ++i) {
-        Motif colors= get_color(motif[i]);
-        bufferPainter->fillPath(path1, QBrush(Qt::red));
-        bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
-                                Qt::blue);
-//        bufferPainter->rotate(10.0);
-    }
 
-    #if DEBUG_TMATRICE
-    cout <<"draw piece ; ";
-    #endif
-//    bufferPainter->rotate();
+void BoardWidget::drawPiece(int column, int row, int motif[4])
+{
+    QPointF top_left(column * DRAW_SCALE,       row* DRAW_SCALE);
+    QPointF middle((column +1.5) * DRAW_SCALE,  (row +1.5) * DRAW_SCALE);
+    QPointF bottom_left(column * DRAW_SCALE,    (row +3.0) * DRAW_SCALE);
+    QPointF top_right(column * DRAW_SCALE,      (row +3.0)* DRAW_SCALE);
+    QPointF bottom_right((column + 3.0) * DRAW_SCALE,    (row +3.0) * DRAW_SCALE);
+
+    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
+
+    QPainterPath path1(top_left);   // En haut à gauche
+        path1.lineTo(middle);       // Milieu
+        path1.lineTo(bottom_left);  // En bas à gauche
+        path1.lineTo(top_left);     // En haut à gauche
+
+    QPainterPath path2(top_left);   // En haut à gauche
+        path2.lineTo(top_right);    // En haut à droite
+        path2.lineTo(middle);       // Milieu
+        path2.lineTo(top_left);     // En haut à gauche
+
+    Motif colors(motif[2]);
+    bufferPainter->fillPath(path1, *(colors.get_color_ext()));
+    bufferPainter->fillRect(column* DRAW_SCALE , (row +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
+                                *(colors.get_color_int()) );
+    Motif colors2(motif[3]);
+    bufferPainter->fillPath(path2, *(colors2.get_color_ext()));
+    bufferPainter->fillRect((column +1) * DRAW_SCALE , row * DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
+                                *(colors2.get_color_int()) );
 
     bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
-
 }
 
 void BoardWidget::drawBoard()
@@ -146,7 +129,6 @@ int num_redraw= 0;
 
 void BoardWidget::redraw()
 {
-    /*
     #if PERF_REDRAW
     ++num_redraw;
     cout << "test redraw BoardWidget"<< num_redraw<< endl;
@@ -160,109 +142,26 @@ void BoardWidget::redraw()
     buffer = new QImage(board->width() *3 * DRAW_SCALE, board->height() *3 * DRAW_SCALE, QImage::Format_ARGB32);
 
     drawBoard();
-//    drawChanged();
     update();	// TODO apparemment non utile, update fait resize
-    */
-}
-
-/**
-  * A partir d'un id correspondant aux couleurs d'un motif, créé et retourne le motif (unique) associé
-  * @author Antoine
-  */
-Motif BoardWidget::get_color(int id)
-{
-    Motif motif_res(Black, Black);
-    switch(id){
-        case Black_Black:
-            motif_res.set_colors(Black, Black);
-            break;
-        case Gray_Brown:
-            motif_res.set_colors(Gray, Brown);
-            break;
-        case Pink_Brown:
-            motif_res.set_colors(Pink, Brown);
-            break;
-        case Red_Brown:
-            motif_res.set_colors(Red, Brown);
-            break;
-        case Yellow_Brown:
-            motif_res.set_colors(Yellow, Brown);
-            break;
-        case LightGreen_Brown:
-            motif_res.set_colors(LightGreen, Brown);
-            break;
-        case LightBlue_Brown:
-            motif_res.set_colors(LightBlue, Brown);
-            break;
-        case Purple_Brown:
-            motif_res.set_colors(Purple, Brown);
-            break;
-            //fin full brown - 8 couleurs
-
-        case Gray_Orange:
-            motif_res.set_colors(Gray, Orange);
-            break;
-        case Pink_Orange:
-            motif_res.set_colors(Pink, Orange);
-            break;
-        case Red_Orange:
-            motif_res.set_colors(Red, Orange);
-            break;
-        case Yellow_Orange:
-            motif_res.set_colors(Yellow, Orange);
-            break;
-        case LightGreen_Orange:
-            motif_res.set_colors(LightGreen, Orange);
-            break;
-        case DarkGreen_Orange:
-            motif_res.set_colors(DarkGreen, Orange);
-            break;
-        case LightBlue_Orange:
-            motif_res.set_colors(LightBlue, Orange);
-            break;
-        case DarkBlue_Orange:
-            motif_res.set_colors(DarkBlue, Orange);
-            break;
-        case Purple_Orange:
-            motif_res.set_colors(Purple, Orange);
-            break;
-        //fin full Orange - 17 couleurs au total
-
-        case Gray_DarkGreen:
-            motif_res.set_colors(Gray, DarkGreen);
-            break;
-        case Pink_DarkGreen:
-            motif_res.set_colors(Pink, DarkGreen);
-            break;
-        case Red_DarkGreen:
-            motif_res.set_colors(Red, DarkGreen);
-            break;
-        case Yellow_DarkGreen:
-            motif_res.set_colors(Yellow, DarkGreen);
-            break;
-        case LightBlue_DarkGreen:
-            motif_res.set_colors(LightBlue, DarkGreen);
-            break;
-        case DarkBlue_DarkGreen:
-            motif_res.set_colors(DarkBlue, DarkGreen);
-            break;
-        case Purple_DarkGreen:
-            motif_res.set_colors(Purple, DarkGreen);
-            break;
-        //fin full DarkGreen - 24 couleurs au total
-
-        //si pair de couleurs non reconnue, motif blanc
-        default:
-            motif_res.set_colors(White, White);
-            break;
-    }//fin switch
-
-    return motif_res;
 }
 
 // ###################
 /*** 		Events 	***/
 // ##################
+void BoardWidget::mousePressEvent(QMouseEvent *event)
+{
+    QWidget::mousePressEvent(event);
+}
+
+void BoardWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    QWidget::mouseMoveEvent(event);
+}
+
+void BoardWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    QWidget::mouseReleaseEvent(event);
+}
 
 void BoardWidget::resizeEvent(QResizeEvent *event)
 {
@@ -275,6 +174,6 @@ void BoardWidget::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
     std::cout << "BoardWidget_paintEvent : affichage plateau"<< std::endl;
     QPainter paint(this);
-//    paint.scale(cell_size/(3 * DRAW_SCALE), cell_size/(3 * DRAW_SCALE));
+    paint.scale(cell_size/(3 * DRAW_SCALE), cell_size/(3 * DRAW_SCALE));
     paint.drawImage(0, 0, *buffer);
 }
