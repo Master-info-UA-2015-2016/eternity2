@@ -255,57 +255,99 @@ void BoardWidget::redraw()
 }
 
 /**
-  * A partir d'un id, créé et retourne un motif (unique)
+  * A partir d'un id correspondant aux couleurs d'un motif, créé et retourne le motif (unique) associé
   * @author Antoine
   */
-/*
-Motif* BoardWidget::get_color(int id)
+Motif BoardWidget::get_color(int id)
 {
+    Motif motif_res(Black, Black);
     switch(id){
-        case 0:
-            case Black:
-                this->color->setRgb(0,0,0);
-                break;
-            case Gray:
-                this->color->setRgb(128,128,128);
-                break;
-            case Brown:
-                this->color->setRgb(100,50,0);
-                break;
-            case Orange:
-                this->color->setRgb(250,128,0);
-                break;
-            case Pink:
-                this->color->setRgb(250,100,250);
-                break;
-            case Red:
-                this->color->setRgb(255,0,0);
-                break;
-            case Yellow:
-                this->color->setRgb(250,250,0);
-                break;
-            case LightGreen:
-                this->color->setRgb(100,250,100);
-                break;
-            case DarkGreen:
-                this->color->setRgb(0,150,0);
-                break;
-            case LightBlue:
-                this->color->setRgb(100,250,250);
-                break;
-            case DarkBlue:
-                this->color->setRgb(0,0,250);
-                break;
-            case Purple:
-                this->color->setRgb(150,50,250);
-                break;
-            default :
-                this->color->setRgb(255, 255, 255);
-            }
-        }
-}
+        case Black_Black:
+            motif_res.set_colors(Black, Black);
+            break;
+        case Gray_Brown:
+            motif_res.set_colors(Gray, Brown);
+            break;
+        case Pink_Brown:
+            motif_res.set_colors(Pink, Brown);
+            break;
+        case Red_Brown:
+            motif_res.set_colors(Red, Brown);
+            break;
+        case Yellow_Brown:
+            motif_res.set_colors(Yellow, Brown);
+            break;
+        case LightGreen_Brown:
+            motif_res.set_colors(LightGreen, Brown);
+            break;
+        case LightBlue_Brown:
+            motif_res.set_colors(LightBlue, Brown);
+            break;
+        case Purple_Brown:
+            motif_res.set_colors(Purple, Brown);
+            break;
+            //fin full brown - 8 couleurs
 
-*/
+        case Gray_Orange:
+            motif_res.set_colors(Gray, Orange);
+            break;
+        case Pink_Orange:
+            motif_res.set_colors(Pink, Orange);
+            break;
+        case Red_Orange:
+            motif_res.set_colors(Red, Orange);
+            break;
+        case Yellow_Orange:
+            motif_res.set_colors(Yellow, Orange);
+            break;
+        case LightGreen_Orange:
+            motif_res.set_colors(LightGreen, Orange);
+            break;
+        case DarkGreen_Orange:
+            motif_res.set_colors(DarkGreen, Orange);
+            break;
+        case LightBlue_Orange:
+            motif_res.set_colors(LightBlue, Orange);
+            break;
+        case DarkBlue_Orange:
+            motif_res.set_colors(DarkBlue, Orange);
+            break;
+        case Purple_Orange:
+            motif_res.set_colors(Purple, Orange);
+            break;
+        //fin full Orange - 17 couleurs au total
+
+        case Gray_DarkGreen:
+            motif_res.set_colors(Gray, DarkGreen);
+            break;
+        case Pink_DarkGreen:
+            motif_res.set_colors(Pink, DarkGreen);
+            break;
+        case Red_DarkGreen:
+            motif_res.set_colors(Red, DarkGreen);
+            break;
+        case Yellow_DarkGreen:
+            motif_res.set_colors(Yellow, DarkGreen);
+            break;
+        case LightBlue_DarkGreen:
+            motif_res.set_colors(LightBlue, DarkGreen);
+            break;
+        case DarkBlue_DarkGreen:
+            motif_res.set_colors(DarkBlue, DarkGreen);
+            break;
+        case Purple_DarkGreen:
+            motif_res.set_colors(Purple, DarkGreen);
+            break;
+        //fin full DarkGreen - 24 couleurs au total
+
+        //si pair de couleurs non reconnue, motif blanc
+        default:
+            motif_res.set_colors(White, White);
+            break;
+    }//fin switch
+
+    return motif_res;
+}
 
 // ###################
 /*** 		Events 	***/

@@ -88,7 +88,7 @@ public:
       * A partir d'un id, créé et retourne un motif (unique)
       * @author Antoine
       */
-    Motif* get_color(int id);
+    Motif get_color(int id);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
