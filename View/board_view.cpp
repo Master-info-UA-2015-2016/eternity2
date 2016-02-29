@@ -81,7 +81,7 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
         path1.lineTo(top);          // Coin en haut à gauche
     for (int i= 0; i < 4; ++i) {
         Motif colors= get_color(motif[i]);
-        bufferPainter->fillPath(path1, QBrush(Qt::red));
+        bufferPainter->fillPath(path1, QBrush(Qt::green));
         bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
                                 Qt::blue);
 //        bufferPainter->rotate(10.0);
