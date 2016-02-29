@@ -19,7 +19,7 @@
  */
 class Instance
 {
-protected:
+private:
     int nbRows, nbCols;
     std::vector<Piece> *vectPieces;
 
@@ -63,9 +63,6 @@ public:
 
     void set_nbRows(int n) { nbRows = n; }
     void set_nbCols(int m) { nbCols = m; }
-
-
-
 
 };
 

@@ -3,18 +3,24 @@
 using namespace std;
 
 
-Configuration::Configuration() :Instance(){
-
-}
-
-Configuration::Configuration(const Instance& instance) :
-    Instance(instance)
+Configuration::Configuration() :
+    instance()
 {
 
 }
 
-Configuration::Configuration(const string& fileName):Instance() {
-    Instance::tryLoadFile(fileName);
+Configuration::Configuration(const Instance& _instance)
+{
+    instance = new Instance(_instance);
+}
+
+Configuration::Configuration(const string& fileName)
+{
+    instance = new Instance();
+    if (!instance->tryLoadFile(fileName)){
+        cerr << "Impossible de charger le fichier " << fileName << endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 vector<pair<int, int> >& Configuration::getVectPosition() {
@@ -22,7 +28,7 @@ vector<pair<int, int> >& Configuration::getVectPosition() {
 }
 
 const pair<int, int>& Configuration::getPiece(int x, int y) const {
-    const pair<int, int>& position = vectPosition[ x *nbRows + y *nbCols - (x +y)];
+    const pair<int, int>& position = vectPosition[ x *instance->height() + y *instance->width() - (x +y)];
     return position;
 }
 
@@ -40,15 +46,16 @@ int Configuration::getPosition(const Piece& p) const {
 ostream& Configuration::print(ostream& out){
     const int* swne;
 
-    for(int i=1; i <= nbCols; ++i){
-        for(int j = 1; j <= nbRows; ++j){
+    for(int i=1; i <= instance->width(); ++i){
+        for(int j = 1; j <= instance->height(); ++j){
 
             out << "Case " << i << "," << j << " : " <<
-                   (vectPosition.at(i+j-2)).first << " .SONE : ";
+                   getPiece(i, j).first << " .SONE : ";
 
-            if((vectPosition.at(i+j-2)).second != 0 ){
-                swne = rotate(vectPieces->at(i+j-2).get_motif(), vectPosition.at(i+j-2).second );
-            }
+            /*
+            if(getPiece(i,j).second != 0 ){
+                swne = rotate(instance->get_vectPieces()->at(i+j-2).get_motif(), getPiece(i,j).second );
+            }*/
 
             for(int l=0; l<MAX_CARD; ++l){
                 out << swne[l] << " ; ";
@@ -61,26 +68,23 @@ ostream& Configuration::print(ostream& out){
 }
 
 int* Configuration::rotate(int* motif,int nbRotation){
-    int* tmp = NULL;
+    int* tmp = new int;
+    copy(motif, motif+4, tmp);
 
-    for(int i = 0; i < nbRotation; ++i){
-        tmp[0] = motif[MAX_CARD-1];
+    cout << tmp[0] << " " << tmp[1] << " " << tmp[2] << " " << tmp[3] << endl;
 
-        for(int i=1; i<MAX_CARD;++i){
-            tmp[i] = motif[i-1];
-        }
-    }
-    // On recopie le résultat dans la variable motif
-    for(int j= 0; j < MAX_CARD; ++j){
-        motif[j] = tmp[j];
-    }
+    cout << "Rotation" << endl;
+
+    std::rotate(tmp, tmp+nbRotation , tmp+4);
+
+    cout << tmp[0] << " " << tmp[1] << " " << tmp[2] << " " << tmp[3] << endl;
 
     return tmp;
 }
 
 bool Configuration::tryLoadFile(const string &fileName){
 
-    if( (nbCols*nbRows) == 0){
+    if( instance->width() * instance->height() == 0){
         cerr << "Aucune instance n'est chargée" << endl;
         return false;
     }else{
@@ -100,7 +104,7 @@ bool Configuration::tryLoadFile(const string &fileName){
                 vectPosition.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
             }
 
-            if(vectPosition.size() != (unsigned)(nbRows*nbCols) ){
+            if(vectPosition.size() != (unsigned)(instance->width() * instance->height()) ){
                 cerr << "Fichier de configuration incomplet" << endl;
                 return false;
             } else {
@@ -111,37 +115,32 @@ bool Configuration::tryLoadFile(const string &fileName){
     }
 }
 
-
-
-void Configuration::randomConfiguration(/*Instance instance*/)
-{
-//    const vector<Piece>* remaining_pieces = /*instance.*/get_vectPieces();
-//    random_shuffle(remaining_pieces->begin(), remaining_pieces->end());
-    random_shuffle(vectPieces->begin(), vectPieces->end());
-
+void Configuration::randomConfiguration() {
     int i_rot;
+    srand(time(NULL));
+    vector<int> pieces_id;
 
-    while(!/*remaining_pieces*/vectPieces->empty()) {
-        Piece p = /*remaining_pieces*/vectPieces->back();
-        /*remaining_pieces*/vectPieces->pop_back();
+    // Travail uniquement sur l'id des pieces
+    for(const Piece & p : *(instance->get_vectPieces()) ) {
+        pieces_id.push_back(p.get_id());
+    }
+    // Mélange aléatoire
+    random_shuffle(pieces_id.begin(), pieces_id.end());
+
+    while(!pieces_id.empty()) {
+        // Récupération de la pièce (id)
+        int p = pieces_id.back();
+        pieces_id.pop_back();
         // Choix aléatoire de la rotation
         i_rot = rand() % 4;
-        // Création de la pair
         pair<int, int> piece;
-            piece.first = p.get_id();
+            piece.first = p;
             piece.second = i_rot;
         // Ajout de la pair
-        /*configuration->*/placePiece(piece);
+        placePiece(piece);
     }
 }
 
-/**
- * Génération de configurations aléatoires à partir de l'instance
- * @param instance : Instance en question
- * @param limit : nombre de configuration-s généré-es
- * @return Configuration -s généré-es
- * @author FOURMOND Jérôme
- */
 vector<Configuration*>&  Configuration::generateRandomConfigurations(Instance instance, int limit) {
     vector<Configuration*>& configurations= *(new vector<Configuration*>);
 
@@ -151,7 +150,7 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(Instance in
         Configuration* configuration= new Configuration(instance);
         configuration->randomConfiguration();
 
-        cout << configuration->nbCols << endl;
+        cout << configuration->instance->width() << endl;
         configurations.push_back(configuration);
     }
 

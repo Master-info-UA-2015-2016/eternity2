@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 
 #include <algorithm>
+#include <iterator>
 #include "time.h"
 #include "instance_model.h"
 
@@ -14,9 +15,10 @@
  */
 
 
-class Configuration : public Instance
+class Configuration
 {
 private:
+    Instance* instance;
     std::vector<std::pair<int, int> > vectPosition;
 
 public:
@@ -39,6 +41,7 @@ public:
 
     /**
      * Récupération de l'idée de la pièce en position (x, y)
+     * (x*nbRows + y*nbCols - (x+y))
      * @param x : X
      * @param y : Y
      * @return position : int
@@ -47,11 +50,21 @@ public:
 
     /**
      * Retourne la position dans le vecteur de positions de la piece P
-     * (x*nbRows + y*nbCols - (x+y))
      * @param p : Piece
      * @return position : p
      */
     int getPosition(const Piece &p) const;
+
+    /**
+     * @brief height
+     * @return
+     */
+    int height()    const { return instance->height(); }
+    /**
+     * @brief width
+     * @return
+     */
+    int width()     const { return instance->width(); }
 
     /**
      * Ajout d'une position
@@ -63,7 +76,7 @@ public:
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
-    bool isValid() { return (unsigned)(nbRows * nbCols) == vectPosition.size(); }
+    bool isValid() { return (unsigned)(instance->width()* instance->height()) == vectPosition.size(); }
 
     /**
      * Impression sur un flux de l'instance
@@ -91,8 +104,18 @@ public:
      */
     bool tryLoadFile(const std::string& fileName);
 
-
+    /**
+     * Création des placements aléatoires des pièces (nécessaire pour l'affichage)
+     */
     void randomConfiguration();
+
+    /**
+     * Génération de configurations aléatoires à partir de l'instance
+     * @param instance : Instance en question
+     * @param limit : nombre de configuration-s généré-es
+     * @return Configuration -s généré-es
+     * @author FOURMOND Jérôme
+     */
     static std::vector<Configuration*>&  generateRandomConfigurations(Instance instance, int limit);
 
 };
