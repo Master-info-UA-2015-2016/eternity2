@@ -83,9 +83,9 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
     for (int i= 0; i < 4; ++i) {
 
         Motif colors= get_color(motif[i]);
-        bufferPainter->fillPath(path1, QBrush(Qt::green));
+        bufferPainter->fillPath(path1, QBrush(*colors.get_color_int()));
         bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
-                                Qt::blue);
+                                *colors.get_color_ext());
 //        bufferPainter->rotate(10.0);
     }
 
