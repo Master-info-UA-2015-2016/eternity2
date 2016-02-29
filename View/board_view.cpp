@@ -22,24 +22,19 @@ BoardWidget::BoardWidget(Board *b, QWidget *parent) :
 void BoardWidget::init_board(Board *b)
 {
     board= b;
+    int w_tmp = width() / b->getConfig().width();
+    int h_tmp = height() / b->getConfig().height();
+
+    if(w_tmp < h_tmp)
+        cell_size = w_tmp;
+    else
+        cell_size = h_tmp;
+
 }
 
 // ########################
 /***		Affichages	***/
 // ########################
-void BoardWidget::drawCell(int column, int line)
-{
-//    buffer = new QImage(100, 100, QImage::Format_ARGB32); // TODO Temporaire, à déplacer
-
-    cout <<"draw cell : "<< column<< " ; " << line<< endl ;
-    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
-    bufferPainter->fillRect(column, line, 3, 3, Qt::white);
-//    #if DEBUG_TMATRICE
-    cout <<"draw cell : "<< column<< " ; " << line<< endl ;
-//    #endif
-    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
-    update();
-}
 
 //void BoardWidget::drawPiece(const PieceView* p)
 //{
@@ -64,6 +59,7 @@ void BoardWidget::drawCell(int column, int line)
 
 void BoardWidget::drawPiece(int column, int line, int motif[4])
 {
+    /*
     bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
 
 //        QVector<QPointF> tri_points(3);
@@ -101,21 +97,15 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
 //    bufferPainter->rotate();
 
     bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
+    */
+
+
+
 }
-
-
-//void BoardWidget::drawList(std::map<Cell*, Coordinates> cells){
-
-//    for( map< Cell *, Coordinates>::const_iterator j( cells->begin() ); j != cells->end(); ++j){
-//        if (j.first().has_piece())
-//            drawPiece(*j);
-//        else drawCell(j.second().col, j.second().row);
-//    }
-//    cells->clear();
-//}
 
 void BoardWidget::drawBoard()
 {
+    /*
     bufferPainter->begin(buffer);
 
     int current_height, current_width;
@@ -152,83 +142,9 @@ void BoardWidget::drawBoard()
     cout <<"fin draw forest ; "<< endl;
     #endif
 //    } // FIN_Dessin d'image
+*/
+
 }
-
-//bool PiecesWidget::tryDrawPicture()
-//{
-//    if (!pictureForest->isNull()){
-//        bufferPainter->begin(buffer);
-//        bufferPainter->drawImage(0, 0, *pictureForest);
-//        bufferPainter->end();
-
-//        return true;
-//    }
-//    else return false;
-//}
-
-//bool PiecesWidget::tryDrawPictureBoard()
-//{
-//    // essai de dessin de l'image de fond, si présente
-//    if (tryDrawPicture()){
-//        // si il y a une image de fond, on ne dessine pas les arbres "neutres"
-
-//        bufferPainter->begin(buffer);
-//        int current_hauteur= 0;
-//        for(int i=0; i<forest->height(); ++i){
-//            // On ne passe pas la hauteur de la grille mais le nombre de colonne*taille de colonne pour
-//            // éviter la petite zone en bas de grille
-//            vector< Cell* >* ligne= (*forest)[i];
-
-//            int current_largeur= 0;
-//            for( vector< Cell* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
-//                Cell* cell= *j;
-//                if(cell->has_piece()){
-//                    // On vérifie ici si l'arbre a recu un retardateur
-//                    // i.e son coefficient est inférieur à 1
-//                    if(dynamic_cast < Arbre* >(cell)->getCoeff() < 1){
-//                        setColor(BlueTrans);
-//                        drawCell(current_largeur, current_hauteur);
-//                    }
-//                }
-//                else {
-//                    if(dynamic_cast < Arbre* >(cell)->getCoeff() < 1)
-//                        setColor(Orange);
-//                    else setColor(Red);
-
-//                    drawCell(current_largeur, current_hauteur);
-//                }
-
-//                // Incrémentation des positions des Cells
-//                current_largeur += 1;
-//            }
-//            #if DEBUG_TMATRICE
-//            cout << endl;
-//            #endif
-//            current_hauteur += 1;
-//        }
-
-//        bufferPainter->end();
-
-//        return true;
-//    }
-//    else return false;
-//}
-
-
-//void BoardWidget::drawChanged()
-//{
-//    bufferPainter->begin(buffer);
-
-////    setColor(Red);
-//    drawList(board->getPlaced());
-//    board->clearPlaced();
-
-////    setColor(Qt::White);
-//    drawList(board->getUnplaced());
-//    board->clearUnplaced();
-
-//    bufferPainter->end();
-//}
 
 // Test perf
 #if PERF_REDRAW
@@ -237,6 +153,7 @@ int num_redraw= 0;
 
 void BoardWidget::redraw()
 {
+    /*
     #if PERF_REDRAW
     ++num_redraw;
     cout << "test redraw BoardWidget"<< num_redraw<< endl;
@@ -252,6 +169,7 @@ void BoardWidget::redraw()
     drawBoard();
 //    drawChanged();
     update();	// TODO apparemment non utile, update fait resize
+    */
 }
 
 /**
@@ -311,21 +229,6 @@ Motif* BoardWidget::get_color(int id)
 /*** 		Events 	***/
 // ##################
 
-void BoardWidget::mousePressEvent(QMouseEvent *event)
-{
-
-}
-
-void BoardWidget::mouseMoveEvent(QMouseEvent *event)
-{
-
-}
-
-void BoardWidget::mouseReleaseEvent(QMouseEvent *event)
-{
-
-}
-
 void BoardWidget::resizeEvent(QResizeEvent *event)
 {
     cell_size= event->size().height() / board->height();
@@ -337,6 +240,6 @@ void BoardWidget::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
     std::cout << "BoardWidget_paintEvent : affichage plateau"<< std::endl;
     QPainter paint(this);
-    paint.scale(cell_size/(3 * DRAW_SCALE), cell_size/(3 * DRAW_SCALE));
+//    paint.scale(cell_size/(3 * DRAW_SCALE), cell_size/(3 * DRAW_SCALE));
     paint.drawImage(0, 0, *buffer);
 }

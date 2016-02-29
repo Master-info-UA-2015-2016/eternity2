@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
      * Utiliser le bloc ci-dessous pour Appli Qt
      * @return
      */
-    /*
+//    /*
     QApplication a(argc, argv);
 
 /// TODO A placer dans mainwindow
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
       */
 
     // Test piece et instance
-
+/*
     int tab_tmp[4];
 
     for(int i = 0; i < 4; ++i ){
@@ -71,4 +71,5 @@ int main(int argc, char *argv[])
     cout << rotate[0] << endl;
 
     return 0;
+*/
 }
