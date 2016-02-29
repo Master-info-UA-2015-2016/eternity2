@@ -59,37 +59,31 @@ void BoardWidget::init_board(Board *b)
 
 void BoardWidget::drawPiece(int column, int line, int motif[4])
 {
+    QPointF top= column* DRAW_SCALE,      line* DRAW_SCALE;
+    QPointF middle= column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE;
+    QPointF bottom= (column* DRAW_SCALE,      line* DRAW_SCALE);
+
     /*
     bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
 
 //        QVector<QPointF> tri_points(3);
-//        tri_points.push_back(QPointF(column, line));
-//        tri_points.push_back(QPointF(column, line + 12.0));
-//        tri_points.push_back(QPointF(column + 6.0, line + 6.0));
+//        tri_points.push_back(top);
+//        tri_points.push_back(middle);
+//        tri_points.push_back(bottom);
 
 //        QPolygonF triangle(tri_points);
 //    QPainterPath path;
 //    path.addPolygon(triangle);
 
-
-    bufferPainter->setBrushOrigin(QPointF(column* DRAW_SCALE,      line* DRAW_SCALE));
-
-//    QPainterPath path(QPointF(column, line));
-        QPainterPath path1(QPointF(column* DRAW_SCALE,      line* DRAW_SCALE));           // Coin en haut à gauche
-        path1.lineTo(QPointF(column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE )); // Coin milieu droit
-        path1.lineTo(QPointF((column + 1.5) * DRAW_SCALE,   (line + 1.5) * DRAW_SCALE));  // Coin en bas à gauche
-        path1.lineTo(QPointF(column * DRAW_SCALE,           line * DRAW_SCALE));          // Coin en haut à gauche
+    QPainterPath path1(top);           // Coin en haut à gauche
+        path1.lineTo(middle); // Coin milieu droit
+        path1.lineTo(bottom);  // Coin en bas à gauche
+        path1.lineTo(top);          // Coin en haut à gauche
     for (int i= 0; i < 4; ++i) {
         bufferPainter->fillPath(path1, QBrush(Qt::red));
         bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,     Qt::blue);
         bufferPainter->rotate(10.0);
     }
-
-//    QPainterPath path2(QPointF( (column +1.5)* DRAW_SCALE, line* DRAW_SCALE));          // Coin en haut à droite
-//    path2.lineTo(QPointF( column * DRAW_SCALE,          (line + 3.0) * DRAW_SCALE ));   // Coin milieu gauche
-//    path2.lineTo(QPointF((column + 3.0) * DRAW_SCALE,   (line + 1.5) * DRAW_SCALE));    // Coin en bas à droite
-//    path2.lineTo(QPointF((column + 3.0) * DRAW_SCALE,    line * DRAW_SCALE));            // Coin en haut à droite
-//    bufferPainter->fillPath(path2, QBrush(Qt::yellow));
 
     #if DEBUG_TMATRICE
     cout <<"draw piece ; ";
@@ -98,9 +92,6 @@ void BoardWidget::drawPiece(int column, int line, int motif[4])
 
     bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
     */
-
-
-
 }
 
 void BoardWidget::drawBoard()
