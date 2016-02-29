@@ -48,7 +48,9 @@ ostream& Configuration::print(ostream& out){
     for(int i=0 ; i<instance->width() ; ++i) {
         for(int j=0 ; j<instance->height() ; ++j) {
             pair<int, int> p = getPiece(i, j);
-            out << "Case (" << i << "," << j << ") : " << p.first << " Rotation : " << p.second << endl;
+
+            out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tSONE = ";
+
             const Piece& P = instance->get_vectPieces()->at(p.first-1);
 
             const int* swne ;
@@ -59,7 +61,12 @@ ostream& Configuration::print(ostream& out){
             }
 
             for(int l=0; l<MAX_CARD; ++l){
-                out << swne[l] << " ; ";
+                if(l==0)
+                    out << "[" << swne[l] << ",";
+                else if(l==MAX_CARD-1)
+                    out << swne[l] << "]";
+                else
+                    out << swne[l] << " ; ";
             }
             out << endl;
         }
@@ -134,16 +141,15 @@ void Configuration::randomConfiguration() {
     }
 }
 
-vector<Configuration*>&  Configuration::generateRandomConfigurations(Instance instance, int limit) {
+vector<Configuration*>&  Configuration::generateRandomConfigurations(const Instance * instance, int limit) {
     vector<Configuration*>& configurations= *(new vector<Configuration*>);
 
     srand(time(NULL));
 
     for(int ind_conf=0 ; ind_conf < limit ; ind_conf++) {
-        Configuration* configuration= new Configuration(&instance);
+        Configuration* configuration= new Configuration(instance);
         configuration->randomConfiguration();
 
-        cout << configuration->instance->width() << endl;
         configurations.push_back(configuration);
     }
 

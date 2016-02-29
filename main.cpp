@@ -7,6 +7,7 @@
 #include "Model/board_model.h"
 #include "Model/configuration.h"
 #include "View/board_view.h"
+#include "algorithm.h"
 
 using namespace std;
 
@@ -15,9 +16,7 @@ int main(int argc, char *argv[])
     Instance inst;
     inst.tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
 
-    Configuration c(&inst);
-    c.randomConfiguration();
-    cout << c;
+    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);
 

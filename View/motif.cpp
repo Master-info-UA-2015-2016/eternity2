@@ -113,6 +113,7 @@ void Motif::set_color_ext(QColor *col)
     color_ext = col;
 }
 
+
 QColor* Motif::getQColorFromInt(int color){
     QColor* tmp= new QColor;
 

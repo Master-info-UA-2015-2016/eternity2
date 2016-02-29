@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     View/board_view.cpp \
     View/motif.cpp \
     View/mainwindow.cpp \
-    Tools/string_tools.cpp
+    Tools/string_tools.cpp \
+    algorithm.cpp
 
 HEADERS  +=  Model/instance_model.h \
     Model/piece_model.h \
@@ -34,10 +35,14 @@ HEADERS  +=  Model/instance_model.h \
     View/board_view.h \
     View/motif.h \
     View/mainwindow.h \
-    Tools/string_tools.h
+    Tools/string_tools.h \
+    algorithm.h
 
 FORMS    += mainwindow.ui \
     exemple.ui
 
 OTHER_FILES += \
     TODO.txt
+
+DISTFILES += \
+    recherche_locale.txt

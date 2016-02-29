@@ -37,15 +37,11 @@ void BoardWidget::init_board(Board *b)
 // ########################
 
 // INUTILISE POUR L'INSTANT : dessine un triangle à partir d'un QVector
-//        QVector<QPointF> tri_points(3);
-//        tri_points.push_back(top);
-//        tri_points.push_back(middle);
-//        tri_points.push_back(bottom);
-
-//        QPolygonF triangle(tri_points);
-//    QPainterPath path;
-//    path.addPolygon(triangle);
-
+//    //        QVector<QPointF> tri_points(3);
+//    //        tri_points.push_back(QPointF(0.0, 0.0));
+//    //        tri_points.push_back(QPointF(-1.5, -1.5));
+//    //        tri_points.push_back(QPointF(0.0, -3.0));
+//    //        QPolygonF triangle(tri_points);
 
 void BoardWidget::drawPiece(int column, int row, int motif[4])
 {
