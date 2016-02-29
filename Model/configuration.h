@@ -114,7 +114,7 @@ public:
      * @return Configuration -s généré-es
      * @author FOURMOND Jérôme
      */
-    static std::vector<Configuration*>&  generateRandomConfigurations(Instance instance, int limit);
+    static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
 
 };
 
