@@ -25,8 +25,7 @@ SOURCES += main.cpp \
     Tools/string_tools.cpp \
     algorithm.cpp
 
-HEADERS  += mainwindow.h \
-    Model/instance_model.h \
+HEADERS  +=  Model/instance_model.h \
     Model/piece_model.h \
     Model/board_model.h \
     Model/coordinates.h \

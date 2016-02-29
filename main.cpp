@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
     MainWindow w;
     if (w.init_configuration("../eternity2/instances_puzzles/pieces_04x04.txt")) {
 
-    //    w.show();
-    //    w.showBoard();
+//        w.show();
+//        w.showBoard();
         return app.exec();
     } else {
         return EXIT_FAILURE;
