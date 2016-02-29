@@ -1,5 +1,7 @@
 #include "board_view.h"
 
+#define DRAW_SCALE 16.0
+
 using namespace std;
 
 BoardWidget::BoardWidget(QWidget *parent) :
@@ -60,27 +62,41 @@ void BoardWidget::drawCell(int column, int line)
 //    #endif
 //}
 
-void BoardWidget::drawPiece(int column, int line, Motif* motif)
+void BoardWidget::drawPiece(int column, int line, int motif[4])
 {
-    //        QVector<QPointF> tri_points(3);
-    //        tri_points.push_back(QPointF(0.0, 0.0));
-    //        tri_points.push_back(QPointF(-1.5, -1.5));
-    //        tri_points.push_back(QPointF(0.0, -3.0));
+    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
 
-    //        QPolygonF triangle(tri_points);
+//        QVector<QPointF> tri_points(3);
+//        tri_points.push_back(QPointF(column, line));
+//        tri_points.push_back(QPointF(column, line + 12.0));
+//        tri_points.push_back(QPointF(column + 6.0, line + 6.0));
 
-    QPainterPath path(QPointF(0.0, 0.0));
-    path.lineTo(QPointF(-1.5, -1.5));
-    path.lineTo(QPointF(0.0, -3.0));
-    //        path.addPolygon(triangle);
+//        QPolygonF triangle(tri_points);
+//    QPainterPath path;
+//    path.addPolygon(triangle);
 
-//    bufferPainter->fillPath(path, QBrush(*(motif->get_color_ext())));
-    bufferPainter->fillPath(path, QBrush(Qt::red));
-//    bufferPainter->fillRect(column *3 +1, line *3 +1, 1, 1, *(motif->get_color_int()));
-    bufferPainter->fillRect(column *3 +1, line *3 +1, 1, 1,     Qt::blue);
+
+
+//    QPainterPath path(QPointF(column, line));
+    QPainterPath path1(QPointF(column* DRAW_SCALE,      line* DRAW_SCALE));           // Coin en haut à gauche
+    path1.lineTo(QPointF(column * DRAW_SCALE,           (line + 3.0) * DRAW_SCALE )); // Coin milieu droit
+    path1.lineTo(QPointF((column + 1.5) * DRAW_SCALE,   (line + 1.5) * DRAW_SCALE));  // Coin en bas à gauche
+    path1.lineTo(QPointF(column * DRAW_SCALE,           line * DRAW_SCALE));          // Coin en haut à gauche
+    bufferPainter->fillPath(path1, QBrush(Qt::red));
+    bufferPainter->fillRect(column* DRAW_SCALE , (line +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,     Qt::blue);
+
+//    QPainterPath path2(QPointF( (column +1.5)* DRAW_SCALE, line* DRAW_SCALE));          // Coin en haut à droite
+//    path2.lineTo(QPointF( column * DRAW_SCALE,          (line + 3.0) * DRAW_SCALE ));   // Coin milieu gauche
+//    path2.lineTo(QPointF((column + 3.0) * DRAW_SCALE,   (line + 1.5) * DRAW_SCALE));    // Coin en bas à droite
+//    path2.lineTo(QPointF((column + 3.0) * DRAW_SCALE,    line * DRAW_SCALE));            // Coin en haut à droite
+//    bufferPainter->fillPath(path2, QBrush(Qt::yellow));
+
     #if DEBUG_TMATRICE
     cout <<"draw piece ; ";
     #endif
+//    bufferPainter->rotate();
+
+    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
 }
 
 
@@ -227,7 +243,7 @@ void BoardWidget::redraw()
     if (!buffer->isNull()){
         delete(buffer);
     }
-    buffer = new QImage(board->width() *3, board->height() *3, QImage::Format_ARGB32);
+    buffer = new QImage(board->width() *3 * DRAW_SCALE, board->height() *3 * DRAW_SCALE, QImage::Format_ARGB32);
 
     drawBoard();
 //    drawChanged();
@@ -264,6 +280,6 @@ void BoardWidget::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
     std::cout << "BoardWidget_paintEvent : affichage plateau"<< std::endl;
     QPainter paint(this);
-    paint.scale(cell_size/3, cell_size/3);
+    paint.scale(cell_size/(3 * DRAW_SCALE), cell_size/(3 * DRAW_SCALE));
     paint.drawImage(0, 0, *buffer);
 }

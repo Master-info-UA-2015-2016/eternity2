@@ -33,7 +33,9 @@ int main(int argc, char *argv[])
     //    w.showBoard();
         BoardWidget* board_view= new BoardWidget(board_model);
         board_view->show();
-        board_view->drawCell(1,1);
+//        board_view->drawCell(1,1);
+        int motif[4]= {1,2,3,4};
+        board_view->drawPiece(2,2, motif);
 
         return a.exec();
 //    }
