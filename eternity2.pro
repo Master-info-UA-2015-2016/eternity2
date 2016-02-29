@@ -22,7 +22,9 @@ SOURCES += main.cpp \
     View/board_view.cpp \
     View/motif.cpp \
     View/mainwindow.cpp \
-    Tools/string_tools.cpp
+    Tools/string_tools.cpp \
+    Model/configuration_BACKUP_3636.cpp \
+    algorithm.cpp
 
 HEADERS  += mainwindow.h \
     Model/instance_model.h \
@@ -35,7 +37,9 @@ HEADERS  += mainwindow.h \
     View/board_view.h \
     View/motif.h \
     View/mainwindow.h \
-    Tools/string_tools.h
+    Tools/string_tools.h \
+    Model/configuration_BACKUP_7700.h \
+    algorithm.h
 
 FORMS    += mainwindow.ui \
     exemple.ui
