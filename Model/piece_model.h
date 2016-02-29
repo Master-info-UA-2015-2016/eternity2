@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-enum Colors{Gray, Red, Orange, BlueTrans, BrownCut, Brownie, NBColorsBeforeGreens, Green0, Green1};
-
 /**
  * Classe représentant une pièce. haque pièce dispose d'un identifiant et d'un tableau
  * de 4 entiers représentant les différentes couleurs de la pièce.

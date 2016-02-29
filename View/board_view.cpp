@@ -250,6 +250,59 @@ void BoardWidget::redraw()
     update();	// TODO apparemment non utile, update fait resize
 }
 
+/**
+  * A partir d'un id, créé et retourne un motif (unique)
+  * @author Antoine
+  */
+/*
+Motif* BoardWidget::get_color(int id)
+{
+    switch(id){
+        case 0:
+            case Black:
+                this->color->setRgb(0,0,0);
+                break;
+            case Gray:
+                this->color->setRgb(128,128,128);
+                break;
+            case Brown:
+                this->color->setRgb(100,50,0);
+                break;
+            case Orange:
+                this->color->setRgb(250,128,0);
+                break;
+            case Pink:
+                this->color->setRgb(250,100,250);
+                break;
+            case Red:
+                this->color->setRgb(255,0,0);
+                break;
+            case Yellow:
+                this->color->setRgb(250,250,0);
+                break;
+            case LightGreen:
+                this->color->setRgb(100,250,100);
+                break;
+            case DarkGreen:
+                this->color->setRgb(0,150,0);
+                break;
+            case LightBlue:
+                this->color->setRgb(100,250,250);
+                break;
+            case DarkBlue:
+                this->color->setRgb(0,0,250);
+                break;
+            case Purple:
+                this->color->setRgb(150,50,250);
+                break;
+            default :
+                this->color->setRgb(255, 255, 255);
+            }
+        }
+}
+
+*/
+
 // ###################
 /*** 		Events 	***/
 // ##################
