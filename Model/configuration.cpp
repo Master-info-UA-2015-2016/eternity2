@@ -209,8 +209,6 @@ bool Configuration::constraintCols() {
     }
     return true;
 
-<<<<<<< HEAD
-
 }
 
 int Configuration::checkPieces(){
@@ -226,6 +224,4 @@ int Configuration::checkPieces(){
     int res = 0;
 
     return res;
-=======
->>>>>>> 4b65afa88fa9a5fb6bab3f15b88cfa77ed19dd28
 }
