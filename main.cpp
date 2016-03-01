@@ -18,14 +18,7 @@ int main(int argc, char *argv[])
     Instance inst;
     inst.tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
 
-    Configuration C(&inst);
-    C.randomConfiguration();
-    cout << C << endl;
-    cout << "Nombre d'erreurs de lignes : " << C.constraintRows() << endl;
-    cout << "Nombre d'erreurs de colonnes : " << C.constraintCols() << endl;
-    cout << "Nombre d'erreurs de coins : " << C.constraintEdges() << endl;
-
-    Algorithm::local_search(&inst);
+//    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);
 
