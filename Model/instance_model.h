@@ -64,6 +64,12 @@ public:
     void set_nbRows(int n) { nbRows = n; }
     void set_nbCols(int m) { nbCols = m; }
 
+    /**
+     * Récupération de la pièce qui porte l'id : id
+     * @param id : l'id à rechercher
+     * @return Piece
+     */
+    const Piece & getPiece(int id) const;
 };
 
 #endif // INSTANCE_MODEL_H

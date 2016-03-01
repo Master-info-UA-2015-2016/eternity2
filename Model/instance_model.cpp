@@ -71,3 +71,7 @@ bool Instance::tryLoadFile(const string& fileName){
     return true;
 
 }
+
+const Piece & Instance::getPiece(int id) const {
+    return (*vectPieces)[id-1];
+}
