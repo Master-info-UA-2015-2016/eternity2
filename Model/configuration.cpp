@@ -279,6 +279,10 @@ int Configuration::checkPieces(){
     //piece i
         for(auto piece : positions){
             int id_piece = piece.first;
+            int piece_S = instance->getPiece(id_piece).get_motif()[0];
+            int piece_W = instance->getPiece(id_piece).get_motif()[1];
+            int piece_N = instance->getPiece(id_piece).get_motif()[2];
+            int piece_E = instance->getPiece(id_piece).get_motif()[3];
 
             /**
              * premiere ligne du puzzle
