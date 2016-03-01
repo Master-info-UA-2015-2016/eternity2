@@ -1,6 +1,7 @@
 #include "board_view.h"
 
-#define DRAW_SCALE 32.0
+#define DRAW_SCALE  32.0
+#define SQUARE_COEF_INVERSE   4.0
 
 using namespace std;
 
@@ -37,7 +38,7 @@ void BoardWidget::drawMotif(const QPainterPath& path, const Motif &colors, const
 #endif
     bufferPainter->fillPath(path, *(colors.get_color_ext()));
     bufferPainter->fillRect(pos_rect.x() * DRAW_SCALE , pos_rect.y() * DRAW_SCALE,
-                            DRAW_SCALE /3.0, DRAW_SCALE /3.0,
+                            DRAW_SCALE / SQUARE_COEF_INVERSE, DRAW_SCALE / SQUARE_COEF_INVERSE,
                             *(colors.get_color_int()) );
 }
 
@@ -69,10 +70,14 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
         path3.lineTo(middle);           // Milieu
         path3.lineTo(bottom_right);     // En haut à gauche
 
-    drawMotif(path0, Motif(motifs[0]), *(new QPointF(column + 0.0,      row + 0.33)) );
-    drawMotif(path1, Motif(motifs[1]), *(new QPointF(column + 0.33,    row + 0.0)) );
-    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 0.70,    row + 0.33)) );
-    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 0.33,    row + 0.70)) );
+    drawMotif(path0, Motif(motifs[0]),
+            *(new QPointF(column + 0.0,      row + (1/2.0)*(1 -1/SQUARE_COEF_INVERSE))) );
+    drawMotif(path1, Motif(motifs[1]),
+            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 0.0)) );
+    drawMotif(path2, Motif(motifs[2]),
+            *(new QPointF(column + 1 -1/SQUARE_COEF_INVERSE,    row + (0.5)*(1 -1/SQUARE_COEF_INVERSE))) );
+    drawMotif(path3, Motif(motifs[3]),
+            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 1 -1/SQUARE_COEF_INVERSE)) );
 }
 
 void BoardWidget::drawBoard()
