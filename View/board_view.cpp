@@ -80,10 +80,10 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
         path3.lineTo(middle);           // Milieu
         path3.lineTo(bottom_right);     // En haut à gauche
 
-    drawMotif(path0, Motif(motifs[0]), *(new QPointF(column + 0.0,      row + 1/3.0)) );
-    drawMotif(path1, Motif(motifs[1]), *(new QPointF(column + 1/3.0,    row + 0.0)) );
-    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 2/3.0,    row + 1/3.0)) );
-    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 1/3.0,    row + 2/3.0)) );
+    drawMotif(path0, Motif(motifs[0]), *(new QPointF(column + 0.0,      row + 0.33)) );
+    drawMotif(path1, Motif(motifs[1]), *(new QPointF(column + 0.33,    row + 0.0)) );
+    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 0.67,    row + 0.33)) );
+    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 0.33,    row + 0.67)) );
 }
 
 void BoardWidget::drawBoard()
@@ -98,11 +98,9 @@ void BoardWidget::drawBoard()
         current_height= i / board->height();
         clog<< " de coordonnées : "<< current_width<< " ; "<< current_height<< endl;
 
-//        pair<int, int> piece= board->getConfig().getPiece(current_width, current_height);
-        Piece piece= board->getConfig().getPiece(current_width, current_height);
-
+        int* colors= board->getConfig().getRotatedMotif(current_width, current_height);
         // On affiche la pièce à la position courante, avec son motif
-        drawPiece(current_width, current_height, piece.get_motif());
+        drawPiece(current_width, current_height, colors);
 //       }
 //      else {
 //               drawCell(current_width, current_height);

@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     MainWindow w;
-    if (w.init_configuration("../eternity2/instances_puzzles/pieces_04x04.txt")) {
+    if (w.init_configuration("../eternity2/instances_puzzles/pieces_16x16.txt")) {
 
 //        w.show(); TODO initialiser correctement et remettre cette ligne
 //        w.showBoard();
