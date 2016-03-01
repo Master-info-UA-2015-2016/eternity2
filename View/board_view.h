@@ -39,6 +39,9 @@ public:
      * @deprecated
      */
     void init_board(Board* b);
+
+    void drawMotif(const QPainterPath &path, const Motif& colors, const QPointF& pos_rect);
+
     /**
      * Imprime une pièce selon sa position, et ses identifiants de motifs
      * @param column

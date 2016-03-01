@@ -43,34 +43,49 @@ void BoardWidget::init_board(Board *b)
 //    //        tri_points.push_back(QPointF(0.0, -3.0));
 //    //        QPolygonF triangle(tri_points);
 
-void BoardWidget::drawPiece(int column, int row, const int motif[4])
+void BoardWidget::drawMotif(const QPainterPath& path, const Motif &colors, const QPointF& pos_rect)
 {
-    QPointF top_left(column * DRAW_SCALE,       row* DRAW_SCALE);
-    QPointF middle((column +0.5) * DRAW_SCALE,  (row +0.5) * DRAW_SCALE);
-    QPointF bottom_left(column * DRAW_SCALE,    (row +1.0) * DRAW_SCALE);
-    QPointF top_right(column * DRAW_SCALE,      (row +1.0)* DRAW_SCALE);
-    QPointF bottom_right((column + 1.0) * DRAW_SCALE,    (row +1.0) * DRAW_SCALE);
+    cout << "Couleurs du motif : "<< colors<< endl;
+    bufferPainter->fillPath(path, colors.get_color_ext());
+    bufferPainter->fillRect((pos_rect.x())* DRAW_SCALE , (pos_rect.y)* DRAW_SCALE,
+                            DRAW_SCALE /3.0, DRAW_SCALE /3.0,
+                            colors.get_color_int() );
+}
+
+void BoardWidget::drawPiece(int column, int row, const int motifs[4])
+{
+    QPointF top_left(column * DRAW_SCALE,            row * DRAW_SCALE);
+    QPointF middle((column +0.5) * DRAW_SCALE,      (row +0.5) * DRAW_SCALE);
+    QPointF bottom_left(column * DRAW_SCALE,        (row +1.0) * DRAW_SCALE);
+    QPointF top_right((column +1.0) * DRAW_SCALE,    row * DRAW_SCALE);
+    QPointF bottom_right((column + 1.0) * DRAW_SCALE,(row +1.0) * DRAW_SCALE);
 
 //    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
 
+    QPainterPath path0(top_left);   // En haut à gauche
+        path0.lineTo(middle);       // Milieu
+        path0.lineTo(bottom_left);  // En bas à gauche
+        path0.lineTo(top_left);     // En haut à gauche
+
     QPainterPath path1(top_left);   // En haut à gauche
+        path1.lineTo(top_right);    // En haut à droite
         path1.lineTo(middle);       // Milieu
-        path1.lineTo(bottom_left);  // En bas à gauche
         path1.lineTo(top_left);     // En haut à gauche
 
-    QPainterPath path2(top_left);   // En haut à gauche
-        path2.lineTo(top_right);    // En haut à droite
+    QPainterPath path2(top_right);   // En haut à gauche
+        path2.lineTo(bottom_right);    // En haut à droite
         path2.lineTo(middle);       // Milieu
-        path2.lineTo(top_left);     // En haut à gauche
+        path2.lineTo(top_right);     // En haut à gauche
 
-    Motif colors(motif[2]);
-    bufferPainter->fillPath(path1, *(colors.get_color_ext()));
-    bufferPainter->fillRect(column* DRAW_SCALE , (row + 1/3.0)* DRAW_SCALE, DRAW_SCALE /3.0, DRAW_SCALE /3.0,
-                                *(colors.get_color_int()) );
-    Motif colors2(motif[3]);
-    bufferPainter->fillPath(path2, *(colors2.get_color_ext()));
-    bufferPainter->fillRect((column + 1/3.0) * DRAW_SCALE , row * DRAW_SCALE, DRAW_SCALE /3.0, DRAW_SCALE /3.0,
-                                *(colors2.get_color_int()) );
+    QPainterPath path3(bottom_right);   // En haut à gauche
+        path3.lineTo(bottom_left);    // En haut à droite
+        path3.lineTo(middle);       // Milieu
+        path3.lineTo(bottom_right);     // En haut à gauche
+
+    drawMotif(Motif(motifs[0]), path0, *(new QPointF(column + 0.0,      row + 1/3.0)) );
+    drawMotif(Motif(motifs[1]), path1, *(new QPointF(column + 1/3.0,    row + 0.0)) );
+    drawMotif(Motif(motifs[2]), path2, *(new QPointF(column + 1.0,      row + 1/3.0)) );
+    drawMotif(Motif(motifs[3]), path3, *(new QPointF(column + 1/3.0,    row + 1.0)) );
 
 //    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
 }
