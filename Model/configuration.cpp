@@ -53,7 +53,7 @@ ostream& Configuration::print(ostream& out){
         for(int j=0 ; j<instance->height() ; ++j) {
             pair<int, int> p = getPair(i, j);
 
-            out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tSONE = ";
+            out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tRotation = " << p.second << "\tSONE = ";
 
             const Piece& P = getPiece(i, j);
 
@@ -70,11 +70,20 @@ ostream& Configuration::print(ostream& out){
                 else if(l==MAX_CARD-1)
                     out << swne[l] << "]";
                 else
-                    out << swne[l] << " ; ";
+                    out << swne[l] << ",";
             }
             out << endl;
         }
     }
+
+    for(int i=0 ; i<instance->width(); i++) {
+        for(int j=0 ; j<instance->height() ; j++) {
+            pair<int, int> p = getPair(j, i);
+            cout << "\t" << p.first << " ";
+        }
+        cout << endl;
+    }
+
     return out;
 }
 
@@ -209,6 +218,45 @@ bool Configuration::constraintCols() {
     }
     return true;
 
+}
+
+bool Configuration::constraintEdges() {
+    const int * swne;
+    pair<int, int> pair;
+    // Coin Nord-Ouest
+    pair = getPair(0,0);
+    Piece P = getPiece(0,0);
+    swne = rotate(P.get_motif(), pair.second);
+    if(swne[1] != 0 || swne[2] != 0) {
+        cout << "\t(*)" << P;
+        return false;
+    }
+    // Coin Nord-Est
+    pair = getPair(0,instance->width()-1);
+    P = getPiece(0,instance->width()-1);
+    swne = rotate(P.get_motif(), pair.second);
+    if(swne[3] != 0 || swne[2] != 0) {
+        cout << "\t(*)" << P;
+        return false;
+    }
+    // Coin Sud-Ouest
+    pair = getPair(instance->height()-1,0);
+    P = getPiece(instance->height()-1,0);
+    swne = rotate(P.get_motif(), pair.second);
+    if(swne[1] != 0 || swne[0] != 0) {
+        cout << "\t(*)" << P;
+        return false;
+    }
+    // Coin Sud-Est
+    pair = getPair(instance->height()-1, instance->height()-1);
+    P = getPiece(instance->height()-1, instance->height()-1);
+    swne = rotate(P.get_motif(), pair.second);
+    if(swne[3] != 0 || swne[0] != 0) {
+        cout << "\t(*)" << P;
+        return false;
+    }
+
+    return true;
 }
 
 int Configuration::checkPieces(){

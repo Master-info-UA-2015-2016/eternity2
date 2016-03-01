@@ -29,6 +29,11 @@ int main(int argc, char *argv[])
     else
         cout << "Contraintes de colonnes non validées." << endl;
 
+    if(C.constraintEdges())
+        cout << "Contraintes de coins validées !" << endl;
+    else
+        cout << "Contraintes de coins non validées." << endl;
+
 //    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);
