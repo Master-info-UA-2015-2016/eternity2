@@ -33,6 +33,6 @@ tout en affichant à l'écran la solution optimale courante et l'évolution de l
 de l'algorithme.
 
 ## TO DO
-* ~(Modélisation)~
-* ~(Interface graphique)~
+* ~~(Modélisation)~~
+* ~~(Interface graphique)~~
 * Implémentation des algorithmes
