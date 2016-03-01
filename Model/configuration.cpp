@@ -271,7 +271,7 @@ int Configuration::checkPieces(){
                 Ajouter P à vect (indice de la pièce P à 1 dans vect)
             Fin TantQue
     */
-    int res = 0;
+    int nb_erreurs = 0;
 
     //aucune piece n'est traitee au debut
     vector<bool> pieces_traitees;
@@ -311,6 +311,9 @@ int Configuration::checkPieces(){
              */
             //premiere case de la ligne
             if(id_piece % width() == 0){
+                if(piece_N == instance->getPiece(id_piece-width()).get_motif()[0]){
+                    ++nb_erreurs;
+                }
 
             }
 
@@ -348,5 +351,5 @@ int Configuration::checkPieces(){
         }
 
 
-    return res;
+    return nb_erreurs;
 }
