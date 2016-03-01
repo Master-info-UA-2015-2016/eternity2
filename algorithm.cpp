@@ -3,7 +3,10 @@
 using namespace std;
 
 Algorithm::Algorithm()
-{
+{}
+
+int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
+//    assert(C1.getVectPosition().size() == C2.getVectPosition().size());
 
 }
 

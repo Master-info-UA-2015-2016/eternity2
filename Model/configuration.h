@@ -17,7 +17,7 @@ class Configuration
 {
 private:
     const Instance* instance;
-    std::vector<std::pair<int, int> > vectPosition;
+    std::vector<std::pair<int, int> > positions;
 
 public:
 
@@ -35,7 +35,8 @@ public:
 
     /*** Getters ***/
 
-    std::vector<std::pair<int, int> >& getVectPosition() ;
+    const std::vector<std::pair<int, int> >& getPositions() const
+        {return positions;}
 
     /**
      * Récupération de la paire en position (x, y)
@@ -76,13 +77,13 @@ public:
      * Ajout d'une position
      * @param position
      */
-    void placePiece(std::pair<int, int> piece){ vectPosition.push_back(piece); }
+    void placePiece(std::pair<int, int> piece){ positions.push_back(piece); }
 
     /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
-    bool isValid() { return (unsigned)(instance->width()* instance->height()) == vectPosition.size(); }
+    bool isValid() { return (unsigned)(instance->width()* instance->height()) == positions.size(); }
 
     /**
      * Impression sur un flux de l'instance

@@ -4,6 +4,7 @@
 #include "Model/instance_model.h"
 #include "Model/configuration.h"
 
+#include <assert.h>
 #include <vector>
 
 /**
@@ -15,6 +16,8 @@ class Algorithm
 {
     public:
         Algorithm();
+
+        int vicinity(const Configuration & C1, const Configuration & C2);
 
         static void local_search(const Instance * instance);
 };

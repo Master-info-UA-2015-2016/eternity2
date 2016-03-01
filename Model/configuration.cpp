@@ -23,12 +23,8 @@ Configuration::Configuration(const string& fileName)
     else { instance = inst; }
 }
 
-vector<pair<int, int> >& Configuration::getVectPosition() {
-    return vectPosition;
-}
-
 const pair<int, int>& Configuration::getPair(int x, int y) const {
-    const pair<int, int>& position = vectPosition[x + y * instance->width()];
+    const pair<int, int>& position = positions[x + y * instance->width()];
     return position;
 }
 
@@ -41,7 +37,7 @@ int Configuration::getPosition(const Piece& p) const {
     bool found = false;
     int ind = 0;
     while(!found) {
-        if(vectPosition[ind].first == p.get_id())
+        if(positions[ind].first == p.get_id())
             found = true;
         else ind++;
     }
@@ -115,10 +111,10 @@ bool Configuration::tryLoadFile(const string &fileName){
 
                 vector<string>& tokens = explode(line);
 
-                vectPosition.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
+                positions.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
             }
 
-            if(vectPosition.size() != (unsigned)(instance->width() * instance->height()) ){
+            if(positions.size() != (unsigned)(instance->width() * instance->height()) ){
                 cerr << "Fichier de configuration incomplet" << endl;
                 return false;
             } else {
@@ -281,7 +277,7 @@ int Configuration::checkPieces(){
     }
 
     //piece i
-        for(auto piece : vectPosition){
+        for(auto piece : positions){
             int id_piece = piece.first;
 
             //comparaison avec le S
