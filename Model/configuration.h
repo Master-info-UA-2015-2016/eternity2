@@ -124,7 +124,9 @@ public:
      */
     static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
 
-    bool constraintLines();
+    bool constraintRows();
+
+    bool constraintCols();
 
 };
 

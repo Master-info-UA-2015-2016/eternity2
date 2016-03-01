@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 Configuration::Configuration() :
     instance()
 {
@@ -56,7 +55,7 @@ ostream& Configuration::print(ostream& out){
 
             out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tSONE = ";
 
-            const Piece& P = instance->get_vectPieces()->at(p.first-1);
+            const Piece& P = getPiece(i, j);
 
             const int* swne ;
             if(p.second != 0) {
@@ -161,7 +160,26 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
     return configurations;
 }
 
-bool Configuration::constraintLines() {
+bool Configuration::constraintRows() {
+    const int * swne;
+    // Vérification de la première ligne (Contrainte Ligne Nord)
+    for(int i=0 ; i<instance->width() ; i++) {
+        const pair<int, int> & pair = getPair(i, 0);
+        const Piece & P = getPiece(i, 0);
+        swne = rotate(P.get_motif(), pair.second);
+        if(swne[2] != 0) return false;
+    }
+    // Vérification de la seconde ligne (Contrainte Ligne Sud)
+    for(int i=0 ; i<instance->width() ; i++) {
+        const pair<int, int> & pair = getPair(i, instance->height()-1);
+        const Piece & P = getPiece(i, instance->height()-1);
+        swne = rotate(P.get_motif(), pair.second);
+        if(swne[0] != 0) return false;
+    }
+    return true;
+}
+
+bool Configuration::constraintCols() {
 
 
 }
