@@ -65,11 +65,11 @@ void BoardWidget::drawPiece(int column, int row, const int motif[4])
 
     Motif colors(motif[2]);
     bufferPainter->fillPath(path1, *(colors.get_color_ext()));
-    bufferPainter->fillRect(column* DRAW_SCALE , (row +1)* DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
+    bufferPainter->fillRect(column* DRAW_SCALE , (row + 1/3.0)* DRAW_SCALE, DRAW_SCALE /3.0, DRAW_SCALE /3.0,
                                 *(colors.get_color_int()) );
     Motif colors2(motif[3]);
     bufferPainter->fillPath(path2, *(colors2.get_color_ext()));
-    bufferPainter->fillRect((column +1) * DRAW_SCALE , row * DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
+    bufferPainter->fillRect((column + 1/3.0) * DRAW_SCALE , row * DRAW_SCALE, DRAW_SCALE /3.0, DRAW_SCALE /3.0,
                                 *(colors2.get_color_int()) );
 
 //    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
@@ -81,14 +81,14 @@ void BoardWidget::drawBoard()
     bufferPainter->begin(buffer);
 
     int current_height, current_width;
-    for(int i= 0; i < board->height() * board->width() -4; ++i){
+    for(int i= 0; i < board->height() * board->width(); ++i){
         clog << "Affichage de la pièce num "<< i;
-        current_width= 1 + i % board->width();
-        current_height= 1 + i / board->height();
+        current_width= i % board->width();
+        current_height= i / board->height();
         clog<< " de coordonnées : "<< current_width<< " ; "<< current_height<< endl;
 
 //        pair<int, int> piece= board->getConfig().getPiece(current_width, current_height);
-        Piece piece= board->getConfig().getPiece(current_width -1, current_height -1);
+        Piece piece= board->getConfig().getPiece(current_width, current_height);
 
         // On affiche la pièce à la position courante, avec son motif
         drawPiece(current_width, current_height, piece.get_motif());
@@ -125,7 +125,7 @@ void BoardWidget::redraw()
     if (!buffer->isNull()){
         delete(buffer);
     }
-    buffer = new QImage(board->width() *3 * DRAW_SCALE, board->height() *3 * DRAW_SCALE, QImage::Format_ARGB32);
+    buffer = new QImage(board->width() * DRAW_SCALE, board->height() * DRAW_SCALE, QImage::Format_ARGB32);
 
     drawBoard();
     update();	// TODO apparemment non utile, update fait resize
