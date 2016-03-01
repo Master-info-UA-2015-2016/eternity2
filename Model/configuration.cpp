@@ -267,7 +267,7 @@ int Configuration::checkPieces(){
             Initialiser un vector de bool (vect[i] = 1 si la pièce i a déjà été traité)
             Tant qu'il reste des pièces à vérifier faire
                 Prendre une pièce P qui n'est pas dans vect
-                Comparer P à ses pièces adjacentes (S, W, N, E)
+                Comparer P à ses pièces adjacentes (S et E ayant subit la rotation)
                 Ajouter P à vect (indice de la pièce P à 1 dans vect)
             Fin TantQue
     */
@@ -280,74 +280,41 @@ int Configuration::checkPieces(){
     }
 
     //piece i
+        int indice = 0;
         for(auto piece : positions){
-            int id_piece = piece.first;
-            int piece_S = instance->getPiece(id_piece).get_motif()[0];
-            int piece_W = instance->getPiece(id_piece).get_motif()[1];
-            int piece_N = instance->getPiece(id_piece).get_motif()[2];
-            int piece_E = instance->getPiece(id_piece).get_motif()[3];
+            if(indice != height()*width()-1){
+                int id_piece = piece.first;
+                int piece_S = instance->getPiece(id_piece).rotate(piece.second)[0];
+                int piece_E = instance->getPiece(id_piece).rotate(piece.second)[3];
 
-            /**
-             * premiere ligne du puzzle
-             */
-            if(id_piece < width()){
-                //premiere case de la ligne
-                if(id_piece % width() == 0){
+                //derniere ligne du puzzle - est seulement
+                if(indice > width()*height() - width()){
+                    int tmp_rot = positions[getPosition(instance->getPiece(id_piece+1))].second;
+                    int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot)[1];
+                    if(piece_tmp_ouest != piece_E) ++nb_erreurs;
+                } else
+                if(indice % width() == 0){
+                    //derniere case d'une ligne - comparaison sud seulement
+                    int tmp_rot = positions[getPosition(instance->getPiece(id_piece+width()))].second;
+                    int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot)[2];
+                    if(piece_tmp_nord != piece_S) ++nb_erreurs;
 
+                } else {
+                    //comparaison sud et est
+                    int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1))].second;
+                    int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()))].second;
+
+                    int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot_est)[1];
+                    int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot_sud)[2];
+                    if(piece_tmp_ouest != piece_E) ++nb_erreurs;
+                    if(piece_tmp_nord != piece_S) ++nb_erreurs;
                 }
 
-                //cases interieures
 
-
-                //derniere case de la ligne
-                if(id_piece % width() == width()-1){
-
-                }
-
+            //ajout de la pièce à vect
+            pieces_traitees[id_piece] = true;
+            ++indice;
             }
-
-            /**
-             * milieu du puzzle
-             */
-            //premiere case de la ligne
-            if(id_piece % width() == 0){
-                if(piece_N == instance->getPiece(id_piece-width()).get_motif()[0]){
-                    ++nb_erreurs;
-                }
-
-            }
-
-            //cases interieures
-
-
-            //derniere case de la ligne
-            if(id_piece % width() == width()-1){
-
-            }
-
-
-            /**
-             * derniere ligne du puzzle
-             */
-            if(id_piece < height()*width() - width()){
-                //premiere case de la ligne
-                if(id_piece % width() == 0){
-
-                }
-
-                //cases interieures
-
-
-                //derniere case de la ligne
-                if(id_piece % width() == width()-1){
-
-                }
-            }
-
-
-
-        //ajout de la pièce à vect
-        pieces_traitees[id_piece] = true;
         }
 
 
