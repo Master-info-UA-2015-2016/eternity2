@@ -33,6 +33,12 @@ const Piece & Configuration::getPiece(int x, int y) const {
     return piece;
 }
 
+int * Configuration::getRotatedMotif(int x, int y) const {
+    pair<int, int> position = getPair(x, y);
+    Piece P = getPiece(x, y);
+    return P.rotate(position.second);
+}
+
 int Configuration::getPosition(const Piece& p) const {
     bool found = false;
     int ind = 0;
@@ -51,13 +57,13 @@ ostream& Configuration::print(ostream& out){
 
             out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tRotation = " << p.second << "\tSONE = ";
 
-            const Piece& P = getPiece(i, j);
+            const Piece& piece = getPiece(i, j);
 
             const int* swne ;
             if(p.second != 0) {
-                swne = rotate(P.get_motif(), p.second );
+                swne = piece.rotate(p.second );
             } else {
-                swne = P.get_motif();
+                swne = piece.get_motif();
             }
 
             for(int l=0; l<MAX_CARD; ++l){
@@ -83,15 +89,15 @@ ostream& Configuration::print(ostream& out){
     return out;
 }
 
-int* Configuration::rotate(const int* motif,int nbRotation){
-    int* tmp = new int;
-    copy(motif, motif+4, tmp);
+//int* Configuration::rotate(const int* motif,int nbRotation){
+//    int* tmp = new int;
+//    copy(motif, motif+4, tmp);
 
-    for(int i=0 ; i<nbRotation ; i++)
-        std::rotate(tmp, tmp+3 , tmp+4);
+//    for(int i=0 ; i<nbRotation ; i++)
+//        std::rotate(tmp, tmp+3 , tmp+4);
 
-    return tmp;
-}
+//    return tmp;
+//}
 
 bool Configuration::tryLoadFile(const string &fileName){
     if( instance->width() * instance->height() == 0){
@@ -168,20 +174,20 @@ int Configuration::constraintRows() {
     // Vérification de la première ligne (Contrainte Ligne Nord)
     for(int i=0 ; i<instance->width() ; i++) {
         const pair<int, int> & pair = getPair(i, 0);
-        const Piece & P = getPiece(i, 0);
-        swne = rotate(P.get_motif(), pair.second);
+        const Piece & piece = getPiece(i, 0);
+        swne = piece.rotate(pair.second);
         if(swne[2] != 0) {
-            cout << "\t(*)" << P;
+            cout << "\t(*)" << piece;
             errors++;
         }
     }
     // Vérification de la seconde ligne (Contrainte Ligne Sud)
     for(int i=0 ; i<instance->width() ; i++) {
         const pair<int, int> & pair = getPair(i, instance->height()-1);
-        const Piece & P = getPiece(i, instance->height()-1);
-        swne = rotate(P.get_motif(), pair.second);
+        const Piece & piece = getPiece(i, instance->height()-1);
+        swne = piece.rotate(pair.second);
         if(swne[0] != 0) {
-            cout << "\t(*)" << P;
+            cout << "\t(*)" << piece;
             errors++;
         }
     }
@@ -194,20 +200,20 @@ int Configuration::constraintCols() {
     // Vérification de la première colonne (Contrainte Colonne Ouest)
     for(int i=0 ; i<instance->height() ; i++) {
         const pair<int, int> & pair = getPair(0, i);
-        const Piece & P = getPiece(0, i);
-        swne = rotate(P.get_motif(), pair.second);
+        const Piece & piece = getPiece(0, i);
+        swne = piece.rotate(pair.second);
         if(swne[1] != 0) {
-            cout << "\t(*)" << P;
+            cout << "\t(*)" << piece;
             errors++;
         }
     }
     // Vérification de la seconde colonne (Contrainte Colonne Est)
     for(int i=0 ; i<instance->height() ; i++) {
         const pair<int, int> & pair = getPair(instance->width()-1, i);
-        const Piece & P = getPiece(instance->width()-1, i);
-        swne = rotate(P.get_motif(), pair.second);
+        const Piece & piece = getPiece(instance->width()-1, i);
+        swne = piece.rotate(pair.second);
         if(swne[3] != 0) {
-            cout << "\t(*)" << P;
+            cout << "\t(*)" << piece;
             errors++;
         }
     }
@@ -221,34 +227,34 @@ int Configuration::constraintEdges() {
     pair<int, int> pair;
     // Coin Nord-Ouest
     pair = getPair(0,0);
-    Piece P = getPiece(0,0);
-    swne = rotate(P.get_motif(), pair.second);
+    Piece piece = getPiece(0,0);
+    swne = piece.rotate(pair.second);
     if(swne[1] != 0 || swne[2] != 0) {
-        cout << "\t(*)" << P;
+        cout << "\t(*)" << piece;
         errors++;
     }
     // Coin Nord-Est
     pair = getPair(0,instance->width()-1);
-    P = getPiece(0,instance->width()-1);
-    swne = rotate(P.get_motif(), pair.second);
+    piece = getPiece(0,instance->width()-1);
+    swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[2] != 0) {
-        cout << "\t(*)" << P;
+        cout << "\t(*)" << piece;
         errors++;
     }
     // Coin Sud-Ouest
     pair = getPair(instance->height()-1,0);
-    P = getPiece(instance->height()-1,0);
-    swne = rotate(P.get_motif(), pair.second);
+    piece = getPiece(instance->height()-1,0);
+    swne = piece.rotate(pair.second);
     if(swne[1] != 0 || swne[0] != 0) {
-        cout << "\t(*)" << P;
+        cout << "\t(*)" << piece;
         errors++;
     }
     // Coin Sud-Est
     pair = getPair(instance->height()-1, instance->height()-1);
-    P = getPiece(instance->height()-1, instance->height()-1);
-    swne = rotate(P.get_motif(), pair.second);
+    piece = getPiece(instance->height()-1, instance->height()-1);
+    swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[0] != 0) {
-        cout << "\t(*)" << P;
+        cout << "\t(*)" << piece;
         errors++;
     }
 

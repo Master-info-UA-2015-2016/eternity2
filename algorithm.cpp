@@ -16,17 +16,20 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
     return vicinity;
 }
 
+// TODO fonction d'évaluation
 int Algorithm::evaluation(const Configuration &C) {
-
+    return 0;
 }
 
 void Algorithm::local_search(const Instance * instance) {
-    vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 10);
+    // Génération de configurations
+    vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
+    random_shuffle(configurations.begin(), configurations.end());
+    // 1. Sélectionner une solution initiale x0 € X
+    Configuration * x0 = configurations[0];
+    // 2. x <- x0 (x est la solution courante)
+    Configuration * x = x0;
+    // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
+    Configuration * xEtoile = x;
 
-   int i = 1;
-   for(auto C : configurations) {
-       cout << "Configuration n°" << i << endl;
-       cout << (*C) << endl;
-       i++;
-   }
 }

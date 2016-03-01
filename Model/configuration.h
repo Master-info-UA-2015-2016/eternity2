@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iterator>
 #include <time.h>
+
 #include "instance_model.h"
 
 /**
@@ -48,7 +49,7 @@ public:
     const std::pair<int, int> & getPair(int x, int y) const ;
 
     /**
-     * Récupération de la pièce en positio (x, y)
+     * Récupération de la pièce en position (x, y)
      * @param x : X
      * @param y : Y
      * @return Piece
@@ -56,11 +57,20 @@ public:
     const Piece & getPiece(int x, int y) const;
 
     /**
+     * Récupération du motif pivoté en position (x, y)
+     * @param x : X
+     * @param y : Y
+     * @return int *
+     */
+    int * getRotatedMotif(int x, int y) const;
+
+    /**
      * Retourne la position dans le vecteur de positions de la piece P
      * @param p : Piece
      * @return position : p
      */
     int getPosition(const Piece &p) const;
+
 
     /**
      * @brief height
@@ -101,7 +111,7 @@ public:
       * @return tab_result
       * @author Ugo
       */
-    int* rotate(const int* motif,int nbRotation);
+//    int* rotate(const int* motif,int nbRotation);
 
     /**
      * Chargement d'un graphe sous forme de matrice

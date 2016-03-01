@@ -4,6 +4,7 @@
 #include "Model/instance_model.h"
 #include "Model/configuration.h"
 
+#include <algorithm>
 #include <assert.h>
 #include <vector>
 

@@ -25,11 +25,6 @@ int main(int argc, char *argv[])
     cout << "Nombre d'erreurs de colonnes : " << C.constraintCols() << endl;
     cout << "Nombre d'erreurs de coins : " << C.constraintEdges() << endl;
 
-    Configuration A(&inst);
-    A.randomConfiguration();
-    cout << A << endl;
-    cout << "Vicinity : " << Algorithm::vicinity(C, A) << endl;
-
 //    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);
