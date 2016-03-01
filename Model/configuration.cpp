@@ -28,9 +28,14 @@ vector<pair<int, int> >& Configuration::getVectPosition() {
     return vectPosition;
 }
 
-const pair<int, int>& Configuration::getPiece(int x, int y) const {
+const pair<int, int>& Configuration::getPair(int x, int y) const {
     const pair<int, int>& position = vectPosition[x + y * instance->width()];
     return position;
+}
+
+const Piece & Configuration::getPiece(int x, int y) const {
+    const Piece & piece = instance->get_vectPieces()->at(getPair(x, y).first-1);
+    return piece;
 }
 
 int Configuration::getPosition(const Piece& p) const {
@@ -47,7 +52,7 @@ int Configuration::getPosition(const Piece& p) const {
 ostream& Configuration::print(ostream& out){
     for(int i=0 ; i<instance->width() ; ++i) {
         for(int j=0 ; j<instance->height() ; ++j) {
-            pair<int, int> p = getPiece(i, j);
+            pair<int, int> p = getPair(i, j);
 
             out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tSONE = ";
 
@@ -154,4 +159,9 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
     }
 
     return configurations;
+}
+
+bool Configuration::constraintLines() {
+
+
 }

@@ -38,13 +38,21 @@ public:
     std::vector<std::pair<int, int> >& getVectPosition() ;
 
     /**
-     * Récupération de l'idée de la pièce en position (x, y)
+     * Récupération de la paire en position (x, y)
      * (x*nbRows + y*nbCols - (x+y))
      * @param x : X
      * @param y : Y
      * @return position : int
      */
-    const std::pair<int, int> & getPiece(int x, int y) const ;
+    const std::pair<int, int> & getPair(int x, int y) const ;
+
+    /**
+     * Récupération de la pièce en positio (x, y)
+     * @param x : X
+     * @param y : Y
+     * @return Piece
+     */
+    const Piece & getPiece(int x, int y) const;
 
     /**
      * Retourne la position dans le vecteur de positions de la piece P
@@ -115,6 +123,8 @@ public:
      * @author FOURMOND Jérôme
      */
     static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
+
+    bool constraintLines();
 
 };
 
