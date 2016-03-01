@@ -271,5 +271,28 @@ int Configuration::checkPieces(){
     */
     int res = 0;
 
+    //aucune piece n'est traitee au debut
+    vector<bool> pieces_traitees;
+    for(int i = 0; i < (height()*width()); ++i){
+        pieces_traitees[i] = false;
+    }
+
+    //piece i
+        for(auto piece : vectPosition){
+            int id_piece = piece.first;
+
+            //comparaison avec le S
+
+            //comparaison avec le W
+
+            //comparaison avec le N
+
+            //comparaison avec le E
+
+        //ajout de la pièce à vect
+        pieces_traitees[id_piece] = true;
+        }
+
+
     return res;
 }
