@@ -13,6 +13,8 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+    srand(time(NULL));
+
     Instance inst;
     inst.tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
 
@@ -22,6 +24,12 @@ int main(int argc, char *argv[])
     cout << "Nombre d'erreurs de lignes : " << C.constraintRows() << endl;
     cout << "Nombre d'erreurs de colonnes : " << C.constraintCols() << endl;
     cout << "Nombre d'erreurs de coins : " << C.constraintEdges() << endl;
+
+    Configuration A(&inst);
+    A.randomConfiguration();
+    cout << A << endl;
+    cout << "Vicinity : " << Algorithm::vicinity(C, A) << endl;
+
 //    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);

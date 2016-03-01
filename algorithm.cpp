@@ -6,7 +6,17 @@ Algorithm::Algorithm()
 {}
 
 int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
-//    assert(C1.getVectPosition().size() == C2.getVectPosition().size());
+    assert(C1.getPositions().size() == C2.getPositions().size());
+    int vicinity = 0;
+
+    for(unsigned int i=0 ; i<C1.getPositions().size() ; i++) {
+        if(C1.getPositions().at(i).first == C2.getPositions().at(i).first)
+            vicinity++;
+    }
+    return vicinity;
+}
+
+int Algorithm::evaluation(const Configuration &C) {
 
 }
 

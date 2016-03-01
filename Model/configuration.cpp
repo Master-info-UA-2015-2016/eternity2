@@ -126,7 +126,6 @@ bool Configuration::tryLoadFile(const string &fileName){
 
 void Configuration::randomConfiguration() {
     int i_rot;
-    srand(time(NULL));
     vector<int> pieces_id;
 
     // Travail uniquement sur l'id des pieces
@@ -152,8 +151,6 @@ void Configuration::randomConfiguration() {
 
 vector<Configuration*>&  Configuration::generateRandomConfigurations(const Instance * instance, int limit) {
     vector<Configuration*>& configurations= *(new vector<Configuration*>);
-
-    srand(time(NULL));
 
     for(int ind_conf=0 ; ind_conf < limit ; ind_conf++) {
         Configuration* configuration= new Configuration(instance);
