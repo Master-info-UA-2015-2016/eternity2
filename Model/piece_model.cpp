@@ -22,3 +22,13 @@ ostream& Piece::print(ostream& out) const{
 
     return out;
 }
+
+int* Piece::rotate(int nbRotation) const{
+    int* tmp = new int;
+    copy(motif, motif+4, tmp);
+
+    for(int i=0 ; i < nbRotation ; i++)
+        std::rotate(tmp, tmp+3 , tmp+4);
+
+    return tmp;
+}

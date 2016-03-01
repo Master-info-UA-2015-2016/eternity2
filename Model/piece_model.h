@@ -2,6 +2,7 @@
 #define PIECE_MODEL_H
 
 #include <iostream>
+#include <algorithm>
 
 /**
  * Classe représentant une pièce. haque pièce dispose d'un identifiant et d'un tableau
@@ -28,6 +29,13 @@ public:
     Piece(int _id, int tab[]);
 
     /**
+     * Getters
+     *
+     */
+    int get_id() const  { return id; }
+    const int* get_motif() const   { return motif; }
+
+    /**
      * Impression sur un flux de l'instance
      * @param out
      * @return le flux donné en paramètre avec l'instance 'imprimé'
@@ -41,14 +49,7 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Piece& r)
     { return r.print(out); }
 
-
-    /**
-     * Getters
-     *
-     */
-    int get_id() const  { return id; }
-    const int* get_motif() const   { return motif; }
-
+    int* rotate(int nbRotation) const;
 };
 
 #endif // PIECE_MODEL_H
