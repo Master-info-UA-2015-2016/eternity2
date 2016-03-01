@@ -1,12 +1,14 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 
-#include "Model/instance_model.h"
-#include "Model/configuration.h"
-
 #include <algorithm>
 #include <assert.h>
 #include <vector>
+
+#include "debug.h"
+#include "Model/instance_model.h"
+#include "Model/configuration.h"
+
 
 /**
  * Contient les différentes algorithmes implémentés pour la résolution du

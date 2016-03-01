@@ -31,12 +31,13 @@ void Algorithm::local_search(const Instance * instance) {
     vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
     random_shuffle(configurations.begin(), configurations.end());
 
-    // TODO Delete
+#if DEBUG_CREATE_CONFIGS
     int i = 1;
     for(auto pC : configurations) {
         cout << "\tConfiguration n" << i++ << endl;
         cout << (*pC) << endl;
     }
+#endif
 
     // 1. Sélectionner une solution initiale x0 € X
     Configuration * x0 = configurations[0];

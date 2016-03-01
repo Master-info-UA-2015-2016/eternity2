@@ -1,6 +1,6 @@
 #include "board_view.h"
 
-#define DRAW_SCALE 16.0
+#define DRAW_SCALE 32.0
 
 using namespace std;
 
@@ -19,19 +19,6 @@ BoardWidget::BoardWidget(Board *b, QWidget *parent) :
     bufferPainter= new QPainter;
 }
 
-void BoardWidget::init_board(Board *b)
-{
-    board= b;
-    int w_tmp = width() / b->getConfig().width();
-    int h_tmp = height() / b->getConfig().height();
-
-    if(w_tmp < h_tmp)
-        cell_size = w_tmp;
-    else
-        cell_size = h_tmp;
-
-}
-
 // ########################
 /***		Affichages	***/
 // ########################
@@ -45,7 +32,9 @@ void BoardWidget::init_board(Board *b)
 
 void BoardWidget::drawMotif(const QPainterPath& path, const Motif &colors, const QPointF& pos_rect)
 {
+#if DEBUG_DRAW_COLORS
     cout << "Couleurs du motif : "<< colors<< endl;
+#endif
     bufferPainter->fillPath(path, *(colors.get_color_ext()));
     bufferPainter->fillRect(pos_rect.x() * DRAW_SCALE , pos_rect.y() * DRAW_SCALE,
                             DRAW_SCALE /3.0, DRAW_SCALE /3.0,
@@ -70,10 +59,10 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
         path1.lineTo(middle);       // Milieu
         path1.lineTo(top_left);     // En haut à gauche
 
-    QPainterPath path2(top_right);   // En haut à gauche
-        path2.lineTo(bottom_right);    // En haut à droite
+    QPainterPath path2(top_right);  // En haut à gauche
+        path2.lineTo(bottom_right); // En haut à droite
         path2.lineTo(middle);       // Milieu
-        path2.lineTo(top_right);     // En haut à gauche
+        path2.lineTo(top_right);    // En haut à gauche
 
     QPainterPath path3(bottom_right);   // En haut à gauche
         path3.lineTo(bottom_left);      // En haut à droite
@@ -82,21 +71,23 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
 
     drawMotif(path0, Motif(motifs[0]), *(new QPointF(column + 0.0,      row + 0.33)) );
     drawMotif(path1, Motif(motifs[1]), *(new QPointF(column + 0.33,    row + 0.0)) );
-    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 0.67,    row + 0.33)) );
-    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 0.33,    row + 0.67)) );
+    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 0.70,    row + 0.33)) );
+    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 0.33,    row + 0.70)) );
 }
 
 void BoardWidget::drawBoard()
 {
-//    /*
     bufferPainter->begin(buffer);
 
     int current_height, current_width;
     for(int i= 0; i < board->height() * board->width(); ++i){
-        clog << "Affichage de la pièce num "<< i;
         current_width= i % board->width();
         current_height= i / board->height();
+
+#if DEBUG_POS_PIECE
+        clog << "Affichage de la pièce num "<< i;
         clog<< " de coordonnées : "<< current_width<< " ; "<< current_height<< endl;
+#endif
 
         int* colors= board->getConfig().getRotatedMotif(current_width, current_height);
         // On affiche la pièce à la position courante, avec son motif
@@ -108,13 +99,6 @@ void BoardWidget::drawBoard()
     }
 
     bufferPainter->end();
-
-    #if DEBUG_TMATRICE
-    cout <<"fin draw forest ; "<< endl;
-    #endif
-//    } // FIN_Dessin d'image
-//*/
-
 }
 
 // Test perf
