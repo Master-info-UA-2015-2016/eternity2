@@ -165,3 +165,20 @@ bool Configuration::constraintLines() {
 
 
 }
+
+int Configuration::checkPieces(){
+    int res = 0;
+    /**
+      Algo :
+            Initialiser un vector de bool (vect[i] = 1 si la pièce i a déjà été traité
+            Tant qu'il reste des pièces à vérifier faire
+                Prendre une pièce P qui n'est pas dans vect
+                Comparer P à ses pièces adjacentes (S, W, N, E)
+                Ajouter P à vect (indice de la pièce P à 1 dans vect)
+            Fin TantQue
+
+    */
+
+
+    return res;
+}
