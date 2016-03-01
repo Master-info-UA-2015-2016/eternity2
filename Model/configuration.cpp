@@ -233,13 +233,61 @@ int Configuration::checkPieces(){
         for(auto piece : vectPosition){
             int id_piece = piece.first;
 
-            //comparaison avec le S
+            /**
+             * premiere ligne du puzzle
+             */
+            if(id_piece < width()){
+                //premiere case de la ligne
+                if(id_piece % width() == 0){
 
-            //comparaison avec le W
+                }
 
-            //comparaison avec le N
+                //cases interieures
 
-            //comparaison avec le E
+
+                //derniere case de la ligne
+                if(id_piece % width() == width()-1){
+
+                }
+
+            }
+
+            /**
+             * milieu du puzzle
+             */
+            //premiere case de la ligne
+            if(id_piece % width() == 0){
+
+            }
+
+            //cases interieures
+
+
+            //derniere case de la ligne
+            if(id_piece % width() == width()-1){
+
+            }
+
+
+            /**
+             * derniere ligne du puzzle
+             */
+            if(id_piece < height()*width() - width()){
+                //premiere case de la ligne
+                if(id_piece % width() == 0){
+
+                }
+
+                //cases interieures
+
+
+                //derniere case de la ligne
+                if(id_piece % width() == width()-1){
+
+                }
+            }
+
+
 
         //ajout de la pièce à vect
         pieces_traitees[id_piece] = true;
