@@ -60,8 +60,6 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
     QPointF top_right((column +1.0) * DRAW_SCALE,    row * DRAW_SCALE);
     QPointF bottom_right((column + 1.0) * DRAW_SCALE,(row +1.0) * DRAW_SCALE);
 
-//    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
-
     QPainterPath path0(top_left);   // En haut à gauche
         path0.lineTo(middle);       // Milieu
         path0.lineTo(bottom_left);  // En bas à gauche
@@ -84,10 +82,8 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
 
     drawMotif(path0, Motif(motifs[0]), *(new QPointF(column + 0.0,      row + 1/3.0)) );
     drawMotif(path1, Motif(motifs[1]), *(new QPointF(column + 1/3.0,    row + 0.0)) );
-    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 1.0,      row + 1/3.0)) );
-    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 1/3.0,    row + 1.0)) );
-
-//    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
+    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 2/3.0,    row + 1/3.0)) );
+    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 1/3.0,    row + 2/3.0)) );
 }
 
 void BoardWidget::drawBoard()
