@@ -32,3 +32,7 @@ choisir l'algorithme à utiliser afin d'effectuer la recherche de la solution ap
 tout en affichant à l'écran la solution optimale courante et l'évolution de l'éxecution
 de l'algorithme.
 
+## TO DO
+* ~(Modélisation)~
+* ~(Interface graphique)~
+* Implémentation des algorithmes
