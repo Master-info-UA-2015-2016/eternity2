@@ -46,10 +46,10 @@ void BoardWidget::init_board(Board *b)
 void BoardWidget::drawMotif(const QPainterPath& path, const Motif &colors, const QPointF& pos_rect)
 {
     cout << "Couleurs du motif : "<< colors<< endl;
-    bufferPainter->fillPath(path, colors.get_color_ext());
-    bufferPainter->fillRect((pos_rect.x())* DRAW_SCALE , (pos_rect.y)* DRAW_SCALE,
+    bufferPainter->fillPath(path, *(colors.get_color_ext()));
+    bufferPainter->fillRect(pos_rect.x() * DRAW_SCALE , pos_rect.y() * DRAW_SCALE,
                             DRAW_SCALE /3.0, DRAW_SCALE /3.0,
-                            colors.get_color_int() );
+                            *(colors.get_color_int()) );
 }
 
 void BoardWidget::drawPiece(int column, int row, const int motifs[4])
@@ -78,14 +78,14 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
         path2.lineTo(top_right);     // En haut à gauche
 
     QPainterPath path3(bottom_right);   // En haut à gauche
-        path3.lineTo(bottom_left);    // En haut à droite
-        path3.lineTo(middle);       // Milieu
+        path3.lineTo(bottom_left);      // En haut à droite
+        path3.lineTo(middle);           // Milieu
         path3.lineTo(bottom_right);     // En haut à gauche
 
-    drawMotif(Motif(motifs[0]), path0, *(new QPointF(column + 0.0,      row + 1/3.0)) );
-    drawMotif(Motif(motifs[1]), path1, *(new QPointF(column + 1/3.0,    row + 0.0)) );
-    drawMotif(Motif(motifs[2]), path2, *(new QPointF(column + 1.0,      row + 1/3.0)) );
-    drawMotif(Motif(motifs[3]), path3, *(new QPointF(column + 1/3.0,    row + 1.0)) );
+    drawMotif(path0, Motif(motifs[0]), *(new QPointF(column + 0.0,      row + 1/3.0)) );
+    drawMotif(path1, Motif(motifs[1]), *(new QPointF(column + 1/3.0,    row + 0.0)) );
+    drawMotif(path2, Motif(motifs[2]), *(new QPointF(column + 1.0,      row + 1/3.0)) );
+    drawMotif(path3, Motif(motifs[3]), *(new QPointF(column + 1/3.0,    row + 1.0)) );
 
 //    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
 }
