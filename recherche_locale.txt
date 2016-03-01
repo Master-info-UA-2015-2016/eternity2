@@ -15,6 +15,12 @@ Résultat : x*, solution approchée de argmax (x € X) f(x)
 10. fin
 11. retourner x*
 
+Fonction de voisinage :
+    - Nombre de pièces identiques (ne pas se fier aux rotations)
+
+Fonction d'évalutation :
+    - Nombre d'erreurs (contraintes non respectées)
+
 Sélection de la solution initiale :
     - Aléatoire (après avoir généré une liste de Configurations)
 

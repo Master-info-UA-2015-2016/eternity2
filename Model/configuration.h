@@ -129,21 +129,21 @@ public:
      * @return bool
      * @author FOURMOND Jérôme
      */
-    bool constraintRows();
+    int constraintRows();
 
     /**
      * Vérification des contraintes de colonnes
      * @return bool
      * @author FOURMOND Jérôme
      */
-    bool constraintCols();
+    int constraintCols();
 
     /**
      * Vérification des contraintes des coins
      * @return bool
      * @author FOURMOND Jérôme
      */
-    bool constraintEdges();
+    int constraintEdges();
 
     /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs

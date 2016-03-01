@@ -169,7 +169,8 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
     return configurations;
 }
 
-bool Configuration::constraintRows() {
+int Configuration::constraintRows() {
+    int errors = 0;
     const int * swne;
     // Vérification de la première ligne (Contrainte Ligne Nord)
     for(int i=0 ; i<instance->width() ; i++) {
@@ -178,7 +179,7 @@ bool Configuration::constraintRows() {
         swne = rotate(P.get_motif(), pair.second);
         if(swne[2] != 0) {
             cout << "\t(*)" << P;
-            return false;
+            errors++;
         }
     }
     // Vérification de la seconde ligne (Contrainte Ligne Sud)
@@ -188,13 +189,14 @@ bool Configuration::constraintRows() {
         swne = rotate(P.get_motif(), pair.second);
         if(swne[0] != 0) {
             cout << "\t(*)" << P;
-            return false;
+            errors++;
         }
     }
-    return true;
+    return errors;
 }
 
-bool Configuration::constraintCols() {
+int Configuration::constraintCols() {
+    int errors = 0;
     const int * swne;
     // Vérification de la première colonne (Contrainte Colonne Ouest)
     for(int i=0 ; i<instance->height() ; i++) {
@@ -203,7 +205,7 @@ bool Configuration::constraintCols() {
         swne = rotate(P.get_motif(), pair.second);
         if(swne[1] != 0) {
             cout << "\t(*)" << P;
-            return false;
+            errors++;
         }
     }
     // Vérification de la seconde colonne (Contrainte Colonne Est)
@@ -213,14 +215,15 @@ bool Configuration::constraintCols() {
         swne = rotate(P.get_motif(), pair.second);
         if(swne[3] != 0) {
             cout << "\t(*)" << P;
-            return false;
+            errors++;
         }
     }
-    return true;
+    return errors;
 
 }
 
-bool Configuration::constraintEdges() {
+int Configuration::constraintEdges() {
+    int errors = 0;
     const int * swne;
     pair<int, int> pair;
     // Coin Nord-Ouest
@@ -229,7 +232,7 @@ bool Configuration::constraintEdges() {
     swne = rotate(P.get_motif(), pair.second);
     if(swne[1] != 0 || swne[2] != 0) {
         cout << "\t(*)" << P;
-        return false;
+        errors++;
     }
     // Coin Nord-Est
     pair = getPair(0,instance->width()-1);
@@ -237,7 +240,7 @@ bool Configuration::constraintEdges() {
     swne = rotate(P.get_motif(), pair.second);
     if(swne[3] != 0 || swne[2] != 0) {
         cout << "\t(*)" << P;
-        return false;
+        errors++;
     }
     // Coin Sud-Ouest
     pair = getPair(instance->height()-1,0);
@@ -245,7 +248,7 @@ bool Configuration::constraintEdges() {
     swne = rotate(P.get_motif(), pair.second);
     if(swne[1] != 0 || swne[0] != 0) {
         cout << "\t(*)" << P;
-        return false;
+        errors++;
     }
     // Coin Sud-Est
     pair = getPair(instance->height()-1, instance->height()-1);
@@ -253,10 +256,10 @@ bool Configuration::constraintEdges() {
     swne = rotate(P.get_motif(), pair.second);
     if(swne[3] != 0 || swne[0] != 0) {
         cout << "\t(*)" << P;
-        return false;
+        errors++;
     }
 
-    return true;
+    return errors;
 }
 
 int Configuration::checkPieces(){

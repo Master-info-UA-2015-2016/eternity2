@@ -19,21 +19,9 @@ int main(int argc, char *argv[])
     Configuration C(&inst);
     C.randomConfiguration();
     cout << C << endl;
-    if(C.constraintRows())
-        cout << "Contraintes de lignes validées !" << endl;
-    else
-        cout << "Contraintes de lignes non validées." << endl;
-
-    if(C.constraintCols())
-        cout << "Contraintes de colonnes validées !" << endl;
-    else
-        cout << "Contraintes de colonnes non validées." << endl;
-
-    if(C.constraintEdges())
-        cout << "Contraintes de coins validées !" << endl;
-    else
-        cout << "Contraintes de coins non validées." << endl;
-
+    cout << "Nombre d'erreurs de lignes : " << C.constraintRows() << endl;
+    cout << "Nombre d'erreurs de colonnes : " << C.constraintCols() << endl;
+    cout << "Nombre d'erreurs de coins : " << C.constraintEdges() << endl;
 //    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);
