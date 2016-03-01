@@ -34,8 +34,8 @@ Motif::Motif(int id_motif)
         case Yellow_Brown:
             set_colors(Yellow, Brown);
             break;
-        case LightGreen_Brown:
-            set_colors(LightGreen, Brown);
+        case Red_LightGreen:
+            set_colors(Red, LightGreen);
             break;
         case LightBlue_Brown:
             set_colors(LightBlue, Brown);
@@ -48,23 +48,23 @@ Motif::Motif(int id_motif)
         case Gray_Orange:
             set_colors(Gray, Orange);
             break;
-        case Pink_Orange:
-            set_colors(Pink, Orange);
+        case LightGreen_Pink:
+            set_colors(LightGreen, Pink);
             break;
-        case Red_Orange:
-            set_colors(Red, Orange);
+        case Yellow_Red:
+            set_colors(Yellow, Red);
             break;
-        case Yellow_Orange:
-            set_colors(Yellow, Orange);
+        case Purple_Gray:
+            set_colors(Purple, Gray);
             break;
         case LightGreen_Orange:
             set_colors(LightGreen, Orange);
             break;
-        case DarkGreen_Orange:
-            set_colors(DarkGreen, Orange);
+        case LightBlue_Purple:
+            set_colors(LightBlue, Purple);
             break;
-        case LightBlue_Orange:
-            set_colors(LightBlue, Orange);
+        case Orange_LightBlue:
+            set_colors(Orange, LightBlue);
             break;
         case DarkBlue_Orange:
             set_colors(DarkBlue, Orange);
@@ -115,7 +115,7 @@ void Motif::set_color_ext(QColor *col)
 }
 
 
-QColor* Motif::getQColorFromInt(int color){
+QColor* Motif::getQColorFromInt(int color) const{
     QColor* tmp= new QColor;
 
     switch(color){
@@ -162,17 +162,17 @@ QColor* Motif::getQColorFromInt(int color){
     return tmp;
 }
 
-QColor* Motif::get_color_int()
+QColor* Motif::get_color_int() const
 {
     return color_int;
 }
 
-QColor* Motif::get_color_ext()
+QColor* Motif::get_color_ext() const
 {
     return color_ext;
 }
 
-void Motif::set_colors(AvailableColors inte, AvailableColors exte)
+void Motif::set_colors(AvailableColors exte, AvailableColors inte)
 {
     color_int= getQColorFromInt(inte);
     color_ext= getQColorFromInt(exte);
@@ -197,8 +197,8 @@ std::ostream& Motif::print(std::ostream& out) const{
         case Yellow_Brown:
             out << "Yellow ; Brown";
             break;
-        case LightGreen_Brown:
-            out << "LightGreen ; Brown";
+        case Red_LightGreen:
+            out << "Red ; LightGreen";
             break;
         case LightBlue_Brown:
             out << "LightBlue ; Brown";
@@ -211,23 +211,23 @@ std::ostream& Motif::print(std::ostream& out) const{
         case Gray_Orange:
             out << "Gray ; Orange";
             break;
-        case Pink_Orange:
-            out << "Pink ; Orange";
+        case LightGreen_Pink:
+            out << "LightGreen ; Pink";
             break;
-        case Red_Orange:
-            out << "Red ; Orange";
+        case Yellow_Red:
+            out << "Yellow ; Red";
             break;
-        case Yellow_Orange:
-            out << "Yellow ; Orange";
+        case Purple_Gray:
+            out << "Purple ; Gray";
             break;
         case LightGreen_Orange:
             out << "LightGreen ; Orange";
             break;
-        case DarkGreen_Orange:
-            out << "DarkGreen ; Orange";
+        case LightBlue_Purple:
+            out << "LightBlue ; Purple";
             break;
-        case LightBlue_Orange:
-            out << "LightBlue ; Orange";
+        case Orange_LightBlue:
+            out << "Orange ; LightBlue";
             break;
         case DarkBlue_Orange:
             out << "DarkBlue ; Orange";
