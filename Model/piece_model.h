@@ -38,6 +38,10 @@ public:
     { return r.print(out); }
 
 
+    friend std::ostream& operator<<(std::ostream& out, const Piece& r)
+    { return r.print(out); }
+
+
     /**
      * Getters
      *

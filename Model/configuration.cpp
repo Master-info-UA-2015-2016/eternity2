@@ -167,20 +167,49 @@ bool Configuration::constraintRows() {
         const pair<int, int> & pair = getPair(i, 0);
         const Piece & P = getPiece(i, 0);
         swne = rotate(P.get_motif(), pair.second);
-        if(swne[2] != 0) return false;
+        if(swne[2] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
     }
     // Vérification de la seconde ligne (Contrainte Ligne Sud)
     for(int i=0 ; i<instance->width() ; i++) {
         const pair<int, int> & pair = getPair(i, instance->height()-1);
         const Piece & P = getPiece(i, instance->height()-1);
         swne = rotate(P.get_motif(), pair.second);
-        if(swne[0] != 0) return false;
+        if(swne[0] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
     }
     return true;
 }
 
 bool Configuration::constraintCols() {
+    const int * swne;
+    // Vérification de la première colonne (Contrainte Colonne Ouest)
+    for(int i=0 ; i<instance->height() ; i++) {
+        const pair<int, int> & pair = getPair(0, i);
+        const Piece & P = getPiece(0, i);
+        swne = rotate(P.get_motif(), pair.second);
+        if(swne[1] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
+    }
+    // Vérification de la seconde colonne (Contrainte Colonne Est)
+    for(int i=0 ; i<instance->height() ; i++) {
+        const pair<int, int> & pair = getPair(instance->width()-1, i);
+        const Piece & P = getPiece(instance->width()-1, i);
+        swne = rotate(P.get_motif(), pair.second);
+        if(swne[3] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
+    }
+    return true;
 
+<<<<<<< HEAD
 
 }
 
@@ -197,4 +226,6 @@ int Configuration::checkPieces(){
     int res = 0;
 
     return res;
+=======
+>>>>>>> 4b65afa88fa9a5fb6bab3f15b88cfa77ed19dd28
 }
