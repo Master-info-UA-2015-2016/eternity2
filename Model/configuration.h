@@ -128,6 +128,12 @@ public:
 
     bool constraintCols();
 
+    /**
+     * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
+     * @return Le nombre d'erreurs dans la configuration
+     * @author GARNIER Antoine
+     */
+    int checkPieces();
 };
 
 #endif // CONFIGURATION_H

@@ -43,15 +43,15 @@ void BoardWidget::init_board(Board *b)
 //    //        tri_points.push_back(QPointF(0.0, -3.0));
 //    //        QPolygonF triangle(tri_points);
 
-void BoardWidget::drawPiece(int column, int row, int motif[4])
+void BoardWidget::drawPiece(int column, int row, const int motif[4])
 {
     QPointF top_left(column * DRAW_SCALE,       row* DRAW_SCALE);
-    QPointF middle((column +1.5) * DRAW_SCALE,  (row +1.5) * DRAW_SCALE);
-    QPointF bottom_left(column * DRAW_SCALE,    (row +3.0) * DRAW_SCALE);
-    QPointF top_right(column * DRAW_SCALE,      (row +3.0)* DRAW_SCALE);
-    QPointF bottom_right((column + 3.0) * DRAW_SCALE,    (row +3.0) * DRAW_SCALE);
+    QPointF middle((column +0.5) * DRAW_SCALE,  (row +0.5) * DRAW_SCALE);
+    QPointF bottom_left(column * DRAW_SCALE,    (row +1.0) * DRAW_SCALE);
+    QPointF top_right(column * DRAW_SCALE,      (row +1.0)* DRAW_SCALE);
+    QPointF bottom_right((column + 1.0) * DRAW_SCALE,    (row +1.0) * DRAW_SCALE);
 
-    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
+//    bufferPainter->begin(buffer); // TODO Temporaire, à déplacer pour performance
 
     QPainterPath path1(top_left);   // En haut à gauche
         path1.lineTo(middle);       // Milieu
@@ -72,40 +72,30 @@ void BoardWidget::drawPiece(int column, int row, int motif[4])
     bufferPainter->fillRect((column +1) * DRAW_SCALE , row * DRAW_SCALE, DRAW_SCALE, DRAW_SCALE,
                                 *(colors2.get_color_int()) );
 
-    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
+//    bufferPainter->end(); // TODO Temporaire, à déplacer pour performance
 }
 
 void BoardWidget::drawBoard()
 {
-    /*
+//    /*
     bufferPainter->begin(buffer);
 
     int current_height, current_width;
-    for(int i= 0; i < board->height() * board->width(); ++i){
+    for(int i= 0; i < board->height() * board->width() -4; ++i){
+        clog << "Affichage de la pièce num "<< i;
         current_width= 1 + i % board->width();
         current_height= 1 + i / board->height();
-        pair<int, int> piece= board->getConfig().getPiece(current_width, current_height);
+        clog<< " de coordonnées : "<< current_width<< " ; "<< current_height<< endl;
 
-//        for( vector< Piece* >::const_iterator j( ligne->begin() ); j!=ligne->end(); ++j){
-//            if ((*j) != NULL){
-                // TODO Decommenter
-//                Piece* piece= *j;
-//
-//                // On récupère le motif de la pièce
-//                int ind_motif= piece->get_motif();
-//                Motif* motif= setColor(ind_motif);
-//
-//                drawPiece(current_width, current_height, motif);
-//            }
-//            else {
-//                drawCell(current_width, current_height);
-//            }
+//        pair<int, int> piece= board->getConfig().getPiece(current_width, current_height);
+        Piece piece= board->getConfig().getPiece(current_width -1, current_height -1);
 
-            // Incrémentation des positions des Cells
-//        }
-        #if DEBUG_TMATRICE
-        cout << endl;
-        #endif
+        // On affiche la pièce à la position courante, avec son motif
+        drawPiece(current_width, current_height, piece.get_motif());
+//       }
+//      else {
+//               drawCell(current_width, current_height);
+//       }
     }
 
     bufferPainter->end();
@@ -114,7 +104,7 @@ void BoardWidget::drawBoard()
     cout <<"fin draw forest ; "<< endl;
     #endif
 //    } // FIN_Dessin d'image
-*/
+//*/
 
 }
 
@@ -161,7 +151,9 @@ void BoardWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void BoardWidget::resizeEvent(QResizeEvent *event)
 {
-    cell_size= event->size().height() / board->height();
+    int max_width=  event->size().width() / board->width();
+    int max_height= event->size().height() / board->height();
+    cell_size= min(max_height, max_width);
     redraw();
 }
 
@@ -170,6 +162,6 @@ void BoardWidget::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
     std::cout << "BoardWidget_paintEvent : affichage plateau"<< std::endl;
     QPainter paint(this);
-    paint.scale(cell_size/(3 * DRAW_SCALE), cell_size/(3 * DRAW_SCALE));
+    paint.scale(cell_size/(DRAW_SCALE), cell_size/(DRAW_SCALE));
     paint.drawImage(0, 0, *buffer);
 }

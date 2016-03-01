@@ -46,7 +46,7 @@ public:
      * @param motifs tableau d'identifiants de motifs
      * @author Florian
      */
-    void drawPiece(int column, int row, int motifs[4]);
+    void drawPiece(int column, int row, const int motifs[4]);
 
     /**
      * Dessine l'ensemble du plateau dans le buffer
