@@ -36,7 +36,8 @@ HEADERS  +=  Model/instance_model.h \
     View/motif.h \
     View/mainwindow.h \
     Tools/string_tools.h \
-    algorithm.h
+    algorithm.h \
+    debug.h
 
 FORMS    += mainwindow.ui \
     exemple.ui

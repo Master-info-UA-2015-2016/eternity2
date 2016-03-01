@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "debug.h"
+#include "algorithm.h"
 
 using namespace std;
 
@@ -30,8 +32,14 @@ bool MainWindow::init_configuration(std::string filename)
 
         Configuration* config= new Configuration(instance);
         config->randomConfiguration();
-        cout << "Configuration : "<< config<< endl;
-
+#if DEBUG_SHOW_RANDOM_CONFIG
+        cout << (*config) << endl;
+        cout << "Nombre d'erreurs " << endl;
+        cout << "\t- Lignes : " << config->constraintRows() << endl;
+        cout << "\t- Colonnes : " << config->constraintCols() << endl;
+        cout << "\t- Angles : " << config->constraintEdges() << endl;
+        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
+#endif
         Board* board_model= new Board(config);
 
         BoardWidget* board_view= new BoardWidget(board_model);

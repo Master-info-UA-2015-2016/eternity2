@@ -14,6 +14,8 @@
 #include <QPointF>
 #include <QtGui/qevent.h>
 
+#include "../debug.h"
+
 #include "View/piece_view.h"
 #include "View/cell.h"
 #include "View/motif.h"
@@ -31,14 +33,6 @@ private :
 public:
     explicit BoardWidget(Board* b, QWidget *parent = 0);
     explicit BoardWidget(QWidget *parent = 0);
-
-    /**
-     * @brief init_board
-     * @param b
-     * @author Ugo
-     * @deprecated
-     */
-    void init_board(Board* b);
 
     void drawMotif(const QPainterPath &path, const Motif& colors, const QPointF& pos_rect);
 

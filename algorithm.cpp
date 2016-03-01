@@ -17,8 +17,13 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
 }
 
 // TODO fonction d'évaluation
-int Algorithm::evaluation(const Configuration &C) {
-    return 0;
+int Algorithm::evaluation(Configuration & C) {
+    int errors = 0;
+    errors += C.constraintCols();
+    errors += C.constraintRows();
+    errors += C.constraintEdges();
+
+    return errors;
 }
 
 void Algorithm::local_search(const Instance * instance) {
@@ -26,12 +31,13 @@ void Algorithm::local_search(const Instance * instance) {
     vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
     random_shuffle(configurations.begin(), configurations.end());
 
-    // TODO Delete
+#if DEBUG_CREATE_CONFIGS
     int i = 1;
     for(auto pC : configurations) {
-        cout << "\tConfiguration n°" << i++ << endl;
+        cout << "\tConfiguration n" << i++ << endl;
         cout << (*pC) << endl;
     }
+#endif
 
     // 1. Sélectionner une solution initiale x0 € X
     Configuration * x0 = configurations[0];

@@ -106,14 +106,6 @@ public:
     { return r.print(out); }
 
     /**
-      * Rotation d'une pièce.
-      * @param tableau_motif nbRotation
-      * @return tab_result
-      * @author Ugo
-      */
-//    int* rotate(const int* motif,int nbRotation);
-
-    /**
      * Chargement d'un graphe sous forme de matrice
      * à partir d'un fichier d'exemple
      * @param fileName
@@ -136,22 +128,22 @@ public:
     static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
 
     /**
-     * Vérification des contraintes de lignes
-     * @return bool
+     * Compte des erreurs de contraintes de lignes
+     * @return int
      * @author FOURMOND Jérôme
      */
     int constraintRows();
 
     /**
-     * Vérification des contraintes de colonnes
-     * @return bool
+     * Compte des erreurs de contraintes de colonnes
+     * @return int
      * @author FOURMOND Jérôme
      */
     int constraintCols();
 
     /**
-     * Vérification des contraintes des coins
-     * @return bool
+     * Compte des erreurs de contraintes d'angles
+     * @return int
      * @author FOURMOND Jérôme
      */
     int constraintEdges();

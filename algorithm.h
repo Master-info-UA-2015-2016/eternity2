@@ -1,12 +1,14 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 
-#include "Model/instance_model.h"
-#include "Model/configuration.h"
-
 #include <algorithm>
 #include <assert.h>
 #include <vector>
+
+#include "debug.h"
+#include "Model/instance_model.h"
+#include "Model/configuration.h"
+
 
 /**
  * Contient les différentes algorithmes implémentés pour la résolution du
@@ -33,7 +35,7 @@ class Algorithm
          * @return le nombre d'erreur de la Configuration
          * @author FOURMOND Jérôme
          */
-        static int evaluation(const Configuration & C);
+        static int evaluation(Configuration & C);
 
         /**
          * Algorithme de recherche locale
