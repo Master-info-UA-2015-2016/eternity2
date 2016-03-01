@@ -33,7 +33,7 @@ class Algorithm
          * @return le nombre d'erreur de la Configuration
          * @author FOURMOND Jérôme
          */
-        static int evaluation(const Configuration & C);
+        static int evaluation(Configuration & C);
 
         /**
          * Algorithme de recherche locale

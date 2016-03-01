@@ -17,8 +17,13 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
 }
 
 // TODO fonction d'évaluation
-int Algorithm::evaluation(const Configuration &C) {
-    return 0;
+int Algorithm::evaluation(Configuration & C) {
+    int errors = 0;
+    errors += C.constraintCols();
+    errors += C.constraintRows();
+    errors += C.constraintEdges();
+
+    return errors;
 }
 
 void Algorithm::local_search(const Instance * instance) {
@@ -29,7 +34,7 @@ void Algorithm::local_search(const Instance * instance) {
     // TODO Delete
     int i = 1;
     for(auto pC : configurations) {
-        cout << "\tConfiguration n°" << i++ << endl;
+        cout << "\tConfiguration n" << i++ << endl;
         cout << (*pC) << endl;
     }
 
