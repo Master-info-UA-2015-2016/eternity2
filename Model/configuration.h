@@ -124,9 +124,26 @@ public:
      */
     static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
 
+    /**
+     * Vérification des contraintes de lignes
+     * @return bool
+     * @author FOURMOND Jérôme
+     */
     bool constraintRows();
 
+    /**
+     * Vérification des contraintes de colonnes
+     * @return bool
+     * @author FOURMOND Jérôme
+     */
     bool constraintCols();
+
+    /**
+     * Vérification des contraintes des coins
+     * @return bool
+     * @author FOURMOND Jérôme
+     */
+    bool constraintEdges();
 
     /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
