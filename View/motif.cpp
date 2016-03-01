@@ -115,7 +115,7 @@ void Motif::set_color_ext(QColor *col)
 }
 
 
-QColor* Motif::getQColorFromInt(int color){
+QColor* Motif::getQColorFromInt(int color) const{
     QColor* tmp= new QColor;
 
     switch(color){
@@ -162,12 +162,12 @@ QColor* Motif::getQColorFromInt(int color){
     return tmp;
 }
 
-QColor* Motif::get_color_int()
+QColor* Motif::get_color_int() const
 {
     return color_int;
 }
 
-QColor* Motif::get_color_ext()
+QColor* Motif::get_color_ext() const
 {
     return color_ext;
 }
