@@ -30,7 +30,7 @@ public:
     void set_color_ext(QColor* col);
 
 //definition de 2 couleurs propres a un motif en fonction de son id
-    void set_colors(AvailableColors inte, AvailableColors exte);
+    void set_colors(AvailableColors exte, AvailableColors inte);
 
     QColor* getQColorFromInt(int color) const;
 

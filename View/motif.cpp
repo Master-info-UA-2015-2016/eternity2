@@ -172,7 +172,7 @@ QColor* Motif::get_color_ext() const
     return color_ext;
 }
 
-void Motif::set_colors(AvailableColors inte, AvailableColors exte)
+void Motif::set_colors(AvailableColors exte, AvailableColors inte)
 {
     color_int= getQColorFromInt(inte);
     color_ext= getQColorFromInt(exte);
