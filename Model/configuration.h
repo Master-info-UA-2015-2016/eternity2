@@ -106,14 +106,6 @@ public:
     { return r.print(out); }
 
     /**
-      * Rotation d'une pièce.
-      * @param tableau_motif nbRotation
-      * @return tab_result
-      * @author Ugo
-      */
-//    int* rotate(const int* motif,int nbRotation);
-
-    /**
      * Chargement d'un graphe sous forme de matrice
      * à partir d'un fichier d'exemple
      * @param fileName

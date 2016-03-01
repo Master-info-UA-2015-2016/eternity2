@@ -15,13 +15,6 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
-    Instance inst;
-    inst.tryLoadFile("../eternity2/instances_puzzles/pieces_04x04.txt");
-
-    Configuration C(&inst);
-    C.randomConfiguration();
-    cout << Algorithm::evaluation(C) << endl;
-
 //    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);

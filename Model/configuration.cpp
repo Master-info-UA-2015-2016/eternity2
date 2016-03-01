@@ -89,16 +89,6 @@ ostream& Configuration::print(ostream& out){
     return out;
 }
 
-//int* Configuration::rotate(const int* motif,int nbRotation){
-//    int* tmp = new int;
-//    copy(motif, motif+4, tmp);
-
-//    for(int i=0 ; i<nbRotation ; i++)
-//        std::rotate(tmp, tmp+3 , tmp+4);
-
-//    return tmp;
-//}
-
 bool Configuration::tryLoadFile(const string &fileName){
     if( instance->width() * instance->height() == 0){
         cerr << "Aucune instance n'est chargée" << endl;
