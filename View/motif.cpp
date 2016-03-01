@@ -15,6 +15,7 @@ Motif::Motif(AvailableColors col_int, AvailableColors col_ext)
 
 Motif::Motif(int id_motif)
 {
+    id = id_motif;
 //    color_ext= new QColor;
 //    color_int= new QColor;
     switch(id_motif){
@@ -175,4 +176,95 @@ void Motif::set_colors(AvailableColors inte, AvailableColors exte)
 {
     color_int= getQColorFromInt(inte);
     color_ext= getQColorFromInt(exte);
+}
+
+ostream& Motif::print(ostream& out) const{
+    out << "Couleurs du motif (int ; ext) : ";
+
+    switch(id){
+        case Black_Black:
+            out << "Black ; Black";
+            break;
+        case Gray_Brown:
+            out << "Gray ; Brown";
+            break;
+        case Pink_Brown:
+            out << "Pink ; Brown";
+            break;
+        case Red_Brown:
+            out << "Red ; Brown";
+            break;
+        case Yellow_Brown:
+            out << "Yellow ; Brown";
+            break;
+        case LightGreen_Brown:
+            out << "LightGreen ; Brown";
+            break;
+        case LightBlue_Brown:
+            out << "LightBlue ; Brown";
+            break;
+        case Purple_Brown:
+            out << "Purple ; Brown";
+            break;
+            //fin full brown - 8 couleurs
+
+        case Gray_Orange:
+            out << "Gray ; Orange";
+            break;
+        case Pink_Orange:
+            out << "Pink ; Orange";
+            break;
+        case Red_Orange:
+            out << "Red ; Orange";
+            break;
+        case Yellow_Orange:
+            out << "Yellow ; Orange";
+            break;
+        case LightGreen_Orange:
+            out << "LightGreen ; Orange";
+            break;
+        case DarkGreen_Orange:
+            out << "DarkGreen ; Orange";
+            break;
+        case LightBlue_Orange:
+            out << "LightBlue ; Orange";
+            break;
+        case DarkBlue_Orange:
+            out << "DarkBlue ; Orange";
+            break;
+        case Purple_Orange:
+            out << "Purple ; Orange";
+            break;
+        //fin full Orange - 17 couleurs au total
+
+        case Gray_DarkGreen:
+            out << "Gray ; DarkGreen";
+            break;
+        case Pink_DarkGreen:
+            out << "Pink ; DarkGreen";
+            break;
+        case Red_DarkGreen:
+            out << "Red ; DarkGreen";
+            break;
+        case Yellow_DarkGreen:
+            out << "Yellow ; DarkGreen";
+            break;
+        case LightBlue_DarkGreen:
+            out << "LightBlue ; DarkGreen";
+            break;
+        case DarkBlue_DarkGreen:
+            out << "DarkBlue ; DarkGreen";
+            break;
+        case Purple_DarkGreen:
+            out << "Purple ; DarkGreen";
+            break;
+        //fin full DarkGreen - 24 couleurs au total
+
+        //si pair de couleurs non reconnue, motif blanc
+        default:
+            out << "White ; White";
+            break;
+    }//fin switch
+
+    return out;
 }

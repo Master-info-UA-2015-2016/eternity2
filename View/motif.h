@@ -12,6 +12,7 @@ enum PairColors{Black_Black, Gray_Brown, Pink_Brown, Red_Brown, Yellow_Brown, Li
 class Motif
 {
 private:
+    int id;
     QColor* color_int;
     QColor* color_ext;
 
@@ -37,6 +38,16 @@ public:
       * @author Antoine
       */
     Motif get_color(int id);
+
+    /**
+     * Impression sur un flux de l'instance
+     * @param out
+     * @return le flux donné en paramètre avec l'instance 'imprimé'
+     */
+    std::ostream& print(std::ostream& out) const;
+
+    friend std::ostream& operator<<(std::ostream& out, Motif& m)
+    { return m.print(out); }
 };
 
 #endif // MOTIF_H
