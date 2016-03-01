@@ -30,16 +30,12 @@ bool MainWindow::init_configuration(std::string filename)
 
         Configuration* config= new Configuration(instance);
         config->randomConfiguration();
-            cout << "Configuration" << endl;
-            cout << config<< endl;
+        cout << "Configuration : "<< config<< endl;
 
-            Board* board_model= new Board(config);
+        Board* board_model= new Board(config);
 
-            BoardWidget* board_view= new BoardWidget(board_model);
-            board_view->show();
-    //        board_view->drawCell(1,1);
-            int motifs[4]= {1,2,3,4};
-            board_view->drawPiece(2,2, motifs);
+        BoardWidget* board_view= new BoardWidget(board_model);
+        board_view->show();
 
         return true;
     } else {
