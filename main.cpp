@@ -18,12 +18,18 @@ int main(int argc, char *argv[])
 
     Configuration C(&inst);
     C.randomConfiguration();
+    cout << C << endl;
     if(C.constraintRows())
         cout << "Contraintes de lignes validées !" << endl;
     else
         cout << "Contraintes de lignes non validées." << endl;
 
-    Algorithm::local_search(&inst);
+    if(C.constraintCols())
+        cout << "Contraintes de colonnes validées !" << endl;
+    else
+        cout << "Contraintes de colonnes non validées." << endl;
+
+//    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);
 

@@ -167,36 +167,46 @@ bool Configuration::constraintRows() {
         const pair<int, int> & pair = getPair(i, 0);
         const Piece & P = getPiece(i, 0);
         swne = rotate(P.get_motif(), pair.second);
-        if(swne[2] != 0) return false;
+        if(swne[2] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
     }
     // Vérification de la seconde ligne (Contrainte Ligne Sud)
     for(int i=0 ; i<instance->width() ; i++) {
         const pair<int, int> & pair = getPair(i, instance->height()-1);
         const Piece & P = getPiece(i, instance->height()-1);
         swne = rotate(P.get_motif(), pair.second);
-        if(swne[0] != 0) return false;
+        if(swne[0] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
     }
     return true;
 }
 
 bool Configuration::constraintCols() {
+    const int * swne;
+    // Vérification de la première colonne (Contrainte Colonne Ouest)
+    for(int i=0 ; i<instance->height() ; i++) {
+        const pair<int, int> & pair = getPair(0, i);
+        const Piece & P = getPiece(0, i);
+        swne = rotate(P.get_motif(), pair.second);
+        if(swne[1] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
+    }
+    // Vérification de la seconde colonne (Contrainte Colonne Est)
+    for(int i=0 ; i<instance->height() ; i++) {
+        const pair<int, int> & pair = getPair(instance->width()-1, i);
+        const Piece & P = getPiece(instance->width()-1, i);
+        swne = rotate(P.get_motif(), pair.second);
+        if(swne[3] != 0) {
+            cout << "\t(*)" << P;
+            return false;
+        }
+    }
+    return true;
 
-
-}
-
-int Configuration::checkPieces(){
-    int res = 0;
-    /**
-      Algo :
-            Initialiser un vector de bool (vect[i] = 1 si la pièce i a déjà été traité
-            Tant qu'il reste des pièces à vérifier faire
-                Prendre une pièce P qui n'est pas dans vect
-                Comparer P à ses pièces adjacentes (S, W, N, E)
-                Ajouter P à vect (indice de la pièce P à 1 dans vect)
-            Fin TantQue
-
-    */
-
-
-    return res;
 }
