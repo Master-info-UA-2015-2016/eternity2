@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     cout << "Nombre d'erreurs de colonnes : " << C.constraintCols() << endl;
     cout << "Nombre d'erreurs de coins : " << C.constraintEdges() << endl;
 
-//    Algorithm::local_search(&inst);
+    Algorithm::local_search(&inst);
 
     QApplication app(argc, argv);
 
