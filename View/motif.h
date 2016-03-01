@@ -1,6 +1,7 @@
 #ifndef MOTIF_H
 #define MOTIF_H
 
+#include <iostream>
 #include <QColor> 
 
 //couleurs utilisables

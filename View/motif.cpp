@@ -178,7 +178,7 @@ void Motif::set_colors(AvailableColors inte, AvailableColors exte)
     color_ext= getQColorFromInt(exte);
 }
 
-ostream& Motif::print(ostream& out) const{
+std::ostream& Motif::print(std::ostream& out) const{
     out << "Couleurs du motif (int ; ext) : ";
 
     switch(id){
