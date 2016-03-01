@@ -48,8 +48,8 @@ Motif::Motif(int id_motif)
         case Gray_Orange:
             set_colors(Gray, Orange);
             break;
-        case Pink_Orange:
-            set_colors(Pink, Orange);
+        case LightGreen_Pink:
+            set_colors(LightGreen, Pink);
             break;
         case Yellow_Red:
             set_colors(Yellow, Red);
@@ -60,8 +60,8 @@ Motif::Motif(int id_motif)
         case LightGreen_Orange:
             set_colors(LightGreen, Orange);
             break;
-        case DarkGreen_Orange:
-            set_colors(DarkGreen, Orange);
+        case LightBlue_Purple:
+            set_colors(LightBlue, Purple);
             break;
         case Orange_LightBlue:
             set_colors(Orange, LightBlue);
@@ -211,8 +211,8 @@ std::ostream& Motif::print(std::ostream& out) const{
         case Gray_Orange:
             out << "Gray ; Orange";
             break;
-        case Pink_Orange:
-            out << "Pink ; Orange";
+        case LightGreen_Pink:
+            out << "LightGreen ; Pink";
             break;
         case Yellow_Red:
             out << "Yellow ; Red";
@@ -223,8 +223,8 @@ std::ostream& Motif::print(std::ostream& out) const{
         case LightGreen_Orange:
             out << "LightGreen ; Orange";
             break;
-        case DarkGreen_Orange:
-            out << "DarkGreen ; Orange";
+        case LightBlue_Purple:
+            out << "LightBlue ; Purple";
             break;
         case Orange_LightBlue:
             out << "Orange ; LightBlue";
