@@ -37,11 +37,15 @@ bool MainWindow::init_configuration(std::string filename)
         cout << "\t- Lignes : " << config->constraintRowsXtrem() << endl;
         cout << "\t- Colonnes : " << config->constraintColsXtrem() << endl;
         cout << "\t- Angles : " << config->constraintEdges() << endl;
+        cout << "Contraintes d'angles sur la première case ? " << config->constraintEdges(0,0) << endl;
+        cout << "Contraintes de lignes extrèmes sur la seconde case ? " << config->constraintRowsXtrem(1,0) << endl;
+        cout << "Contraintes de colonnes extrèmes sur la quatrième case ? " << config->constraintColsXtrem(0,1) << endl;
+        config->constraintPieces();
 #endif
 
 #if DEBUG_EVALUATION
 //        cout << "Nombre d'erreurs " << endl;
-        cout << "Check ? " << config->checkPieces() << endl;
+//        cout << "Check ? " << config->checkPieces() << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
         Configuration * local = Algorithm::local_search(instance);
         cout << *local << endl;

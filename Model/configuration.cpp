@@ -396,12 +396,19 @@ int Configuration::checkPieces(){
 int Configuration::constraintPieces() {
     // Recherche d'une première pièce "peut-être" bien placée
     bool found = false;
-    while(!false) {
-       for(int i=0 ; i<height() ; i++) {
-           for(int j=0 ; j<width() ; j++) {
-
+       for(int j=0 ; j<height() && !found ; j++) {
+           for(int i=0 ; i<width() && !found ; i++) {
+               cout << "(" << i << "," << j << ")" << endl;
+                if(j == 0 && i == 0)
+                    found = constraintEdges(i,j);
+                else if(j == 0 || j == height()-1)
+                    found = constraintRowsXtrem(i,j);
+                else if(i == 0 || i == width()-1)
+                    found = constraintColsXtrem(i, j);
+                else cout << "\tPas trouvé !" << endl;
+                cout << "Passe ici ? " << endl;
            }
        }
-
-    }
+    cout << " found " << endl;
+    return 0;
 }
