@@ -158,7 +158,7 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
     return configurations;
 }
 
-int Configuration::constraintRows() {
+int Configuration::constraintRowsXtrem() {
     int errors = 0;
     const int * swne;
     // Vérification de la première ligne (Contrainte Ligne Nord)
@@ -167,7 +167,7 @@ int Configuration::constraintRows() {
         const Piece & piece = getPiece(i, 0);
         swne = piece.rotate(pair.second);
         if(swne[2] != 0) {
-            cout << "\t(*)" << piece;
+            cout << "\t("<< i << "," << 0 << ")" << piece;
             errors++;
         }
     }
@@ -177,14 +177,14 @@ int Configuration::constraintRows() {
         const Piece & piece = getPiece(i, instance->height()-1);
         swne = piece.rotate(pair.second);
         if(swne[0] != 0) {
-            cout << "\t(*)" << piece;
+            cout << "\t("<< i << "," << instance->height()-1 << ")" << piece;
             errors++;
         }
     }
     return errors;
 }
 
-int Configuration::constraintCols() {
+int Configuration::constraintColsXtrem() {
     int errors = 0;
     const int * swne;
     // Vérification de la première colonne (Contrainte Colonne Ouest)
@@ -193,7 +193,7 @@ int Configuration::constraintCols() {
         const Piece & piece = getPiece(0, i);
         swne = piece.rotate(pair.second);
         if(swne[1] != 0) {
-            cout << "\t(*)" << piece;
+            cout << "\t("<< 0 << "," << i << ")" << piece;
             errors++;
         }
     }
@@ -203,7 +203,7 @@ int Configuration::constraintCols() {
         const Piece & piece = getPiece(instance->width()-1, i);
         swne = piece.rotate(pair.second);
         if(swne[3] != 0) {
-            cout << "\t(*)" << piece;
+            cout << "\t("<< instance->width()-1 << "," << i << ")" << piece;
             errors++;
         }
     }
@@ -220,7 +220,7 @@ int Configuration::constraintEdges() {
     Piece piece = getPiece(0,0);
     swne = piece.rotate(pair.second);
     if(swne[1] != 0 || swne[2] != 0) {
-        cout << "\t(*)" << piece;
+         cout << "\t("<< 0 << "," << 0 << ")" << piece;
         errors++;
     }
     // Coin Nord-Est
@@ -228,7 +228,7 @@ int Configuration::constraintEdges() {
     piece = getPiece(0,instance->width()-1);
     swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[2] != 0) {
-        cout << "\t(*)" << piece;
+         cout << "\t("<< 0 << "," << instance->width()-1 << ")" << piece;
         errors++;
     }
     // Coin Sud-Ouest
@@ -236,15 +236,15 @@ int Configuration::constraintEdges() {
     piece = getPiece(instance->height()-1,0);
     swne = piece.rotate(pair.second);
     if(swne[1] != 0 || swne[0] != 0) {
-        cout << "\t(*)" << piece;
+         cout << "\t("<< instance->height()-1 << "," << 0 << ")" << piece;
         errors++;
     }
     // Coin Sud-Est
-    pair = getPair(instance->height()-1, instance->height()-1);
-    piece = getPiece(instance->height()-1, instance->height()-1);
+    pair = getPair(instance->height()-1, instance->width()-1);
+    piece = getPiece(instance->height()-1, instance->width()-1);
     swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[0] != 0) {
-        cout << "\t(*)" << piece;
+         cout << "\t("<< instance-width()-1 << "," << instance->width() << ")" << piece;
         errors++;
     }
 

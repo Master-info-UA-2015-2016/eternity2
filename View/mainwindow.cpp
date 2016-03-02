@@ -35,9 +35,9 @@ bool MainWindow::init_configuration(std::string filename)
 #if DEBUG_SHOW_RANDOM_CONFIG
         cout << (*config) << endl;
         cout << "Nombre d'erreurs " << endl;
-//        cout << "\t- Lignes : " << config->constraintRows() << endl;
-//        cout << "\t- Colonnes : " << config->constraintCols() << endl;
-//        cout << "\t- Angles : " << config->constraintEdges() << endl;
+        cout << "\t- Lignes : " << config->constraintRowsXtrem() << endl;
+        cout << "\t- Colonnes : " << config->constraintColsXtrem() << endl;
+        cout << "\t- Angles : " << config->constraintEdges() << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
 
 //        cout << "Check ? " << config->checkPieces() << endl;
