@@ -137,10 +137,11 @@ public:
     int constraintRowsXtrem();
 
     /**
-     * La pièce située en (x,y) respecte-t-elle la contrainte de lignes extrèmes
+     * La pièce située en (x,y) respecte-t-elle la contrainte de lignes extrèmes ?
      * @param x : int
      * @param y : int
      * @return boolean
+     * @author FOURMOND Jérôme
      */
     bool constraintRowsXtrem(int x, int y);
 
@@ -150,6 +151,15 @@ public:
      * @author FOURMOND Jérôme
      */
     int constraintColsXtrem();
+
+    /**
+     * La pièce située en (x,y) respecte-t-elle la contrainte de colonnes extrèmes ?
+     * @param x : int
+     * @param y : int
+     * @return boolean
+     * @author FOURMOND Jérôme
+     */
+    bool constraintColsXtrem(int x, int y);
 
     /**
      * Compte des erreurs de contraintes d'angles

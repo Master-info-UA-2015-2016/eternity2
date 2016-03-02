@@ -227,6 +227,22 @@ int Configuration::constraintColsXtrem() {
 
 }
 
+bool Configuration::constraintColsXtrem(int x, int y) {
+    const int * swne;
+    if(x != 0 || x != width()-1)
+        return true;
+    else {
+        const pair<int, int> & pair = getPair(x, y);
+        const Piece & piece = getPiece(x, y);
+        swne = piece.rotate(pair.second);
+        if(x == 0)
+            return swne[1] == 0;
+        else if(x == width()-1)
+            return swne[3] == 0;
+        return false;
+    }
+}
+
 int Configuration::constraintEdges() {
     int errors = 0;
     const int * swne;
