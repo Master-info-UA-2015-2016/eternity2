@@ -31,3 +31,12 @@ Critère d'arrêt
 Politique de mouvement
     - Sélectionner une solution voisine :
 	- solution semblable
+
+############	Un autre algo	##########
+
+1. Choisir solution initiale
+2. s ∈ S
+3. repeat
+4.  choisir s0 ∈ V(s)
+5.  s ← s0
+6. until critère d’arret non verifié
