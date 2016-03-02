@@ -73,6 +73,19 @@ public:
      */
     int getPosition(const Piece &p) const;
 
+    /**
+     * Récupération de la position dans le vecteur de positions de la pièce portant l'id
+     * @param id : int
+     * @return position : int
+     */
+    int getPosition(const int id) const;
+
+    /**
+     * Retourne les coordonnées de la case qui contient la pièce portant l'id
+     * @param id : int
+     * @return pair<int, int>
+     */
+    std::pair<int, int> getCase(int id) const;
 
     /**
      * @brief height

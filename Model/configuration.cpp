@@ -50,6 +50,27 @@ int Configuration::getPosition(const Piece& p) const {
     return ind;
 }
 
+int Configuration::getPosition(const int id) const {
+    int ind = -1;
+    for(unsigned int i=0 ; i<positions.size() ; ++i) {
+        if(positions[i].first == id)
+            ind = i;
+    }
+    return ind;
+}
+
+pair<int, int> Configuration::getCase(int id) const {
+    int pos = getPosition(id);
+    int processed_case = 0;
+    for(int j=0 ; j<height() ; j++) {
+        for(int i=0 ; i<width() ; i++) {
+            if(processed_case == pos) return make_pair(i, j);
+            processed_case++;
+        }
+    }
+    return make_pair(-1, -1);
+}
+
 ostream& Configuration::print(ostream& out){
     for(int i=0 ; i<instance->width() ; ++i) {
         for(int j=0 ; j<instance->height() ; ++j) {
@@ -197,9 +218,9 @@ bool Configuration::constraintRowsXtrem(int x, int y) {
         const Piece & piece = getPiece(x, y);
         swne = piece.rotate(pair.second);
         if(y == 0)
-            return swne[2] == 0;
+            return swne[2] == 0 && !(swne[1] == 0 || swne[1] == 0 || swne[3] == 0);
         else if(y == height()-1)
-            return swne[0] == 0;
+            return swne[0] == 0 && !(swne[1] == 0 || swne[2] == 0 || swne[3] == 0);
         return false;
     }
 }
@@ -244,9 +265,9 @@ bool Configuration::constraintColsXtrem(int x, int y) {
         const Piece & piece = getPiece(x, y);
         swne = piece.rotate(pair.second);
         if(x == 0)
-            return swne[1] == 0;
+            return swne[1] == 0 && !(swne[0] == 0 || swne[2] == 0 || swne[3] == 0);
         else if(x == width()-1)
-            return swne[3] == 0;
+            return swne[3] == 0 && !(swne[0] == 0 || swne[1] == 0 || swne[2] == 0);
         return false;
     }
 }
@@ -394,21 +415,26 @@ int Configuration::checkPieces(){
 }
 
 int Configuration::constraintPieces() {
-    // Recherche d'une première pièce "peut-être" bien placée
-    bool found = false;
-       for(int j=0 ; j<height() && !found ; j++) {
-           for(int i=0 ; i<width() && !found ; i++) {
-               cout << "(" << i << "," << j << ")" << endl;
-                if(j == 0 && i == 0)
-                    found = constraintEdges(i,j);
-                else if(j == 0 || j == height()-1)
-                    found = constraintRowsXtrem(i,j);
-                else if(i == 0 || i == width()-1)
-                    found = constraintColsXtrem(i, j);
-                else cout << "\tPas trouvé !" << endl;
-                cout << "Passe ici ? " << endl;
-           }
-       }
-    cout << " found " << endl;
+    vector<int> misplaces(height()*width());
+
+    for(int j=0 ; j<height() ; j++) {
+        for(int i=0 ; i<width() ; i++) {
+            if((j == 0 && i == 0)||(j== 0 && i == width()-1)||(j==height()-1 && i==0)||(j==height()-1 && i==width()-1)) {
+                 if(!constraintEdges(i,j)) misplaces[i + j*width()] = getPair(i, j).first;
+             } else if(j == 0 || j == height()-1) {
+                 if(!constraintRowsXtrem(i,j)) misplaces[i + j*width()] = getPair(i, j).first;
+             } else if(i == 0 || i == width()-1) {
+                 if(!constraintColsXtrem(i,j)) misplaces[i + j*width()] = getPair(i, j).first;
+             } else cout << "(" << i << "," << j << ") - TODO Traitement manquant (non ligne, non colonne, non angle)" << endl;
+         }
+    }
+
+    cout << "Pièces mal placées (ID) : " << endl;
+    for(auto i : misplaces) {
+        if(i != 0 ) {
+            pair<int, int> pos = getCase(i);
+            cout << "\tPièce à la position : (" << pos.first << "," << pos.second << ")" << endl;
+        }
+    }
     return 0;
 }
