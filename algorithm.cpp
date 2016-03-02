@@ -18,10 +18,21 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
 
 vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Configuration *> configurations) {
     vector<Configuration *> neightbours;
+    int i = 0;
+    int vic_max = 0;
     for(auto config : configurations) {
         int vic = Algorithm::vicinity(C, (*config));
-        cout << vic << endl;
+        if(vic != C.width()*C.height()) {
+            if(vic > vic_max) {
+                vic_max = vic;
+                neightbours.clear();
+                neightbours.push_back(config);
+            } else if(vic == vic_max)
+                    neightbours.push_back(config);
+        }
+        i++;
     }
+    return neightbours;
 }
 
 // TODO fonction d'évaluation
@@ -38,14 +49,6 @@ void Algorithm::local_search(const Instance * instance) {
     // Génération de configurations
     vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
 
-#if DEBUG_CREATE_CONFIGS
-    int i = 1;
-    for(auto pC : configurations) {
-        cout << "\tConfiguration n°" << i++ << endl;
-        cout << (*pC) << endl;
-    }
-#endif
-
     int nb_eval = 0;
     // 1. Sélectionner une solution initiale x0 € X
     Configuration * x0 = configurations[0];
@@ -55,17 +58,11 @@ void Algorithm::local_search(const Instance * instance) {
     Configuration * xEtoile = x;
     // 4. Tant que le critère d'arret n'est pas respecté faire
 
-#if DEBUG_CREATE_CONFIGS
-    vector<Configuration *> voisins = get_neighbours((*x0), configurations);
-    i=1;
-    for(auto pC : voisins) {
-        cout << "\tVoisins n° " << i++ << endl;
-        cout << (*pC) << endl;
-    }
-#endif
-
+    vector<Configuration *> voisins;
     while(nb_eval < 100) {
     // 5. Sélectionner une solution voisine x' ∈ N(x)
-
+        voisins = get_neighbours((*x), configurations);
+        nb_eval++;
+        cout << "Voisins de " << *x << " : " << voisins.size() << endl;
     }
 }
