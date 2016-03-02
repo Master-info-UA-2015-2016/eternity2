@@ -5,11 +5,11 @@ Données :   (X, f) : une instance de problème ;
 	    f : une fonction d'évaluation (éventuellement f).
 Résultat : x*, solution approchée de argmax (x € X) f(x)
 
-1.  Sélectionner une solution initiale x0 € X ;
+1.  Sélectionner une solution initiale x0 ∈ X ;
 2.  x	<- x0;	// x est la solution courante
 3.  x*	<- x;	// x* est la meilleure solution rencontrée au sens de f
 4.  tant que le critère d'arrêt n'est pas respecté faire
-5.	sélectionner une solution voisine x' € N(x);
+5.	sélectionner une solution voisine x' ∈ N(x);
 6.	x <- x';
 7.	si f(x) > f(x*) alors
 8.	    x* <- x

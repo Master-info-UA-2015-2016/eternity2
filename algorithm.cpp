@@ -16,6 +16,13 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
     return vicinity;
 }
 
+vector<Configuration *> get_neighbours(Configuration & C, vector<Configuration *> configurations) {
+    vector<Configuration *> neightbours;
+    for(auto config : configurations) {
+        int vic = Algorithm::vicinity(C, config);
+    }
+}
+
 // TODO fonction d'évaluation
 int Algorithm::evaluation(Configuration & C) {
     int errors = 0;
@@ -38,6 +45,7 @@ void Algorithm::local_search(const Instance * instance) {
     }
 #endif
 
+    int nb_eval = 0;
     // 1. Sélectionner une solution initiale x0 € X
     Configuration * x0 = configurations[0];
     // 2. x <- x0 (x est la solution courante)
@@ -45,4 +53,8 @@ void Algorithm::local_search(const Instance * instance) {
     // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
     Configuration * xEtoile = x;
     // 4. Tant que le critère d'arret n'est pas respecté faire
+    while(nbeval < 100) {
+    // 5. Sélectionner une solution voisine x' ∈ N(x)
+
+    }
 }

@@ -30,6 +30,15 @@ class Algorithm
         static int vicinity(const Configuration & C1, const Configuration & C2);
 
         /**
+         * Récupération des voisins de la Configuration C
+         * @param C : Configuration
+         * @param configurations : vector<Configuration *> l'ensemble des Configurations
+         * @return les voisins de la Configuration C
+         * @author FOURMOND Jérôme
+         */
+        static vector<Configuration *> get_neighbours(Configuration & C, vector<Configuration * > configurations);
+
+        /**
          * Fonction d'évaluation
          * @param C : Configuration
          * @return le nombre d'erreur de la Configuration
