@@ -33,7 +33,7 @@ void Algorithm::local_search(const Instance * instance) {
 #if DEBUG_CREATE_CONFIGS
     int i = 1;
     for(auto pC : configurations) {
-        cout << "\tConfiguration n" << i++ << endl;
+        cout << "\tConfiguration n°" << i++ << endl;
         cout << (*pC) << endl;
     }
 #endif

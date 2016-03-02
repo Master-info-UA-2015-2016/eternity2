@@ -308,6 +308,5 @@ int Configuration::checkPieces(){
         }
     }
 
-
     return nb_errors;
 }

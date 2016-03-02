@@ -38,11 +38,15 @@ bool MainWindow::init_configuration(std::string filename)
         cout << "\t- Colonnes : " << config->constraintColsXtrem() << endl;
         cout << "\t- Angles : " << config->constraintEdges() << endl;
 #endif
+
 #if DEBUG_EVALUATION
 //        cout << "Nombre d'erreurs " << endl;
 //        cout << "Check ? " << config->checkPieces() << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
+        Algorithm::local_search(instance);
 #endif
+
+
 
         Board* board_model= new Board(config);
 
