@@ -271,7 +271,7 @@ int Configuration::checkPieces(){
         int south_motif = id_motifs[0];
         int east_motif = id_motifs[3];
 
-        if(south_motif != 0 || east_motif != 0){
+        if(south_motif != 0 && east_motif != 0){
             //derniere ligne du puzzle - est seulement
             if(i > width()*height() - width()){
                 int tmp_rot = positions[getPosition(instance->getPiece(id_piece+1))].second;
@@ -316,8 +316,9 @@ int Configuration::checkPieces(){
                     ++nb_errors;
                 }
             }
-            ++nb_errors;
-            if(south_motif == 0 && east_motif == 0) ++nb_errors;
+        } else {
+            if(south_motif == 0) ++nb_errors;
+            if(east_motif == 0) ++nb_errors;
         }
     }
 
