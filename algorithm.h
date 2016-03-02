@@ -36,7 +36,7 @@ class Algorithm
          * @return les voisins de la Configuration C
          * @author FOURMOND Jérôme
          */
-        static vector<Configuration *> get_neighbours(Configuration & C, vector<Configuration * > configurations);
+        static std::vector<Configuration *> get_neighbours(Configuration & C, std::vector<Configuration * > configurations);
 
         /**
          * Fonction d'évaluation

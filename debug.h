@@ -7,7 +7,7 @@
 #define DEBUG_PAINT             0
 
 // algorithm
-#define DEBUG_CREATE_CONFIGS        0
+#define DEBUG_CREATE_CONFIGS        1
 
 // mainwindow
 #define DEBUG_SHOW_RANDOM_CONFIG    0

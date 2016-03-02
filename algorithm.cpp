@@ -16,10 +16,11 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
     return vicinity;
 }
 
-vector<Configuration *> get_neighbours(Configuration & C, vector<Configuration *> configurations) {
+vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Configuration *> configurations) {
     vector<Configuration *> neightbours;
     for(auto config : configurations) {
-        int vic = Algorithm::vicinity(C, config);
+        int vic = Algorithm::vicinity(C, (*config));
+        cout << vic << endl;
     }
 }
 
@@ -53,7 +54,17 @@ void Algorithm::local_search(const Instance * instance) {
     // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
     Configuration * xEtoile = x;
     // 4. Tant que le critère d'arret n'est pas respecté faire
-    while(nbeval < 100) {
+
+#if DEBUG_CREATE_CONFIGS
+    vector<Configuration *> voisins = get_neighbours((*x0), configurations);
+    i=1;
+    for(auto pC : voisins) {
+        cout << "\tVoisins n° " << i++ << endl;
+        cout << (*pC) << endl;
+    }
+#endif
+
+    while(nb_eval < 100) {
     // 5. Sélectionner une solution voisine x' ∈ N(x)
 
     }
