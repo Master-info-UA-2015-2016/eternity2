@@ -283,6 +283,21 @@ int Configuration::constraintEdges() {
     return errors;
 }
 
+bool Configuration::constraintEdges(int x, int y) {
+    const pair<int, int> & pair = getPair(x, y);
+    const Piece & piece = getPiece(x, y);
+    const int * swne = piece.rotate(pair.second);
+    if(x == 0 && y == 0)
+        return swne[1] == 0 && swne[2] == 0;
+    else if(x == 0 && y == height()-1)
+        return swne[0] == 0 && swne[1] == 0;
+    else if(x == width()-1 && y == 0)
+        return swne[2] == 0 && swne[3] == 0;
+    else if(x == width()-1 && y == height()-1)
+        return swne[0] == 0 && swne[3] == 0;
+    else true;
+}
+
 int Configuration::checkPieces(){
     /**
       Algo :

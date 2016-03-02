@@ -169,6 +169,15 @@ public:
     int constraintEdges();
 
     /**
+     * La pièce située en (x,y) respecte-t-elle la contrainte d'angles ?
+     * @param x : int
+     * @param y : int
+     * @return boolean
+     * @author FOURMOND Jérôme
+     */
+    bool constraintEdges(int x, int y);
+
+    /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
      * @author GARNIER Antoine
