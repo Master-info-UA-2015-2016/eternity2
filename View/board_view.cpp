@@ -31,13 +31,13 @@ BoardWidget::BoardWidget(Board *b, QWidget *parent) :
 //    //        tri_points.push_back(QPointF(0.0, -3.0));
 //    //        QPolygonF triangle(tri_points);
 
-void BoardWidget::drawMotif(const QPainterPath& path, const Motif &colors, const QPointF& pos_rect)
+void BoardWidget::drawMotif(const QPainterPath& path, const QPointF& square_pos, const Motif &colors)
 {
 #if DEBUG_DRAW_COLORS
     cout << "Couleurs du motif : "<< colors<< endl;
 #endif
     bufferPainter->fillPath(path, *(colors.get_color_ext()));
-    bufferPainter->fillRect(pos_rect.x() * DRAW_SCALE , pos_rect.y() * DRAW_SCALE,
+    bufferPainter->fillRect(square_pos.x() * DRAW_SCALE , square_pos.y() * DRAW_SCALE,
                             DRAW_SCALE / SQUARE_COEF_INVERSE, DRAW_SCALE / SQUARE_COEF_INVERSE,
                             *(colors.get_color_int()) );
 }
@@ -70,14 +70,18 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
         path3.lineTo(middle);           // Milieu
         path3.lineTo(bottom_right);     // En haut à gauche
 
-    drawMotif(path0, Motif(motifs[0]),
-            *(new QPointF(column + 0.0,      row + (1/2.0)*(1 -1/SQUARE_COEF_INVERSE))) );
-    drawMotif(path1, Motif(motifs[1]),
-            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 0.0)) );
-    drawMotif(path2, Motif(motifs[2]),
-            *(new QPointF(column + 1 -1/SQUARE_COEF_INVERSE,    row + (0.5)*(1 -1/SQUARE_COEF_INVERSE))) );
-    drawMotif(path3, Motif(motifs[3]),
-            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 1 -1/SQUARE_COEF_INVERSE)) );
+    drawMotif(path0,
+            *(new QPointF(column + 0.0, row + (1/2.0)*(1 -1/SQUARE_COEF_INVERSE))),
+              Motif(motifs[0]));
+    drawMotif(path1,
+            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 0.0)),
+               Motif(motifs[1]));
+    drawMotif(path2,
+            *(new QPointF(column + 1 -1/SQUARE_COEF_INVERSE,    row + (0.5)*(1 -1/SQUARE_COEF_INVERSE))),
+              Motif(motifs[2]));
+    drawMotif(path3,
+            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 1 -1/SQUARE_COEF_INVERSE)),
+              Motif(motifs[3]));
 }
 
 void BoardWidget::drawBoard()

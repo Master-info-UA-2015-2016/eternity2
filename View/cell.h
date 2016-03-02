@@ -1,6 +1,11 @@
 #ifndef CELL_H
 #define CELL_H
 
+/**
+ * @brief The Cell class
+ * @author Florian
+ * @deprecated
+ */
 class Cell
 {
 
