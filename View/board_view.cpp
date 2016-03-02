@@ -34,7 +34,7 @@ BoardWidget::BoardWidget(Board *b, QWidget *parent) :
 void BoardWidget::drawMotif(const QPainterPath& path, const QPointF& square_pos, const Motif &colors)
 {
 #if DEBUG_DRAW_COLORS
-    cout << "Couleurs du motif : "<< colors<< endl;
+    cout<< colors<< endl;
 #endif
     bufferPainter->fillPath(path, *(colors.get_color_ext()));
     bufferPainter->fillRect(square_pos.x() * DRAW_SCALE , square_pos.y() * DRAW_SCALE,
@@ -50,38 +50,40 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
     QPointF top_right((column +1.0) * DRAW_SCALE,    row * DRAW_SCALE);
     QPointF bottom_right((column + 1.0) * DRAW_SCALE,(row +1.0) * DRAW_SCALE);
 
-    QPainterPath path0(top_left);   // En haut à gauche
-        path0.lineTo(middle);       // Milieu
-        path0.lineTo(bottom_left);  // En bas à gauche
-        path0.lineTo(top_left);     // En haut à gauche
 
+    // Triangle en bas
+    QPainterPath path0(bottom_right);   // En haut à gauche
+        path0.lineTo(bottom_left);      // En haut à droite
+        path0.lineTo(middle);           // Milieu
+        path0.lineTo(bottom_right);     // En haut à gauche
+    // Triangle de gauche
     QPainterPath path1(top_left);   // En haut à gauche
-        path1.lineTo(top_right);    // En haut à droite
         path1.lineTo(middle);       // Milieu
+        path1.lineTo(bottom_left);  // En bas à gauche
         path1.lineTo(top_left);     // En haut à gauche
-
-    QPainterPath path2(top_right);  // En haut à gauche
-        path2.lineTo(bottom_right); // En haut à droite
+    // Triangle en haut
+    QPainterPath path2(top_left);   // En haut à gauche
+        path2.lineTo(top_right);    // En haut à droite
         path2.lineTo(middle);       // Milieu
-        path2.lineTo(top_right);    // En haut à gauche
-
-    QPainterPath path3(bottom_right);   // En haut à gauche
-        path3.lineTo(bottom_left);      // En haut à droite
-        path3.lineTo(middle);           // Milieu
-        path3.lineTo(bottom_right);     // En haut à gauche
+        path2.lineTo(top_left);     // En haut à gauche
+    // Triangle à droite
+    QPainterPath path3(top_right);  // En haut à gauche
+        path3.lineTo(bottom_right); // En haut à droite
+        path3.lineTo(middle);       // Milieu
+        path3.lineTo(top_right);    // En haut à gauche
 
     drawMotif(path0,
-            *(new QPointF(column + 0.0, row + (1/2.0)*(1 -1/SQUARE_COEF_INVERSE))),
-              Motif(motifs[0]));
-    drawMotif(path1,
-            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 0.0)),
-               Motif(motifs[1]));
-    drawMotif(path2,
-            *(new QPointF(column + 1 -1/SQUARE_COEF_INVERSE,    row + (0.5)*(1 -1/SQUARE_COEF_INVERSE))),
-              Motif(motifs[2]));
-    drawMotif(path3,
             *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 1 -1/SQUARE_COEF_INVERSE)),
-              Motif(motifs[3]));
+            Motif(motifs[0]));
+    drawMotif(path1,
+            *(new QPointF(column + 0.0, row + (1/2.0)*(1 -1/SQUARE_COEF_INVERSE))),
+            Motif(motifs[1]));
+    drawMotif(path2,
+            *(new QPointF(column + (0.5)*(1 -1/SQUARE_COEF_INVERSE),    row + 0.0)),
+            Motif(motifs[2]));
+    drawMotif(path3,
+            *(new QPointF(column + 1 -1/SQUARE_COEF_INVERSE,    row + (0.5)*(1 -1/SQUARE_COEF_INVERSE))),
+            Motif(motifs[3]));
 }
 
 void BoardWidget::drawBoard()
@@ -100,6 +102,9 @@ void BoardWidget::drawBoard()
 
         int* colors= board->getConfig().getRotatedMotif(current_width, current_height);
         // On affiche la pièce à la position courante, avec son motif
+#if DEBUG_DRAW_COLORS
+        cout<< "Piece en position "<< current_width<< ";"<< current_height<< " : "<< endl;
+#endif
         drawPiece(current_width, current_height, colors);
 //       }
 //      else {
