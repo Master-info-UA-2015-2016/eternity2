@@ -190,7 +190,7 @@ int Configuration::constraintRowsXtrem() {
 
 bool Configuration::constraintRowsXtrem(int x, int y) {
     const int * swne;
-    if(y != 0 || y != height()-1)
+    if(y != 0 && y != height()-1)
         return true;
     else {
         const pair<int, int> & pair = getPair(x, y);
@@ -237,7 +237,7 @@ int Configuration::constraintColsXtrem() {
 
 bool Configuration::constraintColsXtrem(int x, int y) {
     const int * swne;
-    if(x != 0 || x != width()-1)
+    if(x != 0 && x != width()-1)
         return true;
     else {
         const pair<int, int> & pair = getPair(x, y);

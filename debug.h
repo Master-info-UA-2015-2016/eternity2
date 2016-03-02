@@ -10,7 +10,7 @@
 #define DEBUG_CREATE_CONFIGS        1
 
 // mainwindow
-#define DEBUG_SHOW_RANDOM_CONFIG    0
+#define DEBUG_SHOW_RANDOM_CONFIG    1
 #define DEBUG_EVALUATION            1
 
 //cconfiguration
