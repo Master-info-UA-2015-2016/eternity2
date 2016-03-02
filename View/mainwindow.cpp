@@ -43,7 +43,8 @@ bool MainWindow::init_configuration(std::string filename)
 //        cout << "Nombre d'erreurs " << endl;
         cout << "Check ? " << config->checkPieces() << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
-        Algorithm::local_search(instance);
+        Configuration * local = Algorithm::local_search(instance);
+        cout << *local << endl;
 #endif
 
 
