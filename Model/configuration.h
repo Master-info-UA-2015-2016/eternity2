@@ -5,6 +5,8 @@
 #include <iterator>
 #include <time.h>
 
+#include "debug.h"
+
 #include "instance_model.h"
 
 /**
