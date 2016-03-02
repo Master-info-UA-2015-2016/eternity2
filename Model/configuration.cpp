@@ -162,7 +162,7 @@ int Configuration::constraintRowsXtrem() {
     int errors = 0;
     const int * swne;
     // Vérification de la première ligne (Contrainte Ligne Nord)
-    for(int i=0 ; i<instance->width() ; i++) {
+    for(int i=0 ; i<width() ; i++) {
         const pair<int, int> & pair = getPair(i, 0);
         const Piece & piece = getPiece(i, 0);
         swne = piece.rotate(pair.second);
@@ -172,16 +172,32 @@ int Configuration::constraintRowsXtrem() {
         }
     }
     // Vérification de la seconde ligne (Contrainte Ligne Sud)
-    for(int i=0 ; i<instance->width() ; i++) {
-        const pair<int, int> & pair = getPair(i, instance->height()-1);
-        const Piece & piece = getPiece(i, instance->height()-1);
+    for(int i=0 ; i<width() ; i++) {
+        const pair<int, int> & pair = getPair(i, height()-1);
+        const Piece & piece = getPiece(i, height()-1);
         swne = piece.rotate(pair.second);
         if(swne[0] != 0) {
-            cout << "\t("<< i << "," << instance->height()-1 << ")" << piece;
+            cout << "\t("<< i << "," << height()-1 << ")" << piece;
             errors++;
         }
     }
     return errors;
+}
+
+bool Configuration::constraintRowsXtrem(int x, int y) {
+    const int * swne;
+    if(y != 0 || y != height()-1)
+        return true;
+    else {
+        const pair<int, int> & pair = getPair(x, y);
+        const Piece & piece = getPiece(x, y);
+        swne = piece.rotate(pair.second);
+        if(y == 0)
+            return swne[2] == 0;
+        else if(y == height()-1)
+            return swne[0] == 0;
+        return false;
+    }
 }
 
 int Configuration::constraintColsXtrem() {
@@ -328,4 +344,17 @@ int Configuration::checkPieces(){
     }//fin parcours pieces
 
     return nb_errors;
+}
+
+int Configuration::constraintPieces() {
+    // Recherche d'une première pièce "peut-être" bien placée
+    bool found = false;
+    while(!false) {
+       for(int i=0 ; i<height() ; i++) {
+           for(int j=0 ; j<width() ; j++) {
+
+           }
+       }
+
+    }
 }

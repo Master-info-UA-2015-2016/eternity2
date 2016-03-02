@@ -130,11 +130,19 @@ public:
     static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
 
     /**
-     * Compte des erreurs de contraintes de lignes
+     * Compte des erreurs de contraintes de lignes extrèmes
      * @return int
      * @author FOURMOND Jérôme
      */
     int constraintRowsXtrem();
+
+    /**
+     * La pièce située en (x,y) respecte-t-elle la contrainte de lignes extrèmes
+     * @param x : int
+     * @param y : int
+     * @return boolean
+     */
+    bool constraintRowsXtrem(int x, int y);
 
     /**
      * Compte des erreurs de contraintes de colonnes
@@ -156,6 +164,8 @@ public:
      * @author GARNIER Antoine
      */
     int checkPieces();
+
+    int constraintPieces();
 };
 
 #endif // CONFIGURATION_H
