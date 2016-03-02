@@ -271,40 +271,53 @@ int Configuration::checkPieces(){
         int south_motif = id_motifs[0];
         int east_motif = id_motifs[3];
 
-        //derniere ligne du puzzle - est seulement
-        if(i > width()*height() - width()){
-            int tmp_rot = positions[getPosition(instance->getPiece(id_piece+1))].second;
-            int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot)[1];
-            //si la piece est noire, pas de comparaison
-            if(piece_tmp_ouest != 0){
-                if(piece_tmp_ouest != east_motif) ++nb_errors;
-            }
+        if(south_motif != 0 || east_motif != 0){
+            //derniere ligne du puzzle - est seulement
+            if(i > width()*height() - width()){
+                int tmp_rot = positions[getPosition(instance->getPiece(id_piece+1))].second;
+                int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot)[1];
+                if(piece_tmp_ouest != east_motif){
+                #if DEBUG_POS_ERRORS
+                    cout << "Derniere ligne" << endl;
+                    cout << "Piece : "<< id_piece << " conflit O-E: " << piece_tmp_ouest << " - " << east_motif << endl;
+                #endif
+                    ++nb_errors;
+                }
 
-        } else
-        if(i % width() == 0){
-            //derniere case d'une ligne - comparaison sud seulement
-            int tmp_rot = positions[getPosition(instance->getPiece(id_piece+width()))].second;
-            int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot)[2];
-            //si la piece est noire, pas de comparaison
-            if(piece_tmp_nord != 0){
-                if(piece_tmp_nord != south_motif) ++nb_errors;
-            }
+            } else
+            if(i % width() == 0){
+                //derniere case d'une ligne - comparaison sud seulement
+                int tmp_rot = positions[getPosition(instance->getPiece(id_piece+width()))].second;
+                int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot)[2];
+                if(piece_tmp_nord != south_motif){
+                    #if DEBUG_POS_ERRORS
+                        cout << "Piece : "<< id_piece << "conflit N-S: " << piece_tmp_nord << " - " << south_motif << endl;
+                    #endif
+                    ++nb_errors;
+                }
 
-        } else {
-            //comparaison sud et est
-            int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1/*Changer par la valeur de position de la piece à l'est*/))].second;
-            int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()/*Changer par la valeur de position de la piece au sud*/))].second;
+            } else {
+                //comparaison sud et est
+                int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1/*Changer par la valeur de position de la piece à l'est*/))].second;
+                int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()/*Changer par la valeur de position de la piece au sud*/))].second;
 
-            int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot_est)[1];
-            int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot_sud)[2];
-            //si la piece est noire, pas de comparaison
-            if(piece_tmp_ouest != 0){
-                if(piece_tmp_ouest != east_motif) ++nb_errors;
+                int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot_est)[1];
+                int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot_sud)[2];
+                if(piece_tmp_ouest != east_motif){
+                    #if DEBUG_POS_ERRORS
+                        cout << "Piece : "<< id_piece << "conflit O-E: " << piece_tmp_ouest << " - " << east_motif << endl;
+                    #endif
+                    ++nb_errors;
+                }
+                if(piece_tmp_nord != south_motif){
+                    #if DEBUG_POS_ERRORS
+                        cout << "Piece : "<< id_piece << "conflit N-S: " << piece_tmp_nord << " - " << south_motif << endl;
+                    #endif
+                    ++nb_errors;
+                }
             }
-            //si la piece est noire, pas de comparaison
-            if(piece_tmp_nord != 0){
-                if(piece_tmp_nord != south_motif) ++nb_errors;
-            }
+            ++nb_errors;
+            if(south_motif == 0 && east_motif == 0) ++nb_errors;
         }
     }
 
