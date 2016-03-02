@@ -51,7 +51,7 @@ class Algorithm
          * @param instance : Instance
          * @author FOURMOND Jérôme
          */
-        static void local_search(const Instance * instance);
+        static Configuration * local_search(const Instance * instance);
 };
 
 #endif // ALGORITHM_H

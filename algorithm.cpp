@@ -45,7 +45,7 @@ int Algorithm::evaluation(Configuration & C) {
     return errors;
 }
 
-void Algorithm::local_search(const Instance * instance) {
+Configuration * Algorithm::local_search(const Instance * instance) {
     // Génération de configurations
     vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
 
@@ -55,14 +55,26 @@ void Algorithm::local_search(const Instance * instance) {
     // 2. x <- x0 (x est la solution courante)
     Configuration * x = x0;
     // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
-    Configuration * xEtoile = x;
+    Configuration * xStar = x;
     // 4. Tant que le critère d'arret n'est pas respecté faire
 
     vector<Configuration *> voisins;
+    Configuration * xprime;
     while(nb_eval < 100) {
-    // 5. Sélectionner une solution voisine x' ∈ N(x)
+        // 5. Sélectionner une solution voisine x' ∈ N(x)
         voisins = get_neighbours((*x), configurations);
+        random_shuffle(voisins.begin(), voisins.end());
+        xprime = voisins[0];
+        // 6. x <- x'
+        x = xprime;
         nb_eval++;
-        cout << "Voisins de " << *x << " : " << voisins.size() << endl;
-    }
+        // 7. si f(x) > f(x*) alors
+        if(Algorithm::evaluation(*x) > Algorithm::evaluation(*xStar)) {
+            // 8. x* <- x
+            xStar = x;  // Nouvelle meilleure solution
+            nb_eval = 0;
+        }   // 9. fin
+    } // 10. fin
+    // 11. retourner x*
+    return xStar;
 }
