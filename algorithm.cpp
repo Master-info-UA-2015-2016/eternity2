@@ -69,7 +69,7 @@ Configuration * Algorithm::local_search(const Instance * instance) {
         x = xprime;
         nb_eval++;
         // 7. si f(x) > f(x*) alors
-        if(Algorithm::evaluation(*x) > Algorithm::evaluation(*xStar)) {
+        if(Algorithm::evaluation(*x) < Algorithm::evaluation(*xStar)) {
             // 8. x* <- x
             xStar = x;  // Nouvelle meilleure solution
             nb_eval = 0;
