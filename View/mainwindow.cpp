@@ -38,10 +38,12 @@ bool MainWindow::init_configuration(std::string filename)
 //        cout << "\t- Lignes : " << config->constraintRows() << endl;
 //        cout << "\t- Colonnes : " << config->constraintCols() << endl;
 //        cout << "\t- Angles : " << config->constraintEdges() << endl;
-        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
-
-//        cout << "Check ? " << config->checkPieces() << endl;
 #endif
+#if DEBUG_EVALUATION
+//        cout << "Check ? " << config->checkPieces() << endl;
+        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
+#endif
+
         Board* board_model= new Board(config);
 
         BoardWidget* board_view= new BoardWidget(board_model);
