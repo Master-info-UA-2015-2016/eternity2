@@ -15,5 +15,6 @@
 
 //cconfiguration
 #define DEBUG_POS_ERRORS 1
+#define DEBUG_SHOW_CONFIG 0
 
 #endif // DEBUG_H

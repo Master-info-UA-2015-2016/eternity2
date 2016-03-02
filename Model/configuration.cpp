@@ -167,7 +167,9 @@ int Configuration::constraintRowsXtrem() {
         const Piece & piece = getPiece(i, 0);
         swne = piece.rotate(pair.second);
         if(swne[2] != 0) {
+#if DEBUG_SHOW_CONFIG
             cout << "\t("<< i << "," << 0 << ")" << piece;
+#endif
             errors++;
         }
     }
@@ -177,7 +179,9 @@ int Configuration::constraintRowsXtrem() {
         const Piece & piece = getPiece(i, height()-1);
         swne = piece.rotate(pair.second);
         if(swne[0] != 0) {
+#if DEBUG_SHOW_CONFIG
             cout << "\t("<< i << "," << height()-1 << ")" << piece;
+#endif
             errors++;
         }
     }
@@ -209,7 +213,9 @@ int Configuration::constraintColsXtrem() {
         const Piece & piece = getPiece(0, i);
         swne = piece.rotate(pair.second);
         if(swne[1] != 0) {
+#if DEBUG_SHOW_CONFIG
             cout << "\t("<< 0 << "," << i << ")" << piece;
+#endif
             errors++;
         }
     }
@@ -219,7 +225,9 @@ int Configuration::constraintColsXtrem() {
         const Piece & piece = getPiece(instance->width()-1, i);
         swne = piece.rotate(pair.second);
         if(swne[3] != 0) {
+#if DEBUG_SHOW_CONFIG
             cout << "\t("<< instance->width()-1 << "," << i << ")" << piece;
+#endif
             errors++;
         }
     }
@@ -252,7 +260,9 @@ int Configuration::constraintEdges() {
     Piece piece = getPiece(0,0);
     swne = piece.rotate(pair.second);
     if(swne[1] != 0 || swne[2] != 0) {
-         cout << "\t("<< 0 << "," << 0 << ")" << piece;
+#if DEBUG_SHOW_CONFIG
+        cout << "\t("<< 0 << "," << 0 << ")" << piece;
+#endif
         errors++;
     }
     // Coin Nord-Est
@@ -260,7 +270,9 @@ int Configuration::constraintEdges() {
     piece = getPiece(0,instance->width()-1);
     swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[2] != 0) {
-         cout << "\t("<< 0 << "," << instance->width()-1 << ")" << piece;
+#if DEBUG_SHOW_CONFIG
+        cout << "\t("<< 0 << "," << instance->width()-1 << ")" << piece;
+#endif
         errors++;
     }
     // Coin Sud-Ouest
@@ -268,7 +280,9 @@ int Configuration::constraintEdges() {
     piece = getPiece(instance->height()-1,0);
     swne = piece.rotate(pair.second);
     if(swne[1] != 0 || swne[0] != 0) {
-         cout << "\t("<< instance->height()-1 << "," << 0 << ")" << piece;
+#if DEBUG_SHOW_CONFIG
+        cout << "\t("<< instance->height()-1 << "," << 0 << ")" << piece;
+#endif
         errors++;
     }
     // Coin Sud-Est
@@ -276,7 +290,9 @@ int Configuration::constraintEdges() {
     piece = getPiece(instance->height()-1, instance->width()-1);
     swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[0] != 0) {
-         cout << "\t("<< instance->height()-1 << "," << instance->width()-1 << ")" << piece;
+#if DEBUG_SHOW_CONFIG
+        cout << "\t("<< instance->height()-1 << "," << instance->width()-1 << ")" << piece;
+#endif
         errors++;
     }
 
@@ -295,7 +311,7 @@ bool Configuration::constraintEdges(int x, int y) {
         return swne[2] == 0 && swne[3] == 0;
     else if(x == width()-1 && y == height()-1)
         return swne[0] == 0 && swne[3] == 0;
-    else true;
+    return true;
 }
 
 int Configuration::checkPieces(){
