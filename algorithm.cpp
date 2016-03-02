@@ -19,8 +19,8 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
 // TODO fonction d'évaluation
 int Algorithm::evaluation(Configuration & C) {
     int errors = 0;
-    errors += C.constraintCols();
-    errors += C.constraintRows();
+    errors += C.constraintColsXtrem();
+    errors += C.constraintRowsXtrem();
     errors += C.constraintEdges();
 
     return errors;
@@ -29,7 +29,6 @@ int Algorithm::evaluation(Configuration & C) {
 void Algorithm::local_search(const Instance * instance) {
     // Génération de configurations
     vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
-    random_shuffle(configurations.begin(), configurations.end());
 
 #if DEBUG_CREATE_CONFIGS
     int i = 1;
@@ -45,5 +44,5 @@ void Algorithm::local_search(const Instance * instance) {
     Configuration * x = x0;
     // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
     Configuration * xEtoile = x;
-
+    // 4. Tant que le critère d'arret n'est pas respecté faire
 }

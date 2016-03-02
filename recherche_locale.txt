@@ -1,3 +1,5 @@
+####################	Une écriture	    ###################
+
 Données :   (X, f) : une instance de problème ;
 	    N : une fonction de voisinage ;
 	    f : une fonction d'évaluation (éventuellement f).
@@ -32,11 +34,10 @@ Politique de mouvement
     - Sélectionner une solution voisine :
 	- solution semblable
 
-############	Un autre algo	##########
+####################	Une autre écriture	####################
 
-1. Choisir solution initiale
-2. s ∈ S
-3. repeat
-4.  choisir s0 ∈ V(s)
-5.  s ← s0
-6. until critère d’arret non verifié
+1. Choisir solution initiale s ∈ S
+2. repeat
+3.  choisir s0 ∈ V(s)
+4.  s ← s0
+5. until critère d’arret non verifié

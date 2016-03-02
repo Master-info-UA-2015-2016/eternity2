@@ -132,14 +132,14 @@ public:
      * @return int
      * @author FOURMOND Jérôme
      */
-    int constraintRows();
+    int constraintRowsXtrem();
 
     /**
      * Compte des erreurs de contraintes de colonnes
      * @return int
      * @author FOURMOND Jérôme
      */
-    int constraintCols();
+    int constraintColsXtrem();
 
     /**
      * Compte des erreurs de contraintes d'angles
