@@ -264,10 +264,7 @@ int Configuration::checkPieces(){
     int nb_erreurs = 0;
 
     //aucune piece n'est traitee au debut
-    vector<bool> pieces_traitees;
-    for(int i = 0; i < (height()*width()); ++i){
-        pieces_traitees[i] = false;
-    }
+    vector<bool> pieces_traitees(instance->height()*instance->width(), false);
 
     //piece i
         int indice = 0;
@@ -291,8 +288,8 @@ int Configuration::checkPieces(){
 
                 } else {
                     //comparaison sud et est
-                    int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1))].second;
-                    int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()))].second;
+                    int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1/*Changer par la valeur de position de la piece à l'est*/))].second;
+                    int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()/*Changer par la valeur de position de la piece au sud*/))].second;
 
                     int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot_est)[1];
                     int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot_sud)[2];
@@ -302,7 +299,7 @@ int Configuration::checkPieces(){
 
 
             //ajout de la pièce à vect
-            pieces_traitees[id_piece] = true;
+            pieces_traitees[id_piece-1] = true;
             ++indice;
             }
         }

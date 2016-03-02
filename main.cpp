@@ -15,8 +15,6 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
-//    Algorithm::local_search(&inst);
-
     QApplication app(argc, argv);
 
     MainWindow w;
