@@ -21,6 +21,10 @@
 #include "View/motif.h"
 #include "Model/board_model.h" // TODO A remplacer par board_view à priori
 
+/**
+ * La classe widget d'affichage d'un plateau et de ses cellules et pièces
+ * @author Florian
+ */
 class BoardWidget : public QWidget
 {
     Q_OBJECT
@@ -34,7 +38,13 @@ public:
     explicit BoardWidget(Board* b, QWidget *parent = 0);
     explicit BoardWidget(QWidget *parent = 0);
 
-    void drawMotif(const QPainterPath &path, const Motif& colors, const QPointF& pos_rect);
+    /**
+     * Dessine un triangle et un rectangle formants un motif, à partir de couleurs
+     * @param path Chemin formant le triangle
+     * @param colors Motif contenant les couleurs utilisées
+     * @param pos_rect La position du carrés
+     */
+    void drawMotif(const QPainterPath &path, const QPointF& square_pos, const Motif& colors);
 
     /**
      * Imprime une pièce selon sa position, et ses identifiants de motifs
