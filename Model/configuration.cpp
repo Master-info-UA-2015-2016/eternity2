@@ -244,7 +244,7 @@ int Configuration::constraintEdges() {
     piece = getPiece(instance->height()-1, instance->width()-1);
     swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[0] != 0) {
-         cout << "\t("<< instance-width()-1 << "," << instance->width() << ")" << piece;
+         cout << "\t("<< instance->height()-1 << "," << instance->width()-1 << ")" << piece;
         errors++;
     }
 
