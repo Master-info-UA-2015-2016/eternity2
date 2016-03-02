@@ -261,49 +261,53 @@ int Configuration::checkPieces(){
                 Ajouter P à vect (indice de la pièce P à 1 dans vect)
             Fin TantQue
     */
-    int nb_erreurs = 0;
+    int nb_errors = 0;
 
-    //aucune piece n'est traitee au debut
-    vector<bool> pieces_traitees(instance->height()*instance->width(), false);
+    for(int i= 0; i< height()*width()-1; ++i){
+        pair<int, int> current_piece= positions[i];
+        int id_piece = current_piece.first;
 
-    //piece i
-        int indice = 0;
-        for(auto piece : positions){
-            if(indice != height()*width()-1){
-                int id_piece = piece.first;
-                int piece_S = instance->getPiece(id_piece).rotate(piece.second)[0];
-                int piece_E = instance->getPiece(id_piece).rotate(piece.second)[3];
+        int* id_motifs= instance->getPiece(id_piece).rotate(current_piece.second);
+        int south_motif = id_motifs[0];
+        int east_motif = id_motifs[3];
 
-                //derniere ligne du puzzle - est seulement
-                if(indice > width()*height() - width()){
-                    int tmp_rot = positions[getPosition(instance->getPiece(id_piece+1))].second;
-                    int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot)[1];
-                    if(piece_tmp_ouest != piece_E) ++nb_erreurs;
-                } else
-                if(indice % width() == 0){
-                    //derniere case d'une ligne - comparaison sud seulement
-                    int tmp_rot = positions[getPosition(instance->getPiece(id_piece+width()))].second;
-                    int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot)[2];
-                    if(piece_tmp_nord != piece_S) ++nb_erreurs;
+        //derniere ligne du puzzle - est seulement
+        if(i > width()*height() - width()){
+            int tmp_rot = positions[getPosition(instance->getPiece(id_piece+1))].second;
+            int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot)[1];
+            //si la piece est noire, pas de comparaison
+            if(piece_tmp_ouest != 0){
+                if(piece_tmp_ouest != east_motif) ++nb_errors;
+            }
 
-                } else {
-                    //comparaison sud et est
-                    int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1/*Changer par la valeur de position de la piece à l'est*/))].second;
-                    int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()/*Changer par la valeur de position de la piece au sud*/))].second;
+        } else
+        if(i % width() == 0){
+            //derniere case d'une ligne - comparaison sud seulement
+            int tmp_rot = positions[getPosition(instance->getPiece(id_piece+width()))].second;
+            int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot)[2];
+            //si la piece est noire, pas de comparaison
+            if(piece_tmp_nord != 0){
+                if(piece_tmp_nord != south_motif) ++nb_errors;
+            }
 
-                    int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot_est)[1];
-                    int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot_sud)[2];
-                    if(piece_tmp_ouest != piece_E) ++nb_erreurs;
-                    if(piece_tmp_nord != piece_S) ++nb_erreurs;
-                }
+        } else {
+            //comparaison sud et est
+            int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1/*Changer par la valeur de position de la piece à l'est*/))].second;
+            int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()/*Changer par la valeur de position de la piece au sud*/))].second;
 
-
-            //ajout de la pièce à vect
-            pieces_traitees[id_piece-1] = true;
-            ++indice;
+            int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot_est)[1];
+            int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot_sud)[2];
+            //si la piece est noire, pas de comparaison
+            if(piece_tmp_ouest != 0){
+                if(piece_tmp_ouest != east_motif) ++nb_errors;
+            }
+            //si la piece est noire, pas de comparaison
+            if(piece_tmp_nord != 0){
+                if(piece_tmp_nord != south_motif) ++nb_errors;
             }
         }
+    }
 
 
-    return nb_erreurs;
+    return nb_errors;
 }
