@@ -4,6 +4,7 @@
 // board_view
 #define DEBUG_DRAW_COLORS       0
 #define DEBUG_POS_PIECE         0
+#define DEBUG_PAINT             0
 
 // algorithm
 #define DEBUG_CREATE_CONFIGS        0

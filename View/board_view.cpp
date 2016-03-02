@@ -23,14 +23,6 @@ BoardWidget::BoardWidget(Board *b, QWidget *parent) :
 // ########################
 /***		Affichages	***/
 // ########################
-
-// INUTILISE POUR L'INSTANT : dessine un triangle à partir d'un QVector
-//    //        QVector<QPointF> tri_points(3);
-//    //        tri_points.push_back(QPointF(0.0, 0.0));
-//    //        tri_points.push_back(QPointF(-1.5, -1.5));
-//    //        tri_points.push_back(QPointF(0.0, -3.0));
-//    //        QPolygonF triangle(tri_points);
-
 void BoardWidget::drawMotif(const QPainterPath& path, const QPointF& square_pos, const Motif &colors)
 {
 #if DEBUG_DRAW_COLORS
@@ -49,7 +41,6 @@ void BoardWidget::drawPiece(int column, int row, const int motifs[4])
     QPointF bottom_left(column * DRAW_SCALE,        (row +1.0) * DRAW_SCALE);
     QPointF top_right((column +1.0) * DRAW_SCALE,    row * DRAW_SCALE);
     QPointF bottom_right((column + 1.0) * DRAW_SCALE,(row +1.0) * DRAW_SCALE);
-
 
     // Triangle en bas
     QPainterPath path0(bottom_right);   // En haut à gauche
@@ -127,7 +118,9 @@ void BoardWidget::redraw()
     cout << "test redraw BoardWidget"<< num_redraw<< endl;
     #endif
 
+#if DEBUG_PAINT
     cout << "redraw BoardWidget"<< endl;
+#endif
 
     if (!buffer->isNull()){
         delete(buffer);
@@ -167,7 +160,9 @@ void BoardWidget::resizeEvent(QResizeEvent *event)
 void BoardWidget::paintEvent(QPaintEvent* event)
 {
     QWidget::paintEvent(event);
-    std::cout << "BoardWidget_paintEvent : affichage plateau"<< std::endl;
+#if DEBUG_PAINT
+    cout << "BoardWidget_paintEvent : affichage plateau"<< std::endl;
+#endif
     QPainter paint(this);
     paint.scale(cell_size/(DRAW_SCALE), cell_size/(DRAW_SCALE));
     paint.drawImage(0, 0, *buffer);
