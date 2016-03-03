@@ -24,6 +24,10 @@ Configuration::Configuration(const string& fileName)
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
+    if(x < 0 || x > width()-1 || y < 0 || y > height()-1) {
+        const pair<int, int> & position = make_pair(0, 0);
+        return position;
+    }
     const pair<int, int>& position = positions[x + y * instance->width()];
     return position;
 }
@@ -69,6 +73,26 @@ pair<int, int> Configuration::getCase(int id) const {
         }
     }
     return make_pair(-1, -1);
+}
+
+int * Configuration::getAdjacent(int x, int y) const {
+    int * swne = (int *) malloc (4);
+
+    pair<int, int> pos;
+    // Récupération Sud
+    pos = getPair(x, y+1);
+    swne[0] = pos.first;
+    // Récupération Est
+    pos = getPair(x-1, y);
+    swne[1] = pos.first;
+    // Récupération Nord
+    pos = getPair(x, y-1);
+    swne[2] = pos.first;
+    // Récupération Ouest
+    pos = getPair(x+1, y);
+    swne[3] = pos.first;
+
+    return swne;
 }
 
 ostream& Configuration::print(ostream& out){

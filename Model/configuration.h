@@ -88,6 +88,14 @@ public:
     std::pair<int, int> getCase(int id) const;
 
     /**
+     * Récupération des ids des cases adjacents à la position (x, y)
+     * @param x : int
+     * @param y : int
+     * @return int[4]
+     */
+    int * getAdjacent(int x, int y) const;
+
+    /**
      * @brief height
      * @return
      */

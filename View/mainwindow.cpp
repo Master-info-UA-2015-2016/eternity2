@@ -38,6 +38,10 @@ bool MainWindow::init_configuration(std::string filename)
         cout << "\t- Colonnes : " << config->constraintColsXtrem() << endl;
         cout << "\t- Angles : " << config->constraintEdges() << endl;
         config->constraintPieces();
+        int * adj = config->getAdjacent(0,0);
+        for(int i=0 ; i<4 ; i++) {
+            cout << "Adjacent : " << adj[i] << endl;
+        }
 #endif
 
 #if DEBUG_EVALUATION
