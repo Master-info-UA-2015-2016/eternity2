@@ -361,7 +361,7 @@ int Configuration::checkPieces(){
     */
     int nb_errors = 0;
 
-    for(int i= 0; i< height()*width()-2; ++i){
+    for(int i= 0; i< height()*width()-1; ++i){
         int local_errors = 0;
 
         pair<int, int> current_piece= positions[i];
