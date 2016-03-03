@@ -4,6 +4,12 @@
 #include <iostream>
 #include <algorithm>
 
+enum PairColors{Black_Black, Gray_Orange, LightGreen_Pink, Yellow_Red, Purple_Gray, LightGreen_Orange,
+                    LightBlue_Purple, Orange_LightBlue, DarkBlue_Orange, Purple_Orange, Gray_DarkGreen, Pink_DarkGreen,
+                    Red_DarkGreen, Yellow_DarkGreen, LightBlue_DarkGreen, DarkBlue_DarkGreen, Purple_DarkGreen,
+                    Gray_Brown, Pink_Brown, Red_Brown, Yellow_Brown, Red_LightGreen, LightBlue_Brown, Purple_Brown
+               };
+
 /**
  * Classe représentant une pièce. haque pièce dispose d'un identifiant et d'un tableau
  * de 4 entiers représentant les différentes couleurs de la pièce.
@@ -20,20 +26,20 @@ class Piece
 {
 private:
     int id;
-    int motif[MAX_CARD];
+    PairColors motif[MAX_CARD];
 
 public:
     /**
      * Constructeur
      */
-    Piece(int _id, int tab[]);
+    Piece(int _id, PairColors tab[]);
 
     /**
      * Getters
      *
      */
     int get_id() const  { return id; }
-    const int* get_motif() const   { return motif; }
+    const PairColors* get_motif() const   { return motif; }
 
     /**
      * Impression sur un flux de l'instance
@@ -49,7 +55,7 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Piece& r)
     { return r.print(out); }
 
-    int* rotate(int nbRotation) const;
+    PairColors* rotate(int nbRotation) const;
 };
 
 #endif // PIECE_MODEL_H
