@@ -46,7 +46,7 @@ bool MainWindow::init_configuration(std::string filename)
 
 #if DEBUG_EVALUATION
 //        cout << "Nombre d'erreurs " << endl;
-//        cout << "Check ? " << config->checkPieces() << endl;
+        cout << "Check ? " << config->checkPieces() << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
 //        Configuration * local = Algorithm::local_search(instance);
 //        cout << *local << endl;
@@ -56,8 +56,8 @@ bool MainWindow::init_configuration(std::string filename)
 
         Board* board_model= new Board(config);
 
-        BoardWidget* board_view= new BoardWidget(board_model);
-        board_view->show();
+        ui->board= new BoardWidget(board_model);
+        ui->board->show();
 
         return true;
     } else {

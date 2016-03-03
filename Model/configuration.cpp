@@ -359,6 +359,20 @@ bool Configuration::constraintEdges(int x, int y) {
     return true;
 }
 
+int Configuration::getNorthMotifSouthPiece(int current_piece_indice){
+    Piece south_piece = instance->getPiece(current_piece_indice + width()-1);
+    int rot_south_piece = positions[getPosition(south_piece)].second;
+
+    return south_piece.rotate(rot_south_piece)[2];
+}
+
+int Configuration::getWestMotifEastPiece(int current_piece_indice){
+    Piece east_piece = instance->getPiece(current_piece_indice +1);
+    int rot_east_piece = positions[getPosition(east_piece)].second;
+
+    return east_piece.rotate(rot_east_piece)[1];
+}
+
 int Configuration::checkPieces(){
     /**
       Algo :
@@ -385,12 +399,12 @@ int Configuration::checkPieces(){
 
         //derniere ligne du puzzle - est seulement
         if(i > width()*height() - width()){
-            int tmp_rot = positions[getPosition(instance->getPiece(id_piece+1))].second;
-            int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot)[1];
-            if(piece_tmp_ouest != east_motif || piece_tmp_ouest == 0){
+            int east_piece_west_motif = getWestMotifEastPiece(i);
+
+            if(east_piece_west_motif != east_motif || east_piece_west_motif == 0){
             #if DEBUG_POS_ERRORS
                 cout << "Derniere ligne" << endl;
-                cout << "Piece : "<< id_piece << " conflit O-E: " << piece_tmp_ouest << " - " << east_motif << endl;
+                cout << "Piece : "<< id_piece << " conflit O-E: " << east_piece_west_motif << " - " << east_motif << endl;
                 cout << endl;
             #endif
                 ++nb_errors;
@@ -399,12 +413,12 @@ int Configuration::checkPieces(){
         } else
         if(i % width() == 0){
             //derniere case d'une ligne - comparaison sud seulement
-            int tmp_rot = positions[getPosition(instance->getPiece(id_piece+width()))].second;
-            int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot)[2];
-            if(piece_tmp_nord != south_motif || piece_tmp_nord == 0){
+            int south_piece_north_motif = getNorthMotifSouthPiece(i);
+
+            if(south_piece_north_motif != south_motif || south_piece_north_motif == 0){
                 #if DEBUG_POS_ERRORS
                     cout << "Derniere colonne" << endl;
-                    cout << "Piece : "<< id_piece << " conflit N-S: " << piece_tmp_nord << " - " << south_motif << endl;
+                    cout << "Piece : "<< id_piece << " conflit N-S: " << south_piece_north_motif << " - " << south_motif << endl;
                     cout << endl;
                 #endif
                 ++nb_errors;
@@ -412,22 +426,29 @@ int Configuration::checkPieces(){
 
         } else {
             //comparaison sud et est
-            int tmp_rot_est = positions[getPosition(instance->getPiece(id_piece+1/*Changer par la valeur de position de la piece à l'est*/))].second;
-            int tmp_rot_sud = positions[getPosition(instance->getPiece(id_piece+width()/*Changer par la valeur de position de la piece au sud*/))].second;
+//            Piece east_piece= instance->getPiece(id_piece +1);
+//            Piece south_piece = instance->getPiece(id_piece + width() -1);
 
-            int piece_tmp_ouest = instance->getPiece(id_piece+1).rotate(tmp_rot_est)[1];
-            int piece_tmp_nord = instance->getPiece(id_piece+width()).rotate(tmp_rot_sud)[2];
-            if(piece_tmp_ouest != east_motif || piece_tmp_ouest == 0){
+//            int tmp_rot_est = positions[getPosition(east_piece/* TODO Changer par la valeur de position de la piece à l'est*/)].second;
+//            int rot_south_piece = positions[getPosition(south_piece/* TODO Changer par la valeur de position de la piece au sud*/)].second;
+
+//            int piece_tmp_ouest = east_piece.rotate(tmp_rot_est)[1];
+//            int piece_tmp_nord = south_piece.rotate(rot_south_piece)[2];
+
+            int east_piece_west_motif = getWestMotifEastPiece(i);
+            int south_piece_north_motif = getNorthMotifSouthPiece(i);
+
+            if(east_piece_west_motif != east_motif || east_piece_west_motif == 0){
                 #if DEBUG_POS_ERRORS
                     cout << "Comp EST" << endl;
-                    cout << "Piece : "<< id_piece << " conflit O-E: " << piece_tmp_ouest << " - " << east_motif << endl;
+                    cout << "Piece : "<< id_piece << " conflit O-E: " << east_piece_west_motif << " - " << east_motif << endl;
                 #endif
                 ++nb_errors;
             }
-            if(piece_tmp_nord != south_motif || piece_tmp_nord == 0){
+            if(south_piece_north_motif != south_motif || south_piece_north_motif == 0){
                 #if DEBUG_POS_ERRORS
                     cout << "Comp Sud" << endl;
-                    cout << "Piece : "<< id_piece << "conflit N-S: " << piece_tmp_nord << " - " << south_motif << endl;
+                    cout << "Piece : "<< id_piece << "conflit N-S: " << south_piece_north_motif << " - " << south_motif << endl;
                     cout << endl;
                 #endif
                 ++nb_errors;
