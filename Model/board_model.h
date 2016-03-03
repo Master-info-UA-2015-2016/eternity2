@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <assert.h>
 
 #include "coordinates.h"
 #include "configuration.h"
@@ -17,8 +18,8 @@ private:
 public:
     Board(Configuration* config);
 
-    int height()    const { return disposition->height(); }
-    int width()     const { return disposition->width(); }
+    int height()    const { assert(disposition != NULL); return disposition->height(); }
+    int width()     const { assert(disposition != NULL); return disposition->width(); }
     const Configuration& getConfig() const { return *disposition; }
 
     std::vector<std::pair<Piece*, Coordinates>* >* getPlaced();
