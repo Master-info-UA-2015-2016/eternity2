@@ -190,6 +190,10 @@ public:
      */
     bool constraintEdges(int x, int y);
 
+
+    int getNorthMotifSouthPiece(int current_piece_indice);
+    int getWestMotifEastPiece(int current_piece_indice);
+
     /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
