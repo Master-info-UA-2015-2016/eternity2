@@ -52,8 +52,8 @@ bool MainWindow::init_configuration(std::string filename)
 
         Board* board_model= new Board(config);
 
-        BoardWidget* board_view= new BoardWidget(board_model);
-        board_view->show();
+        ui->board= new BoardWidget(board_model);
+        ui->board->show();
 
         return true;
     } else {
