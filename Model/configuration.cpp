@@ -80,22 +80,22 @@ pair<int, int> Configuration::getCase(int id) const {
     return make_pair(-1, -1);
 }
 
-int * Configuration::getAdjacent(int x, int y) const {
-    int * swne = (int *) malloc (4);
+vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
+    vector<pair<int, int> > swne(4);
 
     pair<int, int> pos;
     // Récupération Sud
     pos = getPair(x, y+1);
-    swne[0] = pos.first;
+    swne[0] = pos;
     // Récupération Est
     pos = getPair(x-1, y);
-    swne[1] = pos.first;
+    swne[1] = pos;
     // Récupération Nord
     pos = getPair(x, y-1);
-    swne[2] = pos.first;
+    swne[2] = pos;
     // Récupération Ouest
     pos = getPair(x+1, y);
-    swne[3] = pos.first;
+    swne[3] = pos;
 
     return swne;
 }
@@ -481,10 +481,14 @@ int Configuration::constraintPieces() {
                  if(!constraintColsXtrem(i,j)) misplaces[i + j*width()] = p.first;
             }
             // Vérification Adjacences
-            int * p_SWNE = getAdjacent(i,j);
-            int * swne = get
-            if(swne[0] != 0) {
-                if(getPiece(i, j).rotate())
+            vector<pair<int, int> > p_SWNE = getAdjacent(i,j);
+            // Pièce courante
+            int * swne = getPiece(p.first).rotate(p.second);
+            for(int k=0 ; k<4 ; k++) {
+                pair<int, int> p_k = p_SWNE[k];
+                if(p_k.first != 0) {
+                    int * swne_aux = getPiece(p_k.first).rotate(p_k.second);
+                }
             }
          }
     }

@@ -100,7 +100,7 @@ public:
      * @param y : int
      * @return int[4]
      */
-    int * getAdjacent(int x, int y) const;
+    std::vector<std::pair<int, int>> getAdjacent(int x, int y) const;
 
     /**
      * @brief height
