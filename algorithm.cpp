@@ -38,16 +38,17 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
 // TODO fonction d'évaluation
 int Algorithm::evaluation(Configuration & C) {
     int errors = 0;
-    errors += C.constraintColsXtrem();
-    errors += C.constraintRowsXtrem();
-    errors += C.constraintEdges();
+//    errors += C.constraintColsXtrem();
+//    errors += C.constraintRowsXtrem();
+//    errors += C.constraintEdges();
+    errors = C.constraintPieces();
 
     return errors;
 }
 
 Configuration * Algorithm::local_search(const Instance * instance) {
     // Génération de configurations
-    vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
+    vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000000);
 
     int nb_eval = 0;
     // 1. Sélectionner une solution initiale x0 € X
@@ -73,6 +74,7 @@ Configuration * Algorithm::local_search(const Instance * instance) {
             // 8. x* <- x
             xStar = x;  // Nouvelle meilleure solution
             nb_eval = 0;
+            cout << "Nouvelle meilleure solution : " << endl << *xStar << endl;
         }   // 9. fin
     } // 10. fin
     // 11. retourner x*

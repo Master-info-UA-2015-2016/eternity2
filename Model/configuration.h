@@ -59,6 +59,13 @@ public:
     const Piece & getPiece(int x, int y) const;
 
     /**
+     * Récupération de la pièce portant l'id
+     * @param id : int
+     * @return Piece
+     */
+    const Piece & getPiece(int id) const;
+
+    /**
      * Récupération du motif pivoté en position (x, y)
      * @param x : X
      * @param y : Y
@@ -86,6 +93,14 @@ public:
      * @return pair<int, int>
      */
     std::pair<int, int> getCase(int id) const;
+
+    /**
+     * Récupération des ids des cases adjacents à la position (x, y)
+     * @param x : int
+     * @param y : int
+     * @return int[4]
+     */
+    std::vector<std::pair<int, int>> getAdjacent(int x, int y) const;
 
     /**
      * @brief height
