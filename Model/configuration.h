@@ -190,14 +190,34 @@ public:
      */
     bool constraintEdges(int x, int y);
 
+    /**
+     * @brief getNorthMotifSouthPiece
+     * @param current_piece_indice
+     * @return
+     * TODO A REFAIRE, avec meilleures fonctions d'accès au motif pivoté
+     */
+    PairColors getNorthMotifSouthPiece(int current_piece_indice);
+    /**
+     * @brief getWestMotifEastPiece
+     * @param current_piece_indice
+     * @return
+     * TODO A REFAIRE, avec meilleures fonctions d'accès au motif pivoté
+     */
+    PairColors getWestMotifEastPiece(int current_piece_indice);
 
-    int getNorthMotifSouthPiece(int current_piece_indice);
-    int getWestMotifEastPiece(int current_piece_indice);
+    /**
+     * Vérifie que 2 motifs s'appareillent
+     * @param first_motif
+     * @param second_motif
+     * @return vrai si les 2 motifs sont identiques et ne sont pas noirs
+     */
+    bool motifs_match(PairColors first_motif, PairColors second_motif);
 
     /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
      * @author GARNIER Antoine
+     * TODO Revoir
      */
     int checkPieces();
 

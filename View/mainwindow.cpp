@@ -41,8 +41,9 @@ bool MainWindow::init_configuration(std::string filename)
 #endif
 
 #if DEBUG_EVALUATION
-//        cout << "Nombre d'erreurs " << endl;
-        cout << "Check ? " << config->checkPieces() << endl;
+
+        int nb_errors= config->checkPieces();
+        cout << "Nombre d'erreurs :" << nb_errors  << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
 //        Configuration * local = Algorithm::local_search(instance);
 //        cout << *local << endl;
