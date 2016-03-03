@@ -336,7 +336,7 @@ bool Configuration::constraintEdges(int x, int y) {
 }
 
 int Configuration::getNorthMotifSouthPiece(int current_piece_indice){
-    Piece south_piece = instance->getPiece(current_piece_indice + width()-1);
+    Piece south_piece = instance->getPiece(current_piece_indice + width());
     int rot_south_piece = positions[getPosition(south_piece)].second;
 
     return south_piece.rotate(rot_south_piece)[2];
@@ -361,10 +361,10 @@ int Configuration::checkPieces(){
     */
     int nb_errors = 0;
 
-    for(int i= 1; i< height()*width(); ++i){
+    for(int i= 0; i< height()*width()-2; ++i){
         int local_errors = 0;
 
-        pair<int, int> current_piece= positions[i-1];
+        pair<int, int> current_piece= positions[i];
         int id_piece = current_piece.first;
 
         #if DEBUG_POS_ERRORS
@@ -389,7 +389,7 @@ int Configuration::checkPieces(){
             }
 
         } else
-        if(i % width() == 0){
+        if(i % width() == width() -1){
             //derniere case d'une ligne - comparaison sud seulement
             int south_piece_north_motif = getNorthMotifSouthPiece(i);
 
@@ -405,15 +405,6 @@ int Configuration::checkPieces(){
 
         } else {
             //comparaison sud et est
-//            Piece east_piece= instance->getPiece(id_piece +1);
-//            Piece south_piece = instance->getPiece(id_piece + width() -1);
-
-//            int tmp_rot_est = positions[getPosition(east_piece/* TODO Changer par la valeur de position de la piece à l'est*/)].second;
-//            int rot_south_piece = positions[getPosition(south_piece/* TODO Changer par la valeur de position de la piece au sud*/)].second;
-
-//            int piece_tmp_ouest = east_piece.rotate(tmp_rot_est)[1];
-//            int piece_tmp_nord = south_piece.rotate(rot_south_piece)[2];
-
             int east_piece_west_motif = getWestMotifEastPiece(i);
             int south_piece_north_motif = getNorthMotifSouthPiece(i);
 
@@ -437,11 +428,7 @@ int Configuration::checkPieces(){
         }
 
         #if DEBUG_POS_ERROR
-            cout << endl;
-            cout << endl;
             cout << "iteration " << i << " erreurs -> " << local_errors << endl;
-            cout << endl;
-            cout << endl;
         #endif
 
     }//fin parcours pieces
