@@ -59,6 +59,13 @@ public:
     const Piece & getPiece(int x, int y) const;
 
     /**
+     * Récupération de la pièce portant l'id
+     * @param id : int
+     * @return Piece
+     */
+    const Piece & getPiece(int id) const;
+
+    /**
      * Récupération du motif pivoté en position (x, y)
      * @param x : X
      * @param y : Y

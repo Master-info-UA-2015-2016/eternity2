@@ -37,6 +37,11 @@ const Piece & Configuration::getPiece(int x, int y) const {
     return piece;
 }
 
+const Piece & Configuration::getPiece(int id) const {
+    const Piece & piece = instance->getPiece(id);
+    return piece;
+}
+
 int * Configuration::getRotatedMotif(int x, int y) const {
     pair<int, int> position = getPair(x, y);
     Piece P = getPiece(x, y);
@@ -464,13 +469,23 @@ int Configuration::constraintPieces() {
 
     for(int j=0 ; j<height() ; j++) {
         for(int i=0 ; i<width() ; i++) {
+            pair<int, int> p = getPair(i, j);
+            // Vérification d'Angles
             if((j == 0 && i == 0)||(j== 0 && i == width()-1)||(j==height()-1 && i==0)||(j==height()-1 && i==width()-1)) {
-                 if(!constraintEdges(i,j)) misplaces[i + j*width()] = getPair(i, j).first;
-             } else if(j == 0 || j == height()-1) {
-                 if(!constraintRowsXtrem(i,j)) misplaces[i + j*width()] = getPair(i, j).first;
-             } else if(i == 0 || i == width()-1) {
-                 if(!constraintColsXtrem(i,j)) misplaces[i + j*width()] = getPair(i, j).first;
-             } else cout << "(" << i << "," << j << ") - TODO Traitement manquant (non ligne, non colonne, non angle)" << endl;
+                 if(!constraintEdges(i,j)) misplaces[i + j*width()] = p.first;
+            // Vérification de Lignes
+            } else if(j == 0 || j == height()-1) {
+                 if(!constraintRowsXtrem(i,j)) misplaces[i + j*width()] = p.first;
+            // Vérification de Colonnes
+            } else if(i == 0 || i == width()-1) {
+                 if(!constraintColsXtrem(i,j)) misplaces[i + j*width()] = p.first;
+            }
+            // Vérification Adjacences
+            int * p_SWNE = getAdjacent(i,j);
+            int * swne = get
+            if(swne[0] != 0) {
+                if(getPiece(i, j).rotate())
+            }
          }
     }
 
