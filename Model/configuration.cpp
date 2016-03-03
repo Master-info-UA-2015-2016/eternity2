@@ -362,6 +362,8 @@ int Configuration::checkPieces(){
     int nb_errors = 0;
 
     for(int i= 1; i< height()*width(); ++i){
+        int local_errors = 0;
+
         pair<int, int> current_piece= positions[i-1];
         int id_piece = current_piece.first;
 
@@ -376,13 +378,13 @@ int Configuration::checkPieces(){
         //derniere ligne du puzzle - est seulement
         if(i > width()*height() - width()){
             int east_piece_west_motif = getWestMotifEastPiece(i);
-
             if(east_piece_west_motif != east_motif || east_piece_west_motif == 0){
             #if DEBUG_POS_ERRORS
                 cout << "Derniere ligne" << endl;
                 cout << "Piece : "<< id_piece << " conflit O-E: " << east_piece_west_motif << " - " << east_motif << endl;
                 cout << endl;
             #endif
+                ++local_errors;
                 ++nb_errors;
             }
 
@@ -397,6 +399,7 @@ int Configuration::checkPieces(){
                     cout << "Piece : "<< id_piece << " conflit N-S: " << south_piece_north_motif << " - " << south_motif << endl;
                     cout << endl;
                 #endif
+                ++local_errors;
                 ++nb_errors;
             }
 
@@ -419,6 +422,7 @@ int Configuration::checkPieces(){
                     cout << "Comp EST" << endl;
                     cout << "Piece : "<< id_piece << " conflit O-E: " << east_piece_west_motif << " - " << east_motif << endl;
                 #endif
+                ++local_errors;
                 ++nb_errors;
             }
             if(south_piece_north_motif != south_motif || south_piece_north_motif == 0){
@@ -427,9 +431,19 @@ int Configuration::checkPieces(){
                     cout << "Piece : "<< id_piece << "conflit N-S: " << south_piece_north_motif << " - " << south_motif << endl;
                     cout << endl;
                 #endif
+                ++local_errors;
                 ++nb_errors;
             }
         }
+
+        #if DEBUG_POS_ERROR
+            cout << endl;
+            cout << endl;
+            cout << "iteration " << i << " erreurs -> " << local_errors << endl;
+            cout << endl;
+            cout << endl;
+        #endif
+
     }//fin parcours pieces
 
     return nb_errors;
