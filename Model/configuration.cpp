@@ -486,7 +486,6 @@ int Configuration::constraintPieces() {
                  int rot;
                  for(int k=0 ; k<4 ; k++) {
                      rot =  piece.get_motif()[k];
-                     cout << rot << endl;
                      if(rot == 0) {
                          misplaces[i + j*width()] = p.first;
                          break;
@@ -534,12 +533,13 @@ int Configuration::constraintPieces() {
             n++;
     }
 
-    cout << "Pièces mal placées (ID) : " << n << endl;
-    for(auto i : misplaces) {
-        if(i != 0 ) {
-            pair<int, int> pos = getCase(i);
-            cout << "\tPièce à la position : (" << pos.first << "," << pos.second << ")" << endl;
-        }
-    }
-    return 0;
+//    cout << "Pièces mal placées (ID) : " << n << endl;
+//    for(auto i : misplaces) {
+//        if(i != 0 ) {
+//            pair<int, int> pos = getCase(i);
+//            cout << "\tPièce à la position : (" << pos.first << "," << pos.second << ")" << endl;
+//        }
+//    }
+
+    return n;
 }

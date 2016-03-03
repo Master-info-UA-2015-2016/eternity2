@@ -34,21 +34,17 @@ bool MainWindow::init_configuration(std::string filename)
         config->randomConfiguration();
 #if DEBUG_SHOW_RANDOM_CONFIG
         cout << (*config) << endl;
-        cout << "\t- Lignes : " << config->constraintRowsXtrem() << endl;
-        cout << "\t- Colonnes : " << config->constraintColsXtrem() << endl;
-        cout << "\t- Angles : " << config->constraintEdges() << endl;
-        config->constraintPieces();
+        cout << "\t=> " << config->constraintPieces() << endl;
 #endif
 
 #if DEBUG_EVALUATION
 //        cout << "Nombre d'erreurs " << endl;
         cout << "Check ? " << config->checkPieces() << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
-//        Configuration * local = Algorithm::local_search(instance);
-//        cout << *local << endl;
+        Configuration * local = Algorithm::local_search(instance);
+        cout << *local << endl;
+        cout << "\t=> " << local->constraintPieces() << endl;
 #endif
-
-
 
         Board* board_model= new Board(config);
 
