@@ -55,9 +55,9 @@ bool Instance::tryLoadFile(const string& fileName){
                  * tokens[2] : couleur Nord
                  * tokens[3] : couleur Est
                  */
-                int tab[MAX_CARD];
+                PairColors tab[MAX_CARD];
                 for(int i=0; i < MAX_CARD; ++i){
-                    tab[i] = atoi(tokens[i].c_str());
+                    tab[i] = (PairColors)atoi(tokens[i].c_str());
                 }
                 Piece p(indice+1, tab); // Utiliser indice pour id = indice, indice+1 pour id = indice +1
                 vectPieces->push_back(p);

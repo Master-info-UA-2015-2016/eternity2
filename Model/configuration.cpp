@@ -33,7 +33,7 @@ const Piece & Configuration::getPiece(int x, int y) const {
     return piece;
 }
 
-int * Configuration::getRotatedMotif(int x, int y) const {
+PairColors * Configuration::getRotatedMotif(int x, int y) const {
     pair<int, int> position = getPair(x, y);
     Piece P = getPiece(x, y);
     return P.rotate(position.second);
@@ -80,7 +80,7 @@ ostream& Configuration::print(ostream& out){
 
             const Piece& piece = getPiece(i, j);
 
-            const int* swne ;
+            const PairColors* swne ;
             if(p.second != 0) {
                 swne = piece.rotate(p.second );
             } else {
@@ -181,7 +181,7 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
 
 int Configuration::constraintRowsXtrem() {
     int errors = 0;
-    const int * swne;
+    const PairColors* swne;
     // Vérification de la première ligne (Contrainte Ligne Nord)
     for(int i=0 ; i<width() ; i++) {
         const pair<int, int> & pair = getPair(i, 0);
@@ -210,7 +210,7 @@ int Configuration::constraintRowsXtrem() {
 }
 
 bool Configuration::constraintRowsXtrem(int x, int y) {
-    const int * swne;
+    const PairColors* swne;
     if(y != 0 && y != height()-1)
         return true;
     else {
@@ -227,7 +227,7 @@ bool Configuration::constraintRowsXtrem(int x, int y) {
 
 int Configuration::constraintColsXtrem() {
     int errors = 0;
-    const int * swne;
+    const PairColors* swne;
     // Vérification de la première colonne (Contrainte Colonne Ouest)
     for(int i=0 ; i<instance->height() ; i++) {
         const pair<int, int> & pair = getPair(0, i);
@@ -257,7 +257,7 @@ int Configuration::constraintColsXtrem() {
 }
 
 bool Configuration::constraintColsXtrem(int x, int y) {
-    const int * swne;
+    const PairColors * swne;
     if(x != 0 && x != width()-1)
         return true;
     else {
@@ -274,7 +274,7 @@ bool Configuration::constraintColsXtrem(int x, int y) {
 
 int Configuration::constraintEdges() {
     int errors = 0;
-    const int * swne;
+    const PairColors * swne;
     pair<int, int> pair;
     // Coin Nord-Ouest
     pair = getPair(0,0);
@@ -323,7 +323,7 @@ int Configuration::constraintEdges() {
 bool Configuration::constraintEdges(int x, int y) {
     const pair<int, int> & pair = getPair(x, y);
     const Piece & piece = getPiece(x, y);
-    const int * swne = piece.rotate(pair.second);
+    const PairColors * swne = piece.rotate(pair.second);
     if(x == 0 && y == 0)
         return swne[1] == 0 && swne[2] == 0;
     else if(x == 0 && y == height()-1)
@@ -371,7 +371,7 @@ int Configuration::checkPieces(){
             cout << "Piece n° " << i << " ; id_piece = " << id_piece << endl;
         #endif
 
-        int* id_motifs= instance->getPiece(id_piece).rotate(current_piece.second);
+        PairColors * id_motifs= instance->getPiece(id_piece).rotate(current_piece.second);
         int south_motif = id_motifs[0];
         int east_motif = id_motifs[3];
 

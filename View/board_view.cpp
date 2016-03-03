@@ -34,7 +34,7 @@ void BoardWidget::drawMotif(const QPainterPath& path, const QPointF& square_pos,
                             *(colors.get_color_int()) );
 }
 
-void BoardWidget::drawPiece(int column, int row, const int motifs[4])
+void BoardWidget::drawPiece(int column, int row, const PairColors motifs[])
 {
     QPointF top_left(column * DRAW_SCALE,            row * DRAW_SCALE);
     QPointF middle((column +0.5) * DRAW_SCALE,      (row +0.5) * DRAW_SCALE);
@@ -91,7 +91,7 @@ void BoardWidget::drawBoard()
         clog<< " de coordonnées : "<< current_width<< " ; "<< current_height<< endl;
 #endif
 
-        int* colors= board->getConfig().getRotatedMotif(current_width, current_height);
+        PairColors* colors= board->getConfig().getRotatedMotif(current_width, current_height);
         // On affiche la pièce à la position courante, avec son motif
 #if DEBUG_DRAW_COLORS
         cout<< "Piece en position "<< current_width<< ";"<< current_height<< " : "<< endl;
