@@ -71,7 +71,7 @@ public:
      * @param y : Y
      * @return int *
      */
-    int * getRotatedMotif(int x, int y) const;
+    PairColors * getRotatedMotif(int x, int y) const;
 
     /**
      * Retourne la position dans le vecteur de positions de la piece P

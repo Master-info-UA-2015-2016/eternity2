@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Piece::Piece(int _id, int tab[]) :
+Piece::Piece(int _id, PairColors tab[]) :
     id(_id)
 {
     for(int i=0; i<MAX_CARD; ++i){
@@ -23,12 +23,12 @@ ostream& Piece::print(ostream& out) const{
     return out;
 }
 
-int* Piece::rotate(int nbRotation) const{
-    int* tmp = new int;
-    copy(motif, motif+4, tmp);
+PairColors *Piece::rotate(int nbRotation) const{
+    PairColors* rotated_motifs = new PairColors;
+    copy(motif, motif+4, rotated_motifs);
 
     for(int i=0 ; i < nbRotation ; i++)
-        std::rotate(tmp, tmp+3 , tmp+4);
+        std::rotate(rotated_motifs, rotated_motifs+3 , rotated_motifs+4);
 
-    return tmp;
+    return rotated_motifs;
 }

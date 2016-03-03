@@ -13,8 +13,10 @@
 #define DEBUG_SHOW_RANDOM_CONFIG    1
 #define DEBUG_EVALUATION            1
 
-//cconfiguration
-#define DEBUG_POS_ERRORS 1
+//configuration
+#define DEBUG_POS_ERRORS 0
+#define DEBUG_POS_ERROR 1
+
 #define DEBUG_SHOW_CONFIG 0
 
 #endif // DEBUG_H

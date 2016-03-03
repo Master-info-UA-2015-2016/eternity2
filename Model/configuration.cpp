@@ -42,7 +42,7 @@ const Piece & Configuration::getPiece(int id) const {
     return piece;
 }
 
-int * Configuration::getRotatedMotif(int x, int y) const {
+PairColors * Configuration::getRotatedMotif(int x, int y) const {
     pair<int, int> position = getPair(x, y);
     Piece P = getPiece(x, y);
     return P.rotate(position.second);
@@ -109,7 +109,7 @@ ostream& Configuration::print(ostream& out){
 
             const Piece& piece = getPiece(i, j);
 
-            const int* swne ;
+            const PairColors* swne ;
             if(p.second != 0) {
                 swne = piece.rotate(p.second );
             } else {
@@ -210,7 +210,7 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
 
 int Configuration::constraintRowsXtrem() {
     int errors = 0;
-    const int * swne;
+    const PairColors* swne;
     // Vérification de la première ligne (Contrainte Ligne Nord)
     for(int i=0 ; i<width() ; i++) {
         const pair<int, int> & pair = getPair(i, 0);
@@ -239,7 +239,7 @@ int Configuration::constraintRowsXtrem() {
 }
 
 bool Configuration::constraintRowsXtrem(int x, int y) {
-    const int * swne;
+    const PairColors* swne;
     if(y != 0 && y != height()-1)
         return true;
     else {
@@ -256,7 +256,7 @@ bool Configuration::constraintRowsXtrem(int x, int y) {
 
 int Configuration::constraintColsXtrem() {
     int errors = 0;
-    const int * swne;
+    const PairColors* swne;
     // Vérification de la première colonne (Contrainte Colonne Ouest)
     for(int i=0 ; i<instance->height() ; i++) {
         const pair<int, int> & pair = getPair(0, i);
@@ -286,7 +286,7 @@ int Configuration::constraintColsXtrem() {
 }
 
 bool Configuration::constraintColsXtrem(int x, int y) {
-    const int * swne;
+    const PairColors * swne;
     if(x != 0 && x != width()-1)
         return true;
     else {
@@ -303,7 +303,7 @@ bool Configuration::constraintColsXtrem(int x, int y) {
 
 int Configuration::constraintEdges() {
     int errors = 0;
-    const int * swne;
+    const PairColors * swne;
     pair<int, int> pair;
     // Coin Nord-Ouest
     pair = getPair(0,0);
@@ -352,7 +352,7 @@ int Configuration::constraintEdges() {
 bool Configuration::constraintEdges(int x, int y) {
     const pair<int, int> & pair = getPair(x, y);
     const Piece & piece = getPiece(x, y);
-    const int * swne = piece.rotate(pair.second);
+    const PairColors * swne = piece.rotate(pair.second);
     if(x == 0 && y == 0)
         return swne[1] == 0 && swne[2] == 0;
     else if(x == 0 && y == height()-1)
@@ -365,7 +365,7 @@ bool Configuration::constraintEdges(int x, int y) {
 }
 
 int Configuration::getNorthMotifSouthPiece(int current_piece_indice){
-    Piece south_piece = instance->getPiece(current_piece_indice + width()-1);
+    Piece south_piece = instance->getPiece(current_piece_indice + width());
     int rot_south_piece = positions[getPosition(south_piece)].second;
 
     return south_piece.rotate(rot_south_piece)[2];
@@ -390,33 +390,35 @@ int Configuration::checkPieces(){
     */
     int nb_errors = 0;
 
-    for(int i= 1; i< height()*width(); ++i){
-        pair<int, int> current_piece= positions[i-1];
+    for(int i= 0; i< height()*width()-1; ++i){
+        int local_errors = 0;
+
+        pair<int, int> current_piece= positions[i];
         int id_piece = current_piece.first;
 
         #if DEBUG_POS_ERRORS
             cout << "Piece n° " << i << " ; id_piece = " << id_piece << endl;
         #endif
 
-        int* id_motifs= instance->getPiece(id_piece).rotate(current_piece.second);
+        PairColors * id_motifs= instance->getPiece(id_piece).rotate(current_piece.second);
         int south_motif = id_motifs[0];
         int east_motif = id_motifs[3];
 
         //derniere ligne du puzzle - est seulement
         if(i > width()*height() - width()){
             int east_piece_west_motif = getWestMotifEastPiece(i);
-
             if(east_piece_west_motif != east_motif || east_piece_west_motif == 0){
             #if DEBUG_POS_ERRORS
                 cout << "Derniere ligne" << endl;
                 cout << "Piece : "<< id_piece << " conflit O-E: " << east_piece_west_motif << " - " << east_motif << endl;
                 cout << endl;
             #endif
+                ++local_errors;
                 ++nb_errors;
             }
 
         } else
-        if(i % width() == 0){
+        if(i % width() == width() -1){
             //derniere case d'une ligne - comparaison sud seulement
             int south_piece_north_motif = getNorthMotifSouthPiece(i);
 
@@ -426,20 +428,12 @@ int Configuration::checkPieces(){
                     cout << "Piece : "<< id_piece << " conflit N-S: " << south_piece_north_motif << " - " << south_motif << endl;
                     cout << endl;
                 #endif
+                ++local_errors;
                 ++nb_errors;
             }
 
         } else {
             //comparaison sud et est
-//            Piece east_piece= instance->getPiece(id_piece +1);
-//            Piece south_piece = instance->getPiece(id_piece + width() -1);
-
-//            int tmp_rot_est = positions[getPosition(east_piece/* TODO Changer par la valeur de position de la piece à l'est*/)].second;
-//            int rot_south_piece = positions[getPosition(south_piece/* TODO Changer par la valeur de position de la piece au sud*/)].second;
-
-//            int piece_tmp_ouest = east_piece.rotate(tmp_rot_est)[1];
-//            int piece_tmp_nord = south_piece.rotate(rot_south_piece)[2];
-
             int east_piece_west_motif = getWestMotifEastPiece(i);
             int south_piece_north_motif = getNorthMotifSouthPiece(i);
 
@@ -448,6 +442,7 @@ int Configuration::checkPieces(){
                     cout << "Comp EST" << endl;
                     cout << "Piece : "<< id_piece << " conflit O-E: " << east_piece_west_motif << " - " << east_motif << endl;
                 #endif
+                ++local_errors;
                 ++nb_errors;
             }
             if(south_piece_north_motif != south_motif || south_piece_north_motif == 0){
@@ -456,9 +451,15 @@ int Configuration::checkPieces(){
                     cout << "Piece : "<< id_piece << "conflit N-S: " << south_piece_north_motif << " - " << south_motif << endl;
                     cout << endl;
                 #endif
+                ++local_errors;
                 ++nb_errors;
             }
         }
+
+        #if DEBUG_POS_ERROR
+            cout << "iteration " << i << " erreurs -> " << local_errors << endl;
+        #endif
+
     }//fin parcours pieces
 
     return nb_errors;
@@ -508,13 +509,13 @@ int Configuration::constraintPieces() {
     }
 
     pair<int, int> piece = getPair(well_placed.first, well_placed.second);
-    int * swne = getPiece(piece.first).rotate(piece.second);
+    PairColors * swne = getPiece(piece.first).rotate(piece.second);
 
     vector<pair<int, int> > p_SWNE = getAdjacent(well_placed.first, well_placed.second);
     for(int k = 0 ; k<4 ; k++) {
         pair<int, int> p_k = p_SWNE[k];
         if(p_k.first != 0) {
-            int * swne_aux = getPiece(p_k.first).rotate(p_k.second);
+            PairColors * swne_aux = getPiece(p_k.first).rotate(p_k.second);
             pair<int, int> XYaux = getCase(p_k.first);
             if(k == 0 && swne[k] != swne_aux[2])    // Les couleurs Sud-Nord sont différentes
                 misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
