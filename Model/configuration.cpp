@@ -479,21 +479,61 @@ int Configuration::constraintPieces() {
             // Vérification de Colonnes
             } else if(i == 0 || i == width()-1) {
                  if(!constraintColsXtrem(i,j)) misplaces[i + j*width()] = p.first;
+            // Vérification des autres (devraient-elles être sur les bords ?)
+            } else {
+                 Piece piece = getPiece(i, j);
+                 int rot;
+                 for(int k=0 ; k<4 ; k++) {
+                     rot =  piece.get_motif()[k];
+                     cout << rot << endl;
+                     if(rot == 0) {
+                         misplaces[i + j*width()] = p.first;
+                         break;
+                     }
+                 }
             }
-            // Vérification Adjacences
-            vector<pair<int, int> > p_SWNE = getAdjacent(i,j);
-            // Pièce courante
-            int * swne = getPiece(p.first).rotate(p.second);
-            for(int k=0 ; k<4 ; k++) {
-                pair<int, int> p_k = p_SWNE[k];
-                if(p_k.first != 0) {
-                    int * swne_aux = getPiece(p_k.first).rotate(p_k.second);
-                }
+        }
+    }
+    // Vérification d'Adjacences pour chaque pièce (à partir de la première pièce bien placée)
+    pair<int, int> well_placed = make_pair(-1, -1);
+    bool found = false;
+    for(int j=0 ; j<height() && !found ; j++) {
+        for(int i=0 ; i<width() && !found ; i++) {
+            int n = misplaces[i + j*width()];
+            if(n == 0) {
+                well_placed = make_pair(i, j);
+                found = true;
             }
-         }
+        }
     }
 
-    cout << "Pièces mal placées (ID) : " << endl;
+    pair<int, int> piece = getPair(well_placed.first, well_placed.second);
+    int * swne = getPiece(piece.first).rotate(piece.second);
+
+    vector<pair<int, int> > p_SWNE = getAdjacent(well_placed.first, well_placed.second);
+    for(int k = 0 ; k<4 ; k++) {
+        pair<int, int> p_k = p_SWNE[k];
+        if(p_k.first != 0) {
+            int * swne_aux = getPiece(p_k.first).rotate(p_k.second);
+            pair<int, int> XYaux = getCase(p_k.first);
+            if(k == 0 && swne[k] != swne_aux[2])    // Les couleurs Sud-Nord sont différentes
+                misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+            else if(k == 1 && swne[k] != swne_aux[3]) // Les couleurs Ouest-Est sont différentes
+                 misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+            else if(k == 2 && swne[k] != swne_aux[0])   // Les couleurs Nord-Sud sont différentes
+                 misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+            else if(k == 3 && swne[k] != swne_aux[1])   // Les couleurs Est-Ouest sont différentes
+                 misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+        }
+    }
+
+    int n = 0;
+    for(auto i : misplaces) {
+        if(i != 0)
+            n++;
+    }
+
+    cout << "Pièces mal placées (ID) : " << n << endl;
     for(auto i : misplaces) {
         if(i != 0 ) {
             pair<int, int> pos = getCase(i);
