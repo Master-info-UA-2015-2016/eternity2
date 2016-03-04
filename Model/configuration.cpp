@@ -393,11 +393,15 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
     cout<< "Comparaison : " << first_motif << " - " << second_motif << endl;
 #endif
     if (first_motif != second_motif || first_motif == Black_Black){
-        cout << "Une erreur. ";
+        #if DEBUG_MOTIF_MATCH
+        cout << "Une erreur.";
+        #endif
         return false;
     }
     else {
+        #if DEBUG_MOTIF_MATCH
         cout << "Pas d'erreur. ";
+        #endif
         return true;
     }
 
@@ -410,10 +414,10 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
 int Configuration::checkPieces(){
     int nb_errors= 0;
 
-    int begin_last_raw= height()*width() -width(); //seuil au-delà duquel une case est dans la derniere ligne
+    int begin_last_raw= height()*width() -width(); // première case de la derniere ligne
 
     // Parcours de toutes les cases du plateau, dernière case exceptée
-    for(int i=0; i < (height()*width()-1) -1; ++i){
+    for(int i=0; i < (height()*width()-1); ++i){
         int current_x= i % width();
         int current_y= i / width();
 
@@ -435,7 +439,7 @@ int Configuration::checkPieces(){
             }
         }
         //derniere ligne
-        else if(i > begin_last_raw){
+        else if(i >= begin_last_raw){
             PairColors east_piece_west_motif= getRotatedMotif(i+1)[1];
             if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
                 #if DEBUG_CHECK_PIECES
@@ -465,108 +469,6 @@ int Configuration::checkPieces(){
     }
     return nb_errors;
 }
-
-//int Configuration::checkPieces(){
-////    /**
-////      Algo :
-////            Initialiser un vector de bool (vect[i] = 1 si la pièce i a déjà été traité)
-////            Tant qu'il reste des pièces à vérifier faire
-////                Prendre une pièce P qui n'est pas dans vect
-////                Comparer P à ses pièces adjacentes (S et E ayant subit la rotation)
-////                Ajouter P à vect (indice de la pièce P à 1 dans vect)
-////            Fin TantQue
-////    */
-//    int nb_errors = 0;
-
-//    for(int i= 0; i< height()*width()-1; ++i) {
-//#if DEBUG_POS_ERRORS  or DEBUG_NB_ERROR_PIECE
-//        int local_errors = 0;
-//#endif
-//        // Position de la pièce courante
-//        int current_x= i % width();
-//        int current_y= i / width();
-
-//        cout<< "Verif erreurs pos "<< current_x<< ";"<< current_y<< endl;
-
-//        pair<int, int> current_piece= positions[i];
-//        int id_piece = current_piece.first;
-//        #if DEBUG_POS_ERRORS
-//            cout << "Piece n° " << i << " ; id_piece = " << id_piece << endl;
-//        #endif
-
-//        Piece piece= instance->getPiece(id_piece);
-//        PairColors * id_motifs= piece.rotate(current_piece.second);
-
-//        // On stock les motifs de la pièce utiles pour les comparaisons avec les pièces adjacentes
-//        PairColors  south_motif = id_motifs[0];
-//        PairColors  east_motif = id_motifs[3];
-
-//        // Cas de la derniere ligne du puzzle - est seulement
-//        if( (height()-1 == current_y) ){
-//            cout << "DERNIERE LIGNE"<< endl;
-//            PairColors east_piece_west_motif = getWestMotifEastPiece(i);
-//            if(!motifs_match(east_piece_west_motif, east_motif) ){
-//                cout << "motif ouest : "<< east_piece_west_motif<< " != "<< east_motif << ", motif est"<< endl;
-//                ++nb_errors;
-//                #if DEBUG_POS_ERRORS
-//                    cout <<  " Il y a une erreur (tot : "<< nb_errors<< ") dernière ligne entre en pos ["<< current_x << ";"
-//                         << current_y<< "] et celle à sa droite"<< endl;
-//                    ++local_errors;
-//                #endif
-//            }
-
-//        } else {
-//            cout << "NON DERNIERE LIGNE"<< endl;
-//            if(current_x == width() -1){ // Cas derniere case d'une ligne : comparaison sud seulement
-//                cout << "DERNIERE COLONNE"<< endl;
-//                PairColors south_piece_north_motif = getNorthMotifSouthPiece(i);
-
-////                return (south_piece_north_motif != south_motif || south_motif == Black_Black)
-//                if ( !motifs_match(south_piece_north_motif, south_motif) ) { // Deuxième condition : Si les pièces sont égales et noires (donc south_piece_north_motif == Black_Black)
-//                    ++nb_errors;
-//                    #if DEBUG_POS_ERRORS
-//                        cout << " Il y a une erreur (tot : "<< nb_errors<< "), sur la derniere colonne, entre les piece en pos ["<< current_x << ";"<< current_y<< "] et et celle en dessous"<< endl;
-//                        ++local_errors;
-//                    #endif
-//                }
-//            } else { // Cas général : comparaison  Est-Ouest et Sud-Nord
-
-//                cout << "MILIEU"<< endl;
-//                // Récupération des motifs Est ou Ouest
-//                PairColors east_piece_west_motif = getWestMotifEastPiece(i);
-
-//                 // Vérification Est-Ouest
-//                if( !motifs_match(east_motif, east_piece_west_motif) ) {
-//                    ++nb_errors;
-//                    #if DEBUG_POS_ERRORS
-//                        cout << " Il y a une erreur (tot : "<< nb_errors<< "), entre les piece en pos ["<< current_x << ";"<< current_y<< "] et celle à sa droite"<< endl;
-//                        ++local_errors;
-//                    #endif
-//                }
-
-//                PairColors south_piece_north_motif = getNorthMotifSouthPiece(i);
-//                // Vérification Sud-Nord
-//                if( !motifs_match(south_piece_north_motif, south_motif) ) {
-//                    cout << "motif nord : "<< south_piece_north_motif<< " != "<< south_motif<< ", motif sud"<< endl;
-//                    ++nb_errors;
-//                    #if DEBUG_POS_ERRORS
-//                        cout << " Il y a une erreur (tot : "<< nb_errors<< "), entre les piece en pos ["<< current_x << ";"<< current_y << "] et celle en dessous"<< endl;
-//                        ++local_errors;
-//                    #endif
-//                }
-//            } // Fin_else dernière colonne
-//        } // Fin_else dernière ligne
-//        #if DEBUG_NB_ERROR_PIECE
-//            cout << "iteration " << i << " erreurs -> " << local_errors << endl;
-//        #endif
-
-//    }//fin parcours pieces
-//    clog << "pair noire : "<< Black_Black;
-
-//    return nb_errors;
-//}
-
-
 
 int Configuration::constraintPieces() {
     vector<int> misplaces(height()*width());

@@ -34,6 +34,8 @@ bool MainWindow::init_configuration(std::string filename)
         config->randomConfiguration();
 #if DEBUG_SHOW_RANDOM_CONFIG
         cout << (*config) << endl;
+#endif
+#if DEBUG_CONSTRAINT_EXT
         cout << "\t=> " << config->constraintPieces() << endl;
 #endif
 
@@ -44,7 +46,10 @@ bool MainWindow::init_configuration(std::string filename)
 #if DEBUG_EVALUATION
         int nb_errors= config->checkPieces();
         cout << "Nombre d'erreurs :" << nb_errors  << endl;
-        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
+
+//        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
+#endif
+#if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(instance);
         cout << *local << endl;
         cout << "\t=> " << local->constraintPieces() << endl;
