@@ -52,7 +52,7 @@ bool MainWindow::init_configuration(std::string filename)
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(instance);
         cout << *local << endl;
-        cout << "\t=> " << local->constraintPieces() << endl;
+//        cout << "\t=> " << local->constraintPieces() << endl;
 
         Board* board_final= new Board(local);
         BoardWidget* res_board= new BoardWidget(board_final);
