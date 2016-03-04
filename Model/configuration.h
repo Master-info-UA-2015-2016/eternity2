@@ -241,11 +241,25 @@ public:
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
      * @author GARNIER Antoine
-     * TODO Revoir
      */
     int checkPieces();
 
     int constraintPieces();
+
+    /**
+     * Compte le nombre d'erreurs qu'il y a avec la piece positions[indice] (de 0 à 4 possibles)
+     * @return Le nombre d'erreurs de la piece indice
+     * @author GARNIER Antoine
+     */
+    int getPieceNbErrors(int indice);
+
+    /**
+      * Compte le nombre d'erreurs d'une piece si on lui applique une certaine rotation
+      * @return Le nombre d'erreurs lié à une piece ayant subit une rotation de val_rot
+      * @author GARNIER Antoine
+      */
+    int isBestPlaced(int indice_piece, int val_rot);
+
 };
 
 #endif // CONFIGURATION_H

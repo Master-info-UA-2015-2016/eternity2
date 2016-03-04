@@ -559,3 +559,37 @@ int Configuration::constraintPieces() {
 
     return n;
 }
+
+int Configuration::getPieceNbErrors(int indice) {
+    int nb_errors= 0;
+    Piece current_piece= getPiece(positions[indice].first);
+
+    //position de la piece courante (combien de voisins ?)
+    int current_piece_pos= getPosition(current_piece.get_id());
+    int current_x= current_piece_pos % width();
+    int current_y= current_piece_pos / width();
+
+    if(height()-1 == current_x) //derniere colonne
+    {
+        if(0 == current_y){
+
+        }
+
+    } //derniere ligne
+    else if(width()-1 == current_y)
+    {
+
+
+    } // non derniere ligne non derniere colonne
+    else {
+
+
+    }
+
+    const PairColors* current_piece_motifs= current_piece.get_motif();
+
+    Piece piece_adj= getPiece(positions[indice+1].first);
+    const PairColors* piece_adj_motifs= piece_adj.get_motif();
+
+    return nb_errors;
+}
