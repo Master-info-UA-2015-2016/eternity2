@@ -48,7 +48,7 @@ int Algorithm::evaluation(Configuration & C) {
 
 Configuration * Algorithm::local_search(const Instance * instance) {
     // Génération de configurations
-    vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000000);
+    vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
 
     int nb_eval = 0;
     // 1. Sélectionner une solution initiale x0 € X

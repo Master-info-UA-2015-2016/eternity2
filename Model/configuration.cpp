@@ -25,15 +25,18 @@ Configuration::Configuration(const string& fileName)
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
     if(x < 0 || x >= width() || y < 0 || y >= height()) {
-        cout << "ERROR getPair : Tentative de récupération d'une case en dehors du plateau"<< endl;
-        const pair<int, int> & position = make_pair(-1, -1);
-        return position;
+        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau"<< endl;
+        throw out_of_range("getPiece");
     }
     const pair<int, int>& position = positions[x + y * instance->width()];
     return position;
 }
 
 const Piece & Configuration::getPiece(int x, int y) const {
+    if(x < 0 || x >= width() || y < 0 || y >= height()) {
+        cerr << "ERROR getPiece : Traitement d'une case en dehors du plateau"<< endl;
+        throw out_of_range("getPiece");
+    }
     const Piece & piece = getPiece(getPair(x, y).id);
     return piece;
 }
@@ -44,6 +47,10 @@ const Piece & Configuration::getPiece(int id) const {
 }
 
 PairColors * Configuration::getRotatedMotif(int x, int y) const {
+    if(x < 0 || x >= width() || y < 0 || y >= height()) {
+        cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
+        throw out_of_range("getPiece");
+    }
     pair<int, int> piece_pair = getPair(x, y);
     Piece piece = getPiece(x, y);
     return piece.rotate(piece_pair.rot);
@@ -51,6 +58,10 @@ PairColors * Configuration::getRotatedMotif(int x, int y) const {
 
 PairColors * Configuration::getRotatedMotif(int pos) const
 {
+    if(pos >= (signed) positions.size()) {
+        cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
+        throw out_of_range("getPiece");
+    }
     pair<int, int> piece_pair = positions[pos];
     Piece piece = getPiece(piece_pair.id);
     return piece.rotate(piece_pair.rot);
