@@ -9,6 +9,9 @@
 
 #include "instance_model.h"
 
+#define id first
+#define rot second
+
 /**
  * Classe définissant une configuration, qui correspond à un ensemble
  * de position ( case, rotation ) pour une instance donnée. La classe
@@ -72,6 +75,12 @@ public:
      * @return int *
      */
     PairColors * getRotatedMotif(int x, int y) const;
+
+    /**
+     * Récupération du motif pivoté, selon son id
+     * @return int *
+     */
+    PairColors * getRotatedMotif(int pos) const;
 
     /**
      * Retourne la position dans le vecteur de positions de la piece P

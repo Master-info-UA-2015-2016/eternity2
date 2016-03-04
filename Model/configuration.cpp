@@ -24,8 +24,9 @@ Configuration::Configuration(const string& fileName)
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
-    if(x < 0 || x > width()-1 || y < 0 || y > height()-1) {
-        const pair<int, int> & position = make_pair(0, 0);
+    if(x < 0 || x >= width() || y < 0 || y >= height()) {
+        cout << "ERROR getPair : Tentative de récupération d'une case en dehors du plateau"<< endl;
+        const pair<int, int> & position = make_pair(-1, -1);
         return position;
     }
     const pair<int, int>& position = positions[x + y * instance->width()];
@@ -33,7 +34,7 @@ const pair<int, int>& Configuration::getPair(int x, int y) const {
 }
 
 const Piece & Configuration::getPiece(int x, int y) const {
-    const Piece & piece = instance->get_vectPieces()->at(getPair(x, y).first-1);
+    const Piece & piece = getPiece(getPair(x, y).id);
     return piece;
 }
 
@@ -43,9 +44,16 @@ const Piece & Configuration::getPiece(int id) const {
 }
 
 PairColors * Configuration::getRotatedMotif(int x, int y) const {
-    pair<int, int> position = getPair(x, y);
-    Piece P = getPiece(x, y);
-    return P.rotate(position.second);
+    pair<int, int> piece_pair = getPair(x, y);
+    Piece piece = getPiece(x, y);
+    return piece.rotate(piece_pair.rot);
+}
+
+PairColors * Configuration::getRotatedMotif(int pos) const
+{
+    pair<int, int> piece_pair = positions[pos];
+    Piece piece = getPiece(piece_pair.id);
+    return piece.rotate(piece_pair.rot);
 }
 
 int Configuration::getPosition(const Piece& p) const {
