@@ -38,10 +38,13 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
 // TODO fonction d'évaluation
 int Algorithm::evaluation(Configuration & C) {
     int errors = 0;
+
+    errors = C.checkPieces();
+
 //    errors += C.constraintColsXtrem();
 //    errors += C.constraintRowsXtrem();
 //    errors += C.constraintEdges();
-    errors = C.constraintPieces();
+//    errors = C.constraintPieces();
 
     return errors;
 }
