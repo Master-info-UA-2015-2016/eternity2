@@ -37,20 +37,22 @@ bool MainWindow::init_configuration(std::string filename)
         cout << "\t=> " << config->constraintPieces() << endl;
 #endif
 
-#if DEBUG_EVALUATION
+        Board* board_init= new Board(config);
+        ui->board= new BoardWidget(board_init);
+        ui->board->show();
 
+#if DEBUG_EVALUATION
         int nb_errors= config->checkPieces();
         cout << "Nombre d'erreurs :" << nb_errors  << endl;
         cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
         Configuration * local = Algorithm::local_search(instance);
         cout << *local << endl;
         cout << "\t=> " << local->constraintPieces() << endl;
+
+        Board* board_final= new Board(local);
+        BoardWidget* res_board= new BoardWidget(board_final);
+        res_board->show();
 #endif
-
-        Board* board_model= new Board(config);
-
-        ui->board= new BoardWidget(board_model);
-        ui->board->show();
 
         return true;
     } else {
