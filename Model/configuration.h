@@ -62,6 +62,13 @@ public:
     const Piece & getPiece(int x, int y) const;
 
     /**
+     * Récupération de l'ensemble des pièces
+     * @return vector<Piece *>
+     */
+    const std::vector<Piece> * getPieces() const
+        { return instance->get_pieces(); }
+
+    /**
      * Récupération de la pièce portant l'id
      * @param id : int
      * @return Piece

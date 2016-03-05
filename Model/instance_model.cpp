@@ -5,13 +5,13 @@ using namespace std;
 Instance::Instance() :
     nbRows(0), nbCols(0)
 {
-    vectPieces = new vector<Piece>;
+    pieces = new vector<Piece>;
 }
 
 Instance::Instance(const Instance& instance) :
     nbRows(instance.nbRows), nbCols(instance.nbCols)
 {
-    vectPieces= new vector<Piece>( *(instance.get_vectPieces()) );
+    pieces= new vector<Piece>( *(instance.get_pieces()) );
 }
 
 
@@ -20,7 +20,7 @@ ostream& Instance::print(ostream& out){
     int nbPiece = nbRows * nbCols;
 
     for(int i=0; i < nbPiece; ++i){
-        out << (vectPieces->at(i));
+        out << (pieces->at(i));
     }
     return out;
 }
@@ -60,7 +60,7 @@ bool Instance::tryLoadFile(const string& fileName){
                     tab[i] = (PairColors)atoi(tokens[i].c_str());
                 }
                 Piece p(indice+1, tab); // Utiliser indice pour id = indice, indice+1 pour id = indice +1
-                vectPieces->push_back(p);
+                pieces->push_back(p);
             }
             ++indice;
             delete(&tokens);
@@ -73,5 +73,5 @@ bool Instance::tryLoadFile(const string& fileName){
 }
 
 const Piece & Instance::getPiece(int id) const {
-    return (*vectPieces)[id-1];
+    return (*pieces)[id-1];
 }

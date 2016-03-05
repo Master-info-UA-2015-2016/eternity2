@@ -214,7 +214,7 @@ void Configuration::randomConfiguration() {
     vector<int> pieces_id;
 
     // Travail uniquement sur l'id des pieces
-    for(const Piece & p : *(instance->get_vectPieces()) ) {
+    for(const Piece & p : *(instance->get_pieces()) ) {
         pieces_id.push_back(p.get_id());
     }
     // Mélange aléatoire

@@ -21,7 +21,7 @@ class Instance
 {
 private:
     int nbRows, nbCols;
-    std::vector<Piece> *vectPieces;
+    std::vector<Piece> *pieces;
 
 public:
 
@@ -59,7 +59,7 @@ public:
      */
     int height()    const { return nbRows; }
     int width()     const { return nbCols; }
-    const std::vector<Piece>* get_vectPieces() const { return vectPieces; }
+    const std::vector<Piece>* get_pieces() const { return pieces; }
 
     void set_nbRows(int n) { nbRows = n; }
     void set_nbCols(int m) { nbCols = m; }
