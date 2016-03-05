@@ -104,16 +104,36 @@ vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
 
     pair<int, int> pos;
     // Récupération Sud
-    pos = getPair(x, y+1);
+    try {
+        pos = getPair(x, y+1);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Ouest" << endl;
+        pos = make_pair(-1,-1);
+    }
     swne[0] = pos;
     // Récupération Est
-    pos = getPair(x-1, y);
+    try {
+        pos = getPair(x-1, y);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Est" << endl;
+        pos = make_pair(-1,-1);
+    }
     swne[1] = pos;
     // Récupération Nord
-    pos = getPair(x, y-1);
+    try {
+        pos = getPair(x, y-1);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Nord" << endl;
+        pos = make_pair(-1,-1);
+    }
     swne[2] = pos;
     // Récupération Ouest
-    pos = getPair(x+1, y);
+    try {
+        pos = getPair(x+1, y);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Ouest" << endl;
+        pos = make_pair(-1,-1);
+    }
     swne[3] = pos;
 
     return swne;
@@ -510,6 +530,7 @@ int Configuration::constraintPieces() {
             }
         }
     }
+
     // Vérification d'Adjacences pour chaque pièce (à partir de la première pièce bien placée)
     pair<int, int> well_placed = make_pair(-1, -1);
     bool found = false;
@@ -523,23 +544,27 @@ int Configuration::constraintPieces() {
         }
     }
 
-    pair<int, int> piece = getPair(well_placed.first, well_placed.second);
-    PairColors * swne = getPiece(piece.first).rotate(piece.second);
+    if(well_placed.first == -1 || well_placed.second == -1)
+        cerr << "Aucune pièce bien placée." << endl;
+    else {
+        pair<int, int> piece = getPair(well_placed.first, well_placed.second);
+        PairColors * swne = getPiece(piece.first).rotate(piece.second);
 
-    vector<pair<int, int> > p_SWNE = getAdjacent(well_placed.first, well_placed.second);
-    for(int k = 0 ; k<4 ; k++) {
-        pair<int, int> p_k = p_SWNE[k];
-        if(p_k.first != 0) {
-            PairColors * swne_aux = getPiece(p_k.first).rotate(p_k.second);
-            pair<int, int> XYaux = getCase(p_k.first);
-            if(k == 0 && swne[k] != swne_aux[2])    // Les couleurs Sud-Nord sont différentes
-                misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
-            else if(k == 1 && swne[k] != swne_aux[3]) // Les couleurs Ouest-Est sont différentes
-                 misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
-            else if(k == 2 && swne[k] != swne_aux[0])   // Les couleurs Nord-Sud sont différentes
-                 misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
-            else if(k == 3 && swne[k] != swne_aux[1])   // Les couleurs Est-Ouest sont différentes
-                 misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+        vector<pair<int, int> > p_SWNE = getAdjacent(well_placed.first, well_placed.second);
+        for(int k = 0 ; k<4 ; k++) {
+            pair<int, int> p_k = p_SWNE[k];
+            if(p_k.first != 0) {
+                PairColors * swne_aux = getPiece(p_k.first).rotate(p_k.second);
+                pair<int, int> XYaux = getCase(p_k.first);
+                if(k == 0 && swne[k] != swne_aux[2])    // Les couleurs Sud-Nord sont différentes
+                    misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+                else if(k == 1 && swne[k] != swne_aux[3]) // Les couleurs Ouest-Est sont différentes
+                     misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+                else if(k == 2 && swne[k] != swne_aux[0])   // Les couleurs Nord-Sud sont différentes
+                     misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+                else if(k == 3 && swne[k] != swne_aux[1])   // Les couleurs Est-Ouest sont différentes
+                     misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+            }
         }
     }
 
