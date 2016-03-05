@@ -136,6 +136,11 @@ public:
     void placePiece(std::pair<int, int> piece){ positions.push_back(piece); }
 
     /**
+     * Retrait de la dernière position
+     */
+    void removePiece() { positions.pop_back(); }
+
+    /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
