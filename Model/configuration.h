@@ -227,6 +227,15 @@ public:
     bool constraintEdges(int x, int y);
 
     /**
+     * La pièce située en (x,y) s'accorde-t-elle correctement à ses voisins ?
+     * @param x : int
+     * @param y : int
+     * @return boolean
+     * @author FOURMOND Jérome
+     */
+    bool constraintAdjacences(int x, int y);
+
+    /**
      * @brief getNorthMotifSouthPiece
      * @param current_piece_indice
      * @return

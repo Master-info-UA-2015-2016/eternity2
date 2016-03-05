@@ -32,8 +32,30 @@ bool MainWindow::init_configuration(std::string filename)
 
         Configuration* config= new Configuration(instance);
         config->randomConfiguration();
+#if DEBUG_SHOW_PIECES
+        for(auto c : *(config->getPieces())) {
+            cout << c << endl;
+        }
+#endif
 #if DEBUG_SHOW_RANDOM_CONFIG
         cout << (*config) << endl;
+#endif
+#if DEBUG_SHOW_SOL_CONFIG
+        Configuration * solution = new Configuration(instance);
+
+        solution->placePiece(make_pair(1, 1));
+        solution->placePiece(make_pair(7, 2));
+        solution->placePiece(make_pair(2, 2));
+        solution->placePiece(make_pair(5, 1));
+        solution->placePiece(make_pair(9, 1));
+        solution->placePiece(make_pair(8, 3));
+        solution->placePiece(make_pair(3, 0));
+        solution->placePiece(make_pair(6, 0));
+        solution->placePiece(make_pair(4, 3));
+
+        Board* board_sol= new Board(solution);
+        BoardWidget* sol_board= new BoardWidget(board_sol);
+        sol_board->show();
 #endif
 #if DEBUG_CONSTRAINT_EXT
         cout << "\t=> " << config->constraintPieces() << endl;
@@ -44,6 +66,7 @@ bool MainWindow::init_configuration(std::string filename)
         ui->board->show();
 
 #if DEBUG_EVALUATION
+        cout << "Adjacences (0,0) " << config->constraintAdjacences(0,0) << endl;
         int nb_errors= config->checkPieces();
         cout << "Nombre d'erreurs :" << nb_errors  << endl;
 

@@ -25,8 +25,9 @@ Configuration::Configuration(const string& fileName)
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
     if(x < 0 || x >= width() || y < 0 || y >= height()) {
-        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau"<< endl;
-        throw out_of_range("getPiece");
+        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (renvoie d'une pair(0,0)) " << endl;
+        const pair<int, int>& position = make_pair(0, 0);
+        return position;
     }
     const pair<int, int>& position = positions[x + y * instance->width()];
     return position;
@@ -400,6 +401,36 @@ bool Configuration::constraintEdges(int x, int y) {
         return swne[2] == 0 && swne[3] == 0;
     else if(x == width()-1 && y == height()-1)
         return swne[0] == 0 && swne[3] == 0;
+    return true;
+}
+
+bool Configuration::constraintAdjacences(int x, int y) {
+    pair<int, int> piece = getPair(x, y);
+    PairColors * swne = getPiece(piece.first).rotate(piece.second);
+
+    vector<pair<int, int> > p_SWNE = getAdjacent(x, y);
+    for(int i = 0 ; i<4 ; i++) {
+        pair<int, int> p_i = p_SWNE[i];
+        if(p_i.first != 0) {
+            PairColors * swne_aux = getPiece(p_i.first).rotate(p_i.second);
+            if(i == 0 && swne[i] != swne_aux[2]) {    // Les couleurs Sud-Nord sont différentes
+                cout << "Erreur Sud" << endl;
+                return false;
+            }
+            else if(i == 1 && swne[i] != swne_aux[3]) { // Les couleurs Ouest-Est sont différentes
+                cout << "Erreur Ouest" << endl;
+                return false;
+            }
+            else if(i == 2 && swne[i] != swne_aux[0]) {   // Les couleurs Nord-Sud sont différentes
+                cout << "Erreur Nord" << endl;
+                return false;
+            }
+            else if(i == 3 && swne[i] != swne_aux[1]) {   // Les couleurs Est-Ouest sont différentes
+                cout << "Erreur Est" << endl;
+                return false;
+            }
+        }
+    }
     return true;
 }
 
