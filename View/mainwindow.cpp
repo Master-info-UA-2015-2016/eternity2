@@ -56,9 +56,11 @@ bool MainWindow::init_configuration(std::string filename)
         Board* board_sol= new Board(solution);
         BoardWidget* sol_board= new BoardWidget(board_sol);
         sol_board->show();
-#endif
-#if DEBUG_CONSTRAINT_EXT
-        cout << "\t=> " << config->constraintPieces() << endl;
+
+
+        cout << "Nombre d'erreurs :" << solution->checkPieces()  << endl;
+        cout << *solution << endl;
+        cout << "\t=> " << solution->constraintPieces() << endl;
 #endif
 
         Board* board_init= new Board(config);
@@ -76,6 +78,7 @@ bool MainWindow::init_configuration(std::string filename)
         Configuration * local = Algorithm::local_search(instance);
         cout << *local << endl;
         cout << "\t=> " << local->constraintPieces() << endl;
+
         Board* board_final= new Board(local);
         BoardWidget* res_board= new BoardWidget(board_final);
         res_board->show();

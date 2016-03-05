@@ -10,6 +10,8 @@
 #define DEBUG_CREATE_CONFIGS        0
 
 // mainwindow
+#define DEBUG_SHOW_SOL_CONFIG       1
+#define DEBUG_SHOW_PIECES           0
 #define DEBUG_SHOW_RANDOM_CONFIG    0
 #define DEBUG_CONSTRAINT            0
 #define DEBUG_EVALUATION            1
@@ -18,7 +20,7 @@
 //configuration
 #define DEBUG_POS_ERRORS            1
 #define DEBUG_NB_ERROR_PIECE        0
-#define DEBUG_CHECK_PIECES          1
+#define DEBUG_CHECK_PIECES          0
 
 #define DEBUG_SHOW_CONFIG 0
 

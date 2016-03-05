@@ -46,4 +46,5 @@ OTHER_FILES += \
     TODO.txt
 
 DISTFILES += \
-    recherche_locale.txt
+    recherche_locale.txt \
+    backtrack.txt
