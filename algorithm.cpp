@@ -83,3 +83,7 @@ Configuration * Algorithm::local_search(const Instance * instance) {
     // 11. retourner x*
     return xStar;
 }
+
+Configuration * Algorithm::build_Configuration(const Instance *instance) {
+    Configuration * config = new Configuration(&inst);
+}

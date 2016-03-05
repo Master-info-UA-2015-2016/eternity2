@@ -52,6 +52,14 @@ class Algorithm
          * @author FOURMOND Jérôme
          */
         static Configuration * local_search(const Instance * instance);
+
+        /**
+         * Algorithme de contruction de Configuration
+         * d'après la programmation par contrainte (CCP)
+         * @param instance : Instance
+         * @return Configuration "solution"
+         */
+        static Configuration * build_Configuration(const Instance * instance);
 };
 
 #endif // ALGORITHM_H
