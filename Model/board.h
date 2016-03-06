@@ -8,9 +8,9 @@
 
 #include "coordinates.h"
 #include "configuration.h"
-#include "piece_model.h"
+#include "piece.h"
 
-class Board : public std::vector< Piece* >
+class Board
 {
 private:
     Configuration* disposition;

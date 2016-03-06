@@ -1,9 +1,9 @@
-#ifndef INSTANCE_MODEL_H
-#define INSTANCE_MODEL_H
+#ifndef INSTANCE_H
+#define INSTANCE_H
 
 #include <fstream>
 
-#include "piece_model.h"
+#include "piece.h"
 #include "Tools/string_tools.h"
 
 /**
@@ -72,4 +72,4 @@ public:
     const Piece & getPiece(int id) const;
 };
 
-#endif // INSTANCE_MODEL_H
+#endif // INSTANCE_H

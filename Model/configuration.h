@@ -7,7 +7,7 @@
 
 #include "debug.h"
 
-#include "instance_model.h"
+#include "instance.h"
 
 #define id first
 #define rot second

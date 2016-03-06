@@ -1,5 +1,5 @@
-#ifndef MOTIF_H
-#define MOTIF_H
+#ifndef MOTIF_VIEW_H
+#define MOTIF_VIEW_H
 
 #include <iostream>
 #include <QColor> 
@@ -48,4 +48,4 @@ public:
     { return m.print(out); }
 };
 
-#endif // MOTIF_H
+#endif // MOTIF_VIEW_H

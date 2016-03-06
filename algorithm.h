@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "debug.h"
-#include "Model/instance_model.h"
+#include "Model/instance.h"
 #include "Model/configuration.h"
 
 

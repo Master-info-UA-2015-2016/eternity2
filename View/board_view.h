@@ -18,8 +18,8 @@
 
 #include "View/piece_view.h"
 #include "View/cell.h"
-#include "View/motif.h"
-#include "Model/board_model.h" // TODO A remplacer par board_view à priori
+#include "View/motif_view.h"
+#include "Model/board.h" // TODO A remplacer par board_view à priori
 
 /**
  * La classe widget d'affichage d'un plateau et de ses cellules et pièces

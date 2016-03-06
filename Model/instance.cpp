@@ -1,4 +1,4 @@
-#include "instance_model.h"
+#include "instance.h"
 
 using namespace std;
 

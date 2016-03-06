@@ -20,26 +20,54 @@ MainWindow::MainWindow(Board *b, QWidget *parent) :
     ui->board= new BoardWidget(b, this);
 }
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+
 void MainWindow::set_board(Board *_board)
 {
     ui->board= new BoardWidget(_board, this);
 }
 
-bool MainWindow::init_configuration(std::string filename)
+bool MainWindow::init_configuration(std::string instance_filename)
 {
     Instance* instance= new Instance;
-    if (instance->tryLoadFile(filename)){
+    if (instance->tryLoadFile(instance_filename)){
 
         Configuration* config= new Configuration(instance);
+        // TODO créer une meilleure configuration initiale ?
         config->randomConfiguration();
 #if DEBUG_SHOW_PIECES
         for(auto c : *(config->getPieces())) {
             cout << c << endl;
         }
 #endif
-#if DEBUG_SHOW_RANDOM_CONFIG
+#if DEBUG_INIT_CONFIG
         cout << (*config) << endl;
 #endif
+
+        Board* board_init= new Board(config);
+        set_board(board_init);
+
+//        ui->board->show();  // TODO supprimer lorsque l'affichage de mainwindow sera opérationnel
+
+        return true;
+    } else {
+        cerr<< "Impossible d'ouvrir le fichier d'instance"<< endl;
+        return false;
+    }
+}
+
+void MainWindow::showBoard() const
+{
+    ui->board->redraw();
+    ui->board->show();
+}
+
+void MainWindow::launch_resolution()
+{
 #if DEBUG_SHOW_SOL_CONFIG
         Configuration * solution = new Configuration(instance);
 
@@ -63,10 +91,6 @@ bool MainWindow::init_configuration(std::string filename)
         cout << "\t=> " << solution->constraintPieces() << endl;
 #endif
 
-        Board* board_init= new Board(config);
-        ui->board= new BoardWidget(board_init);
-        ui->board->show();
-
 #if DEBUG_EVALUATION
         cout << "Adjacences (0,0) " << config->constraintAdjacences(0,0) << endl;
         int nb_errors= config->checkPieces();
@@ -84,22 +108,6 @@ bool MainWindow::init_configuration(std::string filename)
         res_board->show();
 #endif
 
-        return true;
-    } else {
-        cerr<< "Impossible d'ouvrir le fichier d'instance"<< endl;
-        return false;
-    }
-}
-
-void MainWindow::showBoard()
-{
-    ui->board->redraw();
-    ui->board->show();
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)

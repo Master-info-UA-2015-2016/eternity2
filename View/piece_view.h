@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "../Model/piece_model.h"
+#include "../Model/piece.h"
 #include "../Model/coordinates.h"
 #include "cell.h"
 

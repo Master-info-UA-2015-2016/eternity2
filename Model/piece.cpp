@@ -1,4 +1,4 @@
-#include "piece_model.h"
+#include "piece.h"
 
 using namespace std;
 

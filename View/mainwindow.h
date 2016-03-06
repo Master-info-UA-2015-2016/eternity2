@@ -18,12 +18,31 @@ public:
     ~MainWindow();
 
 private:
+    /**
+     * Définit le plateau devant être affiché dans la fenêtre
+     * @param _board
+     */
     void set_board(Board* _board);
 
 public:
-    bool init_configuration(std::string filename);
+    /**
+     * Initialise la configuration à partir d'un fichier d'instance
+     * @param filename : nom du fichier d'instance à charger
+     * @return true si le fichier est correctement lue
+     */
+    bool init_configuration(std::string instance_filename);
 
-    void showBoard();
+    /**
+     * Dessine et afficher le plateau
+     * @deprecated
+     */
+    void showBoard() const;
+
+    /**
+     * Exécute les algorithmes de résolution sur la configuration du plateau
+     * TODO : créer des fonctions et mettre celles qui ne sont pas relevantes ici dans "algorithme"
+     */
+    void launch_resolution();
 
 private:
     Ui::MainWindow *ui;

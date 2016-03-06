@@ -1,5 +1,5 @@
-#include "motif.h"
-#include "../Model/piece_model.h"
+#include "motif_view.h"
+#include "../Model/piece.h"
 
 Motif::Motif(QColor *inte, QColor *exte) :
     color_int(inte), color_ext(exte)
