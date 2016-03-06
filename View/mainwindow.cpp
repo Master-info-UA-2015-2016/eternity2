@@ -69,7 +69,7 @@ void MainWindow::showBoard() const
 void MainWindow::launch_resolution()
 {
 #if DEBUG_SHOW_SOL_CONFIG
-        Configuration * solution = new Configuration(ui->board-> config);
+        Configuration * solution = new Configuration(ui->board->getConfig());
 
         solution->placePiece(make_pair(1, 1));
         solution->placePiece(make_pair(7, 2));
@@ -92,8 +92,8 @@ void MainWindow::launch_resolution()
 #endif
 
 #if DEBUG_EVALUATION
-        cout << "Adjacences (0,0) " << config->constraintAdjacences(0,0) << endl;
-        int nb_errors= config->checkPieces();
+        cout << "Adjacences (0,0) " << ui->board->getConfig().constraintAdjacences(0,0) << endl;
+        int nb_errors= ui->board->getConfig().checkPieces();
         cout << "Nombre d'erreurs :" << nb_errors  << endl;
 
 //        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
