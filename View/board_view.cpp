@@ -20,9 +20,16 @@ BoardWidget::BoardWidget(Board *b, QWidget *parent) :
     bufferPainter= new QPainter;
 }
 
-// ########################
-/***		Affichages	***/
-// ########################
+// #############################
+/***		Getters       	***/
+// #############################
+int height()    const { assert(disposition != NULL); return disposition->height(); }
+int width()     const { assert(disposition != NULL); return disposition->width(); }
+const Configuration& getConfig() const { return *disposition; }
+
+// #############################
+/***		Affichages  	***/
+// #############################
 void BoardWidget::drawMotif(const QPainterPath& path, const QPointF& square_pos, const Motif &colors)
 {
 #if DEBUG_DRAW_COLORS
@@ -82,9 +89,9 @@ void BoardWidget::drawBoard()
     bufferPainter->begin(buffer);
 
     int current_height, current_width;
-    for(int i= 0; i < board->height() * board->width(); ++i){
-        current_width= i % board->width();
-        current_height= i / board->height();
+    for(int i= 0; i < board->get_height() * board->get_width(); ++i){
+        current_width= i % board->get_width();
+        current_height= i / board->get_height();
 
 #if DEBUG_POS_PIECE
         clog << "Affichage de la pièce num "<< i;
@@ -125,7 +132,7 @@ void BoardWidget::redraw()
     if (!buffer->isNull()){
         delete(buffer);
     }
-    buffer = new QImage(board->width() * DRAW_SCALE, board->height() * DRAW_SCALE, QImage::Format_ARGB32);
+    buffer = new QImage(board->get_width() * DRAW_SCALE, board->get_height() * DRAW_SCALE, QImage::Format_ARGB32);
 
     drawBoard();
     update();	// TODO apparemment non utile, update fait resize
@@ -151,8 +158,8 @@ void BoardWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void BoardWidget::resizeEvent(QResizeEvent *event)
 {
-    int max_width=  event->size().width() / board->width();
-    int max_height= event->size().height() / board->height();
+    int max_width=  event->size().width() / board->get_width();
+    int max_height= event->size().height() / board->get_height();
     cell_size= min(max_height, max_width);
     redraw();
 }

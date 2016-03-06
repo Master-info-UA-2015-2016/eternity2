@@ -22,7 +22,7 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
     int vic_max = 0;
     for(auto config : configurations) {
         int vic = Algorithm::vicinity(C, (*config));
-        if(vic != C.width()*C.height()) {
+        if(vic != C.get_width()*C.get_height()) {
             if(vic > vic_max) {
                 vic_max = vic;
                 neightbours.clear();
@@ -95,8 +95,8 @@ Configuration * Algorithm::build_Configuration(const Instance *instance) {
     vector<bool> used(pieces.size(), false);
 
     bool found;
-    for(int j=0 ; j<config->height() ; j++) {
-        for(int i=0 ; i<config->width() ; i++) {
+    for(int j=0 ; j<config->get_height() ; j++) {
+        for(int i=0 ; i<config->get_width() ; i++) {
             // Pour chaque case, choisir une pièce s'accordant au mieux aux contraintes
             // de lignes, de colonnes et d'adjacences
             found = false;

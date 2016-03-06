@@ -24,17 +24,17 @@ Configuration::Configuration(const string& fileName)
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
-    if(x < 0 || x >= width() || y < 0 || y >= height()) {
+    if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
         cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (renvoie d'une pair(0,0)) " << endl;
         const pair<int, int>& position = make_pair(0, 0);
         return position;
     }
-    const pair<int, int>& position = positions[x + y * instance->width()];
+    const pair<int, int>& position = positions[x + y * instance->get_width()];
     return position;
 }
 
 const Piece & Configuration::getPiece(int x, int y) const {
-    if(x < 0 || x >= width() || y < 0 || y >= height()) {
+    if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
         cerr << "ERROR getPiece : Traitement d'une case en dehors du plateau"<< endl;
         throw out_of_range("getPiece");
     }
@@ -48,7 +48,7 @@ const Piece & Configuration::getPiece(int id) const {
 }
 
 PairColors * Configuration::getRotatedMotif(int x, int y) const {
-    if(x < 0 || x >= width() || y < 0 || y >= height()) {
+    if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
         cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
         throw out_of_range("getPiece");
     }
@@ -91,8 +91,8 @@ int Configuration::getPosition(const int id) const {
 pair<int, int> Configuration::getCase(int id) const {
     int pos = getPosition(id);
     int processed_case = 0;
-    for(int j=0 ; j<height() ; j++) {
-        for(int i=0 ; i<width() ; i++) {
+    for(int j=0 ; j<get_height() ; j++) {
+        for(int i=0 ; i<get_width() ; i++) {
             if(processed_case == pos) return make_pair(i, j);
             processed_case++;
         }
@@ -141,8 +141,8 @@ vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
 }
 
 ostream& Configuration::print(ostream& out){
-    for(int i=0 ; i<instance->width() ; ++i) {
-        for(int j=0 ; j<instance->height() ; ++j) {
+    for(int i=0 ; i<instance->get_width() ; ++i) {
+        for(int j=0 ; j<instance->get_height() ; ++j) {
             pair<int, int> p = getPair(i, j);
 
             out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tRotation = " << p.second << "\tSONE = ";
@@ -168,8 +168,8 @@ ostream& Configuration::print(ostream& out){
         }
     }
 
-    for(int i=0 ; i<instance->width(); i++) {
-        for(int j=0 ; j<instance->height() ; j++) {
+    for(int i=0 ; i<instance->get_width(); i++) {
+        for(int j=0 ; j<instance->get_height() ; j++) {
             pair<int, int> p = getPair(j, i);
             cout << "\t" << p.first << " ";
         }
@@ -180,7 +180,7 @@ ostream& Configuration::print(ostream& out){
 }
 
 bool Configuration::tryLoadFile(const string &fileName){
-    if( instance->width() * instance->height() == 0){
+    if( instance->get_width() * instance->get_height() == 0){
         cerr << "Aucune instance n'est chargée" << endl;
         return false;
     }else{
@@ -200,7 +200,7 @@ bool Configuration::tryLoadFile(const string &fileName){
                 positions.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
             }
 
-            if(positions.size() != (unsigned)(instance->width() * instance->height()) ){
+            if(positions.size() != (unsigned)(instance->get_width() * instance->get_height()) ){
                 cerr << "Fichier de configuration incomplet" << endl;
                 return false;
             } else {
@@ -252,7 +252,7 @@ int Configuration::constraintRowsXtrem() {
     int errors = 0;
     const PairColors* swne;
     // Vérification de la première ligne (Contrainte Ligne Nord)
-    for(int i=0 ; i<width() ; i++) {
+    for(int i=0 ; i<get_width() ; i++) {
         const pair<int, int> & pair = getPair(i, 0);
         const Piece & piece = getPiece(i, 0);
         swne = piece.rotate(pair.second);
@@ -264,9 +264,9 @@ int Configuration::constraintRowsXtrem() {
         }
     }
     // Vérification de la seconde ligne (Contrainte Ligne Sud)
-    for(int i=0 ; i<width() ; i++) {
-        const pair<int, int> & pair = getPair(i, height()-1);
-        const Piece & piece = getPiece(i, height()-1);
+    for(int i=0 ; i<get_width() ; i++) {
+        const pair<int, int> & pair = getPair(i, get_height()-1);
+        const Piece & piece = getPiece(i, get_height()-1);
         swne = piece.rotate(pair.second);
         if(swne[0] != 0) {
 #if DEBUG_SHOW_CONFIG
@@ -280,7 +280,7 @@ int Configuration::constraintRowsXtrem() {
 
 bool Configuration::constraintRowsXtrem(int x, int y) {
     const PairColors* swne;
-    if(y != 0 && y != height()-1)
+    if(y != 0 && y != get_height()-1)
         return true;
     else {
         const pair<int, int> & pair = getPair(x, y);
@@ -288,7 +288,7 @@ bool Configuration::constraintRowsXtrem(int x, int y) {
         swne = piece.rotate(pair.second);
         if(y == 0)
             return swne[2] == 0 && !(swne[1] == 0 || swne[1] == 0 || swne[3] == 0);
-        else if(y == height()-1)
+        else if(y == get_height()-1)
             return swne[0] == 0 && !(swne[1] == 0 || swne[2] == 0 || swne[3] == 0);
         return false;
     }
@@ -298,7 +298,7 @@ int Configuration::constraintColsXtrem() {
     int errors = 0;
     const PairColors* swne;
     // Vérification de la première colonne (Contrainte Colonne Ouest)
-    for(int i=0 ; i<instance->height() ; i++) {
+    for(int i=0 ; i<instance->get_height() ; i++) {
         const pair<int, int> & pair = getPair(0, i);
         const Piece & piece = getPiece(0, i);
         swne = piece.rotate(pair.second);
@@ -310,9 +310,9 @@ int Configuration::constraintColsXtrem() {
         }
     }
     // Vérification de la seconde colonne (Contrainte Colonne Est)
-    for(int i=0 ; i<instance->height() ; i++) {
-        const pair<int, int> & pair = getPair(instance->width()-1, i);
-        const Piece & piece = getPiece(instance->width()-1, i);
+    for(int i=0 ; i<instance->get_height() ; i++) {
+        const pair<int, int> & pair = getPair(instance->get_width()-1, i);
+        const Piece & piece = getPiece(instance->get_width()-1, i);
         swne = piece.rotate(pair.second);
         if(swne[3] != 0) {
 #if DEBUG_SHOW_CONFIG
@@ -327,7 +327,7 @@ int Configuration::constraintColsXtrem() {
 
 bool Configuration::constraintColsXtrem(int x, int y) {
     const PairColors * swne;
-    if(x != 0 && x != width()-1)
+    if(x != 0 && x != get_width()-1)
         return true;
     else {
         const pair<int, int> & pair = getPair(x, y);
@@ -335,7 +335,7 @@ bool Configuration::constraintColsXtrem(int x, int y) {
         swne = piece.rotate(pair.second);
         if(x == 0)
             return swne[1] == 0 && !(swne[0] == 0 || swne[2] == 0 || swne[3] == 0);
-        else if(x == width()-1)
+        else if(x == get_width()-1)
             return swne[3] == 0 && !(swne[0] == 0 || swne[1] == 0 || swne[2] == 0);
         return false;
     }
@@ -356,8 +356,8 @@ int Configuration::constraintEdges() {
         errors++;
     }
     // Coin Nord-Est
-    pair = getPair(0,instance->width()-1);
-    piece = getPiece(0,instance->width()-1);
+    pair = getPair(0,instance->get_width()-1);
+    piece = getPiece(0,instance->get_width()-1);
     swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[2] != 0) {
 #if DEBUG_SHOW_CONFIG
@@ -366,8 +366,8 @@ int Configuration::constraintEdges() {
         errors++;
     }
     // Coin Sud-Ouest
-    pair = getPair(instance->height()-1,0);
-    piece = getPiece(instance->height()-1,0);
+    pair = getPair(instance->get_height()-1,0);
+    piece = getPiece(instance->get_height()-1,0);
     swne = piece.rotate(pair.second);
     if(swne[1] != 0 || swne[0] != 0) {
 #if DEBUG_SHOW_CONFIG
@@ -376,8 +376,8 @@ int Configuration::constraintEdges() {
         errors++;
     }
     // Coin Sud-Est
-    pair = getPair(instance->height()-1, instance->width()-1);
-    piece = getPiece(instance->height()-1, instance->width()-1);
+    pair = getPair(instance->get_height()-1, instance->get_width()-1);
+    piece = getPiece(instance->get_height()-1, instance->get_width()-1);
     swne = piece.rotate(pair.second);
     if(swne[3] != 0 || swne[0] != 0) {
 #if DEBUG_SHOW_CONFIG
@@ -395,11 +395,11 @@ bool Configuration::constraintEdges(int x, int y) {
     const PairColors * swne = piece.rotate(pair.second);
     if(x == 0 && y == 0)
         return swne[1] == 0 && swne[2] == 0;
-    else if(x == 0 && y == height()-1)
+    else if(x == 0 && y == get_height()-1)
         return swne[0] == 0 && swne[1] == 0;
-    else if(x == width()-1 && y == 0)
+    else if(x == get_width()-1 && y == 0)
         return swne[2] == 0 && swne[3] == 0;
-    else if(x == width()-1 && y == height()-1)
+    else if(x == get_width()-1 && y == get_height()-1)
         return swne[0] == 0 && swne[3] == 0;
     return true;
 }
@@ -435,7 +435,7 @@ bool Configuration::constraintAdjacences(int x, int y) {
 }
 
 PairColors Configuration::getNorthMotifSouthPiece(int current_piece_indice){
-    Piece south_piece = instance->getPiece(current_piece_indice + width());
+    Piece south_piece = instance->getPiece(current_piece_indice + get_width());
     int rotation = positions[getPosition(south_piece)].second;
 
     return south_piece.rotate(rotation)[2];
@@ -476,12 +476,12 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
 int Configuration::checkPieces(){
     int nb_errors= 0;
 
-    int begin_last_raw= height()*width() -width(); // première case de la derniere ligne
+    int begin_last_raw= get_height()*get_width() -get_width(); // première case de la derniere ligne
 
     // Parcours de toutes les cases du plateau, dernière case exceptée
-    for(int i=0; i < (height()*width()-1); ++i){
-        int current_x= i % width();
-        int current_y= i / width();
+    for(int i=0; i < (get_height()*get_width()-1); ++i){
+        int current_x= i % get_width();
+        int current_y= i / get_width();
 
         PairColors current_piece_east_motif= getRotatedMotif(i)[3];
         PairColors current_piece_south_motif= getRotatedMotif(i)[0];
@@ -491,8 +491,8 @@ int Configuration::checkPieces(){
         #endif
 
         //derniere colonne
-        if(current_x == width()-1){
-            PairColors south_piece_north_motif= getRotatedMotif(i+width())[2];
+        if(current_x == get_width()-1){
+            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[2];
             if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece SUD" << endl;
@@ -512,7 +512,7 @@ int Configuration::checkPieces(){
         }
         //ni derniere ligne ni derniere colonne
         else {
-            PairColors south_piece_north_motif= getRotatedMotif(i+width())[2];
+            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[2];
             if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece SUD" << endl;
@@ -533,20 +533,20 @@ int Configuration::checkPieces(){
 }
 
 int Configuration::constraintPieces() {
-    vector<int> misplaces(height()*width());
+    vector<int> misplaces(get_height()*get_width());
 
-    for(int j=0 ; j<height() ; j++) {
-        for(int i=0 ; i<width() ; i++) {
+    for(int j=0 ; j<get_height() ; j++) {
+        for(int i=0 ; i<get_width() ; i++) {
             pair<int, int> p = getPair(i, j);
             // Vérification d'Angles
-            if((j == 0 && i == 0)||(j== 0 && i == width()-1)||(j==height()-1 && i==0)||(j==height()-1 && i==width()-1)) {
-                 if(!constraintEdges(i,j)) misplaces[i + j*width()] = p.first;
+            if((j == 0 && i == 0)||(j== 0 && i == get_width()-1)||(j==get_height()-1 && i==0)||(j==get_height()-1 && i==get_width()-1)) {
+                 if(!constraintEdges(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Lignes
-            } else if(j == 0 || j == height()-1) {
-                 if(!constraintRowsXtrem(i,j)) misplaces[i + j*width()] = p.first;
+            } else if(j == 0 || j == get_height()-1) {
+                 if(!constraintRowsXtrem(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Colonnes
-            } else if(i == 0 || i == width()-1) {
-                 if(!constraintColsXtrem(i,j)) misplaces[i + j*width()] = p.first;
+            } else if(i == 0 || i == get_width()-1) {
+                 if(!constraintColsXtrem(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification des autres (devraient-elles être sur les bords ?)
             } else {
                  Piece piece = getPiece(i, j);
@@ -554,7 +554,7 @@ int Configuration::constraintPieces() {
                  for(int k=0 ; k<4 ; k++) {
                      rot =  piece.get_motif()[k];
                      if(rot == 0) {
-                         misplaces[i + j*width()] = p.first;
+                         misplaces[i + j*get_width()] = p.first;
                          break;
                      }
                  }
@@ -565,9 +565,9 @@ int Configuration::constraintPieces() {
     // Vérification d'Adjacences pour chaque pièce (à partir de la première pièce bien placée)
     pair<int, int> well_placed = make_pair(-1, -1);
     bool found = false;
-    for(int j=0 ; j<height() && !found ; j++) {
-        for(int i=0 ; i<width() && !found ; i++) {
-            int n = misplaces[i + j*width()];
+    for(int j=0 ; j<get_height() && !found ; j++) {
+        for(int i=0 ; i<get_width() && !found ; i++) {
+            int n = misplaces[i + j*get_width()];
             if(n == 0) {
                 well_placed = make_pair(i, j);
                 found = true;
@@ -588,13 +588,13 @@ int Configuration::constraintPieces() {
                 PairColors * swne_aux = getPiece(p_k.first).rotate(p_k.second);
                 pair<int, int> XYaux = getCase(p_k.first);
                 if(k == 0 && swne[k] != swne_aux[2])    // Les couleurs Sud-Nord sont différentes
-                    misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+                    misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
                 else if(k == 1 && swne[k] != swne_aux[3]) // Les couleurs Ouest-Est sont différentes
-                     misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+                     misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
                 else if(k == 2 && swne[k] != swne_aux[0])   // Les couleurs Nord-Sud sont différentes
-                     misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+                     misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
                 else if(k == 3 && swne[k] != swne_aux[1])   // Les couleurs Est-Ouest sont différentes
-                     misplaces[XYaux.first + XYaux.second * width()] = p_k.first;
+                     misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
             }
         }
     }
@@ -622,17 +622,17 @@ int Configuration::getPieceNbErrors(int indice) {
 
     //position de la piece courante (combien de voisins ?)
     int current_piece_pos= getPosition(current_piece.get_id());
-    int current_x= current_piece_pos % width();
-    int current_y= current_piece_pos / width();
+    int current_x= current_piece_pos % get_width();
+    int current_y= current_piece_pos / get_width();
 
-    if(height()-1 == current_x) //derniere colonne
+    if(get_height()-1 == current_x) //derniere colonne
     {
         if(0 == current_y){
 
         }
 
     } //derniere ligne
-    else if(width()-1 == current_y)
+    else if(get_width()-1 == current_y)
     {
 
 

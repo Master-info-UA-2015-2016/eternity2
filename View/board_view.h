@@ -38,6 +38,19 @@ public:
     explicit BoardWidget(Board* b, QWidget *parent = 0);
     explicit BoardWidget(QWidget *parent = 0);
 
+    /*** Getters    ***/
+    /**
+     * @brief height
+     * @return la hauteur du plateau (nombre de pièces verticalement)
+     */
+    int get_height()    const { return board->get_height(); }
+    /**
+     * @brief width
+     * @return la largeur du plateau (nombre de pièces horizontalement)
+     */
+    int get_width()     const { return board->get_width(); }
+    const Configuration& getConfig() const { return board->getConfig(); }
+
     /**
      * Dessine un triangle et un rectangle formants un motif, à partir de couleurs
      * @param path Chemin formant le triangle

@@ -18,8 +18,8 @@ private:
 public:
     Board(Configuration* config);
 
-    int height()    const { assert(disposition != NULL); return disposition->height(); }
-    int width()     const { assert(disposition != NULL); return disposition->width(); }
+    int get_height()    const { assert(disposition != NULL); return disposition->get_height(); }
+    int get_width()     const { assert(disposition != NULL); return disposition->get_width(); }
     const Configuration& getConfig() const { return *disposition; }
 
     std::vector<std::pair<Piece*, Coordinates>* >* getPlaced();

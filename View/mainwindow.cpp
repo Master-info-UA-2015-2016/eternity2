@@ -69,7 +69,7 @@ void MainWindow::showBoard() const
 void MainWindow::launch_resolution()
 {
 #if DEBUG_SHOW_SOL_CONFIG
-        Configuration * solution = new Configuration(instance);
+        Configuration * solution = new Configuration(ui->board-> config);
 
         solution->placePiece(make_pair(1, 1));
         solution->placePiece(make_pair(7, 2));

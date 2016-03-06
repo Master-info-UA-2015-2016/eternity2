@@ -3,6 +3,8 @@
 
 #include <algorithm>
 #include <iterator>
+#include <exception> // ??
+#include <stdexcept>    // for out_of_range
 #include <time.h>
 
 #include "debug.h"
@@ -40,6 +42,16 @@ public:
     Configuration(const std::string& fileNameInstance);
 
     /*** Getters ***/
+    /**
+     * @brief height
+     * @return la hauteur du plateau (nombre de pièces verticalement)
+     */
+    int get_height()    const { return instance->get_height(); }
+    /**
+     * @brief width
+     * @return la largeur du plateau (nombre de pièces horizontalement)
+     */
+    int get_width()     const { return instance->get_width(); }
 
     const std::vector<std::pair<int, int> >& getPositions() const
         {return positions;}
@@ -119,17 +131,6 @@ public:
     std::vector<std::pair<int, int>> getAdjacent(int x, int y) const;
 
     /**
-     * @brief height
-     * @return
-     */
-    int height()    const { return instance->height(); }
-    /**
-     * @brief width
-     * @return
-     */
-    int width()     const { return instance->width(); }
-
-    /**
      * Ajout d'une position
      * @param position
      */
@@ -144,7 +145,7 @@ public:
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
-    bool isValid() { return (unsigned)(instance->width()* instance->height()) == positions.size(); }
+    bool isValid() { return (unsigned)(instance->get_width()* instance->get_height()) == positions.size(); }
 
     /**
      * Impression sur un flux de l'instance
