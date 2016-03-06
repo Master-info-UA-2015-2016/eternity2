@@ -44,6 +44,13 @@ public:
      */
     void launch_resolution();
 
+    /**
+     * Permet d'afficher la configuration dans le terminal
+     * @test fonction utilisée afin de vérfiée que le plateau, la config et l'instance
+     *  sont bien initialisés
+     */
+    void testShowConfig() const;
+
 private:
     Ui::MainWindow *ui;
 

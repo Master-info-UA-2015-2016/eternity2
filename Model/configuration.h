@@ -4,8 +4,9 @@
 #include <algorithm>
 #include <iterator>
 #include <exception> // ??
+#include <cassert>
 #include <stdexcept>    // for out_of_range
-#include <time.h>
+#include <ctime>
 
 #include "debug.h"
 
@@ -28,17 +29,12 @@ private:
     std::vector<std::pair<int, int> > positions;
 
 public:
-
-    /**
-     * Constructeur
-     */
-    Configuration();
     /**
      * Construit une configuration par recopie d'une instance existante
      * @param instance Instance utilisée pour recopie de ses paramètres
      * @author Florian
      */
-    Configuration(const Instance *instance);
+    Configuration(const Instance *instance = NULL);
     Configuration(const std::string& fileNameInstance);
 
     /*** Getters ***/
@@ -46,12 +42,12 @@ public:
      * @brief height
      * @return la hauteur du plateau (nombre de pièces verticalement)
      */
-    int get_height()    const { return instance->get_height(); }
+    int get_height()    const { assert(instance != NULL); return instance->get_height(); }
     /**
      * @brief width
      * @return la largeur du plateau (nombre de pièces horizontalement)
      */
-    int get_width()     const { return instance->get_width(); }
+    int get_width()     const { assert(instance != NULL); return instance->get_width(); }
 
     const std::vector<std::pair<int, int> >& getPositions() const
         {return positions;}
@@ -74,19 +70,18 @@ public:
     const Piece & getPiece(int x, int y) const;
 
     /**
-     * Récupération de l'ensemble des pièces
-     * @return vector<Piece *>
-     */
-    const std::vector<Piece> * getPieces() const
-        { return instance->get_pieces(); }
-
-    /**
      * Récupération de la pièce portant l'id
      * @param id : int
      * @return Piece
      */
     const Piece & getPiece(int id) const;
 
+    /**
+     * Récupération de l'ensemble des pièces
+     * @return vector<Piece *>
+     */
+    const std::vector<Piece> * getPieces() const
+        { return instance->get_pieces(); }
     /**
      * Récupération du motif pivoté en position (x, y)
      * @param x : X
@@ -152,9 +147,9 @@ public:
      * @param out
      * @return le flux donné en paramètre avec l'instance 'imprimé'
      */
-    std::ostream& print(std::ostream& out);
+    std::ostream& print(std::ostream& out) const;
 
-    friend std::ostream& operator<<(std::ostream& out, Configuration& r)
+    friend std::ostream& operator<<(std::ostream& out, const Configuration& r)
     { return r.print(out); }
 
     /**
@@ -184,7 +179,7 @@ public:
      * @return int
      * @author FOURMOND Jérôme
      */
-    int constraintRowsXtrem();
+    int constraintRowsXtrem() const;
 
     /**
      * La pièce située en (x,y) respecte-t-elle la contrainte de lignes extrèmes ?
@@ -192,15 +187,16 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérôme
+     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintRowsXtrem(int x, int y);
+    bool constraintRowsXtrem(int x, int y) const;
 
     /**
      * Compte des erreurs de contraintes de colonnes
      * @return int
      * @author FOURMOND Jérôme
      */
-    int constraintColsXtrem();
+    int constraintColsXtrem() const;
 
     /**
      * La pièce située en (x,y) respecte-t-elle la contrainte de colonnes extrèmes ?
@@ -208,15 +204,16 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérôme
+     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintColsXtrem(int x, int y);
+    bool constraintColsXtrem(int x, int y) const;
 
     /**
      * Compte des erreurs de contraintes d'angles
      * @return int
      * @author FOURMOND Jérôme
      */
-    int constraintEdges();
+    int constraintEdges() const;
 
     /**
      * La pièce située en (x,y) respecte-t-elle la contrainte d'angles ?
@@ -224,8 +221,9 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérôme
+     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintEdges(int x, int y);
+    bool constraintEdges(int x, int y) const;
 
     /**
      * La pièce située en (x,y) s'accorde-t-elle correctement à ses voisins ?
@@ -233,8 +231,9 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérome
+     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintAdjacences(int x, int y);
+    bool constraintAdjacences(int x, int y) const;
 
     /**
      * @brief getNorthMotifSouthPiece
@@ -242,14 +241,14 @@ public:
      * @return
      * TODO A REFAIRE, avec meilleures fonctions d'accès au motif pivoté
      */
-    PairColors getNorthMotifSouthPiece(int current_piece_indice);
+    PairColors getNorthMotifSouthPiece(int current_piece_indice) const;
     /**
      * @brief getWestMotifEastPiece
      * @param current_piece_indice
      * @return
      * TODO A REFAIRE, avec meilleures fonctions d'accès au motif pivoté
      */
-    PairColors getWestMotifEastPiece(int current_piece_indice);
+    PairColors getWestMotifEastPiece(int current_piece_indice) const;
 
     /**
      * Vérifie que 2 motifs s'appareillent
@@ -257,15 +256,21 @@ public:
      * @param second_motif
      * @return vrai si les 2 motifs sont identiques et ne sont pas noirs
      */
-    bool motifs_match(PairColors first_motif, PairColors second_motif);
+    bool motifs_match(PairColors first_motif, PairColors second_motif) const;
 
     /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
      * @author GARNIER Antoine
+     * TODO renommer @Ascris (countNbErrors, nbMisplacedErrors, checkNbErrors ?)
      */
-    int checkPieces();
+    int checkPieces() const;
 
+    /**
+     * @brief constraintPieces
+     * @return
+     * TODO comment et renommer
+     */
     int constraintPieces();
 
     /**

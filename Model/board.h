@@ -16,7 +16,7 @@ private:
     Configuration* disposition;
 
 public:
-    Board(Configuration* config);
+    Board(Configuration* config = NULL);
 
     int get_height()    const { assert(disposition != NULL); return disposition->get_height(); }
     int get_width()     const { assert(disposition != NULL); return disposition->get_width(); }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>847</width>
-    <height>511</height>
+    <width>638</width>
+    <height>336</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="BoardWidget" name="board" native="true">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>361</width>
-      <height>301</height>
+      <x>9</x>
+      <y>-1</y>
+      <width>511</width>
+      <height>291</height>
      </rect>
     </property>
    </widget>
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>847</width>
+     <width>638</width>
      <height>21</height>
     </rect>
    </property>

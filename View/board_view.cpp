@@ -5,27 +5,12 @@
 
 using namespace std;
 
-BoardWidget::BoardWidget(QWidget *parent) :
-    QWidget(parent)
-{
-    buffer= new QImage;
-    bufferPainter= new QPainter;
-    board= new Board( new Configuration() );
-}
-
-BoardWidget::BoardWidget(Board *b, QWidget *parent) :
+BoardWidget::BoardWidget(QWidget *parent, Board *b) :
     QWidget(parent), board(b)
 {
     buffer= new QImage;
     bufferPainter= new QPainter;
 }
-
-// #############################
-/***		Getters       	***/
-// #############################
-int height()    const { assert(disposition != NULL); return disposition->height(); }
-int width()     const { assert(disposition != NULL); return disposition->width(); }
-const Configuration& getConfig() const { return *disposition; }
 
 // #############################
 /***		Affichages  	***/

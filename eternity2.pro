@@ -10,7 +10,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = eternity2
 TEMPLATE = app
 
-CONFIG += c++11
+CONFIG      += c++11
+CONFIG      += plugin
+QT          += widgets uiplugin
 
 SOURCES += main.cpp \
     Model/board.cpp \

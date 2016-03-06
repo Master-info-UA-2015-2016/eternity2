@@ -10,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+#if DEBUG_UI
+    cout << "Construction de Maindow sans plateau"<< endl;
+#endif
+//    ui->board= NULL;
 }
 
 MainWindow::MainWindow(Board *b, QWidget *parent) :
@@ -17,18 +21,25 @@ MainWindow::MainWindow(Board *b, QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->board= new BoardWidget(b, this);
+#if DEBUG_UI
+    cout << "Construction de Maindow avec un plateau de valeur "<< b<< endl;
+#endif
+    cout<< "ATTENTION, la valeur du plateau est ignorée"<< endl;
+//    ui->board= new BoardWidget(this, b);
 }
 
 MainWindow::~MainWindow()
 {
+    delete ui->board;
     delete ui;
 }
 
 
 void MainWindow::set_board(Board *_board)
 {
-    ui->board= new BoardWidget(_board, this);
+//    if(ui->board != NULL) delete ui->board; // Utile si on fait new, sinon TODO supprimer
+
+    ui->board->set_board(_board);
 }
 
 bool MainWindow::init_configuration(std::string instance_filename)
@@ -82,7 +93,7 @@ void MainWindow::launch_resolution()
         solution->placePiece(make_pair(4, 3));
 
         Board* board_sol= new Board(solution);
-        BoardWidget* sol_board= new BoardWidget(board_sol);
+        BoardWidget* sol_board= new BoardWidget(NULL, board_sol);
         sol_board->show();
 
 
@@ -110,9 +121,12 @@ void MainWindow::launch_resolution()
 
 }
 
+void MainWindow::testShowConfig() const
+{   clog << (ui->board->getConfig())<< endl; }
+
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
-    std::cout << "MainWindow_paintEvent : affichage fenêtre"<< std::endl;
+    cout << "MainWindow_paintEvent : affichage fenêtre"<< std::endl;
     ui->board->show(); // TODO vérifier utilité
 }
