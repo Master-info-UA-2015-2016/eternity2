@@ -56,6 +56,9 @@ private:
 
 protected:
     void paintEvent(QPaintEvent* event);
+
+public slots:
+    void load_instance(QString instance_filename);
 };
 
 #endif // MAINWINDOW_H
