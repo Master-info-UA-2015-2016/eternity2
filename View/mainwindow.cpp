@@ -62,8 +62,6 @@ bool MainWindow::init_configuration(std::string instance_filename)
         Board* board_init= new Board(config);
         set_board(board_init);
 
-//        ui->board->show();  // TODO supprimer lorsque l'affichage de mainwindow sera opérationnel
-
         return true;
     } else {
         cerr<< "Impossible d'ouvrir le fichier d'instance"<< endl;
@@ -129,4 +127,21 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QWidget::paintEvent(event);
     cout << "MainWindow_paintEvent : affichage fenêtre"<< std::endl;
     ui->board->show(); // TODO vérifier utilité
+}
+
+void MainWindow::load_instance()
+{
+    QFileDialog* fileLoadDialog= new QFileDialog(this);
+    fileLoadDialog->setAcceptMode(QFileDialog::AcceptOpen);
+    fileLoadDialog->setNameFilter(tr("Load") +" (*.txt *.inst)");
+
+    string filename;
+    if(fileLoadDialog->exec() == QDialog::Accepted){
+        filename= fileLoadDialog->selectedFiles().at(0).toStdString();
+
+        init_configuration(filename);
+        ui->board->redraw(); // utile ?
+    }
+    delete fileLoadDialog;
+
 }

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
 
 #include "View/board_view.h"
 
@@ -58,7 +59,7 @@ protected:
     void paintEvent(QPaintEvent* event);
 
 public slots:
-    void load_instance(QString instance_filename);
+    void load_instance();
 };
 
 #endif // MAINWINDOW_H

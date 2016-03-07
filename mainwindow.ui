@@ -44,7 +44,7 @@
     <property name="title">
      <string>Instance</string>
     </property>
-    <addaction name="actionCharger"/>
+    <addaction name="action_load_instance"/>
     <addaction name="action_save"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
@@ -78,7 +78,7 @@
     <string>Quitter</string>
    </property>
   </action>
-  <action name="actionCharger">
+  <action name="action_load_instance">
    <property name="text">
     <string>Charger</string>
    </property>
@@ -126,5 +126,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_load_instance</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>load_instance()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>318</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>load_instance()</slot>
+ </slots>
 </ui>
