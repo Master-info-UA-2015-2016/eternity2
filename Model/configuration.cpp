@@ -308,7 +308,7 @@ int Configuration::constraintRowsXtrem() const {
     return errors;
 }
 
-bool Configuration::constraintRowsXtrem(int x, int y) const {
+bool Configuration::isConstraintRowsXtremRespected(int x, int y) const {
     const PairColors* swne;
     if(y != 0 && y != get_height()-1)
         return true;
@@ -355,7 +355,7 @@ int Configuration::constraintColsXtrem() const {
 
 }
 
-bool Configuration::constraintColsXtrem(int x, int y) const {
+bool Configuration::isConstraintColsXtremRespected(int x, int y) const {
     const PairColors * swne;
     if(x != 0 && x != get_width()-1)
         return true;
@@ -419,7 +419,7 @@ int Configuration::constraintEdges() const {
     return errors;
 }
 
-bool Configuration::constraintEdges(int x, int y) const {
+bool Configuration::isConstraintEdgesRespected(int x, int y) const {
     const pair<int, int> & pair = getPair(x, y);
     const Piece & piece = getPiece(x, y);
     const PairColors * swne = piece.rotate(pair.second);
@@ -434,7 +434,7 @@ bool Configuration::constraintEdges(int x, int y) const {
     return true;
 }
 
-bool Configuration::constraintAdjacences(int x, int y) const {
+bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
     pair<int, int> piece = getPair(x, y);
     PairColors * swne = getPiece(piece.first).rotate(piece.second);
 
@@ -562,7 +562,7 @@ int Configuration::checkPieces() const{
     return nb_errors;
 }
 
-int Configuration::constraintPieces() {
+int Configuration::misplacedPieces() {
     vector<int> misplaces(get_height()*get_width());
 
     for(int j=0 ; j<get_height() ; j++) {

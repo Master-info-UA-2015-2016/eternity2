@@ -196,9 +196,8 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérôme
-     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintRowsXtrem(int x, int y) const;
+    bool isConstraintRowsXtremRespected(int x, int y) const;
 
     /**
      * Compte des erreurs de contraintes de colonnes
@@ -213,9 +212,8 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérôme
-     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintColsXtrem(int x, int y) const;
+    bool isConstraintColsXtremRespected(int x, int y) const;
 
     /**
      * Compte des erreurs de contraintes d'angles
@@ -230,9 +228,8 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérôme
-     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintEdges(int x, int y) const;
+    bool isConstraintEdgesRespected(int x, int y) const;
 
     /**
      * La pièce située en (x,y) s'accorde-t-elle correctement à ses voisins ?
@@ -240,9 +237,8 @@ public:
      * @param y : int
      * @return boolean
      * @author FOURMOND Jérome
-     * TODO renommer avec la forme "is..." @jfourmond
      */
-    bool constraintAdjacences(int x, int y) const;
+    bool isConstraintAdjacencesRespected(int x, int y) const;
 
     /**
      * @brief getNorthMotifSouthPiece
@@ -276,11 +272,10 @@ public:
     int checkPieces() const;
 
     /**
-     * @brief constraintPieces
-     * @return
-     * TODO comment et renommer
+     * Retourne le nombre de pièces mal placée
+     * @return int
      */
-    int constraintPieces();
+    int misplacedPieces();
 
     /**
      * Compte le nombre d'erreurs qu'il y a avec la piece positions[indice] (de 0 à 4 possibles)
