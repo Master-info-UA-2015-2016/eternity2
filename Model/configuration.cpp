@@ -127,7 +127,7 @@ vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
         cerr << "Récupération Nord" << endl;
         pos = make_pair(-1,-1);
     }
-    swne[2] = pos;
+    swne[North] = pos;
     // Récupération Ouest
     try {
         pos = getPair(x+1, y);
@@ -409,7 +409,7 @@ int Configuration::constraintEdges() const {
     pair = getPair(instance->get_height()-1,0);
     piece = getPiece(instance->get_height()-1,0);
     swne = piece.rotate(pair.second);
-    if(swne[1] != 0 || swne[0] != 0) {
+    if(swne[West] != 0 || swne[South] != 0) {
 #if DEBUG_SHOW_CONFIG
         cout << "\t("<< instance->height()-1 << "," << 0 << ")" << piece;
 #endif
@@ -419,7 +419,7 @@ int Configuration::constraintEdges() const {
     pair = getPair(instance->get_height()-1, instance->get_width()-1);
     piece = getPiece(instance->get_height()-1, instance->get_width()-1);
     swne = piece.rotate(pair.second);
-    if(swne[3] != 0 || swne[0] != 0) {
+    if(swne[East] != 0 || swne[South] != 0) {
 #if DEBUG_SHOW_CONFIG
         cout << "\t("<< instance->height()-1 << "," << instance->width()-1 << ")" << piece;
 #endif
@@ -434,13 +434,13 @@ bool Configuration::isConstraintEdgesRespected(int x, int y) const {
     const Piece & piece = getPiece(x, y);
     const PairColors * swne = piece.rotate(pair.second);
     if(x == 0 && y == 0)
-        return swne[1] == 0 && swne[2] == 0;
+        return swne[West] == 0 && swne[North] == 0;
     else if(x == 0 && y == get_height()-1)
-        return swne[0] == 0 && swne[1] == 0;
+        return swne[South] == 0 && swne[West] == 0;
     else if(x == get_width()-1 && y == 0)
-        return swne[2] == 0 && swne[3] == 0;
+        return swne[North] == 0 && swne[East] == 0;
     else if(x == get_width()-1 && y == get_height()-1)
-        return swne[0] == 0 && swne[3] == 0;
+        return swne[South] == 0 && swne[East] == 0;
     return true;
 }
 
@@ -453,19 +453,19 @@ bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
         pair<int, int> p_i = p_SWNE[i];
         if(p_i.first != 0) {
             PairColors * swne_aux = getPiece(p_i.first).rotate(p_i.second);
-            if(i == 0 && swne[i] != swne_aux[2]) {    // Les couleurs Sud-Nord sont différentes
+            if(i == 0 && swne[i] != swne_aux[North]) {    // Les couleurs Sud-Nord sont différentes
                 cout << "Erreur Sud" << endl;
                 return false;
             }
-            else if(i == 1 && swne[i] != swne_aux[3]) { // Les couleurs Ouest-Est sont différentes
+            else if(i == 1 && swne[i] != swne_aux[East]) { // Les couleurs Ouest-Est sont différentes
                 cout << "Erreur Ouest" << endl;
                 return false;
             }
-            else if(i == 2 && swne[i] != swne_aux[0]) {   // Les couleurs Nord-Sud sont différentes
+            else if(i == 2 && swne[i] != swne_aux[South]) {   // Les couleurs Nord-Sud sont différentes
                 cout << "Erreur Nord" << endl;
                 return false;
             }
-            else if(i == 3 && swne[i] != swne_aux[1]) {   // Les couleurs Est-Ouest sont différentes
+            else if(i == 3 && swne[i] != swne_aux[West]) {   // Les couleurs Est-Ouest sont différentes
                 cout << "Erreur Est" << endl;
                 return false;
             }
@@ -484,13 +484,13 @@ PairColors* Configuration::get_rotated_motifs(int current_piece_indice) const{
 PairColors Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
     // Récupère le motif Nord de la pièce au sud de la piece courante tournée
     // piece sud de piece courante = position piece courante + width
-    return get_rotated_motifs(current_piece_indice + get_width())[2];
+    return get_rotated_motifs(current_piece_indice + get_width())[North];
 }
 
 PairColors Configuration::getWestMotifEastPiece(int current_piece_indice) const {
     // Récupère le motif Ouest de la pièce à l'Est de la piece courante tournée
     // piece est de piece courante = position piece courante + 1
-    return get_rotated_motifs(current_piece_indice + 1)[1];
+    return get_rotated_motifs(current_piece_indice + 1)[West];
 }
 
 /** Vérifiée **/
@@ -528,8 +528,8 @@ int Configuration::countNbErrors() const{
         int current_x= i % get_width();
         int current_y= i / get_width();
 
-        PairColors current_piece_east_motif= getRotatedMotif(i)[3];
-        PairColors current_piece_south_motif= getRotatedMotif(i)[0];
+        PairColors current_piece_east_motif= getRotatedMotif(i)[East];
+        PairColors current_piece_south_motif= getRotatedMotif(i)[South];
 
         #if DEBUG_CHECK_PIECES
         cout << "Piece n°" << i << endl;
@@ -537,7 +537,7 @@ int Configuration::countNbErrors() const{
 
         //derniere colonne
         if(current_x == get_width()-1){
-            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[2];
+            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
             if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece SUD" << endl;
@@ -547,7 +547,7 @@ int Configuration::countNbErrors() const{
         }
         //derniere ligne
         else if(i >= begin_last_raw){
-            PairColors east_piece_west_motif= getRotatedMotif(i+1)[1];
+            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
             if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece EST" << endl;
@@ -557,7 +557,7 @@ int Configuration::countNbErrors() const{
         }
         //ni derniere ligne ni derniere colonne
         else {
-            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[2];
+            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
             if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece SUD" << endl;
@@ -565,7 +565,7 @@ int Configuration::countNbErrors() const{
                 ++nb_errors;
             }
 
-            PairColors east_piece_west_motif= getRotatedMotif(i+1)[1];
+            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
             if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece EST" << endl;
@@ -632,13 +632,13 @@ int Configuration::misplacedPieces() {
             if(p_k.first != 0) {
                 PairColors * swne_aux = getPiece(p_k.first).rotate(p_k.second);
                 pair<int, int> XYaux = getCase(p_k.first);
-                if(k == 0 && swne[k] != swne_aux[2])    // Les couleurs Sud-Nord sont différentes
+                if(k == 0 && swne[k] != swne_aux[North])    // Les couleurs Sud-Nord sont différentes
                     misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
-                else if(k == 1 && swne[k] != swne_aux[3]) // Les couleurs Ouest-Est sont différentes
+                else if(k == 1 && swne[k] != swne_aux[East]) // Les couleurs Ouest-Est sont différentes
                      misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
-                else if(k == 2 && swne[k] != swne_aux[0])   // Les couleurs Nord-Sud sont différentes
+                else if(k == 2 && swne[k] != swne_aux[South])   // Les couleurs Nord-Sud sont différentes
                      misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
-                else if(k == 3 && swne[k] != swne_aux[1])   // Les couleurs Est-Ouest sont différentes
+                else if(k == 3 && swne[k] != swne_aux[West])   // Les couleurs Est-Ouest sont différentes
                      misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
             }
         }

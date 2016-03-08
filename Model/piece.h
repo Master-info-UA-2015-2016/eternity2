@@ -6,6 +6,8 @@
 
 #include "motif.h"
 
+enum Cardinal{ South = 0, West = 1, North= 2, East= 3 };
+
 /**
  * Classe représentant une pièce. haque pièce dispose d'un identifiant et d'un tableau
  * de 4 entiers représentant les différentes couleurs de la pièce.

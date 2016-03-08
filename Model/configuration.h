@@ -280,6 +280,7 @@ public:
     /**
      * Retourne le nombre de pièces mal placée
      * @return int
+     * TODO Renommer, corriger la fonction (il y a des commentaires), quand est-ce qu'elle sert ?
      */
     int misplacedPieces();
 
