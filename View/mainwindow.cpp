@@ -56,6 +56,8 @@ bool MainWindow::init_configuration(std::string instance_filename)
 #endif
 #if DEBUG_INIT_CONFIG
         cout << (*config) << endl;
+        cout << "Nombre d'erreurs :" << config->checkPieces()  << endl;
+        cout << "\t=> " << config->constraintPieces() << endl;
 #endif
 
         Board* board_init= new Board(config);
