@@ -36,6 +36,7 @@ public:
      */
     Configuration(const Instance *instance = NULL);
     Configuration(const std::string& fileNameInstance);
+    Configuration(const Configuration & C);
 
     /*** Getters ***/
     /**

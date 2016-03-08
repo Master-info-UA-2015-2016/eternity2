@@ -17,6 +17,11 @@ Configuration::Configuration(const string& fileName)
     else { instance = inst; }
 }
 
+Configuration::Configuration(const Configuration &C) {
+    instance = C.instance;
+    copy(C.positions.begin(), C.positions.end(), positions);
+}
+
 const pair<int, int>& Configuration::getPair(int x, int y) const {
     if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
         cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (renvoie d'une pair(0,-1)) " << endl;
