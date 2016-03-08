@@ -19,7 +19,7 @@ Configuration::Configuration(const string& fileName)
 
 Configuration::Configuration(const Configuration &C) {
     instance = C.instance;
-    copy(C.positions.begin(), C.positions.end(), positions.begin());
+    positions = C.positions;
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
@@ -241,7 +241,7 @@ void Configuration::randomConfiguration() {
                 edge_pieces.pop_back();
                 placePiece(make_pair(p_id, i_rot));
                 // Bonne rotation
-                while(!constraintEdges(i, j))
+                while(!isConstraintEdgesRespected(i, j))
                     setPiece(i, j, make_pair(p_id, ++i_rot));
             } else if(i == 0 || j == 0 || i == get_width()-1 || j == get_height()-1){
                 // Border
@@ -249,7 +249,7 @@ void Configuration::randomConfiguration() {
                 border_pieces.pop_back();
                 placePiece(make_pair(p_id, i_rot));
                 // Bonne rotation
-                while(!constraintRowsXtrem(i,j) || !constraintColsXtrem(i,j)) {
+                while(!isConstraintRowsXtremRespected(i,j) || !isConstraintColsXtremRespected(i,j)) {
                     setPiece(i, j, make_pair(p_id, ++i_rot));
                 }
             } else {
@@ -570,13 +570,13 @@ int Configuration::misplacedPieces() {
             pair<int, int> p = getPair(i, j);
             // Vérification d'Angles
             if((j == 0 && i == 0)||(j== 0 && i == get_width()-1)||(j==get_height()-1 && i==0)||(j==get_height()-1 && i==get_width()-1)) {
-                 if(!constraintEdges(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!isConstraintEdgesRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Lignes
             } else if(j == 0 || j == get_height()-1) {
-                 if(!constraintRowsXtrem(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!isConstraintRowsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Colonnes
             } else if(i == 0 || i == get_width()-1) {
-                 if(!constraintColsXtrem(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!isConstraintColsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification des autres (devraient-elles être sur les bords ?)
             } else {
                  Piece piece = getPiece(i, j);

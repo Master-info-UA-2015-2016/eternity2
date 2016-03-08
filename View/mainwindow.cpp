@@ -98,23 +98,22 @@ void MainWindow::launch_resolution()
 
         cout << "Nombre d'erreurs :" << solution->checkPieces()  << endl;
         cout << *solution << endl;
-        cout << "\t=> " << solution->constraintPieces() << endl;
+        cout << "\t=> " << solution->misplacedPieces() << endl;
 #endif
-
 #if DEBUG_EVALUATION
-        cout << "Adjacences (0,0) " << ui->board->getConfig().constraintAdjacences(0,0) << endl;
+        cout << "Adjacences (0,0) " << ui->board->getConfig().isConstraintAdjacencesRespected(0,0) << endl;
         int nb_errors= ui->board->getConfig().checkPieces();
         cout << "Nombre d'erreurs :" << nb_errors  << endl;
 
 //        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
 #endif
 #if DEBUG_LOCAL_SEARCH
-        Configuration * local = Algorithm::local_search(instance);
+        Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
         cout << *local << endl;
-        cout << "\t=> " << local->constraintPieces() << endl;
+        cout << "\t=> " << local->misplacedPieces() << endl;
 
         Board* board_final= new Board(local);
-        BoardWidget* res_board= new BoardWidget(board_final);
+        BoardWidget* res_board= new BoardWidget(NULL, board_final);
         res_board->show();
 #endif
 

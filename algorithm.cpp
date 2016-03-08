@@ -13,7 +13,7 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
     return vicinity;
 }
 
-static Configuration * voisinage(const Configuration & C) {
+Configuration * Algorithm::voisinage(const Configuration & C) {
     Configuration * voisin = new Configuration(C);
     // Modifier la configuration pour en avoir une meilleure
     int x = rand() % (C.get_width()-1);
@@ -22,6 +22,8 @@ static Configuration * voisinage(const Configuration & C) {
     int rot_add =((rand() % (4)) + piece.second) % 4;
 
     voisin->setPiece(x, y, make_pair(piece.first, rot_add));
+
+    return voisin;
 }
 
 vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Configuration *> configurations) {
@@ -47,39 +49,36 @@ int Algorithm::evaluation(Configuration & C) {
     return C.checkPieces();
 }
 
-Configuration * Algorithm::local_search(const Instance * instance) {
-    // Génération de configurations
-    vector<Configuration *> configurations = Configuration::generateRandomConfigurations(instance, 1000);
-
+Configuration * Algorithm::local_search(const Configuration * config) {
     int nb_eval = 0;
+//    int x = 0;
+//    int y = 0;
     // 1. Sélectionner une solution initiale x0 € X
-    Configuration * x0 = configurations[0];
+    Configuration * c0 = new Configuration(*config);
     // 2. x <- x0 (x est la solution courante)
-    Configuration * x = x0;
+    Configuration * c = c0;
     // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
-    Configuration * xStar = x;
+    Configuration * cStar = c;
     // 4. Tant que le critère d'arret n'est pas respecté faire
 
     vector<Configuration *> voisins;
-    Configuration * xprime;
+    Configuration * cprime;
     while(nb_eval < 100) {
         // 5. Sélectionner une solution voisine x' ∈ N(x)
-        voisins = get_neighbours((*x), configurations);
-        random_shuffle(voisins.begin(), voisins.end());
-        xprime = voisins[0];
+        cprime = voisinage(*c);
         // 6. x <- x'
-        x = xprime;
+        c = cprime;
         nb_eval++;
         // 7. si f(x) > f(x*) alors
-        if(Algorithm::evaluation(*x) < Algorithm::evaluation(*xStar)) {
+        if(Algorithm::evaluation(*c) < Algorithm::evaluation(*cStar)) {
             // 8. x* <- x
-            xStar = x;  // Nouvelle meilleure solution
+            cStar = c;  // Nouvelle meilleure solution
             nb_eval = 0;
-            cout << "Nouvelle meilleure solution : " << endl << *xStar << endl;
+            cout << "Nouvelle meilleure solution : " << endl << *cStar << endl;
         }   // 9. fin
     } // 10. fin
     // 11. retourner x*
-    return xStar;
+    return cStar;
 }
 
 Configuration * Algorithm::build_Configuration(const Instance *instance) {
@@ -104,7 +103,7 @@ Configuration * Algorithm::build_Configuration(const Instance *instance) {
                     Piece piece = pieces[k];
                     config->placePiece(make_pair(piece.get_id(), 0));
                     // Bien placé ?
-                    if(config->constraintColsXtrem(i, j) && config->constraintColsXtrem(i, j) && config->constraintEdges(i, j) && config->constraintAdjacences(i, j)) {
+                    if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
                         // Bien placé !
                         used[k] = true;
                         found = true;
@@ -113,7 +112,7 @@ Configuration * Algorithm::build_Configuration(const Instance *instance) {
                         // Tentative de rotation
                         for(int r=1 ; r<4 && !found; r++) {
                             config->placePiece(make_pair(piece.get_id(), r));
-                            if(config->constraintColsXtrem(i, j) && config->constraintColsXtrem(i, j) && config->constraintEdges(i, j) && config->constraintAdjacences(i, j)) {
+                            if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
                                 // Bien placé !
                                 used[k] = true;
                                 found = true;
