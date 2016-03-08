@@ -19,7 +19,7 @@ Configuration::Configuration(const string& fileName)
 
 Configuration::Configuration(const Configuration &C) {
     instance = C.instance;
-    copy(C.positions.begin(), C.positions.end(), positions);
+    copy(C.positions.begin(), C.positions.end(), positions.begin());
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
