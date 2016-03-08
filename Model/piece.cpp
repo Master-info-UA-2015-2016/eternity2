@@ -10,6 +10,20 @@ Piece::Piece(int _id, PairColors tab[]) :
     }
 }
 
+bool Piece::isEdge() {
+    int count_black = 0;
+    for(int i=0 ; i<MAX_CARD ; ++i)
+        if(motif[i] == 0) count_black++;
+    return count_black==2;
+}
+
+bool Piece::isBorder() {
+    int count_black = 0;
+    for(int i=0 ; i<MAX_CARD ; ++i)
+        if(motif[i] == 0) count_black++;
+    return count_black == 1;
+}
+
 ostream& Piece::print(ostream& out) const{
     out << "Pièce n° " << id << " : ";
 
