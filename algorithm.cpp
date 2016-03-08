@@ -43,22 +43,8 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
     return neightbours;
 }
 
-Configuration * Algorithm::generate_neighbours(const Configuration &C) {
-
-}
-
-// TODO fonction d'évaluation
 int Algorithm::evaluation(Configuration & C) {
-    int errors = 0;
-
-    errors = C.checkPieces();
-
-//    errors += C.constraintColsXtrem();
-//    errors += C.constraintRowsXtrem();
-//    errors += C.constraintEdges();
-//    errors = C.constraintPieces();
-
-    return errors;
+    return C.checkPieces();
 }
 
 Configuration * Algorithm::local_search(const Instance * instance) {

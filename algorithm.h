@@ -39,8 +39,6 @@ class Algorithm
          */
         static std::vector<Configuration *> get_neighbours(Configuration & C, std::vector<Configuration * > configurations);
 
-        static Configuration * generate_neighbours(const Configuration & C);
-
         /**
          * Fonction d'évaluation
          * @param C : Configuration
