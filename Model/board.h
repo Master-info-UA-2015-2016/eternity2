@@ -16,16 +16,29 @@ private:
     Configuration* disposition;
 
 public:
+    /**
+     * Constructeur d'un plateau
+     * @param config Configuration initialisant le plateau
+     */
     Board(Configuration* config = NULL);
 
     int get_height()    const { assert(disposition != NULL); return disposition->get_height(); }
     int get_width()     const { assert(disposition != NULL); return disposition->get_width(); }
     const Configuration& getConfig() const { return *disposition; }
 
-    std::vector<std::pair<Piece*, Coordinates>* >* getPlaced();
-    std::list<Coordinates>* getUnplaced();
-    void clearPlaced();
-    void clearUnplaced();
+    /**
+     * Essaie de tourner une pièce afin d'obtenir des appareillages
+     * @param id identifiant de la pièce
+     * @return le nombre d'erreurs de motifs sur cette pièce après rotation ou non
+     */
+    int betterRotatePiece(int piece_id);
+    /**
+     * Essaie de tourner une pièce afin d'obtenir des appareillages
+     * @param x abscisse de la pièce
+     * @param y ordonnée de la pièce
+     * @return le nombre d'erreurs de motifs sur cette pièce après rotation ou non
+     */
+    int betterRotatePiece(int x, int y);
 };
 
 #endif // BOARD_H

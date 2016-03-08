@@ -98,13 +98,14 @@ void MainWindow::launch_resolution()
         sol_board->show();
 
         cout << "###########    SOLUTION    ##########" << endl;
+
         cout << "Nombre d'erreurs :" << solution->countNbErrors()  << endl;
-        cout << *solution << endl;
+        cout << *solution;
         cout << "\t=> " << solution->misplacedPieces() << endl;
 #endif
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
-        cout << *local << endl;
+        cout << *local;
         cout << "\t=> " << local->misplacedPieces() << endl;
 
         Board* board_final= new Board(local);
@@ -120,7 +121,9 @@ void MainWindow::testShowConfig() const
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
+#if DEBUG_DRAW_WIDGETS
     cout << "MainWindow_paintEvent : affichage fenêtre"<< std::endl;
+#endif
     ui->board->show(); // TODO vérifier utilité
 }
 

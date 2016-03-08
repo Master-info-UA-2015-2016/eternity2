@@ -2,7 +2,7 @@
 #define ALGORITHM_H
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <vector>
 
 #include "debug.h"
