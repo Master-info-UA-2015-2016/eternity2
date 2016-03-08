@@ -245,6 +245,13 @@ public:
     bool constraintAdjacences(int x, int y) const;
 
     /**
+     * @brief get_rotated_motifs
+     * @param current_piece_indice
+     * @return
+     */
+    PairColors* get_rotated_motifs(int current_piece_indice) const;
+
+    /**
      * @brief getNorthMotifSouthPiece
      * @param current_piece_indice
      * @return
@@ -271,9 +278,8 @@ public:
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
      * @author GARNIER Antoine
-     * TODO renommer @Ascris (countNbErrors, nbMisplacedErrors, checkNbErrors ?)
-     */
-    int checkPieces() const;
+         */
+    int countNbErrors() const;
 
     /**
      * @brief constraintPieces

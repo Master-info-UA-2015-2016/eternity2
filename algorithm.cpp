@@ -39,7 +39,7 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
 int Algorithm::evaluation(Configuration & C) {
     int errors = 0;
 
-    errors = C.checkPieces();
+    errors = C.countNbErrors();
 
 //    errors += C.constraintColsXtrem();
 //    errors += C.constraintRowsXtrem();

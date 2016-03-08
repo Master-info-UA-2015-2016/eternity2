@@ -96,14 +96,14 @@ void MainWindow::launch_resolution()
         sol_board->show();
 
 
-        cout << "Nombre d'erreurs :" << solution->checkPieces()  << endl;
+        cout << "Nombre d'erreurs :" << solution->countNbErrors()  << endl;
         cout << *solution << endl;
         cout << "\t=> " << solution->constraintPieces() << endl;
 #endif
 
 #if DEBUG_EVALUATION
         cout << "Adjacences (0,0) " << ui->board->getConfig().constraintAdjacences(0,0) << endl;
-        int nb_errors= ui->board->getConfig().checkPieces();
+        int nb_errors= ui->board->getConfig().countNbErrors();
         cout << "Nombre d'erreurs :" << nb_errors  << endl;
 
 //        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;

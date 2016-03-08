@@ -464,18 +464,23 @@ bool Configuration::constraintAdjacences(int x, int y) const {
     return true;
 }
 
-PairColors Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
-    Piece south_piece = instance->getPiece(current_piece_indice + get_width());
-    int rotation = positions[getPosition(south_piece)].second;
+PairColors* Configuration::get_rotated_motifs(int current_piece_indice) const{
+    const Piece& current_piece= instance->getPiece(current_piece_indice);
+    int rotation = positions[getPosition(current_piece)].second;
 
-    return south_piece.rotate(rotation)[2];
+    return current_piece.rotate(rotation);
+}
+
+PairColors Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
+    // Récupère le motif Nord de la pièce au sud de la piece courante tournée
+    // piece sud de piece courante = position piece courante + width
+    return get_rotated_motifs(current_piece_indice + get_width())[2];
 }
 
 PairColors Configuration::getWestMotifEastPiece(int current_piece_indice) const {
-    Piece east_piece = instance->getPiece(current_piece_indice +1);
-    int rotation = positions[getPosition(east_piece)].second;
-
-    return east_piece.rotate(rotation)[1];
+    // Récupère le motif Ouest de la pièce à l'Est de la piece courante tournée
+    // piece est de piece courante = position piece courante + 1
+    return get_rotated_motifs(current_piece_indice + 1)[1];
 }
 
 /** Vérifiée **/
@@ -503,7 +508,7 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
 //    return true;
 }
 
-int Configuration::checkPieces() const{
+int Configuration::countNbErrors() const{
     int nb_errors= 0;
 
     int begin_last_raw= get_height()*get_width() -get_width(); // première case de la derniere ligne
