@@ -15,7 +15,6 @@
 #define DEBUG_SHOW_PIECES       0
 #define DEBUG_INIT_CONFIG       0
 #define DEBUG_CONSTRAINT        0
-#define DEBUG_EVALUATION        1
 #define DEBUG_LOCAL_SEARCH      0
 
 //configuration

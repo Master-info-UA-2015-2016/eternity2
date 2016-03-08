@@ -78,8 +78,10 @@ void MainWindow::showBoard() const
 
 void MainWindow::launch_resolution()
 {
+    // TODO REMOVE AT THE END
 #if DEBUG_SHOW_SOL_CONFIG
-        Configuration * solution = new Configuration(ui->board->getConfig());
+//        Configuration * solution = new Configuration( (ui->board->getConfig()) );
+        Configuration * solution = new Configuration("../eternity2/instances_puzzles/pieces_03x03.txt");
 
         solution->placePiece(make_pair(1, 1));
         solution->placePiece(make_pair(7, 2));
@@ -95,17 +97,10 @@ void MainWindow::launch_resolution()
         BoardWidget* sol_board= new BoardWidget(NULL, board_sol);
         sol_board->show();
 
-
+        cout << "###########    SOLUTION    ##########" << endl;
         cout << "Nombre d'erreurs :" << solution->checkPieces()  << endl;
         cout << *solution << endl;
         cout << "\t=> " << solution->misplacedPieces() << endl;
-#endif
-#if DEBUG_EVALUATION
-        cout << "Adjacences (0,0) " << ui->board->getConfig().isConstraintAdjacencesRespected(0,0) << endl;
-        int nb_errors= ui->board->getConfig().checkPieces();
-        cout << "Nombre d'erreurs :" << nb_errors  << endl;
-
-//        cout << "Evaluation : " << Algorithm::evaluation((*config)) << endl;
 #endif
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
