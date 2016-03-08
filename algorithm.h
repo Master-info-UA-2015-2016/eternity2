@@ -8,7 +8,7 @@
 #include "debug.h"
 #include "Model/instance.h"
 #include "Model/configuration.h"
-
+#include "Model/board.h"
 
 /**
  * Contient les différentes algorithmes implémentés pour la résolution du
@@ -18,7 +18,6 @@
 class Algorithm
 {
     public:
-        Algorithm();
 
         /**
          * Fonction de voisinage
@@ -28,6 +27,8 @@ class Algorithm
          * @author FOURMOND Jérôme
          */
         static int vicinity(const Configuration & C1, const Configuration & C2);
+
+        static Configuration * voisinage(const Configuration & C);
 
         /**
          * Récupération des voisins de la Configuration C
@@ -51,7 +52,7 @@ class Algorithm
          * @param instance : Instance
          * @author FOURMOND Jérôme
          */
-        static Configuration * local_search(const Instance * instance);
+        static Configuration * local_search(const Configuration * config);
 
         /**
          * Algorithme de contruction de Configuration

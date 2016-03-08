@@ -19,7 +19,7 @@ Configuration::Configuration(const string& fileName)
 
 Configuration::Configuration(const Configuration &C) {
     instance = C.instance;
-    copy(C.positions.begin(), C.positions.end(), positions.begin());
+    positions = C.positions;
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
@@ -241,7 +241,7 @@ void Configuration::randomConfiguration() {
                 edge_pieces.pop_back();
                 placePiece(make_pair(p_id, i_rot));
                 // Bonne rotation
-                while(!constraintEdges(i, j))
+                while(!isConstraintEdgesRespected(i, j))
                     setPiece(i, j, make_pair(p_id, ++i_rot));
             } else if(i == 0 || j == 0 || i == get_width()-1 || j == get_height()-1){
                 // Border
@@ -249,7 +249,7 @@ void Configuration::randomConfiguration() {
                 border_pieces.pop_back();
                 placePiece(make_pair(p_id, i_rot));
                 // Bonne rotation
-                while(!constraintRowsXtrem(i,j) || !constraintColsXtrem(i,j)) {
+                while(!isConstraintRowsXtremRespected(i,j) || !isConstraintColsXtremRespected(i,j)) {
                     setPiece(i, j, make_pair(p_id, ++i_rot));
                 }
             } else {
@@ -308,7 +308,7 @@ int Configuration::constraintRowsXtrem() const {
     return errors;
 }
 
-bool Configuration::constraintRowsXtrem(int x, int y) const {
+bool Configuration::isConstraintRowsXtremRespected(int x, int y) const {
     const PairColors* swne;
     if(y != 0 && y != get_height()-1)
         return true;
@@ -355,7 +355,7 @@ int Configuration::constraintColsXtrem() const {
 
 }
 
-bool Configuration::constraintColsXtrem(int x, int y) const {
+bool Configuration::isConstraintColsXtremRespected(int x, int y) const {
     const PairColors * swne;
     if(x != 0 && x != get_width()-1)
         return true;
@@ -419,7 +419,7 @@ int Configuration::constraintEdges() const {
     return errors;
 }
 
-bool Configuration::constraintEdges(int x, int y) const {
+bool Configuration::isConstraintEdgesRespected(int x, int y) const {
     const pair<int, int> & pair = getPair(x, y);
     const Piece & piece = getPiece(x, y);
     const PairColors * swne = piece.rotate(pair.second);
@@ -434,7 +434,7 @@ bool Configuration::constraintEdges(int x, int y) const {
     return true;
 }
 
-bool Configuration::constraintAdjacences(int x, int y) const {
+bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
     pair<int, int> piece = getPair(x, y);
     PairColors * swne = getPiece(piece.first).rotate(piece.second);
 
@@ -567,7 +567,7 @@ int Configuration::countNbErrors() const{
     return nb_errors;
 }
 
-int Configuration::constraintPieces() {
+int Configuration::misplacedPieces() {
     vector<int> misplaces(get_height()*get_width());
 
     for(int j=0 ; j<get_height() ; j++) {
@@ -575,13 +575,13 @@ int Configuration::constraintPieces() {
             pair<int, int> p = getPair(i, j);
             // Vérification d'Angles
             if((j == 0 && i == 0)||(j== 0 && i == get_width()-1)||(j==get_height()-1 && i==0)||(j==get_height()-1 && i==get_width()-1)) {
-                 if(!constraintEdges(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!isConstraintEdgesRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Lignes
             } else if(j == 0 || j == get_height()-1) {
-                 if(!constraintRowsXtrem(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!isConstraintRowsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Colonnes
             } else if(i == 0 || i == get_width()-1) {
-                 if(!constraintColsXtrem(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!isConstraintColsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification des autres (devraient-elles être sur les bords ?)
             } else {
                  Piece piece = getPiece(i, j);
