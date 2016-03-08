@@ -12,7 +12,7 @@ TEMPLATE = app
 
 CONFIG      += c++11
 CONFIG      += plugin
-QT          += widgets uiplugin
+QT          += widgets
 
 SOURCES += main.cpp \
     Model/board.cpp \

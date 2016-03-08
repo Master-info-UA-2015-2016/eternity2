@@ -13,7 +13,7 @@
 #include <QVector>
 #include <QPointF>
 #include <QtGui/qevent.h>
-#include <QtUiPlugin/QDesignerCustomWidgetInterface>
+//#include <QtUiPlugin/QDesignerCustomWidgetInterface>
 
 #include "../debug.h"
 
@@ -26,10 +26,10 @@
  * La classe widget d'affichage d'un plateau et de ses cellules et pièces
  * @author Florian
  */
-class BoardWidget : public QWidget, public QDesignerCustomWidgetInterface
+class BoardWidget : public QWidget/*, public QDesignerCustomWidgetInterface*/
 {
     Q_OBJECT
-    Q_INTERFACES(QDesignerCustomWidgetInterface)
+//    Q_INTERFACES(QDesignerCustomWidgetInterface)
 private :
     QImage* buffer;
     QPainter* bufferPainter;
@@ -96,18 +96,18 @@ protected:
 //public slots:
 
 /*** Utile pour l'ajout du widget dans un .ui : ***/
-    bool isContainer() const { return false; }
-//    bool isInitialized() const { return board != NULL ; }
-    QIcon icon() const { std::clog<< "Attention, BoardWidget::icon() retourne un objet vide"<< std::endl; return QIcon(); }
-    QString domXml() const  { return QString("<ui language=\"c++\">"
-                                             "displayname=\"BoardWidget\">\n<widget class=\"widgets::BoardWidget\" name=\"BoardWidget\"/>\n"
-                                             "</ui>"); }
-    QString group() const { return QString("My Widgets"); }
-    QString includeFile() const { return QString("View/board_view.h"); }
-    QString name() const { return QString("BoardWidget"); }
-    QString toolTip() const { return QString("Affichage d'un plateau"); }
-    QString whatsThis() const { return QString("Contient un plateau (Board), disposant d'une configuration(Configuration) et la dessine dans ce widget"); }
-    QWidget *createWidget(QWidget *parent) { return new BoardWidget(parent); }
+//    bool isContainer() const { return false; }
+////    bool isInitialized() const { return board != NULL ; }
+//    QIcon icon() const { std::clog<< "Attention, BoardWidget::icon() retourne un objet vide"<< std::endl; return QIcon(); }
+//    QString domXml() const  { return QString("<ui language=\"c++\">"
+//                                             "displayname=\"BoardWidget\">\n<widget class=\"widgets::BoardWidget\" name=\"BoardWidget\"/>\n"
+//                                             "</ui>"); }
+//    QString group() const { return QString("My Widgets"); }
+//    QString includeFile() const { return QString("View/board_view.h"); }
+//    QString name() const { return QString("BoardWidget"); }
+//    QString toolTip() const { return QString("Affichage d'un plateau"); }
+//    QString whatsThis() const { return QString("Contient un plateau (Board), disposant d'une configuration(Configuration) et la dessine dans ce widget"); }
+//    QWidget *createWidget(QWidget *parent) { return new BoardWidget(parent); }
 
 };
 
