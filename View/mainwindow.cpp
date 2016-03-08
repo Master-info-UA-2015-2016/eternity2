@@ -99,12 +99,12 @@ void MainWindow::launch_resolution()
 
         cout << "###########    SOLUTION    ##########" << endl;
         cout << "Nombre d'erreurs :" << solution->checkPieces()  << endl;
-        cout << *solution << endl;
+        cout << *solution;
         cout << "\t=> " << solution->misplacedPieces() << endl;
 #endif
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
-        cout << *local << endl;
+        cout << *local;
         cout << "\t=> " << local->misplacedPieces() << endl;
 
         Board* board_final= new Board(local);

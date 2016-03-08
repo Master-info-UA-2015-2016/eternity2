@@ -179,6 +179,16 @@ ostream& Configuration::print(ostream& out) const{
     return out;
 }
 
+void Configuration::setPiece(int x, int y, pair<int, int> pos) {
+    if(pos.second < 0) {
+        setPiece(x, y, make_pair(pos.first, pos.second+4));
+        return;
+    }
+    if(pos.second > 3)
+        pos.second = pos.second % 4;
+    positions[x + y*get_width()] = pos;
+}
+
 bool Configuration::tryLoadFile(const string &fileName){
     if( instance->get_width() * instance->get_height() == 0){
         cerr << "Aucune instance n'est chargée" << endl;
