@@ -137,6 +137,14 @@ public:
     void removePiece() { positions.pop_back(); }
 
     /**
+     * Mutateur de la position (x,y)
+     * @param x : int
+     * @param y : int
+     * @param pos : pair<int, int>
+     */
+    void setPiece(int x, int y, pair<int, int> pos) { positions[x + y*get_width()] = pos; }
+
+    /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
