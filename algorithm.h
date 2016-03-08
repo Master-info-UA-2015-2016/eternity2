@@ -18,7 +18,6 @@
 class Algorithm
 {
     public:
-        Algorithm();
 
         /**
          * Fonction de voisinage
@@ -29,6 +28,8 @@ class Algorithm
          */
         static int vicinity(const Configuration & C1, const Configuration & C2);
 
+        static Configuration * voisinage(const Configuration & C);
+
         /**
          * Récupération des voisins de la Configuration C
          * @param C : Configuration
@@ -37,6 +38,8 @@ class Algorithm
          * @author FOURMOND Jérôme
          */
         static std::vector<Configuration *> get_neighbours(Configuration & C, std::vector<Configuration * > configurations);
+
+        static Configuration * generate_neighbours(const Configuration & C);
 
         /**
          * Fonction d'évaluation

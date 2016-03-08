@@ -2,9 +2,6 @@
 
 using namespace std;
 
-Algorithm::Algorithm()
-{}
-
 int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
     assert(C1.getPositions().size() == C2.getPositions().size());
     int vicinity = 0;
@@ -14,6 +11,17 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
             vicinity++;
     }
     return vicinity;
+}
+
+static Configuration * voisinage(const Configuration & C) {
+    Configuration * voisin = new Configuration(C);
+    // Modifier la configuration pour en avoir une meilleure
+    int x = rand() % (C.get_width()-1);
+    int y = rand() % (C.get_width()-1);
+    pair<int, int> piece = C.getPair(x, y);
+    int rot_add =((rand() % (4)) + piece.second) % 4;
+
+    voisin->setPiece(x, y, make_pair(piece.first, rot_add));
 }
 
 vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Configuration *> configurations) {
@@ -33,6 +41,10 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
         i++;
     }
     return neightbours;
+}
+
+Configuration * Algorithm::generate_neighbours(const Configuration &C) {
+
 }
 
 // TODO fonction d'évaluation
