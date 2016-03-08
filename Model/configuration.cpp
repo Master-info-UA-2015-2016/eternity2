@@ -679,7 +679,6 @@ int Configuration::getPieceNbErrors(int indice) {
     } // non derniere ligne non derniere colonne
     else {
 
-
     }
 
     const PairColors* current_piece_motifs= current_piece.get_motif();

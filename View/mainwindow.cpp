@@ -120,7 +120,9 @@ void MainWindow::testShowConfig() const
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
+#if DEBUG_DRAW_WIDGETS
     cout << "MainWindow_paintEvent : affichage fenêtre"<< std::endl;
+#endif
     ui->board->show(); // TODO vérifier utilité
 }
 

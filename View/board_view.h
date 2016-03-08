@@ -50,6 +50,7 @@ public:
      * @return la largeur du plateau (nombre de pièces horizontalement)
      */
     int get_width()     const { return board->get_width(); }
+//    const Configuration& getBoard() const { return board; }
     const Configuration& getConfig() const { return board->getConfig(); }
 
     /*** Setters    ***/

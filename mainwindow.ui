@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>638</width>
-    <height>336</height>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,11 +17,17 @@
    <widget class="BoardWidget" name="board" native="true">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>-1</y>
-      <width>511</width>
-      <height>291</height>
+      <x>0</x>
+      <y>0</y>
+      <width>500</width>
+      <height>500</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>1</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
    </widget>
   </widget>
@@ -133,8 +139,8 @@
    <slot>load_instance()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>318</x>
-     <y>167</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>318</x>
