@@ -48,7 +48,6 @@ bool MainWindow::init_configuration(std::string instance_filename)
     if (instance->tryLoadFile(instance_filename)){
 
         Configuration* config= new Configuration(instance);
-        // TODO créer une meilleure configuration initiale ?
         config->randomConfiguration();
 #if DEBUG_SHOW_PIECES
         for(auto c : *(config->getPieces())) {

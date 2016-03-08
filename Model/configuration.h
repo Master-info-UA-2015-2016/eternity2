@@ -142,7 +142,7 @@ public:
      * @param y : int
      * @param pos : pair<int, int>
      */
-    void setPiece(int x, int y, pair<int, int> pos) { positions[x + y*get_width()] = pos; }
+    void setPiece(int x, int y, std::pair<int, int> pos) { positions[x + y*get_width()] = pos; }
 
     /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance

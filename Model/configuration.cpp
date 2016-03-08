@@ -207,26 +207,56 @@ bool Configuration::tryLoadFile(const string &fileName){
 
 void Configuration::randomConfiguration() {
     int i_rot;
-    vector<int> pieces_id;
+    int p_id;
+    vector<int> border_pieces;
+    vector<int> edge_pieces;
+    vector<int> pieces_remaining;
 
     // Travail uniquement sur l'id des pieces
-    for(const Piece & p : *(instance->get_pieces()) ) {
-        pieces_id.push_back(p.get_id());
+    for(Piece p : (*getPieces()) ) {
+        if(p.isBorder())
+            border_pieces.push_back(p.get_id());
+        else if(p.isEdge())
+            edge_pieces.push_back(p.get_id());
+        else
+            pieces_remaining.push_back(p.get_id());
     }
-    // Mélange aléatoire
-    random_shuffle(pieces_id.begin(), pieces_id.end());
 
-    while(!pieces_id.empty()) {
-        // Récupération de la pièce (id)
-        int p = pieces_id.back();
-        pieces_id.pop_back();
-        // Choix aléatoire de la rotation
-        i_rot = rand() % 4;
-        pair<int, int> piece;
-            piece.first = p;
-            piece.second = i_rot;
-        // Ajout de la pair
-        placePiece(piece);
+    // Mélange aléatoire
+    random_shuffle(border_pieces.begin(), border_pieces.end());
+    random_shuffle(edge_pieces.begin(), edge_pieces.end());
+    random_shuffle(pieces_remaining.begin(), pieces_remaining.end());
+
+    for(int j=0 ; j<get_height() ; j++) {
+        for(int i=0 ; i<get_width() ; i++) {
+            i_rot = 0;
+            if((i == 0 && j ==0)||(i==0 && j==get_height()-1)||(i==get_width()-1 && j==0)||(i==get_width()-1 && j==get_height()-1)) {
+                // Angles
+                p_id = edge_pieces.back();
+                edge_pieces.pop_back();
+                placePiece(make_pair(p_id, i_rot));
+                // Bonne rotation
+                while(!constraintEdges(i, j))
+                    setPiece(i, j, make_pair(p_id, ++i_rot));
+            } else if(i == 0 || j == 0 || i == get_width()-1 || j == get_height()-1){
+                // Border
+                p_id = border_pieces.back();
+                border_pieces.pop_back();
+                placePiece(make_pair(p_id, i_rot));
+                // Bonne rotation
+                while(!constraintRowsXtrem(i,j) || !constraintColsXtrem(i,j)) {
+                    setPiece(i, j, make_pair(p_id, ++i_rot));
+                }
+            } else {
+                // Autre
+                p_id = pieces_remaining.back();
+                pieces_remaining.pop_back();
+                // Rotation aléatoire
+                i_rot = rand() % 4;
+                // Ajout de la pair
+                placePiece(make_pair(p_id, i_rot));
+            }
+        }
     }
 }
 
