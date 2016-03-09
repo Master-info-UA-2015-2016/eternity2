@@ -666,9 +666,58 @@ int Configuration::getPieceNbErrors(int indice) {
     Piece current_piece= getPiece(positions[indice].first);
 
     //position de la piece courante (combien de voisins ?)
-    int current_piece_pos= getPosition(current_piece.get_id());
+    int current_piece_pos= getPosition(current_piece.get_id()); // == indice, non ?
     int current_x= current_piece_pos % get_width();
     int current_y= current_piece_pos / get_width();
+
+    if(0 == current_x) //premiere ligne
+    {
+        if(0 == current_y) //coin nord gauche
+        {
+
+        } else if(get_width()-1 == current_y) //coin nord droit
+        {
+
+        } else //bord nord
+        {
+
+        }
+    } else if(get_height()-1 == current_x) // derniere ligne
+    {
+        if(0 == current_y) //coin sud gauche
+        {
+
+        } else if(get_width()-1 == current_y) //coin sud droit
+        {
+
+        } else //bord sud
+        {
+
+        }
+    } else //ni premiere colonne ni premiere ligne
+    {
+        if(0 == current_y) // bord ouest
+        {
+
+        } else if(get_height()-1 == current_y) // bord est
+        {
+
+        } else // interieur puzzle (pieces avec 4 voisins)
+        {
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     if(get_height()-1 == current_x) //derniere colonne
     {
