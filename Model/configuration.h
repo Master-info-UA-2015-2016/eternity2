@@ -251,16 +251,14 @@ public:
      * @brief getNorthMotifSouthPiece
      * @param current_piece_indice
      * @return
-     * TODO à passer sous reference
      */
-    PairColors getNorthMotifSouthPiece(int current_piece_indice) const;
+    PairColors& getNorthMotifSouthPiece(int current_piece_indice) const;
     /**
      * @brief getWestMotifEastPiece
      * @param current_piece_indice
      * @return
-     * TODO a passer sous reference
      */
-    PairColors getWestMotifEastPiece(int current_piece_indice) const;
+    PairColors& getWestMotifEastPiece(int current_piece_indice) const;
 
     /**
      * Vérifie que 2 motifs s'appareillent

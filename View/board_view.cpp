@@ -120,7 +120,7 @@ void BoardWidget::redraw()
     buffer = new QImage(board->get_width() * DRAW_SCALE, board->get_height() * DRAW_SCALE, QImage::Format_ARGB32);
 
     drawBoard();
-    update();	// TODO apparemment non utile, update fait resize
+    update();	// @SEE apparemment non utile, update fait dans resize
 }
 
 // ###################

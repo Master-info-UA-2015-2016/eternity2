@@ -20,9 +20,9 @@ int main(int argc, char *argv[])
     MainWindow window;
     if (window.init_configuration("../eternity2/instances_puzzles/pieces_03x03.txt")) {
         window.testShowConfig();
-        window.show(); // TODO initialiser correctement et remettre cette ligne
+        window.show();
         window.launch_resolution();
-//        w.showBoard();
+
         return app.exec();
     } else {
         return EXIT_FAILURE;

@@ -15,7 +15,7 @@ int Board::betterRotatePiece(int piece_id)
     // Test des diverses rotation possibles
     for (int i= 0; i < 4; ++i) {
         // Test du nombre d'appareillages avec la nouvelle rotation
-        // coundNbErrors() // TODO avec fonction Antoine
+         disposition->countNbErrors();
     }
 }
 

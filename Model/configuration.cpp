@@ -481,13 +481,13 @@ PairColors* Configuration::get_rotated_motifs(int current_piece_indice) const{
     return current_piece.rotate(rotation);
 }
 
-PairColors Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
+PairColors &Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
     // Récupère le motif Nord de la pièce au sud de la piece courante tournée
     // piece sud de piece courante = position piece courante + width
     return get_rotated_motifs(current_piece_indice + get_width())[North];
 }
 
-PairColors Configuration::getWestMotifEastPiece(int current_piece_indice) const {
+PairColors &Configuration::getWestMotifEastPiece(int current_piece_indice) const {
     // Récupère le motif Ouest de la pièce à l'Est de la piece courante tournée
     // piece est de piece courante = position piece courante + 1
     return get_rotated_motifs(current_piece_indice + 1)[West];

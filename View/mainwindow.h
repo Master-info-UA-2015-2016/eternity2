@@ -41,7 +41,7 @@ public:
 
     /**
      * Exécute les algorithmes de résolution sur la configuration du plateau
-     * TODO : créer des fonctions et mettre celles qui ne sont pas relevantes ici dans "algorithme"
+     * créer des fonctions et mettre celles qui ne sont pas relevantes ici dans "algorithme"
      */
     void launch_resolution();
 

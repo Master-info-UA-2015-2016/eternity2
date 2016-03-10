@@ -124,7 +124,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
 #if DEBUG_DRAW_WIDGETS
     cout << "MainWindow_paintEvent : affichage fenêtre"<< std::endl;
 #endif
-    ui->board->show(); // TODO vérifier utilité
 }
 
 void MainWindow::load_instance()

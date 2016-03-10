@@ -1,8 +1,8 @@
 Fonctionnalités attendues et fonctions à développer :
 
  Model
-    ~Sauvegarde d'une instance~
-    Chargement et sauvegarde d'une configuration
+    ~Sauvegarde d'une instance ? ~
+    Chargement et sauvegarde d'une configuration @Ascris
     Effectuer une résolution
     Déterminer une solution d’une instance de puzzle
         Local
@@ -11,8 +11,7 @@ Fonctionnalités attendues et fonctions à développer :
         Si pas de solution trouvée, déterminer la solution approchée minimisant le nombre d’erreurs
 
  Controller
-    Création à la souris d'une configuration (contrôle : une instance est déjà chargée)
+    Création à la souris d'une configuration (contrôle : une instance est déjà chargée) ??
 
  View
-    Widget permettant d'afficher une piece.
-    Widget pour afficher un plateau.
+    Widget permettant d'afficher une piece. (Fait dans board_view pour l'instant
