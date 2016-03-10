@@ -27,8 +27,13 @@ class Algorithm
          * @author FOURMOND Jérôme
          */
         static int vicinity(const Configuration & C1, const Configuration & C2);
-
-        static Configuration * voisinage(const Configuration & C);
+        /**
+         * Récupère un voisin,@SEE pour l'instant, il n'y a pas de paramètre définissant
+         * la proximité
+         * @param C configuration pour laquelle on désire obtenir un voisin
+         * @return
+         */
+        static Configuration * getNeighbour(const Configuration & config );
 
         /**
          * Récupération des voisins de la Configuration C

@@ -13,15 +13,21 @@ int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
     return vicinity;
 }
 
-Configuration * Algorithm::voisinage(const Configuration & C) {
-    Configuration * voisin = new Configuration(C);
-    // Modifier la configuration pour en avoir une meilleure
-    int x = rand() % (C.get_width()-1);
-    int y = rand() % (C.get_width()-1);
-    pair<int, int> piece = C.getPair(x, y);
+Configuration * Algorithm::getNeighbour(const Configuration & config) {
+    Configuration * voisin = new Configuration(config);
+
+    int x, y;
+    do {
+        x = rand() % (config.get_width()-1);
+        y = rand() % (config.get_width()-1);
+    } while ( x==0 && y==0 );
+
+    pair<int, int> piece = config.getPair(x, y);
     int rot_add =((rand() % (4)) + piece.second) % 4;
 
-    voisin->setPiece(x, y, make_pair(piece.first, rot_add));
+//    voisin->rotatePiece(x, y, rot_add); TODO faire fonction de rotation d'une pièce
+
+//    voisin->setPiece(x, y, make_pair(piece.first, rot_add)); TODO delete
 
     return voisin;
 }
@@ -66,7 +72,7 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     Configuration * cprime;
     while(nb_eval < 100) {
         // 5. Sélectionner une solution voisine x' ∈ N(x)
-        cprime = voisinage(*c);
+        cprime = getNeighbour(*c);
         // 6. x <- x'
         c = cprime;
         nb_eval++;
