@@ -12,6 +12,23 @@ BoardWidget::BoardWidget(QWidget *parent, Board *b) :
     bufferPainter= new QPainter;
 }
 
+BoardWidget::~BoardWidget()
+{
+    delete buffer;
+    delete bufferPainter;
+}
+
+// #############################
+/***	Setters & Getters  	***/
+// #############################
+void BoardWidget::set_board(Board* _board)
+{
+    if (board != NULL) delete board;
+    board= _board;
+
+
+}
+
 // #############################
 /***		Affichages  	***/
 // #############################
