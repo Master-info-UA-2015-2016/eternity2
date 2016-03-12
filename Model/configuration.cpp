@@ -493,6 +493,40 @@ PairColors &Configuration::getWestMotifEastPiece(int current_piece_indice) const
     return get_rotated_motifs(current_piece_indice + 1)[West];
 }
 
+const Piece& Configuration::getClosePiece(int current_piece, Cardinal neightboor_card) const {
+    switch(neightboor_card){
+    case South:
+    {
+        const Piece& south_piece= instance->getPiece(current_piece + get_width());
+        return south_piece;
+    }
+        break;
+    case West:
+    {
+        const Piece& west_piece= instance->getPiece(current_piece - 1);
+        return west_piece;
+    }
+        break;
+    case North:
+    {
+        const Piece& north_piece= instance->getPiece(current_piece - get_width());
+        return north_piece;
+    }
+        break;
+    case East:
+    {
+        const Piece& east_piece= instance->getPiece(current_piece + 1);
+        return east_piece;
+    }
+        break;
+    }
+}
+
+PairColors Configuration::getMotifClosePiece(int current_piece, Cardinal motif_card, Cardinal neightboor_card) const {
+    const Piece& neightboor_piece= getClosePiece(current_piece, neightboor_card);
+    return neightboor_piece.get_motif()[motif_card];
+}
+
 /** Vérifiée **/
 bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif) const
 {

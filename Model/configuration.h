@@ -261,6 +261,23 @@ public:
     PairColors& getWestMotifEastPiece(int current_piece_indice) const;
 
     /**
+     * @brief getClosePiece
+     * @param current_piece
+     * @param neightboor_card : piece voisine de current_piece
+     * @return La piece voisine de current_piece
+     */
+    const Piece& getClosePiece(int current_piece, Cardinal neightboor_card) const;
+
+    /**
+     * @brief getMotifPiece
+     * @param current_piece
+     * @param motif : Motif de la piece voisine de la piece courante
+     * @param neightboor : Piece voisine de la piece courante
+     * @return La valeur du motif situé a la position card de la piece voisine de la piece courante
+     */
+    PairColors getMotifClosePiece(int current_piece, Cardinal card, Cardinal neightboor) const;
+
+    /**
      * Vérifie que 2 motifs s'appareillent
      * @param first_motif
      * @param second_motif
