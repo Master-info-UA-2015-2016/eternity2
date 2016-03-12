@@ -37,6 +37,8 @@ private :
 public:
     explicit BoardWidget(QWidget *parent = 0, Board* b= NULL);
 
+    virtual ~BoardWidget();
+
     /*** Getters    ***/
     /**
      * @brief height
@@ -52,7 +54,7 @@ public:
     const Configuration& getConfig() const { return board->getConfig(); }
 
     /*** Setters    ***/
-    void set_board(Board* _board) { board= _board; }
+    void set_board(Board* _board);
 
     /**
      * Dessine un triangle et un rectangle formants un motif, à partir de couleurs

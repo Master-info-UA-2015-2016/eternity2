@@ -42,8 +42,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::set_board(Board *_board)
 {
-//    if(ui->board != NULL) delete ui->board; // Utile si on fait new, sinon TODO supprimer
-
     ui->board->set_board(_board);
 }
 
@@ -81,6 +79,11 @@ void MainWindow::showBoard() const
     ui->board->redraw();
     ui->board->show();
 }
+
+void MainWindow::testShowConfig() const
+{   clog << (ui->board->getConfig())<< endl; }
+
+
 
 void MainWindow::launch_resolution()
 {
@@ -123,9 +126,6 @@ void MainWindow::launch_resolution()
 
 }
 
-void MainWindow::testShowConfig() const
-{   clog << (ui->board->getConfig())<< endl; }
-
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
@@ -145,6 +145,9 @@ void MainWindow::load_instance()
         filename= fileLoadDialog->selectedFiles().at(0).toStdString();
 
         init_configuration(filename);
+//        ui->board->update(); // utile ?
+        hide();
+        show();
         ui->board->redraw(); // utile ?
     }
     delete fileLoadDialog;

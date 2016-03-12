@@ -22,6 +22,9 @@ public:
      */
     Board(Configuration* config = NULL);
 
+    virtual ~Board();
+
+    /*** Getters & setters  ***/
     int get_height()    const { assert(disposition != NULL); return disposition->get_height(); }
     int get_width()     const { assert(disposition != NULL); return disposition->get_width(); }
     const Configuration& getConfig() const { return *disposition; }

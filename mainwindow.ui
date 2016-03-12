@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,21 +17,48 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="BoardWidget" name="board" native="true">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>500</width>
-      <height>500</height>
+      <x>10</x>
+      <y>10</y>
+      <width>611</width>
+      <height>371</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>1</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMaximumSize</enum>
+     </property>
+     <item>
+      <widget class="BoardWidget" name="board" native="true">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>OpenHandCursor</cursorShape>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -40,12 +70,6 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMenu">
-    <property name="title">
-     <string>Menu</string>
-    </property>
-    <addaction name="action_quit"/>
-   </widget>
    <widget class="QMenu" name="menuInstance">
     <property name="title">
      <string>Instance</string>
@@ -64,8 +88,9 @@
     <property name="title">
      <string>Algorithmes</string>
     </property>
+    <addaction name="actionRecherche_locale"/>
+    <addaction name="actionEvolutionnaire"/>
    </widget>
-   <addaction name="menuMenu"/>
    <addaction name="menuInstance"/>
    <addaction name="menuConfiguration"/>
    <addaction name="menuAlgorithmes"/>
@@ -104,6 +129,16 @@
     <string>Sauvegarder</string>
    </property>
   </action>
+  <action name="actionRecherche_locale">
+   <property name="text">
+    <string>Recherche locale</string>
+   </property>
+  </action>
+  <action name="actionEvolutionnaire">
+   <property name="text">
+    <string>Evolutionnaire</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -116,22 +151,6 @@
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>action_quit</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>423</x>
-     <y>255</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>action_load_instance</sender>
    <signal>triggered()</signal>

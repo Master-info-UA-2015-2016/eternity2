@@ -6,6 +6,11 @@ Board::Board(Configuration *config) :
 
 }
 
+Board::~Board()
+{
+    delete disposition;
+}
+
 
 int Board::betterRotatePiece(int piece_id)
 {
