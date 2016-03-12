@@ -55,9 +55,10 @@ bool MainWindow::init_configuration(std::string instance_filename)
         }
 #endif
 #if DEBUG_INIT_CONFIG
-        cout << (*config) << endl;
-        cout << "Nombre d'erreurs :" << config->checkPieces()  << endl;
-        cout << "\t=> " << config->constraintPieces() << endl;
+        cout << (*config);
+        cout << "Nombre d'erreurs :" << config->countNbErrors()  << endl;
+        cout << "\t=> " << config->misplacedPieces() << endl;
+        cout << "\t->"  << config->constraintAdjacences() << endl;
 #endif
 
         Board* board_init= new Board(config);
@@ -102,6 +103,7 @@ void MainWindow::launch_resolution()
         cout << "Nombre d'erreurs :" << solution->countNbErrors()  << endl;
         cout << *solution;
         cout << "\t=> " << solution->misplacedPieces() << endl;
+        cout << "\t->"  << solution->constraintAdjacences() << endl;
 #endif
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));

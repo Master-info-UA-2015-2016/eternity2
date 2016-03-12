@@ -240,6 +240,13 @@ public:
     bool isConstraintEdgesRespected(int x, int y) const;
 
     /**
+     * Compte les erreurs de contraintes d'adjacences
+     * @return int
+     * @author FOURMOND Jérome
+     */
+    int constraintAdjacences() const;
+
+    /**
      * La pièce située en (x,y) s'accorde-t-elle correctement à ses voisins ?
      * @param x : int
      * @param y : int
@@ -280,13 +287,12 @@ public:
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
      * @author GARNIER Antoine
-         */
+     */
     int countNbErrors() const;
 
     /**
      * Retourne le nombre de pièces mal placée
      * @return int
-     * TODO Renommer, corriger la fonction (il y a des commentaires), quand est-ce qu'elle sert ?
      */
     int misplacedPieces();
 

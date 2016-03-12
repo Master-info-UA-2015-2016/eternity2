@@ -24,9 +24,8 @@ Configuration::Configuration(const Configuration &C) {
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
     if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
-        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (renvoie d'une pair(0,-1)) " << endl;
+        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
         const pair<int, int>& position = make_pair(0, -1);
-        throw out_of_range("getPair");
         return position;
     }
     const pair<int, int>& position = positions[x + y * instance->get_width()];
@@ -454,6 +453,19 @@ bool Configuration::isConstraintEdgesRespected(int x, int y) const {
     return true;
 }
 
+int Configuration::constraintAdjacences() const {
+    int n = 0;
+    for(int j=0 ; j<get_height() ; j++) {
+        for(int i=0 ; i<get_width() ; i++) {
+            if(!isConstraintAdjacencesRespected(i, j)) {
+                cout << "Mauvaise adjacences en (" << i << "," << j << ")" << endl;
+                n++;
+            }
+        }
+    }
+    return n;
+}
+
 bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
     pair<int, int> piece = getPair(x, y);
     PairColors * swne = getPiece(piece.first).rotate(piece.second);
@@ -660,13 +672,15 @@ int Configuration::misplacedPieces() {
             n++;
     }
 
-//    cout << "Pièces mal placées (ID) : " << n << endl;
-//    for(auto i : misplaces) {
-//        if(i != 0 ) {
-//            pair<int, int> pos = getCase(i);
-//            cout << "\tPièce à la position : (" << pos.first << "," << pos.second << ")" << endl;
-//        }
-//    }
+#if DEBUG_SHOW_MISPLACED
+    cout << "Pièces mal placées (ID) : " << n << endl;
+    for(auto i : misplaces) {
+        if(i != 0 ) {
+            pair<int, int> pos = getCase(i);
+            cout << "\tPièce à la position : (" << pos.first << "," << pos.second << ")" << endl;
+        }
+    }
+#endif
 
     return n;
 }
