@@ -280,6 +280,7 @@ public:
      * @param current_piece
      * @param neightboor_card : piece voisine de current_piece
      * @return La piece voisine de current_piece
+     * @author GARNIER Antoine
      */
     const Piece& getClosePiece(int current_piece, Cardinal neightboor_card) const;
 
@@ -289,6 +290,7 @@ public:
      * @param motif_card : Motif de la piece voisine de la piece courante
      * @param neightboor_card : Cardinalite de la piece voisine de la piece courante a prendre en compte
      * @return La valeur du motif situé a la position card de la piece voisine de la piece courante
+     * @author GARNIER Antoine
      */
     PairColors getMotifClosePiece(int current_piece, Cardinal neightboor_card, Cardinal motif_card) const;
 
@@ -312,6 +314,15 @@ public:
      * @return int
      */
     int misplacedPieces();
+
+    /**
+     * @brief pieces_match
+     * @param indice_current_piece
+     * @param direction_neightboor_piece : position de la piece voisin par rapport a la piece courante
+     * @return true si les pieces sont bien emboitees
+     * @author GARNIER Antoine
+     */
+    bool pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece);
 
     /**
      * Compte le nombre d'erreurs qu'il y a avec la piece positions[indice] (de 0 à 4 possibles)
