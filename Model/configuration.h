@@ -146,6 +146,14 @@ public:
     void setPiece(int x, int y, std::pair<int, int> pos);
 
     /**
+     * Rotation de la pièce en position (x,y) de 90, 180, 270, 360
+     * @param x : int
+     * @param y : int
+     * @param degree :int - 0, 1, 2, 3
+     */
+    void rotatePiece(int x, int y, int degree);
+
+    /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
@@ -232,6 +240,13 @@ public:
     bool isConstraintEdgesRespected(int x, int y) const;
 
     /**
+     * Compte les erreurs de contraintes d'adjacences
+     * @return int
+     * @author FOURMOND Jérome
+     */
+    int constraintAdjacences() const;
+
+    /**
      * La pièce située en (x,y) s'accorde-t-elle correctement à ses voisins ?
      * @param x : int
      * @param y : int
@@ -289,13 +304,12 @@ public:
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
      * @author GARNIER Antoine
-         */
+     */
     int countNbErrors() const;
 
     /**
      * Retourne le nombre de pièces mal placée
      * @return int
-     * TODO Renommer, corriger la fonction (il y a des commentaires), quand est-ce qu'elle sert ?
      */
     int misplacedPieces();
 

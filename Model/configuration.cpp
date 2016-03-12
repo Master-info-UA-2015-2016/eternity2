@@ -24,9 +24,8 @@ Configuration::Configuration(const Configuration &C) {
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
     if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
-        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (renvoie d'une pair(0,-1)) " << endl;
+        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
         const pair<int, int>& position = make_pair(0, -1);
-        throw out_of_range("getPair");
         return position;
     }
     const pair<int, int>& position = positions[x + y * instance->get_width()];
@@ -187,6 +186,16 @@ void Configuration::setPiece(int x, int y, pair<int, int> pos) {
     if(pos.second > 3)
         pos.second = pos.second % 4;
     positions[x + y*get_width()] = pos;
+}
+
+void Configuration::rotatePiece(int x, int y, int degree) {
+    if(degree < 0)                  // Si la rotation demandée est inférieure à 0
+        rotatePiece(x, y, degree+4);
+    else if(degree >= 4) // Sinon si la rotation demandée est supérieure à 4
+        rotatePiece(x, y, degree % 4);
+    else {
+        positions[x + y * get_width()].second = positions[x + y * get_width()].second + degree;
+    }
 }
 
 bool Configuration::tryLoadFile(const string &fileName){
@@ -444,6 +453,21 @@ bool Configuration::isConstraintEdgesRespected(int x, int y) const {
     return true;
 }
 
+int Configuration::constraintAdjacences() const {
+    int n = 0;
+    for(int j=0 ; j<get_height() ; j++) {
+        for(int i=0 ; i<get_width() ; i++) {
+            if(!isConstraintAdjacencesRespected(i, j)) {
+#if DEBUG_CONSTRAINT
+                cout << "Mauvaise adjacences en (" << i << "," << j << ")" << endl;
+#endif
+                n++;
+            }
+        }
+    }
+    return n/2;
+}
+
 bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
     pair<int, int> piece = getPair(x, y);
     PairColors * swne = getPiece(piece.first).rotate(piece.second);
@@ -454,19 +478,27 @@ bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
         if(p_i.first != 0) {
             PairColors * swne_aux = getPiece(p_i.first).rotate(p_i.second);
             if(i == 0 && swne[i] != swne_aux[North]) {    // Les couleurs Sud-Nord sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Sud" << endl;
+#endif
                 return false;
             }
             else if(i == 1 && swne[i] != swne_aux[East]) { // Les couleurs Ouest-Est sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Ouest" << endl;
+#endif
                 return false;
             }
             else if(i == 2 && swne[i] != swne_aux[South]) {   // Les couleurs Nord-Sud sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Nord" << endl;
+#endif
                 return false;
             }
             else if(i == 3 && swne[i] != swne_aux[West]) {   // Les couleurs Est-Ouest sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Est" << endl;
+#endif
                 return false;
             }
         }
@@ -684,13 +716,15 @@ int Configuration::misplacedPieces() {
             n++;
     }
 
-//    cout << "Pièces mal placées (ID) : " << n << endl;
-//    for(auto i : misplaces) {
-//        if(i != 0 ) {
-//            pair<int, int> pos = getCase(i);
-//            cout << "\tPièce à la position : (" << pos.first << "," << pos.second << ")" << endl;
-//        }
-//    }
+#if DEBUG_SHOW_MISPLACED
+    cout << "Pièces mal placées (ID) : " << n << endl;
+    for(auto i : misplaces) {
+        if(i != 0 ) {
+            pair<int, int> pos = getCase(i);
+            cout << "\tPièce à la position : (" << pos.first << "," << pos.second << ")" << endl;
+        }
+    }
+#endif
 
     return n;
 }

@@ -14,7 +14,7 @@
 #define DEBUG_DRAW_WIDGETS      0
 #define DEBUG_SHOW_SOL_CONFIG   1
 #define DEBUG_SHOW_PIECES       0
-#define DEBUG_INIT_CONFIG       0
+#define DEBUG_INIT_CONFIG       1
 #define DEBUG_CONSTRAINT        0
 #define DEBUG_LOCAL_SEARCH      1
 
@@ -22,6 +22,7 @@
 #define DEBUG_POS_ERRORS        1
 #define DEBUG_NB_ERROR_PIECE    0
 #define DEBUG_CHECK_PIECES      0
+#define DEBUG_SHOW_MISPLACED    0
 
 #define DEBUG_SHOW_CONFIG 0
 
