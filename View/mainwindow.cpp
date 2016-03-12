@@ -5,6 +5,11 @@
 
 using namespace std;
 
+//  TODO @flodavid
+//      Affichage sans plateau
+//      Affichage des pièces en dehors du plateau (sur la droite ?)
+//      Correction affichage d'une nouvelle instance dans le plateau (bug d'affichage)
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -57,8 +62,8 @@ bool MainWindow::init_configuration(std::string instance_filename)
 #if DEBUG_INIT_CONFIG
         cout << (*config);
         cout << "Nombre d'erreurs :" << config->countNbErrors()  << endl;
-        cout << "\t=> " << config->misplacedPieces() << endl;
-        cout << "\t->"  << config->constraintAdjacences() << endl;
+        cout << "\tPièces malplacées=> " << config->misplacedPieces() << endl;
+        cout << "\tContraintes d'adjacences->"  << config->constraintAdjacences() << endl;
 #endif
 
         Board* board_init= new Board(config);
@@ -102,13 +107,14 @@ void MainWindow::launch_resolution()
 
         cout << "Nombre d'erreurs :" << solution->countNbErrors()  << endl;
         cout << *solution;
-        cout << "\t=> " << solution->misplacedPieces() << endl;
-        cout << "\t->"  << solution->constraintAdjacences() << endl;
+        cout << "\tPièces malplacées=> " << solution->misplacedPieces() << endl;
+        cout << "\tContraintes d'adjacances->"  << solution->constraintAdjacences() << endl;
 #endif
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
         cout << *local;
-        cout << "\t=> " << local->misplacedPieces() << endl;
+        cout << "\tPièces malplacées=>" << local->misplacedPieces() << endl;
+        cout << "\tContraintes d'adjacences->" << local->constraintAdjacences() << endl;
 
         Board* board_final= new Board(local);
         BoardWidget* res_board= new BoardWidget(NULL, board_final);

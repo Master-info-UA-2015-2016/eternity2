@@ -458,12 +458,14 @@ int Configuration::constraintAdjacences() const {
     for(int j=0 ; j<get_height() ; j++) {
         for(int i=0 ; i<get_width() ; i++) {
             if(!isConstraintAdjacencesRespected(i, j)) {
+#if DEBUG_CONSTRAINT
                 cout << "Mauvaise adjacences en (" << i << "," << j << ")" << endl;
+#endif
                 n++;
             }
         }
     }
-    return n;
+    return n/2;
 }
 
 bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
@@ -476,19 +478,27 @@ bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
         if(p_i.first != 0) {
             PairColors * swne_aux = getPiece(p_i.first).rotate(p_i.second);
             if(i == 0 && swne[i] != swne_aux[North]) {    // Les couleurs Sud-Nord sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Sud" << endl;
+#endif
                 return false;
             }
             else if(i == 1 && swne[i] != swne_aux[East]) { // Les couleurs Ouest-Est sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Ouest" << endl;
+#endif
                 return false;
             }
             else if(i == 2 && swne[i] != swne_aux[South]) {   // Les couleurs Nord-Sud sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Nord" << endl;
+#endif
                 return false;
             }
             else if(i == 3 && swne[i] != swne_aux[West]) {   // Les couleurs Est-Ouest sont différentes
+#if DEBUG_CONSTRAINT
                 cout << "Erreur Est" << endl;
+#endif
                 return false;
             }
         }
