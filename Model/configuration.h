@@ -286,11 +286,11 @@ public:
     /**
      * @brief getMotifPiece
      * @param current_piece
-     * @param motif : Motif de la piece voisine de la piece courante
-     * @param neightboor : Piece voisine de la piece courante
+     * @param motif_card : Motif de la piece voisine de la piece courante
+     * @param neightboor_card : Cardinalite de la piece voisine de la piece courante a prendre en compte
      * @return La valeur du motif situé a la position card de la piece voisine de la piece courante
      */
-    PairColors getMotifClosePiece(int current_piece, Cardinal card, Cardinal neightboor) const;
+    PairColors getMotifClosePiece(int current_piece, Cardinal neightboor_card, Cardinal motif_card) const;
 
     /**
      * Vérifie que 2 motifs s'appareillent
@@ -315,10 +315,10 @@ public:
 
     /**
      * Compte le nombre d'erreurs qu'il y a avec la piece positions[indice] (de 0 à 4 possibles)
-     * @return Le nombre d'erreurs de la piece indice
+     * @return Le nombre d'erreurs de la piece indice (de 0 à 4 selon la position)
      * @author GARNIER Antoine
      */
-    int getPieceNbErrors(int indice);
+    int getPieceNbErrors(int indice_current_piece);
 
     /**
       * Compte le nombre d'erreurs d'une piece si on lui applique une certaine rotation

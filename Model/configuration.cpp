@@ -551,10 +551,12 @@ const Piece& Configuration::getClosePiece(int current_piece, Cardinal neightboor
         return east_piece;
     }
         break;
+    default:
+        break;
     }
 }
 
-PairColors Configuration::getMotifClosePiece(int current_piece, Cardinal motif_card, Cardinal neightboor_card) const {
+PairColors Configuration::getMotifClosePiece(int current_piece, Cardinal neightboor_card, Cardinal motif_card) const {
     const Piece& neightboor_piece= getClosePiece(current_piece, neightboor_card);
     return neightboor_piece.get_motif()[motif_card];
 }
@@ -729,84 +731,142 @@ int Configuration::misplacedPieces() {
     return n;
 }
 
-int Configuration::getPieceNbErrors(int indice) {
+int Configuration::getPieceNbErrors(int indice_current_piece) {
     int nb_errors= 0;
-    Piece current_piece= getPiece(positions[indice].first);
+    Piece current_piece= getPiece(positions[indice_current_piece].first);
 
     //position de la piece courante (combien de voisins ?)
     int current_piece_pos= getPosition(current_piece.get_id()); // == indice, non ?
     int current_x= current_piece_pos % get_width();
     int current_y= current_piece_pos / get_width();
 
+    const PairColors* motifs_current_piece= current_piece.get_motif();
+    PairColors south_motif_current_piece= motifs_current_piece[0];
+    PairColors west_motif_current_piece= motifs_current_piece[1];
+    PairColors north_motif_current_piece= motifs_current_piece[2];
+    PairColors east_motif_current_piece= motifs_current_piece[3];
+
     if(0 == current_x) //premiere ligne
     {
         if(0 == current_y) //coin nord gauche
         {
+            //comparaison piece courante / piece est
+            PairColors west_motif_east_piece= getMotifClosePiece(indice_current_piece, East, West);
+            if(!motifs_match(east_motif_current_piece, west_motif_east_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece sud
+            PairColors north_motif_south_piece= getMotifClosePiece(indice_current_piece, South, North);
+            if(!motifs_match(south_motif_current_piece, north_motif_south_piece)) ++nb_errors;
 
         } else if(get_width()-1 == current_y) //coin nord droit
         {
+            //comparaison piece courante / piece ouest
+            PairColors east_motif_west_piece= getMotifClosePiece(indice_current_piece, West, East);
+            if(!motifs_match(west_motif_current_piece, east_motif_west_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece sud
+            PairColors north_motif_south_piece= getMotifClosePiece(indice_current_piece, South, North);
+            if(!motifs_match(south_motif_current_piece, north_motif_south_piece)) ++nb_errors;
 
         } else //bord nord
         {
+            //comparaison piece courante / piece ouest
+            PairColors east_motif_west_piece= getMotifClosePiece(indice_current_piece, West, East);
+            if(!motifs_match(west_motif_current_piece, east_motif_west_piece)) ++nb_errors;
 
+            //comparaison piece courante / piece sud
+            PairColors north_motif_south_piece= getMotifClosePiece(indice_current_piece, South, North);
+            if(!motifs_match(south_motif_current_piece, north_motif_south_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece est
+            PairColors west_motif_east_piece= getMotifClosePiece(indice_current_piece, East, West);
+            if(!motifs_match(east_motif_current_piece, west_motif_east_piece)) ++nb_errors;
         }
     } else if(get_height()-1 == current_x) // derniere ligne
     {
         if(0 == current_y) //coin sud gauche
         {
+            //comparaison piece_courante / piece nord
+            PairColors south_motif_north_piece= getMotifClosePiece(indice_current_piece, North, South);
+            if(!motifs_match(north_motif_current_piece, south_motif_north_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece est
+            PairColors west_motif_east_piece= getMotifClosePiece(indice_current_piece, East, West);
+            if(!motifs_match(east_motif_current_piece, west_motif_east_piece)) ++nb_errors;
+
 
         } else if(get_width()-1 == current_y) //coin sud droit
         {
+            //comparaison piece courante / piece ouest
+            PairColors east_motif_west_piece= getMotifClosePiece(indice_current_piece, West, East);
+            if(!motifs_match(west_motif_current_piece, east_motif_west_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece nord
+            PairColors south_motif_north_piece= getMotifClosePiece(indice_current_piece, North, South);
+            if(!motifs_match(north_motif_current_piece, south_motif_north_piece)) ++nb_errors;
 
         } else //bord sud
         {
+            //comparaison piece courante / piece ouest
+            PairColors east_motif_west_piece= getMotifClosePiece(indice_current_piece, West, East);
+            if(!motifs_match(west_motif_current_piece, east_motif_west_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece nord
+            PairColors south_motif_north_piece= getMotifClosePiece(indice_current_piece, North, South);
+            if(!motifs_match(north_motif_current_piece, south_motif_north_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece est
+            PairColors west_motif_east_piece= getMotifClosePiece(indice_current_piece, East, West);
+            if(!motifs_match(east_motif_current_piece, west_motif_east_piece)) ++nb_errors;
 
         }
     } else //ni premiere colonne ni premiere ligne
     {
         if(0 == current_y) // bord ouest
         {
+            //comparaison piece courante / piece nord
+            PairColors south_motif_north_piece= getMotifClosePiece(indice_current_piece, North, South);
+            if(!motifs_match(north_motif_current_piece, south_motif_north_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece est
+            PairColors west_motif_east_piece= getMotifClosePiece(indice_current_piece, East, West);
+            if(!motifs_match(east_motif_current_piece, west_motif_east_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece sud
 
         } else if(get_height()-1 == current_y) // bord est
         {
+            //comparaison piece courante / piece nord
+            PairColors south_motif_north_piece= getMotifClosePiece(indice_current_piece, North, South);
+            if(!motifs_match(north_motif_current_piece, south_motif_north_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece ouest
+            PairColors east_motif_west_piece= getMotifClosePiece(indice_current_piece, West, East);
+            if(!motifs_match(west_motif_current_piece, east_motif_west_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece sud
+            PairColors north_motif_south_piece= getMotifClosePiece(indice_current_piece, South, North);
+            if(!motifs_match(south_motif_current_piece, north_motif_south_piece)) ++nb_errors;
 
         } else // interieur puzzle (pieces avec 4 voisins)
         {
+            //comparaison piece courante / piece nord
+            PairColors south_motif_north_piece= getMotifClosePiece(indice_current_piece, North, South);
+            if(!motifs_match(north_motif_current_piece, south_motif_north_piece)) ++nb_errors;
 
+            //comparaison piece courante / piece ouest
+            PairColors east_motif_west_piece= getMotifClosePiece(indice_current_piece, West, East);
+            if(!motifs_match(west_motif_current_piece, east_motif_west_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece sud
+            PairColors north_motif_south_piece= getMotifClosePiece(indice_current_piece, South, North);
+            if(!motifs_match(south_motif_current_piece, north_motif_south_piece)) ++nb_errors;
+
+            //comparaison piece courante / piece est
+            PairColors west_motif_east_piece= getMotifClosePiece(indice_current_piece, East, West);
+            if(!motifs_match(east_motif_current_piece, west_motif_east_piece)) ++nb_errors;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    if(get_height()-1 == current_x) //derniere colonne
-    {
-        if(0 == current_y){
-
-        }
-
-    } //derniere ligne
-    else if(get_width()-1 == current_y)
-    {
-
-
-    } // non derniere ligne non derniere colonne
-    else {
-
-    }
-
-    const PairColors* current_piece_motifs= current_piece.get_motif();
-
-    Piece piece_adj= getPiece(positions[indice+1].first);
-    const PairColors* piece_adj_motifs= piece_adj.get_motif();
 
     return nb_errors;
 }
