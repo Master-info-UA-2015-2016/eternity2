@@ -146,6 +146,14 @@ public:
     void setPiece(int x, int y, std::pair<int, int> pos);
 
     /**
+     * Rotation de la pièce en position (x,y) de 90, 180, 270, 360
+     * @param x : int
+     * @param y : int
+     * @param degree :int - 0, 1, 2, 3
+     */
+    void rotatePiece(int x, int y, int degree);
+
+    /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */

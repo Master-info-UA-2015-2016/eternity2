@@ -25,10 +25,7 @@ Configuration * Algorithm::getNeighbour(const Configuration & config) {
     pair<int, int> piece = config.getPair(x, y);
     int rot_add =((rand() % (4)) + piece.second) % 4;
 
-//    voisin->rotatePiece(x, y, rot_add); TODO faire fonction de rotation d'une pièce
-
-//    voisin->setPiece(x, y, make_pair(piece.first, rot_add)); TODO delete
-
+    voisin->rotatePiece(x, y, rot_add);
     return voisin;
 }
 
@@ -52,7 +49,6 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
 }
 
 int Algorithm::evaluation(Configuration & C) {
-
     return C.countNbErrors();
 }
 

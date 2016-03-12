@@ -189,6 +189,16 @@ void Configuration::setPiece(int x, int y, pair<int, int> pos) {
     positions[x + y*get_width()] = pos;
 }
 
+void Configuration::rotatePiece(int x, int y, int degree) {
+    if(degree < 0)                  // Si la rotation demandée est inférieure à 0
+        rotatePiece(x, y, degree+4);
+    else if(degree >= 4) // Sinon si la rotation demandée est supérieure à 4
+        rotatePiece(x, y, degree % 4);
+    else {
+        positions[x + y * get_width()].second = positions[x + y * get_width()].second + degree;
+    }
+}
+
 bool Configuration::tryLoadFile(const string &fileName){
     if( instance->get_width() * instance->get_height() == 0){
         cerr << "Aucune instance n'est chargée" << endl;
