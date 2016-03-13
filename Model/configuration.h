@@ -329,7 +329,7 @@ public:
      * @return Le nombre d'erreurs de la piece indice (de 0 à 4 selon la position)
      * @author GARNIER Antoine
      */
-    int getPieceNbErrors(int indice_current_piece);
+    int getPieceNbErrors(const Piece &current_piece);
 
     /**
       * Compte le nombre d'erreurs d'une piece si on lui applique une certaine rotation

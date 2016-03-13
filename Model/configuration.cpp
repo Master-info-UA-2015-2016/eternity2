@@ -562,6 +562,7 @@ return error_piece;
 
 PairColors Configuration::getMotifClosePiece(int current_piece, Cardinal neightboor_card, Cardinal motif_card) const {
     const Piece& neightboor_piece= getClosePiece(current_piece, neightboor_card);
+    //piece
     return neightboor_piece.get_motif()[motif_card];
 }
 
@@ -776,12 +777,12 @@ bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_ne
 return false;
 }
 
-int Configuration::getPieceNbErrors(int indice_current_piece) {
+int Configuration::getPieceNbErrors(const Piece& current_piece) {
     int nb_errors= 0;
-    Piece current_piece= getPiece(positions[indice_current_piece].first);
+    int indice_current_piece= current_piece.get_id();
 
     //position de la piece courante (combien de voisins ?)
-    int current_piece_pos= getPosition(current_piece.get_id()); // == indice, non ?
+    int current_piece_pos= getPosition(indice_current_piece);
     int current_x= current_piece_pos % get_width();
     int current_y= current_piece_pos / get_width();
 
@@ -886,4 +887,9 @@ int Configuration::getPieceNbErrors(int indice_current_piece) {
     }
 
     return nb_errors;
+}
+
+int Configuration::isBestPlaced(int indice_piece, int val_rot){
+
+return 0;
 }
