@@ -336,7 +336,7 @@ public:
       * @return Le nombre d'erreurs lié à une piece ayant subit une rotation de val_rot
       * @author GARNIER Antoine
       */
-    int isBestPlaced(int indice_piece, int val_rot);
+    int isBestPlaced(int current_piece_id);
 
 };
 

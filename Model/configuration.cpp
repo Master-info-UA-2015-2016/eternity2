@@ -889,6 +889,24 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
     return nb_errors;
 }
 
-int Configuration::isBestPlaced(int indice_piece, int val_rot){
+int Configuration::isBestPlaced(int current_piece_id){
+    std::pair<int, int> coord_current_piece= getCase(current_piece_id);
+    int current_piece_x= coord_current_piece.first;
+    int current_piece_y= coord_current_piece.second;
+
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
+    const Piece& current_piece= getPiece(current_piece_x, current_piece_y);
+    Piece piece_test= current_piece;
+    int local_nb_errors= getPieceNbErrors(piece_test);
+
+    //paire d'entiers : <rotation appliquee, nombre d'erreurs liees a la rotation appliquee>
+    std::pair<int, int> best_rotation= std::make_pair(0, local_nb_errors);
+    for(int i= 1; i < 4; ++i){
+        piece_test.rotation(1);
+        if(best_rotation.second > getPieceNbErrors(piece_test)){
+            best_rotation.first= i;
+            best_rotation.second= getPieceNbErrors(piece_test);
+        }
+    }
+return best_rotation.first;
 }
