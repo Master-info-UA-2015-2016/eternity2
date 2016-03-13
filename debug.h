@@ -26,4 +26,7 @@
 
 #define DEBUG_SHOW_CONFIG 0
 
+//board
+#define DEBUG_RANDOM_PERMUTATION 0
+
 #endif // DEBUG_H
