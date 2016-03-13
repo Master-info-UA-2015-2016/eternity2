@@ -18,20 +18,20 @@ Résultat : x*, solution approchée de argmax (x € X) f(x)
 11. retourner x*
 
 Fonction de voisinage :
-    - Nombre de pièces identiques (ne pas se fier aux rotations)
+    - Une rotation aléatoire sur une pièce aléatoire
 
 Fonction d'évalutation :
     - Nombre d'erreurs (contraintes non respectées)
 
 Sélection de la solution initiale :
-    - Aléatoire (après avoir généré une liste de Configurations)
-
+    - Aléatoire
+    
 Critère d'arrêt
     - Spécification d'un nombre total de solutions évaluées
-	-> depuis la dernière sauvegarde de la meilleure solution
+		-> depuis la dernière sauvegarde de la meilleure solution
 
 Politique de mouvement
-    - Sélectionner une solution voisine :
+   - Sélectionner une solution voisine :
 	- solution semblable
 
 ####################	Une autre écriture	####################

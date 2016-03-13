@@ -63,8 +63,6 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
     Configuration * cStar = c;
     // 4. Tant que le critère d'arret n'est pas respecté faire
-
-    vector<Configuration *> voisins;
     Configuration * cprime;
     while(nb_eval < 100) {
         // 5. Sélectionner une solution voisine x' ∈ N(x)
