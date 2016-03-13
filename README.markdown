@@ -37,10 +37,10 @@ de l'algorithme.
 ### La recherche locale
 
 En se basant sur les détails manuscrits du fichier [recherche_locale.txt](https://github.com/flodavid/eternity2/blob/master/recherche_locale.txt), la recherche locale du programme se déroule ainsi :
-	* Une Configuration initiale est créée aléatoirement (aléatoirement signifiant que les pièces de coins et de bordures sont tout de même placés de façon à respecter leurs contraintes, aucune adjacence n'est pour l'instant travaillée)
-	* Le critère d'arrêt est ici le nombre d'évaluation de voisins depuis que la dernière meilleure solution a été rencontrée
-	* La fonction d'évaluation retourne le nombre d'erreurs de la Configuration, il faut donc minimiser cette dernière
-	* La fonction de voisinage correspond à la *création* d'un voisin en pivotant une pièce _aléatoire_ _aléatoirement_.
+* Une Configuration initiale est créée aléatoirement (aléatoirement signifiant que les pièces de coins et de bordures sont tout de même placés de façon à respecter leurs contraintes, aucune adjacence n'est pour l'instant travaillée)
+* Le critère d'arrêt est ici le nombre d'évaluation de voisins depuis que la dernière meilleure solution a été rencontrée
+* La fonction d'évaluation retourne le nombre d'erreurs de la Configuration, il faut donc minimiser cette dernière
+* La fonction de voisinage correspond à la *création* d'un voisin en pivotant une pièce _aléatoire_ _aléatoirement_.
 
 ## TO DO
 * ~~(Modélisation)~~
