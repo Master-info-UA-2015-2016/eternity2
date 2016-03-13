@@ -55,3 +55,14 @@ void Board::permutation_current_piece_random_piece(int current_piece_x, int curr
     cout << "Erreur dans tentative de permutation : current_piece == random_piece !" << endl;
     #endif
 }
+
+void Board::random_rotation_random_piece(){
+    int random_rotation= rand() % 3 + 1; //rotation de 1 à 3 "crans"
+    const std::pair<int, int> piece_coord= get_random_piece_coord();
+    int random_piece_coord_x= piece_coord.first;
+    int random_piece_coord_y= piece_coord.second;
+
+    //recuperation piece + modifs coord avec rotation
+    const Piece& random_piece= disposition->getPiece(random_piece_coord_x, random_piece_coord_y);
+    random_piece.rotate(random_rotation);
+}

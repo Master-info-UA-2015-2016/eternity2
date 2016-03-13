@@ -65,6 +65,12 @@ public:
      * @author GARNIER Antoine
      */
     void permutation_current_piece_random_piece(int current_piece_x, int current_piece_y);
+
+    /**
+     * @brief random_rotation_random_piece
+     * @author GARNIER Antoine
+     */
+    void random_rotation_random_piece();
 };
 
 #endif // BOARD_H

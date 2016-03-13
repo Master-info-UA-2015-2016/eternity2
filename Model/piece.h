@@ -40,6 +40,21 @@ public:
     const PairColors* get_motif() const   { return motif; }
 
     /**
+     * @brief set_motifs
+     * @param south_motif
+     * @param west_motif
+     * @param north_motif
+     * @param east_motif
+     * @author GARNIER Antoine
+     */
+    void set_motifs(PairColors south_motif, PairColors west_motif, PairColors north_motif, PairColors east_motif){
+        motif[South]= south_motif;
+        motif[West]= west_motif;
+        motif[North]= north_motif;
+        motif[East]= east_motif;
+    };
+
+    /**
      * La pièce doit-elle être placée dans un coin ?
      * @return boolean
      */
@@ -68,7 +83,12 @@ public:
 
     PairColors* rotate(int nbRotation) const;
 
-
+    /**
+     * @brief rotation
+     * @param val_rotation
+     * @author GARNIER Antoine
+     */
+    void rotation(int val_rotation);
 };
 
 #endif // PIECE_MODEL_H
