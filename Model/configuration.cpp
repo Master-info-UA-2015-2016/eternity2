@@ -890,6 +890,5 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
 }
 
 int Configuration::isBestPlaced(int indice_piece, int val_rot){
-
-return 0;
+    //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
 }
