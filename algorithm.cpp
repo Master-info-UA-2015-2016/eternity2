@@ -82,53 +82,53 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     return cStar;
 }
 
-Configuration * Algorithm::build_Configuration(const Instance *instance) {
-    Configuration * config = new Configuration(instance);
+//Configuration * Algorithm::build_Configuration(const Instance *instance) {
+//    Configuration * config = new Configuration(instance);
 
-    list<Piece> pieces;
+//    list<Piece> pieces;
 
-    for(const Piece & p : *(config->getPieces())) {
-        pieces.push_back(config->getPiece(p.get_id()));
-    }
-    vector<bool> used(pieces.size(), false);
+//    for(const Piece & p : *(config->getPieces())) {
+//        pieces.push_back(config->getPiece(p.get_id()));
+//    }
+//    vector<bool> used(pieces.size(), false);
 
-    bool found;
-    for(int j=0 ; j<config->get_height() ; j++) {
-        for(int i=0 ; i<config->get_width() ; i++) {
-            // Pour chaque case, choisir une pièce s'accordant au mieux aux contraintes
-            // de lignes, de colonnes et d'adjacences
-            found = false;
-            for(int k=0 ; k<(signed) pieces.size() && !found ; k++) {
-                // Si la pièce n'est pas utilisé, on l'essaye
-                if(!used[k]) {
-                    Piece piece = pieces[k];
-                    config->placePiece(make_pair(piece.get_id(), 0));
-                    // Bien placé ?
-                    if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
-                        // Bien placé !
-                        used[k] = true;
-                        found = true;
-                    } else {
-                        config->removePiece();
-                        // Tentative de rotation
-                        for(int r=1 ; r<4 && !found; r++) {
-                            config->placePiece(make_pair(piece.get_id(), r));
-                            if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
-                                // Bien placé !
-                                used[k] = true;
-                                found = true;
-                            } else config->removePiece();
-                        }
-                    }
-                    // Si aucun de ces tests n'a fonctionné (found == false), on teste une autre pièce
-                    // TODO BackTracking
-                }
-            }
-        }
-    }
+//    bool found;
+//    for(int j=0 ; j<config->get_height() ; j++) {
+//        for(int i=0 ; i<config->get_width() ; i++) {
+//            // Pour chaque case, choisir une pièce s'accordant au mieux aux contraintes
+//            // de lignes, de colonnes et d'adjacences
+//            found = false;
+//            for(int k=0 ; k<(signed) pieces.size() && !found ; k++) {
+//                // Si la pièce n'est pas utilisé, on l'essaye
+//                if(!used[k]) {
+//                    Piece piece = pieces[k];
+//                    config->placePiece(make_pair(piece.get_id(), 0));
+//                    // Bien placé ?
+//                    if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
+//                        // Bien placé !
+//                        used[k] = true;
+//                        found = true;
+//                    } else {
+//                        config->removePiece();
+//                        // Tentative de rotation
+//                        for(int r=1 ; r<4 && !found; r++) {
+//                            config->placePiece(make_pair(piece.get_id(), r));
+//                            if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
+//                                // Bien placé !
+//                                used[k] = true;
+//                                found = true;
+//                            } else config->removePiece();
+//                        }
+//                    }
+//                    // Si aucun de ces tests n'a fonctionné (found == false), on teste une autre pièce
+//                    // TODO BackTracking
+//                }
+//            }
+//        }
+//    }
 
-    return config;
-}
+//    return config;
+//}
 
 Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 {
