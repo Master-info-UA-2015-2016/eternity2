@@ -132,6 +132,8 @@ public:
      */
     void placePiece(std::pair<int, int> piece){ positions.push_back(piece); }
 
+    void placePiece(const Piece & piece, int rotation) { positions.push_back(std::make_pair(piece.get_id(), rotation)); }
+
     /**
      * Retrait de la dernière position
      */

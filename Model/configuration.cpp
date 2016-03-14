@@ -23,10 +23,15 @@ Configuration::Configuration(const Configuration &C) {
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
-    if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
-        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
+    // Cas où on essaye d'atteindre une pièce à l'extérieur du bord du plateau
+    if(x == -1 || x == get_width() || y == -1 || y == get_height()) {
         const pair<int, int>& position = make_pair(0, -1);
         return position;
+    }
+    // Cas où on essaye d'atteindre une cellule en dehors du plateau qui n'est pas un bord
+    else if(x < -1 || x > get_width() || y < -1 || y > get_height()) {
+        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
+        throw out_of_range("getPair");
     }
     const pair<int, int>& position = positions[x + y * instance->get_width()];
     return position;

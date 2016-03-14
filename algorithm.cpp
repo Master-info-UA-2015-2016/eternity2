@@ -85,7 +85,7 @@ Configuration * Algorithm::local_search(const Configuration * config) {
 Configuration * Algorithm::build_Configuration(const Instance *instance) {
     Configuration * config = new Configuration(instance);
 
-    vector<Piece> pieces;
+    list<Piece> pieces;
 
     for(const Piece & p : *(config->getPieces())) {
         pieces.push_back(config->getPiece(p.get_id()));
