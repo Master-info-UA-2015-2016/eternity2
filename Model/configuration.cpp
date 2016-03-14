@@ -104,45 +104,6 @@ pair<int, int> Configuration::getCase(int id) const {
     return make_pair(-1, -1);
 }
 
-vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
-    vector<pair<int, int> > swne(4);
-
-    pair<int, int> pos;
-    // Récupération Sud
-    try {
-        pos = getPair(x, y+1);
-    } catch ( const std::exception & e ) {
-        cerr << "Récupération Ouest" << endl;
-        pos = make_pair(-1,-1);
-    }
-    swne[0] = pos;
-    // Récupération Est
-    try {
-        pos = getPair(x-1, y);
-    } catch ( const std::exception & e ) {
-        cerr << "Récupération Est" << endl;
-        pos = make_pair(-1,-1);
-    }
-    swne[1] = pos;
-    // Récupération Nord
-    try {
-        pos = getPair(x, y-1);
-    } catch ( const std::exception & e ) {
-        cerr << "Récupération Nord" << endl;
-        pos = make_pair(-1,-1);
-    }
-    swne[North] = pos;
-    // Récupération Ouest
-    try {
-        pos = getPair(x+1, y);
-    } catch ( const std::exception & e ) {
-        cerr << "Récupération Ouest" << endl;
-        pos = make_pair(-1,-1);
-    }
-    swne[3] = pos;
-
-    return swne;
-}
 
 ostream& Configuration::print(ostream& out) const{
     for(int i=0 ; i<instance->get_width() ; ++i) {
@@ -289,19 +250,6 @@ void Configuration::randomConfiguration() {
     }
 }
 
-vector<Configuration*>&  Configuration::generateRandomConfigurations(const Instance * instance, int limit) {
-    vector<Configuration*>& configurations= *(new vector<Configuration*>);
-
-    for(int ind_conf=0 ; ind_conf < limit ; ind_conf++) {
-        Configuration* configuration= new Configuration(instance);
-        configuration->randomConfiguration();
-
-        configurations.push_back(configuration);
-    }
-
-    return configurations;
-}
-
 PairColors* Configuration::get_rotated_motifs(int current_piece_indice) const{
     const Piece& current_piece= instance->getPiece(current_piece_indice);
     int rotation = positions[getPosition(current_piece)].second;
@@ -310,14 +258,10 @@ PairColors* Configuration::get_rotated_motifs(int current_piece_indice) const{
 }
 
 PairColors &Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
-    // Récupère le motif Nord de la pièce au sud de la piece courante tournée
-    // piece sud de piece courante = position piece courante + width
     return get_rotated_motifs(current_piece_indice + get_width())[North];
 }
 
 PairColors &Configuration::getWestMotifEastPiece(int current_piece_indice) const {
-    // Récupère le motif Ouest de la pièce à l'Est de la piece courante tournée
-    // piece est de piece courante = position piece courante + 1
     return get_rotated_motifs(current_piece_indice + 1)[West];
 }
 

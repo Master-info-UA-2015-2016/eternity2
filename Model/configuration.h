@@ -83,19 +83,6 @@ public:
      */
     const std::vector<Piece> * getPieces() const
         { return instance->get_pieces(); }
-    /**
-     * Récupération du motif pivoté en position (x, y)
-     * @param x : X
-     * @param y : Y
-     * @return int *
-     */
-    PairColors * getRotatedMotif(int x, int y) const;
-
-    /**
-     * Récupération du motif pivoté, selon son id
-     * @return int *
-     */
-    PairColors * getRotatedMotif(int pos) const;
 
     /**
      * Retourne la position dans le vecteur de positions de la piece P
@@ -117,14 +104,19 @@ public:
      * @return pair<int, int>
      */
     std::pair<int, int> getCase(int id) const;
+    /**
+     * Récupération du motif pivoté en position (x, y)
+     * @param x : X
+     * @param y : Y
+     * @return int *
+     */
+    PairColors * getRotatedMotif(int x, int y) const;
 
     /**
-     * Récupération des ids des cases adjacents à la position (x, y)
-     * @param x : int
-     * @param y : int
-     * @return int[4]
+     * Récupération du motif pivoté, selon son id
+     * @return int *
      */
-    std::vector<std::pair<int, int>> getAdjacent(int x, int y) const;
+    PairColors * getRotatedMotif(int pos) const;
 
     /**
      * Ajout d'une position
@@ -185,6 +177,75 @@ public:
     void randomConfiguration();
 
     /**
+     * @brief get_rotated_motifs
+     * @param current_piece_indice
+     * @return
+     */
+    PairColors* get_rotated_motifs(int current_piece_indice) const;
+
+    /**
+     * Récupère le motif Nord de la pièce au sud de la piece courante tournée
+     *  piece sud de piece courante = position piece courante + width
+     * @param current_piece_indice
+     * @return la paire de couleurs au Nord de la pièce au Sud
+     */
+    PairColors& getNorthMotifSouthPiece(int current_piece_indice) const;
+    /**
+     * Récupère le motif Ouest de la pièce à l'Est de la piece courante tournée
+     *  piece est de piece courante = position piece courante + 1
+     * @param current_piece_indice
+     * @return la paire de couleurs à l'Ouest de la pièce à l'Est
+     */
+    PairColors& getWestMotifEastPiece(int current_piece_indice) const;
+
+    /**
+     * @brief getClosePiece
+     * @param current_piece
+     * @param neightboor_card : piece voisine de current_piece
+     * @return La piece voisine de current_piece
+     * @author GARNIER Antoine
+     */
+    const Piece& getClosePiece(int current_piece, Cardinal neightboor_card) const;
+
+    /**
+     * @brief getMotifPiece
+     * @param current_piece
+     * @param motif_card : Motif de la piece voisine de la piece courante
+     * @param neightboor_card : Cardinalite de la piece voisine de la piece courante a prendre en compte
+     * @return La valeur du motif situé a la position card de la piece voisine de la piece courante
+     * @author GARNIER Antoine
+     */
+    PairColors getMotifClosePiece(int current_piece, Cardinal neightboor_card, Cardinal motif_card) const;
+
+    /**
+     * Vérifie que 2 motifs s'appareillent
+     * @param first_motif
+     * @param second_motif
+     * @return vrai si les 2 motifs sont identiques et ne sont pas noirs
+     */
+    bool motifs_match(PairColors first_motif, PairColors second_motif) const;
+
+
+    // ############################################## //
+    // ############################################## //
+    //
+    //          Fonctions algorithmiques              //
+
+    //  Définies dans configuration_functions.cpp
+    // ############################################## //
+    // ############################################## //
+
+    /**
+     * Récupération des ids des cases adjacents à la position (x, y)
+     * @param x : int
+     * @param y : int
+     * @return int[4]
+     */
+    std::vector<std::pair<int, int>> getAdjacent(int x, int y) const;
+
+/*** GENERATION DE CONFIGURATIONS   ***/
+
+    /**
      * Génération de configurations aléatoires à partir de l'instance
      * @param instance : Instance en question
      * @param limit : nombre de configuration-s généré-es
@@ -192,6 +253,8 @@ public:
      * @author FOURMOND Jérôme
      */
     static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
+
+/*** VERIFICATION DES CONTRAINTES   ***/
 
     /**
      * Compte des erreurs de contraintes de lignes extrèmes
@@ -257,62 +320,7 @@ public:
      */
     bool isConstraintAdjacencesRespected(int x, int y) const;
 
-    /**
-     * @brief get_rotated_motifs
-     * @param current_piece_indice
-     * @return
-     */
-    PairColors* get_rotated_motifs(int current_piece_indice) const;
-
-    /**
-     * @brief getNorthMotifSouthPiece
-     * @param current_piece_indice
-     * @return
-     */
-    PairColors& getNorthMotifSouthPiece(int current_piece_indice) const;
-    /**
-     * @brief getWestMotifEastPiece
-     * @param current_piece_indice
-     * @return
-     */
-    PairColors& getWestMotifEastPiece(int current_piece_indice) const;
-
-    /**
-     * @brief getClosePiece
-     * @param current_piece
-     * @param neightboor_card : piece voisine de current_piece
-     * @return La piece voisine de current_piece
-     * @author GARNIER Antoine
-     */
-    const Piece& getClosePiece(int current_piece, Cardinal neightboor_card) const;
-
-    /**
-     * @brief getMotifPiece
-     * @param current_piece
-     * @param motif_card : Motif de la piece voisine de la piece courante
-     * @param neightboor_card : Cardinalite de la piece voisine de la piece courante a prendre en compte
-     * @return La valeur du motif situé a la position card de la piece voisine de la piece courante
-     * @author GARNIER Antoine
-     */
-    PairColors getMotifClosePiece(int current_piece, Cardinal neightboor_card, Cardinal motif_card) const;
-
-    /**
-     * Vérifie que 2 motifs s'appareillent
-     * @param first_motif
-     * @param second_motif
-     * @return vrai si les 2 motifs sont identiques et ne sont pas noirs
-     */
-    bool motifs_match(PairColors first_motif, PairColors second_motif) const;
-
-
-    // ############################################## //
-    // ############################################## //
-    //
-    //          Fonctions algorithmiques              //
-
-    //  Définies dans configuration_functions.cpp
-    // ############################################## //
-    // ############################################## //
+/*** VERIFICATION DES ERREURS   ***/
     /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration

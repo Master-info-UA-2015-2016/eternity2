@@ -2,6 +2,60 @@
 
 using namespace std;
 
+
+vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
+    vector<pair<int, int> > swne(4);
+
+    pair<int, int> pos;
+    // Récupération Sud
+    try {
+        pos = getPair(x, y+1);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Ouest" << endl;
+        pos = make_pair(-1,-1);
+    }
+    swne[0] = pos;
+    // Récupération Est
+    try {
+        pos = getPair(x-1, y);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Est" << endl;
+        pos = make_pair(-1,-1);
+    }
+    swne[1] = pos;
+    // Récupération Nord
+    try {
+        pos = getPair(x, y-1);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Nord" << endl;
+        pos = make_pair(-1,-1);
+    }
+    swne[North] = pos;
+    // Récupération Ouest
+    try {
+        pos = getPair(x+1, y);
+    } catch ( const std::exception & e ) {
+        cerr << "Récupération Ouest" << endl;
+        pos = make_pair(-1,-1);
+    }
+    swne[3] = pos;
+
+    return swne;
+}
+
+vector<Configuration*>&  Configuration::generateRandomConfigurations(const Instance * instance, int limit) {
+    vector<Configuration*>& configurations= *(new vector<Configuration*>);
+
+    for(int ind_conf=0 ; ind_conf < limit ; ind_conf++) {
+        Configuration* configuration= new Configuration(instance);
+        configuration->randomConfiguration();
+
+        configurations.push_back(configuration);
+    }
+
+    return configurations;
+}
+
 int Configuration::constraintRowsXtrem() const {
     int errors = 0;
     const PairColors* swne;
