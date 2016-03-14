@@ -304,6 +304,15 @@ public:
      */
     bool motifs_match(PairColors first_motif, PairColors second_motif) const;
 
+
+    // ############################################## //
+    // ############################################## //
+    //
+    //          Fonctions algorithmiques              //
+
+    //  Définies dans configuration_functions.cpp
+    // ############################################## //
+    // ############################################## //
     /**
      * Verifie toutes les pièces de la configuration et compte le nombre d'erreurs
      * @return Le nombre d'erreurs dans la configuration
@@ -340,6 +349,24 @@ public:
       */
     int isBestPlaced(int current_piece_id);
 
+
+//    Essais d'ajout de pièce dans la configuration     //
+    /**
+     * Vérifie qu'une pièce peut-être placée à la fin de la liste de pièce
+     * @param piece pièce que l'on essaie de placer
+     * @param rotation valeur de rotation de la pièce, comprise entre 0 et 3
+     * @return false si la pièce n'est pas appareible avec les pièces déjà présentes
+     * TODO à faire dans configuration_functions.cpp
+     */
+    bool canBePlaced(Piece& piece, int rotation) const;
+
+    /**
+     * Essai de placer une pièce à la suite des autres :
+     *  vérifie qu'il y a de la place dans le plateau et  teste les 4 rotations
+     * @param piece pièce à placer dans le plateau
+     * @return false si on n'a pas réussi à placer la pièce
+     */
+    bool tryPlaceAtEnd(Piece& piece);
 };
 
 #endif // CONFIGURATION_H

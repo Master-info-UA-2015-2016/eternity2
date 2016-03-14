@@ -12,22 +12,22 @@ Board::~Board()
 }
 
 
-int Board::betterRotatePiece(int piece_id)
-{
-    const Piece& piece= disposition->getPiece(piece_id);
-    const PairColors* piece_motifs= piece.get_motif();
+//int Board::betterRotatePiece(int piece_id)
+//{
+//    const Piece& piece= disposition->getPiece(piece_id);
+//    const PairColors* piece_motifs= piece.get_motif();
 
-    // Test des diverses rotation possibles
-    for (int i= 0; i < 4; ++i) {
-        // Test du nombre d'appareillages avec la nouvelle rotation
-         disposition->countNbErrors();
-    }
-}
+//    // Test des diverses rotation possibles
+//    for (int i= 0; i < 4; ++i) {
+//        // Test du nombre d'appareillages avec la nouvelle rotation
+//         disposition->countNbErrors();
+//    }
+//}
 
-int Board::betterRotatePiece(int x, int y)
-{
-    betterRotatePiece(x + y * disposition->get_width() +1); // Les id commencent à 1, alors que le plateau commence à (0,0), donc +1
-}
+//int Board::betterRotatePiece(int x, int y)
+//{
+//    betterRotatePiece(x + y * disposition->get_width() +1); // Les id commencent à 1, alors que le plateau commence à (0,0), donc +1
+//}
 
 int Board::permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y){
     std::pair<int, int> tmp= disposition->getPositions()[piece1_x + piece1_y * disposition->get_width()];

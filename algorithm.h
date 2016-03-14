@@ -66,6 +66,8 @@ class Algorithm
          * @return Configuration "solution"
          */
         static Configuration * build_Configuration(const Instance * instance);
+        
+        Configuration* resolveWithCSP(const Instance * instance);
 };
 
 #endif // ALGORITHM_H

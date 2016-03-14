@@ -129,3 +129,34 @@ Configuration * Algorithm::build_Configuration(const Instance *instance) {
 
     return config;
 }
+
+Configuration* Algorithm::resolveWithCSP(const Instance *instance)
+{
+    Configuration* solution = new Configuration(instance);
+//    Board tmp_board = new Board(solution);
+
+    list<Piece> available_pieces;
+
+    for(const Piece & p : *(solution->getPieces())) {
+        available_pieces.push_back(p);
+    }
+
+    // Parcours du tableau @SEE si on l'améliore
+    for (int y= 0; y < solution->get_height(); ++y){
+        for (int x= 0; x < solution->get_width(); ++x){
+
+            Piece& current_piece= available_pieces.front();
+            available_pieces.pop_front();
+
+            // Je vérifie si la pièce a été ajoutée à la suite des autres
+            if (! solution->tryPlaceAtEnd(current_piece) ){ // TODO canBePlacedAtEnd
+                // La pièce ne peut pas être ajoutée, donc on la replace à la fin
+                //  de la liste des pièces disponibles
+                available_pieces.push_back(current_piece);
+            }
+
+        }
+    }
+
+    return solution;
+}

@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     View/motif_view.cpp \
     View/piece_view.cpp \
     Tools/string_tools.cpp \
-    algorithm.cpp
+    algorithm.cpp \
+    Model/configuration_functions.cpp
 
 HEADERS  +=  \
     Model/board.h \

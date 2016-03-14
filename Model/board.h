@@ -33,6 +33,8 @@ public:
      * Essaie de tourner une pièce afin d'obtenir des appareillages
      * @param id identifiant de la pièce
      * @return le nombre d'erreurs de motifs sur cette pièce après rotation ou non
+     * @author Florian
+     * @SEE voir si on l'utilise
      */
     int betterRotatePiece(int piece_id);
     /**
