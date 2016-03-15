@@ -419,16 +419,7 @@ bool Configuration::canBePlaced(Piece &piece, int rotation) const {
                 return false;
         }
     }
-
-        // vérifier que que l'id est != 0
-//        PairColors* other_couleurs =get_rotated_motifs(/*id adjacent*/);
-//    if (other_couleurs[] == colors[4]){
-
-//    }
-
-
-
-
+    return true;
 }
 
 bool Configuration::tryPlaceAtEnd(Piece &piece)
@@ -438,7 +429,7 @@ bool Configuration::tryPlaceAtEnd(Piece &piece)
     // TODO tester les 4 rotations
     int rotation;
     for (rotation= 0; rotation < 4 && !is_placed; ++rotation){
-//        if ( canBePlaced(piece, rotation) ) {   // TODO à faire
+        if ( canBePlaced(piece, rotation) ) {   // TODO à faire
 //            // Elle peut être ajoutée, donc on la place
 //            placePiece(piece, rotation);
 //            // La pièce est placée, cela entraîne la sortie de la boucle
