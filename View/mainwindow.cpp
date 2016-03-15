@@ -61,7 +61,7 @@ bool MainWindow::init_configuration(std::string instance_filename)
         cout << (*config);
         cout << "Nombre d'erreurs :" << config->countNbErrors()  << endl;
         cout << "\tPièces malplacées=> " << config->misplacedPieces() << endl;
-        cout << "\tContraintes d'adjacences->"  << config->constraintAdjacences() << endl;
+        cout << "\tContraintes d'adjacences->"  << config->nbErrorsAdjacences() << endl;
 #endif
 #if DEBUG_CSP
         Configuration * CSP = Algorithm::resolveWithCSP(instance);

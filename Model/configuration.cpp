@@ -19,30 +19,33 @@ Configuration::Configuration(const string& fileName)
 
 Configuration::Configuration(const Configuration &C) {
     instance = C.instance;
-    positions = C.positions;
+    ids_and_rots = C.ids_and_rots;
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
+    // Pair à retourner
     // Cas où on essaye d'atteindre une pièce à l'extérieur du bord du plateau
-    if(x == -1 || x == get_width() || y == -1 || y == get_height()) {
-        const pair<int, int>& position = make_pair(0, -1);
-        return position;
-    }
-    // Cas où on essaye d'atteindre une cellule en dehors du plateau qui n'est pas un bord
-    else if(x < -1 || x > get_width() || y < -1 || y > get_height()) {
+    if(x < -1 || x > get_width() || y < -1 || y > get_height()) {
         cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
         throw out_of_range("getPair");
     }
+    // Cas où on essaye d'atteindre une cellule en dehors du plateau qui n'est pas un bord
+    //  ou alors qu'on essaye d'atteindre une cellule qui n'est pas encore initialisée
+    else if(x == -1 || x == get_width() || y == -1 || y == get_height() ||
+            ( (x+y*instance->get_width()) < (signed) ids_and_rots.size() )) {
+        return *(new pair<int, int>(0, -1));
+    }
     // Cas où on essaye d'atteindre une position sans pièce
-    else if((x+y*instance->get_width()) >= (signed) positions.size())
-        return make_pair(0, -1);
-    const pair<int, int>& position = positions[x + y * instance->get_width()];
-    return position;
+    else {
+        pair<int, int>* id_and_rot = new pair<int, int>(ids_and_rots[x + y * instance->get_width()]);
+        return *id_and_rot;
+    }
+
 }
 
 const Piece & Configuration::getPiece(int x, int y) const {
     try{
-        const Piece & piece = getPiece(getPair(x, y).id);
+        const Piece & piece = getPiece(x + y * instance->get_width());
         return piece;
     } catch (out_of_range oor) {
         throw out_of_range("getPiece");
@@ -66,45 +69,47 @@ PairColors * Configuration::getRotatedMotif(int x, int y) const {
 
 PairColors * Configuration::getRotatedMotif(int pos) const
 {
-    if(pos >= (signed) positions.size()) {
+    if(pos >= (signed) ids_and_rots.size()) {
         cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
         throw out_of_range("getPiece");
     }
-    pair<int, int> piece_pair = positions[pos];
-    Piece piece = getPiece(piece_pair.id);
-    return piece.rotate(piece_pair.rot);
+    else {
+        pair<int, int> piece_pair = ids_and_rots[pos];
+        Piece piece = getPiece(piece_pair.id);
+        return piece.rotate(piece_pair.rot);
+    }
 }
 
-int Configuration::getPosition(const Piece& p) const {
+int Configuration::searchPosition(const Piece& p) const {
     bool found = false;
     int ind = 0;
     while(!found) {
-        if(positions[ind].first == p.get_id())
+        if(ids_and_rots[ind].first == p.get_id())
             found = true;
         else ind++;
     }
     return ind;
 }
 
-int Configuration::getPosition(const int id) const {
+int Configuration::searchPosition(const int id) const {
     int ind = -1;
-    for(unsigned int i=0 ; i<positions.size() ; ++i) {
-        if(positions[i].first == id)
+    for(unsigned int i=0 ; i<ids_and_rots.size() ; ++i) {
+        if(ids_and_rots[i].first == id)
             ind = (int)i;
     }
     return ind;
 }
 
-pair<int, int> Configuration::getCase(int id) const {
-    int pos = getPosition(id);
+Coordinates& Configuration::getPosition(int id) const {
+    int pos = searchPosition(id);
     int processed_case = 0;
     for(int j=0 ; j<get_height() ; j++) {
         for(int i=0 ; i<get_width() ; i++) {
-            if(processed_case == pos) return make_pair(i, j);
-            processed_case++;
+            if(processed_case == pos) return *(new Coordinates(i, j));
+            else processed_case++;
         }
     }
-    return make_pair(-1, -1);
+    return *(new Coordinates(-1, -1));
 }
 
 
@@ -154,7 +159,7 @@ void Configuration::setPiece(int x, int y, pair<int, int> pos) {
     }
     if(pos.second > 3)
         pos.second = pos.second % 4;
-    positions[x + y*get_width()] = pos;
+    ids_and_rots[x + y*get_width()] = pos;
 }
 
 void Configuration::rotatePiece(int x, int y, int degree) {
@@ -163,8 +168,18 @@ void Configuration::rotatePiece(int x, int y, int degree) {
     else if(degree >= 4) // Sinon si la rotation demandée est supérieure à 4
         rotatePiece(x, y, degree % 4);
     else {
-        positions[x + y * get_width()].second = positions[x + y * get_width()].second + degree;
+        ids_and_rots[x + y * get_width()].second = ids_and_rots[x + y * get_width()].second + degree;
     }
+}
+
+int Configuration::permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y)
+{
+    std::pair<int, int> tmp_pair= ids_and_rots[piece1_x + piece1_y * get_width()];
+
+    setPiece(piece1_x, piece1_y, ids_and_rots[piece2_x + piece2_y * get_width()]);
+    setPiece(piece2_x, piece2_y, tmp_pair);
+
+    return 0;
 }
 
 bool Configuration::tryLoadFile(const string &fileName){
@@ -185,10 +200,10 @@ bool Configuration::tryLoadFile(const string &fileName){
 
                 vector<string>& tokens = explode(line);
 
-                positions.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
+                ids_and_rots.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
             }
 
-            if(positions.size() != (unsigned)(instance->get_width() * instance->get_height()) ){
+            if(ids_and_rots.size() != (unsigned)(instance->get_width() * instance->get_height()) ){
                 cerr << "Fichier de configuration incomplet" << endl;
                 return false;
             } else {
@@ -198,64 +213,9 @@ bool Configuration::tryLoadFile(const string &fileName){
     }
 }
 
-void Configuration::randomConfiguration() {
-    int i_rot;
-    int p_id;
-    vector<int> border_pieces;
-    vector<int> edge_pieces;
-    vector<int> pieces_remaining;
-
-    // Travail uniquement sur l'id des pieces
-    for(Piece p : (*getPieces()) ) {
-        if(p.isBorder())
-            border_pieces.push_back(p.get_id());
-        else if(p.isEdge())
-            edge_pieces.push_back(p.get_id());
-        else
-            pieces_remaining.push_back(p.get_id());
-    }
-
-    // Mélange aléatoire
-    random_shuffle(border_pieces.begin(), border_pieces.end());
-    random_shuffle(edge_pieces.begin(), edge_pieces.end());
-    random_shuffle(pieces_remaining.begin(), pieces_remaining.end());
-
-    for(int j=0 ; j<get_height() ; j++) {
-        for(int i=0 ; i<get_width() ; i++) {
-            i_rot = 0;
-            if((i == 0 && j ==0)||(i==0 && j==get_height()-1)||(i==get_width()-1 && j==0)||(i==get_width()-1 && j==get_height()-1)) {
-                // Angles
-                p_id = edge_pieces.back();
-                edge_pieces.pop_back();
-                placePiece(make_pair(p_id, i_rot));
-                // Bonne rotation
-                while(!isConstraintEdgesRespected(i, j))
-                    setPiece(i, j, make_pair(p_id, ++i_rot));
-            } else if(i == 0 || j == 0 || i == get_width()-1 || j == get_height()-1){
-                // Border
-                p_id = border_pieces.back();
-                border_pieces.pop_back();
-                placePiece(make_pair(p_id, i_rot));
-                // Bonne rotation
-                while(!isConstraintRowsXtremRespected(i,j) || !isConstraintColsXtremRespected(i,j)) {
-                    setPiece(i, j, make_pair(p_id, ++i_rot));
-                }
-            } else {
-                // Autre
-                p_id = pieces_remaining.back();
-                pieces_remaining.pop_back();
-                // Rotation aléatoire
-                i_rot = rand() % 4;
-                // Ajout de la pair
-                placePiece(make_pair(p_id, i_rot));
-            }
-        }
-    }
-}
-
 PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
     const Piece& piece= instance->getPiece(piece_indice);
-    int rotation = positions[getPosition(piece)].second;
+    int rotation = ids_and_rots[searchPosition(piece)].second;
 
     return piece.rotate(rotation);
 }
@@ -310,7 +270,7 @@ PairColors Configuration::getMotifClosePiece(int current_piece, Cardinal neightb
 }
 
 /** Vérifiée **/
-bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif) const
+bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif)
 {
 #if DEBUG_MOTIF_MATCH
     cout<< "Comparaison : " << first_motif << " - " << second_motif << endl;
@@ -327,17 +287,12 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
         #endif
         return true;
     }
-
-//    if(first_motif == Black_Black) return false;
-//    if(second_motif == Black_Black) return false;
-//    if(first_motif != second_motif) return false;
-//    return true;
 }
 
 
 
 bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece){
-    Piece current_piece= getPiece(positions[indice_current_piece].first);
+    Piece current_piece= getPiece(ids_and_rots[indice_current_piece].first);
     const PairColors* motifs_current_piece= current_piece.get_motif();
     PairColors motif_current_piece= motifs_current_piece[direction_neightboor_piece];
 
@@ -382,7 +337,7 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
     int indice_current_piece= current_piece.get_id();
 
     //position de la piece courante (combien de voisins ?)
-    int current_piece_pos= getPosition(indice_current_piece);
+    int current_piece_pos= searchPosition(indice_current_piece);
     int current_x= current_piece_pos % get_width();
     int current_y= current_piece_pos / get_width();
 
@@ -489,10 +444,10 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
     return nb_errors;
 }
 
-int Configuration::isBestPlaced(int current_piece_id){
-    std::pair<int, int> coord_current_piece= getCase(current_piece_id);
-    int current_piece_x= coord_current_piece.first;
-    int current_piece_y= coord_current_piece.second;
+int Configuration::isBestPlaced(int piece_id){
+    Coordinates coord_current_piece= getPosition(piece_id);
+    int current_piece_x= coord_current_piece.row;
+    int current_piece_y= coord_current_piece.col;
 
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
     const Piece& current_piece= getPiece(current_piece_x, current_piece_y);

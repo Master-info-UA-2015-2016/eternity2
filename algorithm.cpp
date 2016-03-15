@@ -3,11 +3,11 @@
 using namespace std;
 
 int Algorithm::vicinity(const Configuration & C1, const Configuration & C2) {
-    assert(C1.getPositions().size() == C2.getPositions().size());
+    assert(C1.get_ids_and_rots().size() == C2.get_ids_and_rots().size());
     int vicinity = 0;
 
-    for(unsigned int i=0 ; i<C1.getPositions().size() ; i++) {
-        if(C1.getPositions().at(i).first == C2.getPositions().at(i).first)
+    for(unsigned int i=0 ; i<C1.get_ids_and_rots().size() ; i++) {
+        if(C1.get_ids_and_rots().at(i).first == C2.get_ids_and_rots().at(i).first)
             vicinity++;
     }
     return vicinity;
@@ -133,12 +133,18 @@ Configuration * Algorithm::local_search(const Configuration * config) {
 Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 {
     Configuration* solution = new Configuration(instance);
-//    Board tmp_board = new Board(solution);
+    bool has_first_corner= false;
 
     list<Piece> available_pieces;
 
     for(const Piece & p : *(solution->getPieces())) {
-        available_pieces.push_back(p);
+        if (p.isCorner() && !has_first_corner){
+            solution->placeCorner(p.get_id(), 0,0);
+            has_first_corner= true;
+        }
+        else {
+            available_pieces.push_back(p);
+        }
     }
 
     // Parcours du tableau @SEE si on l'améliore en escargot

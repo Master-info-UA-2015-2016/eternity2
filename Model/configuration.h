@@ -11,6 +11,7 @@
 #include "debug.h"
 
 #include "instance.h"
+#include "coordinates.h"
 
 #define id first
 #define rot second
@@ -26,7 +27,7 @@ class Configuration
 {
 private:
     const Instance* instance;
-    std::vector<std::pair<int, int> > positions;
+    std::vector<std::pair<int, int> > ids_and_rots;
 
 public:
     /**
@@ -50,8 +51,18 @@ public:
      */
     int get_width()     const { assert(instance != NULL); return instance->get_width(); }
 
-    const std::vector<std::pair<int, int> >& getPositions() const
-        {return positions;}
+    /**
+     * Récupération de l'ensemble des pièces
+     * @return le vecteur de pièce de l'instance
+     */
+    const std::vector<Piece> * getPieces() const
+        { return instance->get_pieces(); }
+    /**
+     * Récupération des ids et rotation des pièces
+     * @return attribut ids_and_rots
+     */
+    const std::vector<std::pair<int, int> >& get_ids_and_rots() const
+        {return ids_and_rots;}
 
     /**
      * Récupération de la paire en position (x, y)
@@ -78,32 +89,58 @@ public:
     const Piece & getPiece(int id) const;
 
     /**
-     * Récupération de l'ensemble des pièces
-     * @return vector<Piece *>
+     * Retourne les coordonnées de la case qui contient la pièce portant l'id
+     * @param id : int
+     * @return pair<int, int>
      */
-    const std::vector<Piece> * getPieces() const
-        { return instance->get_pieces(); }
+    Coordinates& getPosition(int id) const;
 
+    /*** Placement des pièces ***/
+    /**
+     * Ajout d'une position
+     * @param position
+     */
+    void placePiece(std::pair<int, int> piece){ ids_and_rots.push_back(piece); }
+
+    void placePiece(const Piece & piece, int rotation) { ids_and_rots.push_back(std::make_pair(piece.get_id(), rotation)); }
+
+    /**
+     * Retrait de la dernière position
+     */
+    void removePiece() { ids_and_rots.pop_back(); }
+
+    /**
+     * Mutateur de la position (x,y)
+     * @param x : int
+     * @param y : int
+     * @param pos : pair<int, int>
+     */
+    void setPiece(int x, int y, std::pair<int, int> pos);
+
+    /**
+     * @brief permutation_two_pieces
+     * @param indice_piece_1
+     * @param indice_piece_2
+     * @author GARNIER Antoine
+     */
+    int permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
+
+    /*** Recherche des pièces ***/
     /**
      * Retourne la position dans le vecteur de positions de la piece P
      * @param p : Piece
      * @return position : p
      */
-    int getPosition(const Piece &p) const;
+    int searchPosition(const Piece &p) const;
 
     /**
      * Récupération de la position dans le vecteur de positions de la pièce portant l'id
      * @param id : int
      * @return position : int
      */
-    int getPosition(const int id) const;
+    int searchPosition(const int id) const;
 
-    /**
-     * Retourne les coordonnées de la case qui contient la pièce portant l'id
-     * @param id : int
-     * @return pair<int, int>
-     */
-    std::pair<int, int> getCase(int id) const;
+    /*** Recupération des motifs ***/
     /**
      * Récupération du motif pivoté en position (x, y)
      * @param x : X
@@ -118,26 +155,17 @@ public:
      */
     PairColors * getRotatedMotif(int pos) const;
 
-    /**
-     * Ajout d'une position
-     * @param position
-     */
-    void placePiece(std::pair<int, int> piece){ positions.push_back(piece); }
-
-    void placePiece(const Piece & piece, int rotation) { positions.push_back(std::make_pair(piece.get_id(), rotation)); }
+    /*** Affichage ***/
 
     /**
-     * Retrait de la dernière position
+     * Impression sur un flux de l'instance
+     * @param out
+     * @return le flux donné en paramètre avec l'instance 'imprimé'
      */
-    void removePiece() { positions.pop_back(); }
+    std::ostream& print(std::ostream& out) const;
 
-    /**
-     * Mutateur de la position (x,y)
-     * @param x : int
-     * @param y : int
-     * @param pos : pair<int, int>
-     */
-    void setPiece(int x, int y, std::pair<int, int> pos);
+    friend std::ostream& operator<<(std::ostream& out, const Configuration& r)
+    { return r.print(out); }
 
     /**
      * Rotation de la pièce en position (x,y) de 90, 180, 270, 360
@@ -151,17 +179,7 @@ public:
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
      */
-    bool isValid() { return (unsigned)(instance->get_width()* instance->get_height()) == positions.size(); }
-
-    /**
-     * Impression sur un flux de l'instance
-     * @param out
-     * @return le flux donné en paramètre avec l'instance 'imprimé'
-     */
-    std::ostream& print(std::ostream& out) const;
-
-    friend std::ostream& operator<<(std::ostream& out, const Configuration& r)
-    { return r.print(out); }
+    bool isValid() { return (unsigned)(instance->get_width()* instance->get_height()) == ids_and_rots.size(); }
 
     /**
      * Chargement d'un graphe sous forme de matrice
@@ -170,11 +188,6 @@ public:
      * @return
      */
     bool tryLoadFile(const std::string& fileName);
-
-    /**
-     * Création des placements aléatoires des pièces (nécessaire pour l'affichage)
-     */
-    void randomConfiguration();
 
     /**
      * @brief get_rotated_motifs
@@ -223,7 +236,7 @@ public:
      * @param second_motif
      * @return vrai si les 2 motifs sont identiques et ne sont pas noirs
      */
-    bool motifs_match(PairColors first_motif, PairColors second_motif) const;
+    static bool motifs_match(PairColors first_motif, PairColors second_motif);
 
 
     // ############################################## //
@@ -234,7 +247,6 @@ public:
     //  Définies dans configuration_functions.cpp
     // ############################################## //
     // ############################################## //
-
     /**
      * Récupération des ids des cases adjacents à la position (x, y)
      * @param x : int
@@ -244,6 +256,20 @@ public:
     std::vector<std::pair<int, int>>& getAdjacents(int x, int y) const;
 
 /*** GENERATION DE CONFIGURATIONS   ***/
+    /**
+     * Place une pièce, qui doit être un coin, dans un coin définit,
+     *  tourne la pièce si nécessaire
+     * @param p_id  id de la pièce
+     * @param p_rot rotation de la pièce
+     * @param col   colonne du coin (première ou dernière)
+     * @param row   ligne du coin (première ou dernière)
+     */
+    bool placeCorner(int p_id, int col, int row);
+
+    /**
+     * Création des placements aléatoires des pièces (nécessaire pour l'affichage)
+     */
+    void randomConfiguration();
 
     /**
      * Génération de configurations aléatoires à partir de l'instance
@@ -261,7 +287,7 @@ public:
      * @return int
      * @author FOURMOND Jérôme
      */
-    int constraintRowsXtrem() const;
+    int nbErrorsRowsXtrem() const;
 
     /**
      * La pièce située en (x,y) respecte-t-elle la contrainte de lignes extrèmes ?
@@ -270,7 +296,7 @@ public:
      * @return boolean
      * @author FOURMOND Jérôme
      */
-    bool isConstraintRowsXtremRespected(int x, int y) const;
+    bool areConstraintRowsXtremRespected(int x, int y) const;
 
     /**
      * Compte des erreurs de contraintes de colonnes
@@ -286,14 +312,14 @@ public:
      * @return boolean
      * @author FOURMOND Jérôme
      */
-    bool isConstraintColsXtremRespected(int x, int y) const;
+    bool areConstraintColsXtremRespected(int x, int y) const;
 
     /**
      * Compte des erreurs de contraintes d'angles
      * @return int
      * @author FOURMOND Jérôme
      */
-    int constraintEdges() const;
+    int nbErrorsCorners() const;
 
     /**
      * La pièce située en (x,y) respecte-t-elle la contrainte d'angles ?
@@ -302,14 +328,14 @@ public:
      * @return boolean
      * @author FOURMOND Jérôme
      */
-    bool isConstraintEdgesRespected(int x, int y) const;
+    bool areConstraintEdgesRespected(int x, int y) const;
 
     /**
      * Compte les erreurs de contraintes d'adjacences
      * @return int
      * @author FOURMOND Jérome
      */
-    int constraintAdjacences() const;
+    int nbErrorsAdjacences() const;
 
     /**
      * La pièce située en (x,y) s'accorde-t-elle correctement à ses voisins ?
@@ -318,7 +344,7 @@ public:
      * @return boolean
      * @author FOURMOND Jérome
      */
-    bool isConstraintAdjacencesRespected(int x, int y) const;
+    bool areConstraintAdjacencesRespected(int x, int y) const;
 
 /*** VERIFICATION DES ERREURS   ***/
     /**
@@ -355,7 +381,7 @@ public:
       * @return Le nombre d'erreurs lié à une piece ayant subit une rotation de val_rot
       * @author GARNIER Antoine
       */
-    int isBestPlaced(int current_piece_id);
+    int isBestPlaced(int piece_id);
 
 
 //    Essais d'ajout de pièce dans la configuration     //

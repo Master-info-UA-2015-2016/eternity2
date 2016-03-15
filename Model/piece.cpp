@@ -10,14 +10,14 @@ Piece::Piece(int _id, PairColors tab[]) :
     }
 }
 
-bool Piece::isEdge() {
+bool Piece::isCorner() const {
     int count_black = 0;
     for(int i=0 ; i<MAX_CARD ; ++i)
         if(motif[i] == 0) count_black++;
     return count_black==2;
 }
 
-bool Piece::isBorder() {
+bool Piece::isEdge() const {
     int count_black = 0;
     for(int i=0 ; i<MAX_CARD ; ++i)
         if(motif[i] == 0) count_black++;

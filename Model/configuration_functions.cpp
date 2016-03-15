@@ -39,6 +39,82 @@ vector<pair<int, int>>& Configuration::getAdjacents(int x, int y) const {
     return swne;
 }
 
+bool Configuration::placeCorner(int p_id, int col, int row){
+    int p_rot= 0;
+    placePiece(make_pair(p_id, p_rot));
+    // Bonne rotation
+    for (p_rot= 1; p_rot < 4 && !areConstraintEdgesRespected(col, row); ++p_rot){
+        setPiece(col, row, make_pair(p_id, ++p_rot));
+    }
+
+    if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :
+        cerr << "Impossible de placer la pièce dans le coin"<< endl;
+        return false;
+    }
+    else return true;
+}
+
+void Configuration::randomConfiguration() {
+
+//    Tri des pièces par position possible : coins, bords, centre
+    vector<int> edge_pieces;
+    vector<int> corner_pieces;
+    vector<int> pieces_remaining;
+
+    // Travail uniquement sur l'id des pieces
+    for(const Piece& piece : (*getPieces()) ) {
+        if(piece.isEdge())
+            edge_pieces.push_back(piece.get_id());
+        else if(piece.isCorner())
+            corner_pieces.push_back(piece.get_id());
+        else
+            pieces_remaining.push_back(piece.get_id());
+    }
+
+    // Mélange aléatoire
+    random_shuffle(edge_pieces.begin(), edge_pieces.end());
+    random_shuffle(corner_pieces.begin(), corner_pieces.end());
+    random_shuffle(pieces_remaining.begin(), pieces_remaining.end());
+
+//    Placement des pièces
+    int p_rot;
+    int p_id;
+    for(int i=0 ; i<get_height() ; i++) {
+        for(int j=0 ; j<get_width() ; j++) {
+            p_rot = 0;
+            // On vérifie si l'on est dans un coin
+            if( (j == 0 && (i ==0 || i==get_height()-1)) || // Première colonne
+                    (j==get_width()-1 && (i==0 || i==get_height()-1)) ) { // Dernière colonne
+                // Angles
+                p_id = corner_pieces.back();
+                corner_pieces.pop_back();
+
+                cout << "randomConfiguration() : placement pièce dans un coin ;"<< endl;
+                cout << "("<< j<< ","<< i<< ")"<< endl;
+
+                placeCorner(p_id, j, i);
+            } else if(j == 0 || i == 0 || j == get_width()-1 || i == get_height()-1){
+                // Border
+                p_id = edge_pieces.back();
+                edge_pieces.pop_back();
+                placePiece(make_pair(p_id, p_rot));
+                // Bonne rotation
+                while(!areConstraintRowsXtremRespected(j,i) || !areConstraintColsXtremRespected(j,i)) {
+                    setPiece(j, i, make_pair(p_id, ++p_rot));
+                }
+            } else {
+                // Autre
+                p_id = pieces_remaining.back();
+                pieces_remaining.pop_back();
+                // Rotation aléatoire
+                p_rot = rand() % 4;
+                // Ajout de la pair
+                placePiece(make_pair(p_id, p_rot));
+            }
+        }
+    }
+}
+
 vector<Configuration*>&  Configuration::generateRandomConfigurations(const Instance * instance, int limit) {
     vector<Configuration*>& configurations= *(new vector<Configuration*>);
 
@@ -112,7 +188,7 @@ int Configuration::countNbErrors() const{
     return nb_errors;
 }
 
-int Configuration::constraintRowsXtrem() const {
+int Configuration::nbErrorsRowsXtrem() const {
     int errors = 0;
     const PairColors* swne;
     // Vérification de la première ligne (Contrainte Ligne Nord)
@@ -142,18 +218,21 @@ int Configuration::constraintRowsXtrem() const {
     return errors;
 }
 
-bool Configuration::isConstraintRowsXtremRespected(int x, int y) const {
-    const PairColors* swne;
+bool Configuration::areConstraintRowsXtremRespected(int x, int y) const {
     if(y != 0 && y != get_height()-1)
         return true;
     else {
         const pair<int, int> & pair = getPair(x, y);
         const Piece & piece = getPiece(x, y);
-        swne = piece.rotate(pair.second);
+
+        int p_rot= pair.rot;
+        const PairColors* swne;
+        swne= piece.rotate(p_rot);
+
         if(y == 0)
-            return swne[2] == 0 && !(swne[1] == 0 || swne[1] == 0 || swne[3] == 0);
+            return swne[North] == Black_Black && !(swne[South] == Black_Black || swne[West] == Black_Black || swne[East] == Black_Black);
         else if(y == get_height()-1)
-            return swne[0] == 0 && !(swne[1] == 0 || swne[2] == 0 || swne[3] == 0);
+            return swne[South] == Black_Black && !(swne[West] == Black_Black || swne[North] == Black_Black || swne[East] == Black_Black);
         return false;
     }
 }
@@ -189,7 +268,7 @@ int Configuration::constraintColsXtrem() const {
 
 }
 
-bool Configuration::isConstraintColsXtremRespected(int x, int y) const {
+bool Configuration::areConstraintColsXtremRespected(int x, int y) const {
     const PairColors * swne;
     if(x != 0 && x != get_width()-1)
         return true;
@@ -198,14 +277,14 @@ bool Configuration::isConstraintColsXtremRespected(int x, int y) const {
         const Piece & piece = getPiece(x, y);
         swne = piece.rotate(pair.second);
         if(x == 0)
-            return swne[1] == 0 && !(swne[0] == 0 || swne[2] == 0 || swne[3] == 0);
+            return swne[West] == Black_Black && !(swne[0] == 0 || swne[2] == 0 || swne[3] == 0);
         else if(x == get_width()-1)
-            return swne[3] == 0 && !(swne[0] == 0 || swne[1] == 0 || swne[2] == 0);
+            return swne[East] == Black_Black && !(swne[0] == 0 || swne[1] == 0 || swne[2] == 0);
         return false;
     }
 }
 
-int Configuration::constraintEdges() const {
+int Configuration::nbErrorsCorners() const {
     int errors = 0;
     const PairColors * swne;
     pair<int, int> pair;
@@ -253,9 +332,9 @@ int Configuration::constraintEdges() const {
     return errors;
 }
 
-bool Configuration::isConstraintEdgesRespected(int x, int y) const {
+bool Configuration::areConstraintEdgesRespected(int x, int y) const {
     const pair<int, int> & pair = getPair(x, y);
-    const Piece & piece = getPiece(x, y);
+    const Piece & piece = getPiece(pair.id);
     const PairColors * swne = piece.rotate(pair.second);
     if(x == 0 && y == 0)
         return swne[West] == 0 && swne[North] == 0;
@@ -268,11 +347,11 @@ bool Configuration::isConstraintEdgesRespected(int x, int y) const {
     return true;
 }
 
-int Configuration::constraintAdjacences() const {
+int Configuration::nbErrorsAdjacences() const {
     int n = 0;
     for(int j=0 ; j<get_height() ; j++) {
         for(int i=0 ; i<get_width() ; i++) {
-            if(!isConstraintAdjacencesRespected(i, j)) {
+            if(!areConstraintAdjacencesRespected(i, j)) {
 #if DEBUG_CONSTRAINT
                 cout << "Mauvaise adjacences en (" << i << "," << j << ")" << endl;
 #endif
@@ -284,7 +363,7 @@ int Configuration::constraintAdjacences() const {
 }
 
 
-bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
+bool Configuration::areConstraintAdjacencesRespected(int x, int y) const {
     pair<int, int> piece = getPair(x, y);
     PairColors * swne = getPiece(piece.first).rotate(piece.second);
 
@@ -314,13 +393,13 @@ int Configuration::misplacedPieces() {
             pair<int, int> p = getPair(i, j);
             // Vérification d'Angles
             if((j == 0 && i == 0)||(j== 0 && i == get_width()-1)||(j==get_height()-1 && i==0)||(j==get_height()-1 && i==get_width()-1)) {
-                 if(!isConstraintEdgesRespected(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!areConstraintEdgesRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Lignes
             } else if(j == 0 || j == get_height()-1) {
-                 if(!isConstraintRowsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!areConstraintRowsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Colonnes
             } else if(i == 0 || i == get_width()-1) {
-                 if(!isConstraintColsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!areConstraintColsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification des autres (devraient-elles être sur les bords ?)
             } else {
                  Piece piece = getPiece(i, j);
@@ -360,15 +439,15 @@ int Configuration::misplacedPieces() {
             pair<int, int> p_k = p_SWNE[k];
             if(p_k.first != 0) {
                 PairColors * swne_aux = getPiece(p_k.first).rotate(p_k.second);
-                pair<int, int> XYaux = getCase(p_k.first);
+                Coordinates XYaux = getPosition(p_k.first);
                 if(k == 0 && swne[k] != swne_aux[North])    // Les couleurs Sud-Nord sont différentes
-                    misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
+                    misplaces[XYaux.col + XYaux.row * get_width()] = p_k.first;
                 else if(k == 1 && swne[k] != swne_aux[East]) // Les couleurs Ouest-Est sont différentes
-                     misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
+                     misplaces[XYaux.col+ XYaux.row * get_width()] = p_k.first;
                 else if(k == 2 && swne[k] != swne_aux[South])   // Les couleurs Nord-Sud sont différentes
-                     misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
+                     misplaces[XYaux.col + XYaux.row* get_width()] = p_k.first;
                 else if(k == 3 && swne[k] != swne_aux[West])   // Les couleurs Est-Ouest sont différentes
-                     misplaces[XYaux.first + XYaux.second * get_width()] = p_k.first;
+                     misplaces[XYaux.col + XYaux.row * get_width()] = p_k.first;
             }
         }
     }

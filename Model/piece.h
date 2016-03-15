@@ -53,19 +53,19 @@ public:
         motif[West]= west_motif;
         motif[North]= north_motif;
         motif[East]= east_motif;
-    };
+    }
 
     /**
      * La pièce doit-elle être placée dans un coin ?
      * @return boolean
      */
-    bool isEdge();
+    bool isCorner() const;
 
     /**
      * La pièce doit-elle être placée sur un rebord ?
      * @return
      */
-    bool isBorder();
+    bool isEdge() const;
 
     /**
      * Impression sur un flux de l'instance
