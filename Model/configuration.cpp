@@ -1,4 +1,4 @@
-#include "configuration.h"
+﻿#include "configuration.h"
 
 using namespace std;
 
@@ -23,24 +23,21 @@ Configuration::Configuration(const Configuration &C) {
 }
 
 const pair<int, int>& Configuration::getPair(int x, int y) const {
-    // Pair à retourner
-    // Cas où on essaye d'atteindre une pièce à l'extérieur du bord du plateau
+    // Cas où on essaye d'atteindre une pièce à en dehors des bords du plateau ou du plateau
     if(x < -1 || x > get_width() || y < -1 || y > get_height()) {
-        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
+        cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ")) " << endl;
         throw out_of_range("getPair");
     }
-    // Cas où on essaye d'atteindre une cellule en dehors du plateau qui n'est pas un bord
-    //  ou alors qu'on essaye d'atteindre une cellule qui n'est pas encore initialisée
+    // Cas où on essaye d'atteindre une cellule sur un bord du plateau
+    //  ou alors qu'on essaye d'atteindre une cellule sans pièce
     else if(x == -1 || x == get_width() || y == -1 || y == get_height() ||
-            ( (x+y*instance->get_width()) < (signed) ids_and_rots.size() )) {
+            ( (x+y*instance->get_width()) >= (signed) ids_and_rots.size() )) {
         return *(new pair<int, int>(0, -1));
     }
-    // Cas où on essaye d'atteindre une position sans pièce
     else {
         pair<int, int>* id_and_rot = new pair<int, int>(ids_and_rots[x + y * instance->get_width()]);
         return *id_and_rot;
     }
-
 }
 
 const Piece & Configuration::getPiece(int x, int y) const {
