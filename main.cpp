@@ -17,17 +17,6 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
-    Configuration C("../eternity2/instances_puzzles/pieces_03x03.txt");
-    C.placePiece(make_pair(1, 1));
-    C.placePiece(make_pair(7, 2));
-
-    vector<pair<int, int> > pairs = C.getAdjacents(1, 0);
-
-    cout << "Test Pair" << endl;
-    for(pair<int, int> P : pairs) {
-        cout << "id adj :"<< (P.first) << endl;
-    }
-
     MainWindow window;
     if (window.init_configuration("../eternity2/instances_puzzles/pieces_03x03.txt")) {
         window.testShowConfig();

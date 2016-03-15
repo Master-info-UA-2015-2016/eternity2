@@ -33,7 +33,8 @@ const pair<int, int>& Configuration::getPair(int x, int y) const {
         cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
         throw out_of_range("getPair");
     }
-    if (x+y*instance->get_width() <= (signed) positions.size())
+    // Cas où on essaye d'atteindre une position sans pièce
+    else if((x+y*instance->get_width()) >= (signed) positions.size())
         return make_pair(0, -1);
     const pair<int, int>& position = positions[x + y * instance->get_width()];
     return position;
