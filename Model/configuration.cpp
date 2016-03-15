@@ -34,8 +34,10 @@ const pair<int, int>& Configuration::getPair(int x, int y) const {
         throw out_of_range("getPair");
     }
     // Cas où on essaye d'atteindre une position sans pièce
-    else if((x+y*instance->get_width()) >= (signed) positions.size())
-        return make_pair(0, -1);
+    else if((x+y*instance->get_width()) >= (signed) positions.size()) {
+        const pair<int, int>& position = make_pair(0, -1);
+        return position;
+    }
     const pair<int, int>& position = positions[x + y * instance->get_width()];
     return position;
 }

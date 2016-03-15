@@ -392,8 +392,10 @@ int Configuration::misplacedPieces() {
     return n;
 }
 
-bool Configuration::canBePlaced(Piece &piece, int rotation) const {
+bool Configuration::canBePlaced(const Piece &piece, int rotation) const {
     PairColors* colors = piece.rotate(rotation);
+
+    cout << colors[0] << endl;
 
     int current_case = instance->get_pieces()->size();
 
@@ -419,10 +421,12 @@ bool Configuration::canBePlaced(Piece &piece, int rotation) const {
                 return false;
         }
     }
+    // Pas de soucis d'adjacences, mais est-ce que l'emplacement est compatible avec les bordures ou l'angle ?
+
     return true;
 }
 
-bool Configuration::tryPlaceAtEnd(Piece &piece)
+bool Configuration::tryPlaceAtEnd(const Piece &piece)
 {
     bool is_placed= false;
 
@@ -431,13 +435,12 @@ bool Configuration::tryPlaceAtEnd(Piece &piece)
         if (canBePlaced(piece, rotation)) {
             // Elle peut être ajoutée, donc on la place
             placePiece(piece, rotation);
+#if DEBUG_CSP
+            cout << "Pièce d'id "<< piece.get_id()<<" placée avec rotation de "<< rotation << endl;
+#endif
             is_placed = true;
         }
     }
-
-#if DEBUG_CSP
-    cout << "Pièce d'id "<< piece.get_id()<<" placée avec rotation de "<< rotation<< endl;
-#endif
 
     return is_placed;
 }

@@ -365,7 +365,7 @@ public:
      * @param rotation valeur de rotation de la pièce, comprise entre 0 et 3
      * @return false si la pièce n'est pas appareible avec les pièces déjà présentes
      */
-    bool canBePlaced(Piece& piece, int rotation) const;
+    bool canBePlaced(const Piece& piece, int rotation) const;
 
     /**
      * Essai de placer une pièce à la suite des autres :
@@ -373,7 +373,7 @@ public:
      * @param piece pièce à placer dans le plateau
      * @return false si on n'a pas réussi à placer la pièce
      */
-    bool tryPlaceAtEnd(Piece& piece);
+    bool tryPlaceAtEnd(const Piece& piece);
 };
 
 #endif // CONFIGURATION_H

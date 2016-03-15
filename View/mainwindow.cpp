@@ -64,7 +64,14 @@ bool MainWindow::init_configuration(std::string instance_filename)
         cout << "\tContraintes d'adjacences->"  << config->constraintAdjacences() << endl;
 #endif
 #if DEBUG_CSP
+        Configuration C("../eternity2/instances_puzzles/pieces_03x03.txt");
+        cout << "Ca passe  ?" << endl;
+        cout << C.tryPlaceAtEnd(instance->getPiece(1)) << endl;
+
         Configuration * CSP = Algorithm::resolveWithCSP(instance);
+        cout << "##########\tCSP\t##########" << endl;
+        cout << (*CSP) << endl;
+        cout << "##########\tFIN CSP\t##########" << endl;
         Board* board_final= new Board(CSP);
         BoardWidget* res_board= new BoardWidget(NULL, board_final);
         res_board->show();
