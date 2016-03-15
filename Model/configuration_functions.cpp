@@ -392,12 +392,10 @@ int Configuration::misplacedPieces() {
     return n;
 }
 
-bool Configuration::canBePlaced(const Piece &piece, int rotation) const {
+bool Configuration::canBePlaced(const Piece & piece, int rotation) {
     PairColors* colors = piece.rotate(rotation);
 
-    cout << colors[0] << endl;
-
-    int current_case = instance->get_pieces()->size();
+    int current_case = positions.size();
 
     int x = current_case % get_width();
     int y = current_case / get_width();
@@ -422,6 +420,7 @@ bool Configuration::canBePlaced(const Piece &piece, int rotation) const {
         }
     }
     // Pas de soucis d'adjacences, mais est-ce que l'emplacement est compatible avec les bordures ou l'angle ?
+    // TODO appliquer les fonctions de contraintes sur la position ?
 
     return true;
 }

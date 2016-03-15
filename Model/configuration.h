@@ -122,7 +122,7 @@ public:
      * Ajout d'une position
      * @param position
      */
-    void placePiece(std::pair<int, int> piece){ positions.push_back(piece); }
+    void placePiece(std::pair<int, int> piece) { positions.push_back(piece); }
 
     void placePiece(const Piece & piece, int rotation) { positions.push_back(std::make_pair(piece.get_id(), rotation)); }
 
@@ -365,7 +365,7 @@ public:
      * @param rotation valeur de rotation de la pièce, comprise entre 0 et 3
      * @return false si la pièce n'est pas appareible avec les pièces déjà présentes
      */
-    bool canBePlaced(const Piece& piece, int rotation) const;
+    bool canBePlaced(const Piece& piece, int rotation);
 
     /**
      * Essai de placer une pièce à la suite des autres :
