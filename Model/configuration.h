@@ -181,7 +181,7 @@ public:
      * @param current_piece_indice
      * @return
      */
-    PairColors* get_rotated_motifs(int current_piece_indice) const;
+    PairColors* get_rotated_motifs(int piece_indice) const;
 
     /**
      * Récupère le motif Nord de la pièce au sud de la piece courante tournée
@@ -199,7 +199,7 @@ public:
     PairColors& getWestMotifEastPiece(int current_piece_indice) const;
 
     /**
-     * @brief getClosePiece
+     * TODO @AsCris COMMENTER !!
      * @param current_piece
      * @param neightboor_card : piece voisine de current_piece
      * @return La piece voisine de current_piece
@@ -208,7 +208,7 @@ public:
     const Piece& getClosePiece(int current_piece, Cardinal neightboor_card) const;
 
     /**
-     * @brief getMotifPiece
+     * TODO @AsCris COMMENTER !!!
      * @param current_piece
      * @param motif_card : Motif de la piece voisine de la piece courante
      * @param neightboor_card : Cardinalite de la piece voisine de la piece courante a prendre en compte
@@ -241,7 +241,7 @@ public:
      * @param y : int
      * @return int[4]
      */
-    std::vector<std::pair<int, int>> getAdjacent(int x, int y) const;
+    std::vector<std::pair<int, int>>& getAdjacents(int x, int y) const;
 
 /*** GENERATION DE CONFIGURATIONS   ***/
 
@@ -364,7 +364,6 @@ public:
      * @param piece pièce que l'on essaie de placer
      * @param rotation valeur de rotation de la pièce, comprise entre 0 et 3
      * @return false si la pièce n'est pas appareible avec les pièces déjà présentes
-     * TODO à faire dans configuration_functions.cpp
      */
     bool canBePlaced(Piece& piece, int rotation) const;
 

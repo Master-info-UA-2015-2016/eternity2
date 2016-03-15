@@ -37,6 +37,7 @@ public:
      *
      */
     int get_id() const  { return id; }
+
     const PairColors* get_motif() const   { return motif; }
 
     /**

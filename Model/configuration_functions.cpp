@@ -3,8 +3,8 @@
 using namespace std;
 
 
-vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
-    vector<pair<int, int> > swne(4);
+vector<pair<int, int>>& Configuration::getAdjacents(int x, int y) const {
+    vector<pair<int, int> >& swne= *(new vector<pair<int, int> >(4));
 
     pair<int, int> pos;
     // Récupération Sud
@@ -12,7 +12,6 @@ vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
         pos = getPair(x, y+1);
     } catch ( const std::exception & e ) {
         cerr << "Récupération Ouest" << endl;
-        pos = make_pair(-1,-1);
     }
     swne[0] = pos;
     // Récupération Est
@@ -20,7 +19,6 @@ vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
         pos = getPair(x-1, y);
     } catch ( const std::exception & e ) {
         cerr << "Récupération Est" << endl;
-        pos = make_pair(-1,-1);
     }
     swne[1] = pos;
     // Récupération Nord
@@ -28,7 +26,6 @@ vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
         pos = getPair(x, y-1);
     } catch ( const std::exception & e ) {
         cerr << "Récupération Nord" << endl;
-        pos = make_pair(-1,-1);
     }
     swne[North] = pos;
     // Récupération Ouest
@@ -36,7 +33,6 @@ vector<pair<int, int>> Configuration::getAdjacent(int x, int y) const {
         pos = getPair(x+1, y);
     } catch ( const std::exception & e ) {
         cerr << "Récupération Ouest" << endl;
-        pos = make_pair(-1,-1);
     }
     swne[3] = pos;
 
@@ -54,6 +50,66 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
     }
 
     return configurations;
+}
+
+
+int Configuration::countNbErrors() const{
+    int nb_errors= 0;
+
+    int begin_last_raw= get_height()*get_width() -get_width(); // première case de la derniere ligne
+
+    // Parcours de toutes les cases du plateau, dernière case exceptée
+    for(int i=0; i < (get_height()*get_width()-1); ++i){
+        int current_x= i % get_width();
+//        int current_y= i / get_width();
+
+        PairColors current_piece_east_motif= getRotatedMotif(i)[East];
+        PairColors current_piece_south_motif= getRotatedMotif(i)[South];
+
+        #if DEBUG_CHECK_PIECES
+        cout << "Piece n°" << i << endl;
+        #endif
+
+        //derniere colonne
+        if(current_x == get_width()-1){
+            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
+            if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
+                #if DEBUG_CHECK_PIECES
+                cout << "Erreur piece COURANTE - piece SUD" << endl;
+                #endif
+                ++nb_errors;
+            }
+        }
+        //derniere ligne
+        else if(i >= begin_last_raw){
+            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
+            if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
+                #if DEBUG_CHECK_PIECES
+                cout << "Erreur piece COURANTE - piece EST" << endl;
+                #endif
+                ++nb_errors;
+            }
+        }
+        //ni derniere ligne ni derniere colonne
+        else {
+            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
+            if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
+                #if DEBUG_CHECK_PIECES
+                cout << "Erreur piece COURANTE - piece SUD" << endl;
+                #endif
+                ++nb_errors;
+            }
+
+            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
+            if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
+                #if DEBUG_CHECK_PIECES
+                cout << "Erreur piece COURANTE - piece EST" << endl;
+                #endif
+                ++nb_errors;
+            }
+        }
+    }
+    return nb_errors;
 }
 
 int Configuration::constraintRowsXtrem() const {
@@ -232,7 +288,7 @@ bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
     pair<int, int> piece = getPair(x, y);
     PairColors * swne = getPiece(piece.first).rotate(piece.second);
 
-    vector<pair<int, int> > p_SWNE = getAdjacent(x, y);
+    vector<pair<int, int> > p_SWNE = getAdjacents(x, y);
     for(int i = 0 ; i<4 ; i++) {
         pair<int, int> p_i = p_SWNE[i];
         if(p_i.first != 0) {
@@ -315,7 +371,7 @@ int Configuration::misplacedPieces() {
         pair<int, int> piece = getPair(well_placed.first, well_placed.second);
         PairColors * swne = getPiece(piece.first).rotate(piece.second);
 
-        vector<pair<int, int> > p_SWNE = getAdjacent(well_placed.first, well_placed.second);
+        vector<pair<int, int> > p_SWNE = getAdjacents(well_placed.first, well_placed.second);
         for(int k = 0 ; k<4 ; k++) {
             pair<int, int> p_k = p_SWNE[k];
             if(p_k.first != 0) {
@@ -350,6 +406,25 @@ int Configuration::misplacedPieces() {
 #endif
 
     return n;
+}
+
+bool Configuration::canBePlaced(Piece &piece, int rotation) const {
+    PairColors* colors = piece.rotate(rotation);
+
+//    instance->get_pieces()->size();
+//    int x
+//    int y
+//   adjacents= getAdjacents()
+
+        // vérifier que que l'id est != 0
+//        PairColors* other_couleurs =get_rotated_motifs(/*id adjacent*/);
+//    if (other_couleurs[] == colors[4]){
+
+//    }
+
+
+
+
 }
 
 bool Configuration::tryPlaceAtEnd(Piece &piece)

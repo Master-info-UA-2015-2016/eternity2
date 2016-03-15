@@ -33,6 +33,8 @@ const pair<int, int>& Configuration::getPair(int x, int y) const {
         cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ") (renvoie d'une pair(0,-1)) " << endl;
         throw out_of_range("getPair");
     }
+    if (x+y*instance->get_width() <= (signed) positions.size())
+        return make_pair(0, -1);
     const pair<int, int>& position = positions[x + y * instance->get_width()];
     return position;
 }
@@ -250,11 +252,11 @@ void Configuration::randomConfiguration() {
     }
 }
 
-PairColors* Configuration::get_rotated_motifs(int current_piece_indice) const{
-    const Piece& current_piece= instance->getPiece(current_piece_indice);
-    int rotation = positions[getPosition(current_piece)].second;
+PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
+    const Piece& piece= instance->getPiece(piece_indice);
+    int rotation = positions[getPosition(piece)].second;
 
-    return current_piece.rotate(rotation);
+    return piece.rotate(rotation);
 }
 
 PairColors &Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
@@ -331,64 +333,6 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
 //    return true;
 }
 
-int Configuration::countNbErrors() const{
-    int nb_errors= 0;
-
-    int begin_last_raw= get_height()*get_width() -get_width(); // première case de la derniere ligne
-
-    // Parcours de toutes les cases du plateau, dernière case exceptée
-    for(int i=0; i < (get_height()*get_width()-1); ++i){
-        int current_x= i % get_width();
-//        int current_y= i / get_width();
-
-        PairColors current_piece_east_motif= getRotatedMotif(i)[East];
-        PairColors current_piece_south_motif= getRotatedMotif(i)[South];
-
-        #if DEBUG_CHECK_PIECES
-        cout << "Piece n°" << i << endl;
-        #endif
-
-        //derniere colonne
-        if(current_x == get_width()-1){
-            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
-            if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
-                #if DEBUG_CHECK_PIECES
-                cout << "Erreur piece COURANTE - piece SUD" << endl;
-                #endif
-                ++nb_errors;
-            }
-        }
-        //derniere ligne
-        else if(i >= begin_last_raw){
-            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
-            if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
-                #if DEBUG_CHECK_PIECES
-                cout << "Erreur piece COURANTE - piece EST" << endl;
-                #endif
-                ++nb_errors;
-            }
-        }
-        //ni derniere ligne ni derniere colonne
-        else {
-            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
-            if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
-                #if DEBUG_CHECK_PIECES
-                cout << "Erreur piece COURANTE - piece SUD" << endl;
-                #endif
-                ++nb_errors;
-            }
-
-            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
-            if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
-                #if DEBUG_CHECK_PIECES
-                cout << "Erreur piece COURANTE - piece EST" << endl;
-                #endif
-                ++nb_errors;
-            }
-        }
-    }
-    return nb_errors;
-}
 
 
 bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece){

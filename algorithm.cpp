@@ -141,7 +141,7 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
         available_pieces.push_back(p);
     }
 
-    // Parcours du tableau @SEE si on l'améliore
+    // Parcours du tableau @SEE si on l'améliore en escargot
     for (int y= 0; y < solution->get_height(); ++y){
         for (int x= 0; x < solution->get_width(); ++x){
 
