@@ -144,12 +144,10 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
     // Parcours du tableau @SEE si on l'améliore en escargot
     for (int y= 0; y < solution->get_height(); ++y){
         for (int x= 0; x < solution->get_width(); ++x){
-
             Piece& current_piece= available_pieces.front();
             available_pieces.pop_front();
-
             // Je vérifie si la pièce a été ajoutée à la suite des autres
-            if (! solution->tryPlaceAtEnd(current_piece) ){ // TODO canBePlacedAtEnd
+            if (! solution->tryPlaceAtEnd(current_piece) ){
                 // La pièce ne peut pas être ajoutée, donc on la replace à la fin
                 //  de la liste des pièces disponibles
                 available_pieces.push_back(current_piece);

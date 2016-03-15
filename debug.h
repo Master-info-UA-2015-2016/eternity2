@@ -12,11 +12,12 @@
 // mainwindow
 #define DEBUG_UI                1
 #define DEBUG_DRAW_WIDGETS      0
-#define DEBUG_SHOW_SOL_CONFIG   1
+#define DEBUG_SHOW_SOL_CONFIG   0
 #define DEBUG_SHOW_PIECES       0
 #define DEBUG_INIT_CONFIG       1
 #define DEBUG_CONSTRAINT        0
-#define DEBUG_LOCAL_SEARCH      1
+#define DEBUG_LOCAL_SEARCH      0
+#define DEBUG_CSP               1
 
 //configuration
 #define DEBUG_POS_ERRORS        1
