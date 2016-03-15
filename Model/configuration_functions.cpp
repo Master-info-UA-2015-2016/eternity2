@@ -79,8 +79,8 @@ void Configuration::randomConfiguration() {
 //    Placement des pièces
     int p_rot;
     int p_id;
-    for(int i=0 ; i<get_height() ; i++) {
-        for(int j=0 ; j<get_width() ; j++) {
+    for(int i=0 ; i<get_height() ; ++i) {
+        for(int j=0 ; j<get_width() ; ++j) {
             p_rot = 0;
             // On vérifie si l'on est dans un coin
             if( (j == 0 && (i ==0 || i==get_height()-1)) || // Première colonne
