@@ -293,30 +293,14 @@ bool Configuration::isConstraintAdjacencesRespected(int x, int y) const {
         pair<int, int> p_i = p_SWNE[i];
         if(p_i.first != 0) {
             PairColors * swne_aux = getPiece(p_i.first).rotate(p_i.second);
-            if(i == 0 && swne[i] != swne_aux[North]) {    // Les couleurs Sud-Nord sont différentes
-#if DEBUG_CONSTRAINT
-                cout << "Erreur Sud" << endl;
-#endif
+            if(i == 0 && swne[i] != swne_aux[North]) // Les couleurs Sud-Nord sont différentes
                 return false;
-            }
-            else if(i == 1 && swne[i] != swne_aux[East]) { // Les couleurs Ouest-Est sont différentes
-#if DEBUG_CONSTRAINT
-                cout << "Erreur Ouest" << endl;
-#endif
+            else if(i == 1 && swne[i] != swne_aux[East]) // Les couleurs Ouest-Est sont différentes
                 return false;
-            }
-            else if(i == 2 && swne[i] != swne_aux[South]) {   // Les couleurs Nord-Sud sont différentes
-#if DEBUG_CONSTRAINT
-                cout << "Erreur Nord" << endl;
-#endif
+            else if(i == 2 && swne[i] != swne_aux[South]) // Les couleurs Nord-Sud sont différentes
                 return false;
-            }
-            else if(i == 3 && swne[i] != swne_aux[West]) {   // Les couleurs Est-Ouest sont différentes
-#if DEBUG_CONSTRAINT
-                cout << "Erreur Est" << endl;
-#endif
+            else if(i == 3 && swne[i] != swne_aux[West]) // Les couleurs Est-Ouest sont différentes
                 return false;
-            }
         }
     }
     return true;
@@ -411,10 +395,30 @@ int Configuration::misplacedPieces() {
 bool Configuration::canBePlaced(Piece &piece, int rotation) const {
     PairColors* colors = piece.rotate(rotation);
 
-//    instance->get_pieces()->size();
-//    int x
-//    int y
-//   adjacents= getAdjacents()
+    int current_case = instance->get_pieces()->size();
+
+    int x = current_case % get_width();
+    int y = current_case / get_width();
+
+    vector<pair<int, int> > adjacents = getAdjacents(x, y);
+
+    pair<int, int> P;
+    PairColors * other_colors;
+    for(unsigned int i=0 ; i<adjacents.size() ; i++) {
+        P = adjacents[i];
+        // Si l'id est != 0 alors regarder la couleur
+        if(P.first != 0) {
+            other_colors = get_rotated_motifs(P.first);
+            if(i == 0 && colors[i] != other_colors[2]) // Les couleurs Sud-Nord sont différentes
+                return false;
+            else if(i == 1 && colors[i] != other_colors[3]) // Les couleurs Ouest-Est sont différentes
+                return false;
+            else if(i == 2 && colors[i] != other_colors[0]) // Les couleurs Nord-Sud sont différentes
+                return false;
+            else if(i == 3 && colors[i] != other_colors[1]) // Les couleurs Est-Ouest sont différentes
+                return false;
+        }
+    }
 
         // vérifier que que l'id est != 0
 //        PairColors* other_couleurs =get_rotated_motifs(/*id adjacent*/);
