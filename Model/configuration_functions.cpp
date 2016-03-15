@@ -426,15 +426,13 @@ bool Configuration::tryPlaceAtEnd(Piece &piece)
 {
     bool is_placed= false;
 
-    // TODO tester les 4 rotations
     int rotation;
     for (rotation= 0; rotation < 4 && !is_placed; ++rotation){
-        if ( canBePlaced(piece, rotation) ) {   // TODO à faire
-//            // Elle peut être ajoutée, donc on la place
-//            placePiece(piece, rotation);
-//            // La pièce est placée, cela entraîne la sortie de la boucle
-//            is_placed= true;
-//        }
+        if (canBePlaced(piece, rotation)) {
+            // Elle peut être ajoutée, donc on la place
+            placePiece(piece, rotation);
+            is_placed = true;
+        }
     }
 
 #if DEBUG_CSP
