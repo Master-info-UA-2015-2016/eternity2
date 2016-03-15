@@ -474,7 +474,7 @@ int Configuration::misplacedPieces() {
 bool Configuration::canBePlaced(const Piece & piece, int rotation) {
     PairColors* colors = piece.rotate(rotation);
 
-    int current_case = positions.size();
+    int current_case = ids_and_rots.size();
 
     int x = current_case % get_width();
     int y = current_case / get_width();

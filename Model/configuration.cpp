@@ -30,6 +30,7 @@ const pair<int, int>& Configuration::getPair(int x, int y) const {
     }
     // Cas où on essaye d'atteindre une cellule sur un bord du plateau
     //  ou alors qu'on essaye d'atteindre une cellule sans pièce
+    //      |=>(la position de la cellule est supérieure au nombre de pièce initialisées)
     else if(x == -1 || x == get_width() || y == -1 || y == get_height() ||
             ( (x+y*instance->get_width()) >= (signed) ids_and_rots.size() )) {
         return *(new pair<int, int>(0, -1));
