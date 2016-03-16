@@ -5,9 +5,7 @@
 
 #include "../Model/piece.h"
 #include "../Model/coordinates.h"
-#include "cell.h"
-
-class PieceView : public Cell
+class PieceView
 {
 
 private:
@@ -15,11 +13,19 @@ private:
     const Piece& piece;
 
 public:
+    /**
+     * Constructeur de pièce
+     * @param col
+     * @param row
+     * @param p
+     * @author Florian
+     */
     PieceView(int col, int row, const Piece& p);
 
     /**
      * Décrit la cellule comme étant occupée par une pièce
      * @return vrai, on redéfinit la méthode virtuelle de Cell
+     * @author Florian
      */
     bool has_piece() const { return true; }
 

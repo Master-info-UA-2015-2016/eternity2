@@ -35,7 +35,6 @@ HEADERS  +=  \
     Model/instance.h \
     Model/piece.h \
     Model/motif.h \
-    View/cell.h \
     View/piece_view.h \
     View/board_view.h \
     View/mainwindow.h \

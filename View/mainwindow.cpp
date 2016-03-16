@@ -82,11 +82,6 @@ bool MainWindow::init_configuration(std::string instance_filename)
     }
 }
 
-void MainWindow::showBoard() const
-{
-    ui->board->redraw();
-    ui->board->show();
-}
 
 void MainWindow::testShowConfig() const
 {   clog << (ui->board->getConfig())<< endl; }
