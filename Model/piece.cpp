@@ -17,7 +17,7 @@ bool Piece::isCorner() const {
     return count_black==2;
 }
 
-bool Piece::isEdge() const {
+bool Piece::isBorder() const {
     int count_black = 0;
     for(int i=0 ; i<MAX_CARD ; ++i)
         if(motif[i] == 0) count_black++;

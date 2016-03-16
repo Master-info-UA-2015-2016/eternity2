@@ -46,7 +46,7 @@ bool Configuration::placeCorner(int p_id, int col, int row){
     placePiece(make_pair(p_id, p_rot));
     // Bonne rotation
     for (p_rot= 1; p_rot < 4 && !areConstraintEdgesRespected(col, row); ++p_rot){
-        setPiece(col, row, make_pair(p_id, ++p_rot));
+        setPiece(col, row, make_pair(p_id, p_rot));
     }
 
     if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :
@@ -65,7 +65,7 @@ void Configuration::randomConfiguration() {
 
     // Travail uniquement sur l'id des pieces
     for(const Piece& piece : (*getPieces()) ) {
-        if(piece.isEdge())
+        if(piece.isBorder())
             edge_pieces.push_back(piece.get_id());
         else if(piece.isCorner())
             corner_pieces.push_back(piece.get_id());
@@ -88,21 +88,20 @@ void Configuration::randomConfiguration() {
             if(isCorner(col, row)) {
                 p_id = corner_pieces.back();
                 corner_pieces.pop_back();
+                addPieceAsCorner(p_id, col, row);
 #ifdef  DEBUG_RANDOM
                 cout << "randomConfiguration() : placement pièce dans un coin ;"<< endl;
-                cout << "\t(" << col << "," << row << ")" << p_id << endl;
+                cout << "\t(" << col << "," << row << ")" << " " <<  p_id << endl;
 #endif
-                addPieceAsCorner(p_id, col, row);
             }
             //  Vérification qu'on est bien sur un rebord (pas un coin - par la condition précédente !)
             else if(isBorder(col, row)) {
                 // Border
                 p_id = edge_pieces.back();
                 edge_pieces.pop_back();
-                placePiece(make_pair(p_id, p_rot));
 #ifdef  DEBUG_RANDOM
                 cout << "randomConfiguration() : placement pièce dans un rebord ;"<< endl;
-                cout << "\t(" << col << "," << row << ")" << endl;
+                cout << "\t(" << col << "," << row << ")" << " " << p_id << endl;
 #endif
                 addPieceAsBorder(p_id, col, row);
             }
@@ -118,44 +117,6 @@ void Configuration::randomConfiguration() {
             }
         }
     }
-
-/*
-    for(int row=0 ; row<get_height() ; ++row) {
-        for(int col=0 ; col<get_width() ; ++col) {
-            p_rot = 0;
-            // On vérifie si l'on est dans un coin
-            if( (col == 0 && (row ==0 || row==get_height()-1)) || // Première colonne
-                    (col==get_width()-1 && (row==0 || row==get_height()-1)) ) { // Dernière colonne
-                // Angles
-                p_id = corner_pieces.back();
-                corner_pieces.pop_back();
-
-                cout << "randomConfiguration() : placement pièce dans un coin ;"<< endl;
-                cout << "("<< col<< ","<< row<< ")"<< endl;
-
-                placeCorner(p_id, col, row);
-            } else if(col == 0 || row == 0 || col == get_width()-1 || row == get_height()-1){
-                // Border
-                p_id = edge_pieces.back();
-                edge_pieces.pop_back();
-                placePiece(make_pair(p_id, p_rot));
-                // Bonne rotation
-                while(!areConstraintRowsXtremRespected(col,row) || !areConstraintColsXtremRespected(col,row)) {
-                    setPiece(col, row, make_pair(p_id, ++p_rot));
-                }
-            } else {
-                // Autre
-                p_id = pieces_remaining.back();
-                pieces_remaining.pop_back();
-                // Rotation aléatoire
-                p_rot = rand() % 4;
-                // Ajout de la pair
-                placePiece(make_pair(p_id, p_rot));
-            }
-            cout << "Placement pièce" << endl;
-        }
-    }
-    */
 }
 
 vector<Configuration*>&  Configuration::generateRandomConfigurations(const Instance * instance, int limit) {

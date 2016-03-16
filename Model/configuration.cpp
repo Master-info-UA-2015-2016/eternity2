@@ -43,7 +43,7 @@ const pair<int, int>& Configuration::getPair(int x, int y) const {
 
 const Piece & Configuration::getPiece(int x, int y) const {
     try{
-        const Piece & piece = getPiece(x + y * instance->get_width());
+        const Piece & piece = getPiece(getPair(x,y).id);
         return piece;
     } catch (out_of_range oor) {
         throw out_of_range("getPiece");
@@ -69,7 +69,7 @@ int Configuration::searchPosition(const Piece& p) const {
     bool found = false;
     int ind = 0;
     while(!found) {
-        if(ids_and_rots[ind].first == p.get_id())
+        if(ids_and_rots[ind].id == p.get_id())
             found = true;
         else ind++;
     }
@@ -104,8 +104,10 @@ bool Configuration::addPieceAsCorner(int p_id, int x, int y) {
     placePiece(make_pair(p_id, p_rot));
     // Bonne rotation
     for (p_rot= 1; p_rot < 4 && !areConstraintEdgesRespected(x, y); ++p_rot){
-        setPiece(x, y, make_pair(p_id, ++p_rot));
+        setPiece(x, y, make_pair(p_id, p_rot));
     }
+
+    cout << p_id << " " << x << " " << y <<  p_rot << endl;
 
     if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :
         cerr << "Impossible de placer la pièce dans le coin" << endl;
@@ -121,7 +123,7 @@ bool Configuration::addPieceAsBorder(int p_id, int x, int y) {
     placePiece(make_pair(p_id, p_rot));
     // Bonne rotation
     for (p_rot= 1; p_rot < 4 && (!areConstraintRowsXtremRespected(x, y) || !areConstraintColsXtremRespected(x,y)); ++p_rot){
-        setPiece(x, y, make_pair(p_id, ++p_rot));
+        setPiece(x, y, make_pair(p_id, p_rot));
     }
 
     if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :

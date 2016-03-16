@@ -67,7 +67,7 @@ public:
      * @return
      * @author FOURMOND Jérôme
      */
-    bool isEdge() const;
+    bool isBorder() const;
 
     /**
      * Impression sur un flux de l'instance
