@@ -488,7 +488,8 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
         P = adjacents[i];
         // Si l'id est != 0 alors regarder la couleur
         if(P.first != 0) {
-            other_colors = get_rotated_motifs(P.first);
+            //@TODO a verifier si c'est correct : get_rotated_motifs(P.first) ==> getRotatedMotifs(x, y)
+            other_colors = getRotatedMotifs(x, y);
             if(i == 0 && colors[i] != other_colors[2]) // Les couleurs Sud-Nord sont différentes
                 return false;
             else if(i == 1 && colors[i] != other_colors[3]) // Les couleurs Ouest-Est sont différentes

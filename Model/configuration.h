@@ -166,14 +166,14 @@ public:
      * @author Antoine Garnier
      */
     PairColors * getRotatedMotifs(int x, int y) const;
-    /**
-      TODO
-     *
-     * @param current_piece_indice
-     * @return
-     * @author Antoine Garnier
-     */
-    PairColors* get_rotated_motifs(int piece_indice) const;
+//    /**
+//      TODO
+//     *
+//     * @param current_piece_indice
+//     * @return
+//     * @author Antoine Garnier
+//     */
+//    PairColors* get_rotated_motifs(int piece_indice) const;
 
 
     /*** Affichage ***/

@@ -65,13 +65,13 @@ PairColors * Configuration::getRotatedMotifs(int x, int y) const {
     return piece.rotate(piece_pair.rot);
 }
 
-PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
-    // TODO throw ...
-    const Piece& piece= instance->getPiece(piece_indice);
-    int rotation = ids_and_rots[searchPosition(piece)].second;
+//PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
+//    // TODO throw ...
+//    const Piece& piece= instance->getPiece(piece_indice);
+//    int rotation = ids_and_rots[searchPosition(piece)].second;
 
-    return piece.rotate(rotation);
-}
+//    return piece.rotate(rotation);
+//}
 
 int Configuration::searchPosition(const Piece& p) const {
     bool found = false;
@@ -204,14 +204,6 @@ bool Configuration::tryLoadFile(const string &fileName){
             }
         }
     }
-}
-
-PairColors &Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
-    return get_rotated_motifs(current_piece_indice + get_width())[North];
-}
-
-PairColors &Configuration::getWestMotifEastPiece(int current_piece_indice) const {
-    return get_rotated_motifs(current_piece_indice + 1)[West];
 }
 
 const Piece& Configuration::getClosePiece(int current_piece, Cardinal neightboor_card) const {
