@@ -58,12 +58,14 @@ public:
     /**
      * La pièce doit-elle être placée dans un coin ?
      * @return boolean
+     * @author FOURMOND Jérôme
      */
     bool isCorner() const;
 
     /**
      * La pièce doit-elle être placée sur un rebord ?
      * @return
+     * @author FOURMOND Jérôme
      */
     bool isEdge() const;
 
@@ -71,17 +73,36 @@ public:
      * Impression sur un flux de l'instance
      * @param out
      * @return le flux donné en paramètre avec l'instance 'imprimé'
+     * @author FOURMOND Jérôme
      */
     std::ostream& print(std::ostream& out) const;
 
-
+    /**
+     * @brief operator <<
+     * @param out
+     * @param r
+     * @return
+     * @author FOURMOND Jérôme
+     */
     friend std::ostream& operator<<(std::ostream& out, Piece& r)
     { return r.print(out); }
 
-
+    /**
+     * @brief operator <<
+     * @param out
+     * @param r
+     * @return
+     * @author FOURMOND Jérôme
+     */
     friend std::ostream& operator<<(std::ostream& out, const Piece& r)
     { return r.print(out); }
 
+    /**
+     * @brief rotate
+     * @param nbRotation
+     * @return
+     * @author DAVID Florian
+     */
     PairColors* rotate(int nbRotation) const;
 
     /**
