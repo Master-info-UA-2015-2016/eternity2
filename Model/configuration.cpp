@@ -177,7 +177,7 @@ void Configuration::setPiece(int x, int y, pair<int, int> id_and_rot) {
       cout << "Essaie de placer la pièce (id,rot) : "<< id_and_rot.id<< ","<< id_and_rot.rot <<
               "à la position "<< x<<","<< y<<endl;
       cout << "Taille vecteur : "<< ids_and_rots.size()<< endl;
-      if (x+ y * get_width() >=ids_and_rots.size()){
+      if (x+ y * get_width() >= (signed) ids_and_rots.size()){
           cerr << "ATTENTION, vous essayez de set une pièce non placée"<< endl;
       }
 #endif
