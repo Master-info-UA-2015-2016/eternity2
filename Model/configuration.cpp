@@ -55,27 +55,14 @@ const Piece & Configuration::getPiece(int id) const {
     return piece;
 }
 
-PairColors * Configuration::getRotatedMotif(int x, int y) const {
+PairColors * Configuration::getRotatedMotifs(int x, int y) const {
     if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
         cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
         throw out_of_range("getPiece");
     }
     pair<int, int> piece_pair = getPair(x, y);
-    Piece piece = getPiece(x, y);
+    const Piece& piece = getPiece(x, y);
     return piece.rotate(piece_pair.rot);
-}
-
-PairColors * Configuration::getRotatedMotif(int pos) const
-{
-    if(pos >= (signed) ids_and_rots.size()) {
-        cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
-        throw out_of_range("getPiece");
-    }
-    else {
-        pair<int, int> piece_pair = ids_and_rots[pos];
-        Piece piece = getPiece(piece_pair.id);
-        return piece.rotate(piece_pair.rot);
-    }
 }
 
 int Configuration::searchPosition(const Piece& p) const {
@@ -242,21 +229,6 @@ bool Configuration::tryLoadFile(const string &fileName){
             }
         }
     }
-}
-
-PairColors* Configuration::getRotatedMotifs(int piece_indice) const{
-    const Piece& piece= instance->getPiece(piece_indice);
-    int rotation = ids_and_rots[searchPosition(piece)].second;
-
-    return piece.rotate(rotation);
-}
-
-PairColors &Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
-    return getRotatedMotifs(current_piece_indice + get_width())[North];
-}
-
-PairColors &Configuration::getWestMotifEastPiece(int current_piece_indice) const {
-    return getRotatedMotifs(current_piece_indice + 1)[West];
 }
 
 const Piece& Configuration::getClosePiece(int current_piece, Cardinal neightboor_card) const {
@@ -475,24 +447,25 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
     return nb_errors;
 }
 
-int Configuration::isBestPlaced(int piece_id){
-    Coordinates coord_current_piece= getPosition(piece_id);
-    int current_piece_x= coord_current_piece.row;
-    int current_piece_y= coord_current_piece.col;
+int Configuration::rotationForBestPlace(int coord_x, int coord_y){
 
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
-    const Piece& current_piece= getPiece(current_piece_x, current_piece_y);
-    Piece piece_test= current_piece;
+    const Piece& piece= getPiece(coord_x, coord_y);
+    Piece piece_test= piece;
     int local_nb_errors= getPieceNbErrors(piece_test);
 
-    //paire d'entiers : <rotation appliquee, nombre d'erreurs liees a la rotation appliquee>
-    std::pair<int, int> best_rotation= std::make_pair(0, local_nb_errors);
+    int best_rot= 0;
+    int val_best_rot= local_nb_errors;
+
     for(int i= 1; i < 4; ++i){
         piece_test.rotation(1);
-        if(best_rotation.second > getPieceNbErrors(piece_test)){
-            best_rotation.first= i;
-            best_rotation.second= getPieceNbErrors(piece_test);
+
+        int nb_current_errors= getPieceNbErrors(piece_test);
+        if(val_best_rot > nb_current_errors){
+            best_rot= i;
+            val_best_rot= nb_current_errors;
         }
     }
-return best_rotation.first;
+
+    return best_rot;
 }

@@ -177,29 +177,12 @@ public:
     /*** Recupération des motifs ***/
     /**
      * Récupération du motif pivoté en position (x, y)
-     * @param x : X
-     * @param y : Y
-     * @return int *
+     * @param x
+     * @param y
+     * @return
      * @author Antoine Garnier
      */
-    PairColors * getRotatedMotif(int x, int y) const;
-
-    /**
-     * Récupération du motif pivoté, selon son id
-     * @return int *
-     * @author Antoine Garnier
-     */
-    PairColors * getRotatedMotif(int pos) const;
-
-    /**
-      TODO
-     * @brief get_rotated_motifs
-     * @param current_piece_indice
-     * @return int *
-     * @author Antoine Garnier
-     */
-    PairColors* getRotatedMotifs(int piece_indice) const;
-
+    PairColors * getRotatedMotifs(int x, int y) const;
 
     /*** Affichage ***/
     /**
@@ -237,23 +220,6 @@ public:
      * @author Ugo Rayer
      */
     bool tryLoadFile(const std::string& fileName);
-
-    /**
-     * Récupère le motif Nord de la pièce au sud de la piece courante tournée
-     *  piece sud de piece courante = position piece courante + width
-     * @param current_piece_indice
-     * @return la paire de couleurs au Nord de la pièce au Sud
-     * @author Antoine Garnier
-     */
-    PairColors& getNorthMotifSouthPiece(int current_piece_indice) const;
-    /**
-     * Récupère le motif Ouest de la pièce à l'Est de la piece courante tournée
-     *  piece est de piece courante = position piece courante + 1
-     * @param current_piece_indice
-     * @return la paire de couleurs à l'Ouest de la pièce à l'Est
-     * @author Antoine Garnier
-     */
-    PairColors& getWestMotifEastPiece(int current_piece_indice) const;
 
     /**
      * Retourne la piece situee au neightboord_card (Sud, Ouest, Nord ou Est) de la piece courante
@@ -426,11 +392,11 @@ public:
     int getPieceNbErrors(const Piece &current_piece);
 
     /**
-      * Compte le nombre d'erreurs d'une piece si on lui applique une certaine rotation
-      * @return Le nombre d'erreurs lié à une piece ayant subit une rotation de val_rot
+      * Retourne la rotation appliquee a la piece (x, y) si cette derniere provoque moins d'erreurs (0 si piece deja placee niquel)
+      * @return Valeur de rotation qui "ameliore localement le plateau"
       * @author GARNIER Antoine
       */
-    int isBestPlaced(int piece_id);
+    int rotationForBestPlace(int coord_x, int coord_y);
 
 
 //    Essais d'ajout de pièce dans la configuration     //

@@ -7,7 +7,6 @@ using namespace std;
 
 //  TODO @flodavid
 //      Affichage sans plateau
-//      Affichage des pièces en dehors du plateau (sur la droite ?)
 //      Correction affichage d'une nouvelle instance dans le plateau (bug d'affichage)
 
 MainWindow::MainWindow(QWidget *parent) :

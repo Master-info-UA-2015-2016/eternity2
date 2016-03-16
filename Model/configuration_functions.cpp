@@ -180,10 +180,11 @@ int Configuration::countNbErrors() const{
     // Parcours de toutes les cases du plateau, dernière case exceptée
     for(int i=0; i < (get_height()*get_width()-1); ++i){
         int current_x= i % get_width();
-//        int current_y= i / get_width();
+        int current_y= i / get_width();
 
-        PairColors current_piece_east_motif= getRotatedMotif(i)[East];
-        PairColors current_piece_south_motif= getRotatedMotif(i)[South];
+        PairColors* motifs= getRotatedMotifs(current_x, current_y);
+        PairColors current_piece_east_motif= motifs[East];
+        PairColors current_piece_south_motif= motifs[South];
 
         #if DEBUG_CHECK_PIECES
         cout << "Piece n°" << i << endl;
@@ -191,7 +192,7 @@ int Configuration::countNbErrors() const{
 
         //derniere colonne
         if(current_x == get_width()-1){
-            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
+            PairColors south_piece_north_motif= getRotatedMotifs(current_x, current_y+1)[North];
             if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece SUD" << endl;
@@ -201,7 +202,7 @@ int Configuration::countNbErrors() const{
         }
         //derniere ligne
         else if(i >= begin_last_raw){
-            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
+            PairColors east_piece_west_motif= getRotatedMotifs(current_x+1, current_y)[West];
             if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece EST" << endl;
@@ -211,7 +212,7 @@ int Configuration::countNbErrors() const{
         }
         //ni derniere ligne ni derniere colonne
         else {
-            PairColors south_piece_north_motif= getRotatedMotif(i+get_width())[North];
+            PairColors south_piece_north_motif= getRotatedMotifs(current_x, current_y +1)[North];
             if(!motifs_match(current_piece_south_motif, south_piece_north_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece SUD" << endl;
@@ -219,7 +220,7 @@ int Configuration::countNbErrors() const{
                 ++nb_errors;
             }
 
-            PairColors east_piece_west_motif= getRotatedMotif(i+1)[West];
+            PairColors east_piece_west_motif= getRotatedMotifs(current_x+1, current_y)[West];
             if(!motifs_match(current_piece_east_motif, east_piece_west_motif)){
                 #if DEBUG_CHECK_PIECES
                 cout << "Erreur piece COURANTE - piece EST" << endl;
@@ -530,7 +531,9 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
         P = adjacents[i];
         // Si l'id est != 0 alors regarder la couleur
         if(P.first != 0) {
-            other_colors = getRotatedMotifs(P.first);
+
+            //@TODO a verifier si c'est correct : get_rotated_motifs(P.first) ==> getRotatedMotifs(x, y)
+            other_colors = getRotatedMotifs(x, y);
             if(i == 0 && colors[i] != other_colors[2]) // Les couleurs Sud-Nord sont différentes
                 return false;
             else if(i == 1 && colors[i] != other_colors[3]) // Les couleurs Ouest-Est sont différentes
