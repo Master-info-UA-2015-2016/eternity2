@@ -41,7 +41,7 @@ public:
     const PairColors* get_motif() const   { return motif; }
 
     /**
-     * @brief set_motifs
+     * Definition des motifs d'une piece
      * @param south_motif
      * @param west_motif
      * @param north_motif
@@ -78,17 +78,7 @@ public:
     std::ostream& print(std::ostream& out) const;
 
     /**
-     * @brief operator <<
-     * @param out
-     * @param r
-     * @return
-     * @author FOURMOND Jérôme
-     */
-    friend std::ostream& operator<<(std::ostream& out, Piece& r)
-    { return r.print(out); }
-
-    /**
-     * @brief operator <<
+     * Affichage d'une piece
      * @param out
      * @param r
      * @return
@@ -98,7 +88,7 @@ public:
     { return r.print(out); }
 
     /**
-     * @brief rotate
+     * Applique une rotation a une piece et retourne les motifs de cette piece
      * @param nbRotation
      * @return
      * @author DAVID Florian
@@ -106,7 +96,7 @@ public:
     PairColors* rotate(int nbRotation) const;
 
     /**
-     * @brief rotation
+     * Applique une rotation de val_rotation aux motifs de la piece
      * @param val_rotation
      * @author GARNIER Antoine
      */
