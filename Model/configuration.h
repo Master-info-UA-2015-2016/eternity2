@@ -41,25 +41,27 @@ public:
 
     /*** Getters ***/
     /**
-     * @brief height
      * @return la hauteur du plateau (nombre de pièces verticalement)
+     * @author Antoine Garnier
      */
     int get_height()    const { assert(instance != NULL); return instance->get_height(); }
     /**
-     * @brief width
      * @return la largeur du plateau (nombre de pièces horizontalement)
+     * @author Antoine Garnier
      */
     int get_width()     const { assert(instance != NULL); return instance->get_width(); }
 
     /**
      * Récupération de l'ensemble des pièces
      * @return le vecteur de pièce de l'instance
+     * @author Antoine Garnier
      */
     const std::vector<Piece> * getPieces() const
         { return instance->get_pieces(); }
     /**
      * Récupération des ids et rotation des pièces
      * @return attribut ids_and_rots
+     * @author Florian David
      */
     const std::vector<std::pair<int, int> >& get_ids_and_rots() const
         {return ids_and_rots;}
@@ -70,6 +72,7 @@ public:
      * @param x : X
      * @param y : Y
      * @return position : int
+     * @author FOURMOND Jérôme
      */
     const std::pair<int, int> & getPair(int x, int y) const ;
 
@@ -78,6 +81,7 @@ public:
      * @param x : X
      * @param y : Y
      * @return Piece
+     * @author FOURMOND Jérôme
      */
     const Piece & getPiece(int x, int y) const;
 
@@ -85,6 +89,7 @@ public:
      * Récupération de la pièce portant l'id
      * @param id : int
      * @return Piece
+     * @author FOURMOND Jérôme
      */
     const Piece & getPiece(int id) const;
 
@@ -92,6 +97,7 @@ public:
      * Retourne les coordonnées de la case qui contient la pièce portant l'id
      * @param id : int
      * @return pair<int, int>
+     * @author FOURMOND Jérôme
      */
     Coordinates& getPosition(int id) const;
 
@@ -99,13 +105,21 @@ public:
     /**
      * Ajout d'une position
      * @param position
+     * @author FOURMOND Jérôme
      */
     void placePiece(std::pair<int, int> piece){ ids_and_rots.push_back(piece); }
 
+    /**
+     * Ajout d'une pièce
+     * @param piece : la pièce
+     * @param rotation : la rotation appliquée
+     * @author FOURMOND Jérôme
+     */
     void placePiece(const Piece & piece, int rotation) { ids_and_rots.push_back(std::make_pair(piece.get_id(), rotation)); }
 
     /**
      * Retrait de la dernière position
+     * @author FOURMOND Jérôme
      */
     void removePiece() { ids_and_rots.pop_back(); }
 
@@ -114,6 +128,7 @@ public:
      * @param x : int
      * @param y : int
      * @param pos : pair<int, int>
+     * @author FOURMOND Jérôme
      */
     void setPiece(int x, int y, std::pair<int, int> pos);
 
@@ -130,6 +145,7 @@ public:
      * Retourne la position dans le vecteur de positions de la piece P
      * @param p : Piece
      * @return position : p
+     * @author FOURMOND Jérôme
      */
     int searchPosition(const Piece &p) const;
 
@@ -137,6 +153,7 @@ public:
      * Récupération de la position dans le vecteur de positions de la pièce portant l'id
      * @param id : int
      * @return position : int
+     * @author FOURMOND Jérôme
      */
     int searchPosition(const int id) const;
 
@@ -146,20 +163,33 @@ public:
      * @param x : X
      * @param y : Y
      * @return int *
+     * @author Antoine Garnier
      */
     PairColors * getRotatedMotif(int x, int y) const;
 
     /**
      * Récupération du motif pivoté, selon son id
      * @return int *
+     * @author Antoine Garnier
      */
     PairColors * getRotatedMotif(int pos) const;
+
+    /**
+      TODO
+     * @brief get_rotated_motifs
+     * @param current_piece_indice
+     * @return int *
+     * @author Antoine Garnier
+     */
+    PairColors* getRotatedMotifs(int piece_indice) const;
+
 
     /*** Affichage ***/
     /**
      * Impression sur un flux de l'instance
      * @param out
      * @return le flux donné en paramètre avec l'instance 'imprimé'
+     * @author Antoine Garnier
      */
     std::ostream& print(std::ostream& out) const;
 
@@ -171,12 +201,14 @@ public:
      * @param x : int
      * @param y : int
      * @param degree :int - 0, 1, 2, 3
+     * @author FOURMOND Jérôme
      */
     void rotatePiece(int x, int y, int degree);
 
     /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance
      * @return vrai la configuration est bien formée
+     * @author FOURMOND Jérôme
      */
     bool isValid() { return (unsigned)(instance->get_width()* instance->get_height()) == ids_and_rots.size(); }
 
@@ -184,22 +216,17 @@ public:
      * Chargement d'un graphe sous forme de matrice
      * à partir d'un fichier d'exemple
      * @param fileName
-     * @return
+     * @return boolean
+     * @author Ugo Rayer
      */
     bool tryLoadFile(const std::string& fileName);
-
-    /**
-     * @brief get_rotated_motifs
-     * @param current_piece_indice
-     * @return
-     */
-    PairColors* get_rotated_motifs(int piece_indice) const;
 
     /**
      * Récupère le motif Nord de la pièce au sud de la piece courante tournée
      *  piece sud de piece courante = position piece courante + width
      * @param current_piece_indice
      * @return la paire de couleurs au Nord de la pièce au Sud
+     * @author Antoine Garnier
      */
     PairColors& getNorthMotifSouthPiece(int current_piece_indice) const;
     /**
@@ -207,6 +234,7 @@ public:
      *  piece est de piece courante = position piece courante + 1
      * @param current_piece_indice
      * @return la paire de couleurs à l'Ouest de la pièce à l'Est
+     * @author Antoine Garnier
      */
     PairColors& getWestMotifEastPiece(int current_piece_indice) const;
 
@@ -234,6 +262,7 @@ public:
      * @param first_motif
      * @param second_motif
      * @return vrai si les 2 motifs sont identiques et ne sont pas noirs
+     * @author Antoine Garnier
      */
     static bool motifs_match(PairColors first_motif, PairColors second_motif);
 
@@ -251,6 +280,7 @@ public:
      * @param x : int
      * @param y : int
      * @return int[4]
+     * @author FOURMOND Jérôme
      */
     std::vector<std::pair<int, int>>& getAdjacents(int x, int y) const;
 
@@ -262,11 +292,13 @@ public:
      * @param p_rot rotation de la pièce
      * @param col   colonne du coin (première ou dernière)
      * @param row   ligne du coin (première ou dernière)
+     * @author Florian David
      */
     bool placeCorner(int p_id, int col, int row);
 
     /**
      * Création des placements aléatoires des pièces (nécessaire pour l'affichage)
+     * @author FOURMOND Jérôme
      */
     void randomConfiguration();
 
@@ -356,6 +388,7 @@ public:
     /**
      * Retourne le nombre de pièces mal placée
      * @return int
+     * @author FOURMOND Jérôme
      */
     int misplacedPieces();
 
@@ -389,6 +422,7 @@ public:
      * @param piece pièce que l'on essaie de placer
      * @param rotation valeur de rotation de la pièce, comprise entre 0 et 3
      * @return false si la pièce n'est pas appareible avec les pièces déjà présentes
+     * @author FOURMOND Jérôme
      */
     bool canBePlaced(const Piece& piece, int rotation);
 
@@ -397,6 +431,7 @@ public:
      *  vérifie qu'il y a de la place dans le plateau et  teste les 4 rotations
      * @param piece pièce à placer dans le plateau
      * @return false si on n'a pas réussi à placer la pièce
+     * @author FOURMOND Jérôme
      */
     bool tryPlaceAtEnd(const Piece& piece);
 };

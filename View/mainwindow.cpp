@@ -64,10 +64,6 @@ bool MainWindow::init_configuration(std::string instance_filename)
         cout << "\tContraintes d'adjacences->"  << config->nbErrorsAdjacences() << endl;
 #endif
 #if DEBUG_CSP
-//        Configuration C("../eternity2/instances_puzzles/pieces_03x03.txt");
-//        cout << "Ca passe  ?" << endl;
-//        cout << C.tryPlaceAtEnd(instance->getPiece(1)) << endl;
-
         Configuration * CSP = Algorithm::resolveWithCSP(instance);
         cout << "##########\tCSP\t##########" << endl;
         cout << (*CSP) << endl;

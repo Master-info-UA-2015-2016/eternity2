@@ -34,14 +34,3 @@ const std::pair<int, int> Board::get_random_piece_coord() const {
     std::pair<int, int> piece_coord= std::make_pair(piece_x, piece_y);
     return piece_coord;
 }
-
-//void Board::random_rotation_random_piece(){
-//    int random_rotation= rand() % 3 + 1; //rotation de 1 à 3 "crans"
-//    const std::pair<int, int> piece_coord= get_random_piece_coord();
-//    int random_piece_coord_x= piece_coord.first;
-//    int random_piece_coord_y= piece_coord.second;
-
-//    //recuperation piece + modifs coord avec rotation
-//    const Piece& random_piece= disposition->getPiece(random_piece_coord_x, random_piece_coord_y);
-//    random_piece.rotate(random_rotation);
-//}
