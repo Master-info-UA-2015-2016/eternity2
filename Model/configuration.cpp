@@ -414,7 +414,7 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
     return nb_errors;
 }
 
-int Configuration::couldBeBetterPlaced(int coord_x, int coord_y){
+int Configuration::rotationForBestPlace(int coord_x, int coord_y){
 
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
     const Piece& piece= getPiece(coord_x, coord_y);

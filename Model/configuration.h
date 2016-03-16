@@ -379,7 +379,7 @@ public:
       * @return Valeur de rotation qui "ameliore localement le plateau"
       * @author GARNIER Antoine
       */
-    int couldBeBetterPlaced(int coord_x, int coord_y);
+    int rotationForBestPlace(int coord_x, int coord_y);
 
 
 //    Essais d'ajout de pièce dans la configuration     //
