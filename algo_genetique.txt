@@ -1,0 +1,18 @@
+P : Population etudiee = instances du probleme eternity II
+
+Algo :
+	-> evaluation population
+	-> selection 2 individus
+	-> croisement/mutation des individus
+	-> evaluation des nouveaux individus :
+		-> insertion des 2 nouveaux individus dans la population ?
+
+
+Critere de selection d'un individus :
+	-> instances ayant les bords correctement places
+
+Critere de croisement :
+	-> garder les bords s'ils sont bien placés : croiser les pieces "centrales"
+
+Evaluation individu :
+	-> nombre d'erreurs de l'instance
