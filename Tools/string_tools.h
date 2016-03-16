@@ -12,6 +12,7 @@
  * Découpe une ligne du fichier et retourne chaque élément dans un tableau.
  * @param str chaine en entrée à découper
  * @return vecteur de chaine
+ * @author Ugo Rayer
  */
 std::vector< std::string >& explode(const std::string& str);
 

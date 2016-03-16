@@ -19,6 +19,7 @@ public:
     /**
      * Constructeur d'un plateau
      * @param config Configuration initialisant le plateau
+     * @author Florian David
      */
     Board(Configuration* config = NULL);
 
@@ -42,6 +43,7 @@ public:
      * @param x abscisse de la pièce
      * @param y ordonnée de la pièce
      * @return le nombre d'erreurs de motifs sur cette pièce après rotation ou non
+     * @author Florian David
      */
     int betterRotatePiece(int x, int y);
 
