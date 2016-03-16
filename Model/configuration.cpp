@@ -172,14 +172,24 @@ ostream& Configuration::print(ostream& out) const{
     return out;
 }
 
-void Configuration::setPiece(int x, int y, pair<int, int> pos) {
-    if(pos.second < 0) {
-        setPiece(x, y, make_pair(pos.first, pos.second+4));
-        return;
+void Configuration::setPiece(int x, int y, pair<int, int> id_and_rot) {
+#if DEBUG_ALTER_PIECES
+      cout << "Essaie de placer la pièce (id,rot) : "<< id_and_rot.id<< ","<< id_and_rot.rot <<
+              "à la position "<< x<<","<< y<<endl;
+      cout << "Taille vecteur : "<< ids_and_rots.size()<< endl;
+      if (x+ y * get_width() >=ids_and_rots.size()){
+          cerr << "ATTENTION, vous essayez de set une pièce non placée"<< endl;
+      }
+#endif
+    if(id_and_rot.rot < 0) {
+        setPiece(x, y, make_pair(id_and_rot.first, id_and_rot.rot +4));
     }
-    if(pos.second > 3)
-        pos.second = pos.second % 4;
-    ids_and_rots[x + y*get_width()] = pos;
+    else {
+        if(id_and_rot.second > 3){
+            id_and_rot.rot = (id_and_rot.rot) % 4;
+        }
+        ids_and_rots[x + y*get_width()] = id_and_rot;
+    }
 }
 
 void Configuration::rotatePiece(int x, int y, int degree) {
