@@ -35,6 +35,12 @@ private :
     int cell_size;
 
 public:
+    /**
+     * Constructeur d'un widget plateau
+     * @param parent widget parents
+     * @param b plateau
+     * @author Florian
+     */
     explicit BoardWidget(QWidget *parent = 0, Board* b= NULL);
 
     virtual ~BoardWidget();
@@ -43,17 +49,28 @@ public:
     /**
      * @brief height
      * @return la hauteur du plateau (nombre de pièces verticalement)
+     * @author Florian
      */
     int get_height()    const { return board->get_height(); }
     /**
      * @brief width
      * @return la largeur du plateau (nombre de pièces horizontalement)
+     * @author Florian
      */
     int get_width()     const { return board->get_width(); }
-//    const Configuration& getBoard() const { return board; }
+    /**
+     * Getter de configuration
+     * @return l'attribut disposition (Configuration)
+     * @author Florian
+     */
     const Configuration& getConfig() const { return board->getConfig(); }
 
-    /*** Setters    ***/
+    /*** Setters ***/
+    /**
+     * Setter de board
+     * @param _board plateau à définir en attribut
+     * @author Florian
+     */
     void set_board(Board* _board);
 
     /**
@@ -61,6 +78,7 @@ public:
      * @param path Chemin formant le triangle
      * @param colors Motif contenant les couleurs utilisées
      * @param pos_rect La position du carrés
+     * @author Florian
      */
     void drawMotif(const QPainterPath &path, const QPointF& square_pos, const Motif& colors);
 
@@ -75,7 +93,7 @@ public:
 
     /**
      * Dessine l'ensemble du plateau dans le buffer
-     * @author Ugo et Florian
+     * @author Florian
      */
     void drawBoard();
 
@@ -93,7 +111,6 @@ protected:
     void paintEvent(QPaintEvent* event);
 
 //signals:
-
 //public slots:
 
 /*** Utile pour l'ajout du widget dans un .ui : ***/

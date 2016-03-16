@@ -105,62 +105,62 @@ Motif::Motif(int id_motif)
     }//fin switch
 }
 
-void Motif::set_color_int(QColor *col)
+void Motif::set_color_int(QColor *color)
 {
-    color_int = col;
+    color_int = color;
 }
 
-void Motif::set_color_ext(QColor *col)
+void Motif::set_color_ext(QColor *color)
 {
-    color_ext = col;
+    color_ext = color;
 }
 
 
-QColor* Motif::getQColorFromInt(int color) const{
-    QColor* tmp= new QColor;
+QColor* Motif::getQColorFromInt(int color) {
+    QColor* qcolor= new QColor;
 
     switch(color){
         case White:
-            tmp->setRgb(255,255,255);
+            qcolor->setRgb(255,255,255);
             break;
         case Black:
-            tmp->setRgb(0,0,0);
+            qcolor->setRgb(0,0,0);
             break;
         case Gray:
-            tmp->setRgb(128,128,128);
+            qcolor->setRgb(128,128,128);
             break;
         case Brown:
-            tmp->setRgb(100,50,0);
+            qcolor->setRgb(100,50,0);
             break;
         case Orange:
-            tmp->setRgb(250,128,0);
+            qcolor->setRgb(250,128,0);
             break;
         case Pink:
-            tmp->setRgb(250,100,250);
+            qcolor->setRgb(250,100,250);
             break;
         case Red:
-            tmp->setRgb(255,0,0);
+            qcolor->setRgb(255,0,0);
             break;
         case Yellow:
-            tmp->setRgb(250,250,0);
+            qcolor->setRgb(250,250,0);
             break;
         case LightGreen:
-            tmp->setRgb(100,250,100);
+            qcolor->setRgb(100,250,100);
             break;
         case DarkGreen:
-            tmp->setRgb(0,150,0);
+            qcolor->setRgb(0,150,0);
             break;
         case LightBlue:
-            tmp->setRgb(100,250,250);
+            qcolor->setRgb(100,250,250);
             break;
         case DarkBlue:
-            tmp->setRgb(0,0,250);
+            qcolor->setRgb(0,0,250);
             break;
         case Purple:
-            tmp->setRgb(150,50,250);
+            qcolor->setRgb(150,50,250);
             break;
     }
-    return tmp;
+    return qcolor;
 }
 
 QColor* Motif::get_color_int() const
