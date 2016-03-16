@@ -147,7 +147,7 @@ public:
      * @param pos : pair<int, int>
      * @author FOURMOND Jérôme
      */
-    void setPiece(int x, int y, std::pair<int, int> pos);
+    void setPiece(int x, int y, std::pair<int, int> id_and_rot);
 
     /**
      * Permute deux pieces du plateau
