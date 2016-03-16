@@ -133,7 +133,7 @@ public:
     void setPiece(int x, int y, std::pair<int, int> pos);
 
     /**
-     * @brief permutation_two_pieces
+     * Permute deux pieces du plateau
      * @param indice_piece_1
      * @param indice_piece_2
      * @author GARNIER Antoine
@@ -239,16 +239,16 @@ public:
     PairColors& getWestMotifEastPiece(int current_piece_indice) const;
 
     /**
-     * TODO @AsCris COMMENTER !!
-     * @param current_piece
-     * @param neightboor_card : piece voisine de current_piece
+     * Retourne la piece situee au neightboord_card (Sud, Ouest, Nord ou Est) de la piece courante
+     * @param current_piece : l'indice de la piece courante
+     * @param neightboor_card : piece voisine de la piece courante
      * @return La piece voisine de current_piece
      * @author GARNIER Antoine
      */
     const Piece& getClosePiece(int current_piece, Cardinal neightboor_card) const;
 
     /**
-     * TODO @AsCris COMMENTER !!!
+     * En prenant la piece voisine (SONE) de la piece courante, retourne le motif situe au motif_card (SONE)
      * @param current_piece
      * @param motif_card : Motif de la piece voisine de la piece courante
      * @param neightboor_card : Cardinalite de la piece voisine de la piece courante a prendre en compte
@@ -393,7 +393,7 @@ public:
     int misplacedPieces();
 
     /**
-     * @brief pieces_match
+     * Verifie si la piece courante et sa piece voisine (SONE) s'appareillent
      * @param indice_current_piece
      * @param direction_neightboor_piece : position de la piece voisin par rapport a la piece courante
      * @return true si les pieces sont bien emboitees
