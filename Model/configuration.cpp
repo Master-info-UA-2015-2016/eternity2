@@ -78,6 +78,13 @@ PairColors * Configuration::getRotatedMotif(int pos) const
     }
 }
 
+PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
+    const Piece& piece= instance->getPiece(piece_indice);
+    int rotation = ids_and_rots[searchPosition(piece)].second;
+
+    return piece.rotate(rotation);
+}
+
 int Configuration::searchPosition(const Piece& p) const {
     bool found = false;
     int ind = 0;
@@ -209,13 +216,6 @@ bool Configuration::tryLoadFile(const string &fileName){
             }
         }
     }
-}
-
-PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
-    const Piece& piece= instance->getPiece(piece_indice);
-    int rotation = ids_and_rots[searchPosition(piece)].second;
-
-    return piece.rotate(rotation);
 }
 
 PairColors &Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
