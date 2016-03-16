@@ -40,6 +40,7 @@ public:
      * Impression sur un flux de l'instance
      * @param out
      * @return le flux donné en paramètre avec l'instance 'imprimé'
+     * @author FOURMOND Jérôme
      */
     std::ostream& print(std::ostream& out);
 
@@ -51,6 +52,7 @@ public:
      * à partir d'un fichier d'exemple
      * @param fileName
      * @return
+     * @author FOURMOND Jérôme
      */
     bool tryLoadFile(const std::string& fileName);
 
@@ -68,6 +70,7 @@ public:
      * Récupération de la pièce qui porte l'id : id
      * @param id : l'id à rechercher
      * @return Piece
+     * @author FOURMOND Jérôme
      */
     const Piece & getPiece(int id) const;
 };

@@ -41,7 +41,7 @@ public:
     const PairColors* get_motif() const   { return motif; }
 
     /**
-     * @brief set_motifs
+     * Definition des motifs d'une piece
      * @param south_motif
      * @param west_motif
      * @param north_motif
@@ -58,12 +58,14 @@ public:
     /**
      * La pièce doit-elle être placée dans un coin ?
      * @return boolean
+     * @author FOURMOND Jérôme
      */
     bool isCorner() const;
 
     /**
      * La pièce doit-elle être placée sur un rebord ?
      * @return
+     * @author FOURMOND Jérôme
      */
     bool isEdge() const;
 
@@ -71,21 +73,30 @@ public:
      * Impression sur un flux de l'instance
      * @param out
      * @return le flux donné en paramètre avec l'instance 'imprimé'
+     * @author FOURMOND Jérôme
      */
     std::ostream& print(std::ostream& out) const;
 
-
-    friend std::ostream& operator<<(std::ostream& out, Piece& r)
-    { return r.print(out); }
-
-
+    /**
+     * Affichage d'une piece
+     * @param out
+     * @param r
+     * @return
+     * @author FOURMOND Jérôme
+     */
     friend std::ostream& operator<<(std::ostream& out, const Piece& r)
     { return r.print(out); }
 
+    /**
+     * Applique une rotation a une piece et retourne les motifs de cette piece
+     * @param nbRotation
+     * @return
+     * @author DAVID Florian
+     */
     PairColors* rotate(int nbRotation) const;
 
     /**
-     * @brief rotation
+     * Applique une rotation de val_rotation aux motifs de la piece
      * @param val_rotation
      * @author GARNIER Antoine
      */
