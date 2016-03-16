@@ -127,7 +127,7 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
         configuration->randomConfiguration();
 
     #if DEBUG_CREATE_CONFIGS
-        cout << "Configuration : " << configuration << endl;
+        cout << "Configuration : " << *configuration << endl;
     #endif
 
         configurations.push_back(configuration);

@@ -6,9 +6,6 @@
 #define DEBUG_POS_PIECE         0
 #define DEBUG_PAINT             0
 
-// algorithm
-#define DEBUG_CREATE_CONFIGS    0
-
 // mainwindow
 #define DEBUG_UI                1
 #define DEBUG_DRAW_WIDGETS      0
@@ -20,8 +17,6 @@
 #define DEBUG_CSP               1
 
 //configuration
-#define DEBUG_POS_ERRORS        1
-#define DEBUG_NB_ERROR_PIECE    0
 #define DEBUG_CHECK_PIECES      0
 #define DEBUG_SHOW_MISPLACED    0
 #define DEBUG_ALTER_PIECES      1
@@ -30,7 +25,7 @@
 
 #define DEBUG_RANDOM            1
 
-//board
-#define DEBUG_RANDOM_PERMUTATION 0
+// configuration_functions
+#define DEBUG_CREATE_CONFIGS    0
 
 #endif // DEBUG_H
