@@ -41,25 +41,27 @@ public:
 
     /*** Getters ***/
     /**
-     * @brief height
      * @return la hauteur du plateau (nombre de pièces verticalement)
+     * @author Antoine Garnier
      */
     int get_height()    const { assert(instance != NULL); return instance->get_height(); }
     /**
-     * @brief width
      * @return la largeur du plateau (nombre de pièces horizontalement)
+     * @author Antoine Garnier
      */
     int get_width()     const { assert(instance != NULL); return instance->get_width(); }
 
     /**
      * Récupération de l'ensemble des pièces
      * @return le vecteur de pièce de l'instance
+     * @author Antoine Garnier
      */
     const std::vector<Piece> * getPieces() const
         { return instance->get_pieces(); }
     /**
      * Récupération des ids et rotation des pièces
      * @return attribut ids_and_rots
+     * @author Florian David
      */
     const std::vector<std::pair<int, int> >& get_ids_and_rots() const
         {return ids_and_rots;}
