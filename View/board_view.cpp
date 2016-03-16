@@ -100,7 +100,7 @@ void BoardWidget::drawBoard()
         clog<< " de coordonnées : "<< current_width<< " ; "<< current_height<< endl;
 #endif
 
-        PairColors* colors= board->getConfig().getRotatedMotif(current_width, current_height);
+        PairColors* colors= board->getConfig().getRotatedMotifs(current_width, current_height);
         // On affiche la pièce à la position courante, avec son motif
 #if DEBUG_DRAW_COLORS
         cout<< "Piece en position "<< current_width<< ";"<< current_height<< " : "<< endl;

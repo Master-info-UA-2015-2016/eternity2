@@ -165,23 +165,23 @@ public:
      * @return int *
      * @author Antoine Garnier
      */
-    PairColors * getRotatedMotif(int x, int y) const;
+    PairColors * getRotatedMotifs(int x, int y) const;
 
     /**
      * Récupération du motif pivoté, selon son id
      * @return int *
      * @author Antoine Garnier
      */
-    PairColors * getRotatedMotif(int pos) const;
+    PairColors * getRotatedMotifs(int pos) const;
 
     /**
       TODO
-     * @brief get_rotated_motifs
+     *
      * @param current_piece_indice
      * @return int *
      * @author Antoine Garnier
      */
-    PairColors* getRotatedMotifs(int piece_indice) const;
+    PairColors* get_rotated_motifs(int piece_indice) const;
 
 
     /*** Affichage ***/

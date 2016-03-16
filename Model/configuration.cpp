@@ -55,7 +55,7 @@ const Piece & Configuration::getPiece(int id) const {
     return piece;
 }
 
-PairColors * Configuration::getRotatedMotif(int x, int y) const {
+PairColors * Configuration::getRotatedMotifs(int x, int y) const {
     if(x < 0 || x >= get_width() || y < 0 || y >= get_height()) {
         cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
         throw out_of_range("getPiece");
