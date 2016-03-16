@@ -160,25 +160,17 @@ public:
     /*** Recupération des motifs ***/
     /**
      * Récupération du motif pivoté en position (x, y)
-     * @param x : X
-     * @param y : Y
-     * @return int *
+     * @param x
+     * @param y
+     * @return
      * @author Antoine Garnier
      */
     PairColors * getRotatedMotifs(int x, int y) const;
-
-    /**
-     * Récupération du motif pivoté, selon son id
-     * @return int *
-     * @author Antoine Garnier
-     */
-    PairColors * getRotatedMotifs(int pos) const;
-
     /**
       TODO
      *
      * @param current_piece_indice
-     * @return int *
+     * @return
      * @author Antoine Garnier
      */
     PairColors* get_rotated_motifs(int piece_indice) const;

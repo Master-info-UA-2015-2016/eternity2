@@ -61,24 +61,12 @@ PairColors * Configuration::getRotatedMotifs(int x, int y) const {
         throw out_of_range("getPiece");
     }
     pair<int, int> piece_pair = getPair(x, y);
-    Piece piece = getPiece(x, y);
+    const Piece& piece = getPiece(x, y);
     return piece.rotate(piece_pair.rot);
 }
 
-PairColors * Configuration::getRotatedMotif(int pos) const
-{
-    if(pos >= (signed) ids_and_rots.size()) {
-        cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
-        throw out_of_range("getPiece");
-    }
-    else {
-        pair<int, int> piece_pair = ids_and_rots[pos];
-        Piece piece = getPiece(piece_pair.id);
-        return piece.rotate(piece_pair.rot);
-    }
-}
-
 PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
+    // TODO throw ...
     const Piece& piece= instance->getPiece(piece_indice);
     int rotation = ids_and_rots[searchPosition(piece)].second;
 
