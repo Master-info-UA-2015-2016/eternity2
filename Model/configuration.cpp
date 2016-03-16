@@ -110,6 +110,39 @@ Coordinates& Configuration::getPosition(int id) const {
     return *(new Coordinates(-1, -1));
 }
 
+bool Configuration::addPieceAsCorner(int p_id, int x, int y) {
+    assert(isCorner(x, y));
+
+    int p_rot=0;
+    placePiece(make_pair(p_id, p_rot));
+    // Bonne rotation
+    for (p_rot= 1; p_rot < 4 && !areConstraintEdgesRespected(x, y); ++p_rot){
+        setPiece(x, y, make_pair(p_id, ++p_rot));
+    }
+
+    if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :
+        cerr << "Impossible de placer la pièce dans le coin" << endl;
+        return false;
+    }
+    else return true;
+}
+
+bool Configuration::addPieceAsBorder(int p_id, int x, int y) {
+    assert(isBorder(x, y));
+
+    int p_rot=0;
+    placePiece(make_pair(p_id, p_rot));
+    // Bonne rotation
+    for (p_rot= 1; p_rot < 4 && (!areConstraintRowsXtremRespected(x, y) || !areConstraintColsXtremRespected(x,y)); ++p_rot){
+        setPiece(x, y, make_pair(p_id, ++p_rot));
+    }
+
+    if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :
+        cerr << "Impossible de placer la pièce sur le bord"<< endl;
+        return false;
+    }
+    else return true;
+}
 
 ostream& Configuration::print(ostream& out) const{
     for(int i=0 ; i<instance->get_width() ; ++i) {
@@ -211,7 +244,7 @@ bool Configuration::tryLoadFile(const string &fileName){
     }
 }
 
-PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
+PairColors* Configuration::getRotatedMotifs(int piece_indice) const{
     const Piece& piece= instance->getPiece(piece_indice);
     int rotation = ids_and_rots[searchPosition(piece)].second;
 
@@ -219,11 +252,11 @@ PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
 }
 
 PairColors &Configuration::getNorthMotifSouthPiece(int current_piece_indice) const {
-    return get_rotated_motifs(current_piece_indice + get_width())[North];
+    return getRotatedMotifs(current_piece_indice + get_width())[North];
 }
 
 PairColors &Configuration::getWestMotifEastPiece(int current_piece_indice) const {
-    return get_rotated_motifs(current_piece_indice + 1)[West];
+    return getRotatedMotifs(current_piece_indice + 1)[West];
 }
 
 const Piece& Configuration::getClosePiece(int current_piece, Cardinal neightboor_card) const {

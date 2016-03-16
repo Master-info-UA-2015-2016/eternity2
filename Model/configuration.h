@@ -118,6 +118,23 @@ public:
     void placePiece(const Piece & piece, int rotation) { ids_and_rots.push_back(std::make_pair(piece.get_id(), rotation)); }
 
     /**
+     * Ajout d'une pièce pour angle
+     * @param p_id : id de la pièce
+     * @param x : int
+     * @param y :int
+     * @author FOURMOND Jérome
+     */
+    bool addPieceAsCorner(int p_id, int x, int y);
+
+    /**
+     * Ajout d'une pièce pour bordure
+     * @param p_id : id de la pièce
+     * @param x : int
+     * @param y : int
+     */
+    bool addPieceAsBorder(int p_id, int x, int y);
+
+    /**
      * Retrait de la dernière position
      * @author FOURMOND Jérôme
      */
@@ -434,6 +451,16 @@ public:
      * @author FOURMOND Jérôme
      */
     bool tryPlaceAtEnd(const Piece& piece);
+
+    /// Vérification que la position (x,y) est un coin dans la configuration conf
+    bool isCorner(int x, int y){
+        return ((x == 0 && (y == 0 || y == get_height()-1)) || (x == get_width()-1 && (y==0 || y == get_height()-1)));
+    }
+
+    /// Vérification que la position (x,y) est un bord dans la configuration conf
+    bool isBorder(int x, int y) {
+        return ((x == 0 || y == 0 || x == get_width()-1 || y == get_height()-1));
+    }
 };
 
 #endif // CONFIGURATION_H

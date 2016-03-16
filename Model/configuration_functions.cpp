@@ -40,6 +40,8 @@ vector<pair<int, int>>& Configuration::getAdjacents(int x, int y) const {
 }
 
 bool Configuration::placeCorner(int p_id, int col, int row){
+    assert(isCorner(col, row));
+
     int p_rot= 0;
     placePiece(make_pair(p_id, p_rot));
     // Bonne rotation
@@ -79,30 +81,33 @@ void Configuration::randomConfiguration() {
 //    Placement des pièces
     int p_rot;
     int p_id;
-    for(int i=0 ; i<get_height() ; ++i) {
-        for(int j=0 ; j<get_width() ; ++j) {
+    for(int row=0 ; row<get_height() ; row++) {
+        for(int col=0 ; col<get_width() ; col++) {
             p_rot = 0;
-            // On vérifie si l'on est dans un coin
-            if( (j == 0 && (i ==0 || i==get_height()-1)) || // Première colonne
-                    (j==get_width()-1 && (i==0 || i==get_height()-1)) ) { // Dernière colonne
-                // Angles
+            // Vérification qu'on est bien dans un coin
+            if(isCorner(col, row)) {
                 p_id = corner_pieces.back();
                 corner_pieces.pop_back();
-
+#ifdef  DEBUG_RANDOM
                 cout << "randomConfiguration() : placement pièce dans un coin ;"<< endl;
-                cout << "("<< j<< ","<< i<< ")"<< endl;
-
-                placeCorner(p_id, j, i);
-            } else if(j == 0 || i == 0 || j == get_width()-1 || i == get_height()-1){
+                cout << "\t(" << col << "," << row << ")" << p_id << endl;
+#endif
+                addPieceAsCorner(p_id, col, row);
+            }
+            //  Vérification qu'on est bien sur un rebord (pas un coin - par la condition précédente !)
+            else if(isBorder(col, row)) {
                 // Border
                 p_id = edge_pieces.back();
                 edge_pieces.pop_back();
                 placePiece(make_pair(p_id, p_rot));
-                // Bonne rotation
-                while(!areConstraintRowsXtremRespected(j,i) || !areConstraintColsXtremRespected(j,i)) {
-                    setPiece(j, i, make_pair(p_id, ++p_rot));
-                }
-            } else {
+#ifdef  DEBUG_RANDOM
+                cout << "randomConfiguration() : placement pièce dans un rebord ;"<< endl;
+                cout << "\t(" << col << "," << row << ")" << endl;
+#endif
+                addPieceAsBorder(p_id, col, row);
+            }
+            // Autre
+            else {
                 // Autre
                 p_id = pieces_remaining.back();
                 pieces_remaining.pop_back();
@@ -113,6 +118,44 @@ void Configuration::randomConfiguration() {
             }
         }
     }
+
+/*
+    for(int row=0 ; row<get_height() ; ++row) {
+        for(int col=0 ; col<get_width() ; ++col) {
+            p_rot = 0;
+            // On vérifie si l'on est dans un coin
+            if( (col == 0 && (row ==0 || row==get_height()-1)) || // Première colonne
+                    (col==get_width()-1 && (row==0 || row==get_height()-1)) ) { // Dernière colonne
+                // Angles
+                p_id = corner_pieces.back();
+                corner_pieces.pop_back();
+
+                cout << "randomConfiguration() : placement pièce dans un coin ;"<< endl;
+                cout << "("<< col<< ","<< row<< ")"<< endl;
+
+                placeCorner(p_id, col, row);
+            } else if(col == 0 || row == 0 || col == get_width()-1 || row == get_height()-1){
+                // Border
+                p_id = edge_pieces.back();
+                edge_pieces.pop_back();
+                placePiece(make_pair(p_id, p_rot));
+                // Bonne rotation
+                while(!areConstraintRowsXtremRespected(col,row) || !areConstraintColsXtremRespected(col,row)) {
+                    setPiece(col, row, make_pair(p_id, ++p_rot));
+                }
+            } else {
+                // Autre
+                p_id = pieces_remaining.back();
+                pieces_remaining.pop_back();
+                // Rotation aléatoire
+                p_rot = rand() % 4;
+                // Ajout de la pair
+                placePiece(make_pair(p_id, p_rot));
+            }
+            cout << "Placement pièce" << endl;
+        }
+    }
+    */
 }
 
 vector<Configuration*>&  Configuration::generateRandomConfigurations(const Instance * instance, int limit) {
@@ -487,7 +530,7 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
         P = adjacents[i];
         // Si l'id est != 0 alors regarder la couleur
         if(P.first != 0) {
-            other_colors = get_rotated_motifs(P.first);
+            other_colors = getRotatedMotifs(P.first);
             if(i == 0 && colors[i] != other_colors[2]) // Les couleurs Sud-Nord sont différentes
                 return false;
             else if(i == 1 && colors[i] != other_colors[3]) // Les couleurs Ouest-Est sont différentes
