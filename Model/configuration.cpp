@@ -65,14 +65,6 @@ PairColors * Configuration::getRotatedMotifs(int x, int y) const {
     return piece.rotate(piece_pair.rot);
 }
 
-//PairColors* Configuration::get_rotated_motifs(int piece_indice) const{
-//    // TODO throw ...
-//    const Piece& piece= instance->getPiece(piece_indice);
-//    int rotation = ids_and_rots[searchPosition(piece)].second;
-
-//    return piece.rotate(rotation);
-//}
-
 int Configuration::searchPosition(const Piece& p) const {
     bool found = false;
     int ind = 0;
@@ -422,17 +414,13 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
     return nb_errors;
 }
 
-int Configuration::isBestPlaced(int piece_id){
-    Coordinates current_coord= getPosition(piece_id);
-    int current_piece_x= current_coord.row;
-    int current_piece_y= current_coord.col;
+int Configuration::couldBeBetterPlaced(int coord_x, int coord_y){
 
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
-    const Piece& current_piece= getPiece(current_piece_x, current_piece_y);
-    Piece piece_test= current_piece;
+    const Piece& piece= getPiece(coord_x, coord_y);
+    Piece piece_test= piece;
     int local_nb_errors= getPieceNbErrors(piece_test);
 
-    //paire d'entiers : <rotation appliquee, nombre d'erreurs liees a la rotation appliquee>
     int best_rot= 0;
     int val_best_rot= local_nb_errors;
 
