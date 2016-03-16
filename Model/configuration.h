@@ -269,17 +269,6 @@ public:
 
 /*** GENERATION DE CONFIGURATIONS   ***/
     /**
-     * Place une pièce, qui doit être un coin, dans un coin définit,
-     *  tourne la pièce si nécessaire
-     * @param p_id  id de la pièce
-     * @param p_rot rotation de la pièce
-     * @param col   colonne du coin (première ou dernière)
-     * @param row   ligne du coin (première ou dernière)
-     * @author Florian David
-     */
-    bool placeCorner(int p_id, int col, int row);
-
-    /**
      * Création des placements aléatoires des pièces (nécessaire pour l'affichage)
      * @author FOURMOND Jérôme
      */

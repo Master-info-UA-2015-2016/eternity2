@@ -39,23 +39,6 @@ vector<pair<int, int>>& Configuration::getAdjacents(int x, int y) const {
     return swne;
 }
 
-bool Configuration::placeCorner(int p_id, int col, int row){
-    assert(isCorner(col, row));
-
-    int p_rot= 0;
-    placePiece(make_pair(p_id, p_rot));
-    // Bonne rotation
-    for (p_rot= 1; p_rot < 4 && !areConstraintEdgesRespected(col, row); ++p_rot){
-        setPiece(col, row, make_pair(p_id, p_rot));
-    }
-
-    if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :
-        cerr << "Impossible de placer la pièce dans le coin"<< endl;
-        return false;
-    }
-    else return true;
-}
-
 void Configuration::randomConfiguration() {
 
 //    Tri des pièces par position possible : coins, bords, centre

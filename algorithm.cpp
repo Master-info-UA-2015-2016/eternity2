@@ -139,7 +139,7 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 
     for(const Piece & p : *(solution->getPieces())) {
         if (p.isCorner() && !has_first_corner){
-            solution->placeCorner(p.get_id(), 0,0);
+            solution->addPieceAsCorner(p.get_id(), 0,0);
             has_first_corner= true;
         }
         else {
