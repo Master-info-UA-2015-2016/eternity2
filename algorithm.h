@@ -39,6 +39,7 @@ class Algorithm
          * Récupération du premier voisin améliorant de la configuration
          * @param config : Configuration
          * @return Configuration
+         * @author FOURMOND Jérome
          */
         static Configuration * getFirstBetterNeighbour(const Configuration & config);
 

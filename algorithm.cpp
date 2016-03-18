@@ -85,9 +85,9 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     Configuration * cStar = c;
     // 4. Tant que le critère d'arret n'est pas respecté faire
     Configuration * cprime;
-    while(nb_eval < 100) {
+    while(nb_eval < 1000) {
         // 5. Sélectionner une solution voisine x' ∈ N(x)
-        cprime = getNeighbour(*c);
+        cprime = getFirstBetterNeighbour(*c);
         // 6. x <- x'
         c = cprime;
         nb_eval++;

@@ -113,13 +113,14 @@ void MainWindow::launch_resolution()
         cout << "Nombre d'erreurs :" << solution->countNbErrors()  << endl;
         cout << *solution;
         cout << "\tPièces malplacées=> " << solution->misplacedPieces() << endl;
-        cout << "\tContraintes d'adjacances->"  << solution->constraintAdjacences() << endl;
+//        cout << "\tContraintes d'adjacances->"  << solution->constraintAdjacences() << endl;
+
 #endif
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
         cout << *local;
         cout << "\tPièces malplacées=>" << local->misplacedPieces() << endl;
-        cout << "\tContraintes d'adjacences->" << local->constraintAdjacences() << endl;
+        cout << "\tContraintes d'adjacences->" << local->nbErrorsAdjacences() << endl;
 
         Board* board_final= new Board(local);
         BoardWidget* res_board= new BoardWidget(NULL, board_final);

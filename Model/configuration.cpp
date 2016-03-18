@@ -214,8 +214,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
     int original_eval = countNbErrors();
     int new_eval = original_eval;
 
-    cout << "EVAL ORIGINE : " << original_eval << endl;
-
     bool permutation_done = false;
     if(piece1_x == piece2_x && piece1_y == piece2_y) return false;
 
@@ -231,7 +229,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         for(int i=0 ; i<4 && !areConstraintCornersRespected(piece2_x, piece2_y); i++) {
             rotatePiece(piece2_x, piece2_y, i);
         }
-        cout << "EVAL APRES SWAP : " << new_eval << endl;
         if(new_eval <= original_eval)
             return true;
         else return false;
@@ -247,7 +244,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         for(int i=0 ; i<4 && !areConstraintRowsXtremRespected(piece2_x, piece2_y) && !areConstraintColsXtremRespected(piece2_x, piece2_y); i++) {
             rotatePiece(piece2_x, piece2_y, i);
         }
-        cout << "EVAL APRES SWAP : " << new_eval << endl;
         if(new_eval <= original_eval)
             return true;
         else return false;
@@ -257,7 +253,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
     }
     if(permutation_done) {
         new_eval = countNbErrors();
-        cout << "EVAL APRES SWAP : " << new_eval << endl;
         if(new_eval <= original_eval)
             return true;
         // Rotation première pièce

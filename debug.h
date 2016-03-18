@@ -13,13 +13,13 @@
 #define DEBUG_SHOW_PIECES       0
 #define DEBUG_INIT_CONFIG       1
 #define DEBUG_CONSTRAINT        0
-#define DEBUG_LOCAL_SEARCH      0
+#define DEBUG_LOCAL_SEARCH      1
 #define DEBUG_CSP               1
 
 //configuration
 #define DEBUG_CHECK_PIECES      0
 #define DEBUG_SHOW_MISPLACED    0
-#define DEBUG_ALTER_PIECES      1
+#define DEBUG_ALTER_PIECES      0
 
 #define DEBUG_SHOW_CONFIG       0
 
