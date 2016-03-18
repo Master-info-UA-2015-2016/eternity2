@@ -169,6 +169,16 @@ public:
      */
     void permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
 
+    /**
+     * Permute deux pièces du tableaux en adéquation
+     * @param piece1_x : coordonnée x de la première pièce
+     * @param piece1_y : coordonnée y de la première pièce
+     * @param piece2_x : coordonnée x de la seconde pièce
+     * @param piece2_y : coordonnée y de la second pièce
+     * @return VRAI si la permutation effectuée donne une meilleure configuration
+     *  FAUX sinon
+     * @author FOURMOND_Jérôme
+     */
     bool better_permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
 
 
@@ -337,7 +347,7 @@ public:
      * @return boolean
      * @author FOURMOND Jérôme
      */
-    bool areConstraintEdgesRespected(int x, int y) const;
+    bool areConstraintCornersRespected(int x, int y) const;
 
     /**
      * Compte les erreurs de contraintes d'adjacences
@@ -420,7 +430,7 @@ public:
 
     /// Vérification que la position (x,y) est un bord dans la configuration conf
     bool isBorder(int x, int y) {
-        return ((x == 0 || y == 0 || x == get_width()-1 || y == get_height()-1));
+        return (x == 0 || y == 0 || x == get_width()-1 || y == get_height()-1);
     }
 };
 

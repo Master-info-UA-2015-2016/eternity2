@@ -36,6 +36,13 @@ class Algorithm
         static Configuration * getNeighbour(const Configuration & config );
 
         /**
+         * Récupération du premier voisin améliorant de la configuration
+         * @param config : Configuration
+         * @return Configuration
+         */
+        static Configuration * getFirstBetterNeighbour(const Configuration & config);
+
+        /**
          * Récupération des voisins de la Configuration C
          * @param C : Configuration
          * @param configurations : vector<Configuration *> l'ensemble des Configurations
@@ -50,7 +57,7 @@ class Algorithm
          * @return le nombre d'erreur de la Configuration
          * @author FOURMOND Jérôme
          */
-        static int evaluation(Configuration & C);
+        static int evaluation(const Configuration & C);
 
         /**
          * Algorithme de recherche locale
@@ -59,14 +66,6 @@ class Algorithm
          */
         static Configuration * local_search(const Configuration * config);
 
-        /**
-         * Algorithme de contruction de Configuration
-         * d'après la programmation par contrainte (CCP)
-         * @param instance : Instance
-         * @return Configuration "solution"
-         */
-        static Configuration * build_Configuration(const Instance * instance);
-        
         static Configuration* resolveWithCSP(const Instance * instance);
 };
 

@@ -72,20 +72,12 @@ void Configuration::randomConfiguration() {
                 p_id = corner_pieces.back();
                 corner_pieces.pop_back();
                 addPieceAsCorner(p_id, col, row);
-#ifdef  DEBUG_RANDOM
-                cout << "randomConfiguration() : placement pièce dans un coin ;"<< endl;
-                cout << "\t(" << col << "," << row << ")" << " " <<  p_id << endl;
-#endif
             }
             //  Vérification qu'on est bien sur un rebord (pas un coin - par la condition précédente !)
             else if(isBorder(col, row)) {
                 // Border
                 p_id = edge_pieces.back();
                 edge_pieces.pop_back();
-#ifdef  DEBUG_RANDOM
-                cout << "randomConfiguration() : placement pièce dans un rebord ;"<< endl;
-                cout << "\t(" << col << "," << row << ")" << " " << p_id << endl;
-#endif
                 addPieceAsBorder(p_id, col, row);
             }
             // Autre
@@ -324,7 +316,7 @@ int Configuration::nbErrorsCorners() const {
     return errors;
 }
 
-bool Configuration::areConstraintEdgesRespected(int x, int y) const {
+bool Configuration::areConstraintCornersRespected(int x, int y) const {
     const pair<int, int> & pair = getPair(x, y);
     const Piece & piece = getPiece(pair.id);
     const PairColors * swne = piece.rotate(pair.second);
@@ -385,7 +377,7 @@ int Configuration::misplacedPieces() {
             pair<int, int> p = getPair(i, j);
             // Vérification d'Angles
             if((j == 0 && i == 0)||(j== 0 && i == get_width()-1)||(j==get_height()-1 && i==0)||(j==get_height()-1 && i==get_width()-1)) {
-                 if(!areConstraintEdgesRespected(i,j)) misplaces[i + j*get_width()] = p.first;
+                 if(!areConstraintCornersRespected(i,j)) misplaces[i + j*get_width()] = p.first;
             // Vérification de Lignes
             } else if(j == 0 || j == get_height()-1) {
                  if(!areConstraintRowsXtremRespected(i,j)) misplaces[i + j*get_width()] = p.first;

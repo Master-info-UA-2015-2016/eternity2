@@ -103,7 +103,7 @@ bool Configuration::addPieceAsCorner(int p_id, int x, int y) {
     int p_rot=0;
     placePiece(make_pair(p_id, p_rot));
     // Bonne rotation
-    for (p_rot= 1; p_rot < 4 && !areConstraintEdgesRespected(x, y); ++p_rot){
+    for (p_rot= 1; p_rot < 4 && !areConstraintCornersRespected(x, y); ++p_rot){
         setPiece(x, y, make_pair(p_id, p_rot));
     }
 
@@ -214,31 +214,62 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
     int original_eval = countNbErrors();
     int new_eval = original_eval;
 
+    cout << "EVAL ORIGINE : " << original_eval << endl;
+
     bool permutation_done = false;
+    if(piece1_x == piece2_x && piece1_y == piece2_y) return false;
+
     if(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y)) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
         permutation_done = true;
-    } else if(isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y)) {
+        // Dans le cas des coins, on tourne jusqu'à ce que les contraintes de coins soit valides
+        // Rotation première pièce
+        for(int i=0 ; i<4 && !areConstraintCornersRespected(piece1_x, piece1_y); i++) {
+            rotatePiece(piece1_x, piece1_y, i);
+        }
+        // Rotation seconde pièce
+        for(int i=0 ; i<4 && !areConstraintCornersRespected(piece2_x, piece2_y); i++) {
+            rotatePiece(piece2_x, piece2_y, i);
+        }
+        cout << "EVAL APRES SWAP : " << new_eval << endl;
+        if(new_eval <= original_eval)
+            return true;
+        else return false;
+    } else if((isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y)) && !(isCorner(piece1_x, piece1_y) || isCorner(piece2_x, piece2_y))) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
         permutation_done = true;
+        // Dans le cas des coins, on tourne jusqu'à ce que les contraintes de bords soit valides
+        // Rotation première pièce
+        for(int i=0 ; i<4 && !areConstraintRowsXtremRespected(piece1_x, piece1_y) && !areConstraintColsXtremRespected(piece1_x, piece1_y); i++) {
+            rotatePiece(piece1_x, piece1_y, i);
+        }
+        // Rotation seconde pièce
+        for(int i=0 ; i<4 && !areConstraintRowsXtremRespected(piece2_x, piece2_y) && !areConstraintColsXtremRespected(piece2_x, piece2_y); i++) {
+            rotatePiece(piece2_x, piece2_y, i);
+        }
+        cout << "EVAL APRES SWAP : " << new_eval << endl;
+        if(new_eval <= original_eval)
+            return true;
+        else return false;
     } else if(!(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y))&&!(isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y))) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
         permutation_done = true;
     }
     if(permutation_done) {
         new_eval = countNbErrors();
-        if(new_eval < original_eval)
+        cout << "EVAL APRES SWAP : " << new_eval << endl;
+        if(new_eval <= original_eval)
             return true;
         // Rotation première pièce
         for(int i=0 ; i<4 ; i++) {
             rotatePiece(piece1_x, piece1_y, i);
-            if(new_eval < original_eval)
+            if(new_eval <= original_eval)
                 return true;
         }
         // Rotation seconde pièce
         for(int i=0 ; i<4 ; i++) {
             rotatePiece(piece2_x, piece2_y, i);
-            if(new_eval < original_eval)
+            if(new_eval <= original_eval)
                 return true;
         }
         return false;
