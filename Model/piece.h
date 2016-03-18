@@ -47,13 +47,14 @@ public:
      * @param north_motif
      * @param east_motif
      * @author GARNIER Antoine
+     * @deprecated
      */
-    void set_motifs(PairColors south_motif, PairColors west_motif, PairColors north_motif, PairColors east_motif){
-        motif[South]= south_motif;
-        motif[West]= west_motif;
-        motif[North]= north_motif;
-        motif[East]= east_motif;
-    }
+//    void set_motifs(PairColors south_motif, PairColors west_motif, PairColors north_motif, PairColors east_motif){
+//        motif[South]= south_motif;
+//        motif[West]= west_motif;
+//        motif[North]= north_motif;
+//        motif[East]= east_motif;
+//    }
 
     /**
      * La pièce doit-elle être placée dans un coin ?

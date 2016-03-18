@@ -32,7 +32,7 @@ ostream& Piece::print(ostream& out) const{
         out << motif[i] << " ";
 
     // Affichage de la n-ième couleur suivie d'un ; et d'un saut de ligne
-    out << motif[MAX_CARD-1] << ";" << endl;
+    out << motif[MAX_CARD-1];
 
     return out;
 }

@@ -46,7 +46,7 @@ void MainWindow::set_board(Board *_board)
 
 bool MainWindow::init_configuration(std::string instance_filename)
 {
-    Instance* instance= new Instance;
+    instance= new Instance;
     if (instance->tryLoadFile(instance_filename)){
 
         Configuration* config= new Configuration(instance);
@@ -61,15 +61,6 @@ bool MainWindow::init_configuration(std::string instance_filename)
         cout << "Nombre d'erreurs :" << config->countNbErrors()  << endl;
         cout << "\tPièces malplacées=> " << config->misplacedPieces() << endl;
         cout << "\tContraintes d'adjacences->"  << config->nbErrorsAdjacences() << endl;
-#endif
-#if DEBUG_CSP
-        Configuration * CSP = Algorithm::resolveWithCSP(instance);
-        cout << "##########\tCSP\t##########" << endl;
-        cout << (*CSP) << endl;
-        cout << "##########\tFIN CSP\t##########" << endl;
-        Board* board_final= new Board(CSP);
-        BoardWidget* res_board= new BoardWidget(NULL, board_final);
-        res_board->show();
 #endif
         Board* board_init= new Board(config);
         set_board(board_init);
@@ -115,6 +106,15 @@ void MainWindow::launch_resolution()
         cout << "\tPièces malplacées=> " << solution->misplacedPieces() << endl;
 //        cout << "\tContraintes d'adjacances->"  << solution->constraintAdjacences() << endl;
 
+#endif
+#if DEBUG_CSP
+        Configuration * CSP = Algorithm::resolveWithCSP(instance);
+        cout << "##########\tCSP\t##########" << endl;
+        cout << (*CSP) << endl;
+        cout << "##########\tFIN CSP\t##########" << endl;
+        Board* board_final= new Board(CSP);
+        BoardWidget* res_board= new BoardWidget(NULL, board_final);
+        res_board->show();
 #endif
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));

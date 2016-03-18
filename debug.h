@@ -9,12 +9,12 @@
 // mainwindow
 #define DEBUG_UI                1
 #define DEBUG_DRAW_WIDGETS      0
-#define DEBUG_SHOW_SOL_CONFIG   0
 #define DEBUG_SHOW_PIECES       0
 #define DEBUG_INIT_CONFIG       1
 #define DEBUG_CONSTRAINT        0
-#define DEBUG_LOCAL_SEARCH      1
-#define DEBUG_CSP               1
+#define DEBUG_SHOW_SOL_CONFIG   0
+#define DEBUG_LOCAL_SEARCH      0
+#define DEBUG_CSP               1   // algorithm.cpp également
 
 //configuration
 #define DEBUG_CHECK_PIECES      0
@@ -23,7 +23,7 @@
 
 #define DEBUG_SHOW_CONFIG       0
 
-#define DEBUG_RANDOM            1
+#define DEBUG_RANDOM            0
 
 // configuration_functions
 #define DEBUG_CREATE_CONFIGS    0

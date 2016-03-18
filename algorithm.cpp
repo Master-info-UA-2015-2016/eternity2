@@ -158,29 +158,60 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 
     list<Piece> available_pieces;
 
-    for(const Piece & p : *(solution->getPieces())) {
-        if (p.isCorner() && !has_first_corner){
+    for(const Piece p : *(solution->getPieces())) {
+        if (!has_first_corner && p.isCorner()){
             solution->addPieceAsCorner(p.get_id(), 0,0);
             has_first_corner= true;
+#if DEBUG_CSP
+            cout << p<< " placée au coin"<< endl;
+#endif
         }
         else {
             available_pieces.push_back(p);
         }
     }
 
+#if DEBUG_CSP
+    cout << "Nombre de pièces disponibles : "<< available_pieces.size()<< endl;
+#endif
+
     // Parcours du tableau @SEE si on l'améliore en escargot
-    for (int y= 0; y < solution->get_height(); ++y){
-        for (int x= 0; x < solution->get_width(); ++x){
-            Piece& current_piece= available_pieces.front();
+    for(int i= 2; i<= solution->get_width() * solution->get_height(); ++i){
+//    for (int y= 0; y < solution->get_height(); ++y){
+//        for (int x= 0; x < solution->get_width(); ++x){
+            Piece current_piece= available_pieces.front();
             available_pieces.pop_front();
             // Je vérifie si la pièce a été ajoutée à la suite des autres
-            if (! solution->tryPlaceAtEnd(current_piece) ){
+            unsigned int num_try= 0;
+            bool placed= false;
+            do {
+                placed= solution->tryPlaceAtEnd(current_piece);
+                 ++num_try;
                 // La pièce ne peut pas être ajoutée, donc on la replace à la fin
                 //  de la liste des pièces disponibles
-                available_pieces.push_back(current_piece);
+                if (!placed){
+                #if DEBUG_CSP
+    //                cout << "Essai de placer "<< current_piece<< " en "<< x<< ";"<< y<< endl;
+                    cout << "Essai num "<< num_try<< " : placer "<< current_piece<< " en "
+                         << i<< " eme case (placé : "<< placed<< ")"<< endl;
+                    cout << solution->get_ids_and_rots().size()<< " déjà placées, "<<
+                         solution->get_width() * solution->get_height()-i +1<< " à placer"<< endl;
+                    cout << available_pieces.size() +1<< " disponibles"<< endl;
+                #endif
+                    available_pieces.push_back(current_piece);
+                    current_piece= available_pieces.front();
+                    available_pieces.pop_front();
+                }
+            }while (!placed && num_try <= available_pieces.size());
+
+            // En cas d'echec de placement de la pièce suivante
+            if (!placed){
+                available_pieces.push_front(current_piece);
+                clog << "IL FAUT PLACER LES PIECES SUIVANTES SANS RESPECTER LES CONTRAINTES"
+                        " OU FAIRE DU BACKTRACKING"<< endl;
             }
 
-        }
+//        }
     }
 
     return solution;
