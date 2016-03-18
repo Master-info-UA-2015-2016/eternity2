@@ -46,19 +46,3 @@ PairColors *Piece::rotate(int nbRotation) const{
 
     return rotated_motifs;
 }
-
-void Piece::rotation(int val_rotation){
-    switch(val_rotation){
-    case 1:
-        set_motifs(motif[East], motif[South], motif[West], motif[North]);
-        break;
-    case 2:
-        set_motifs(motif[North], motif[East], motif[South], motif[West]);
-        break;
-    case 3:
-        set_motifs(motif[West], motif[North], motif[East], motif[South]);
-        break;
-    default:
-        break;
-    }
-}

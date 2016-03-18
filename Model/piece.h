@@ -94,13 +94,6 @@ public:
      * @author DAVID Florian
      */
     PairColors* rotate(int nbRotation) const;
-
-    /**
-     * Applique une rotation de val_rotation aux motifs de la piece
-     * @param val_rotation
-     * @author GARNIER Antoine
-     */
-    void rotation(int val_rotation);
 };
 
 #endif // PIECE_MODEL_H
