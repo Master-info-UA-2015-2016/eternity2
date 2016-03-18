@@ -122,7 +122,7 @@ public:
      * @param p_id : id de la pièce
      * @param x : int
      * @param y :int
-     * @author FOURMOND Jérome
+     * @author FOURMOND Jérôme
      */
     bool addPieceAsCorner(int p_id, int x, int y);
 
@@ -131,6 +131,7 @@ public:
      * @param p_id : id de la pièce
      * @param x : int
      * @param y : int
+     * @author FOURMOND Jérôme
      */
     bool addPieceAsBorder(int p_id, int x, int y);
 
@@ -151,8 +152,10 @@ public:
 
     /**
      * Permute deux pieces du plateau
-     * @param indice_piece_1
-     * @param indice_piece_2
+     * @param piece1_x : coordonnée x de la première pièce
+     * @param piece1_y : coordonnée y de la première pièce
+     * @param piece2_x : coordonnée x de la seconde pièce
+     * @param piece2_y : coordonnée y de la second pièce
      * @author GARNIER Antoine
      */
     int permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);

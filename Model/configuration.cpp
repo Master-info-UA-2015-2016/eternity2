@@ -202,14 +202,12 @@ void Configuration::rotatePiece(int x, int y, int degree) {
     }
 }
 
-int Configuration::permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y)
+void Configuration::permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y)
 {
     std::pair<int, int> tmp_pair= ids_and_rots[piece1_x + piece1_y * get_width()];
 
     setPiece(piece1_x, piece1_y, ids_and_rots[piece2_x + piece2_y * get_width()]);
     setPiece(piece2_x, piece2_y, tmp_pair);
-
-    return 0;
 }
 
 bool Configuration::tryLoadFile(const string &fileName){
