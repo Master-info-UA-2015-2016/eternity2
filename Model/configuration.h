@@ -151,6 +151,15 @@ public:
     void setPiece(int x, int y, std::pair<int, int> id_and_rot);
 
     /**
+     * Rotation de la pièce en position (x,y) de 90, 180, 270, 360
+     * @param x : int
+     * @param y : int
+     * @param degree :int - 0, 1, 2, 3
+     * @author FOURMOND Jérôme
+     */
+    void rotatePiece(int x, int y, int degree);
+
+    /**
      * Permute deux pieces du plateau
      * @param piece1_x : coordonnée x de la première pièce
      * @param piece1_y : coordonnée y de la première pièce
@@ -158,7 +167,10 @@ public:
      * @param piece2_y : coordonnée y de la second pièce
      * @author GARNIER Antoine
      */
-    int permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
+    void permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
+
+    bool better_permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
+
 
     /*** Recherche des pièces ***/
     /**
@@ -198,15 +210,6 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const Configuration& r)
     { return r.print(out); }
-
-    /**
-     * Rotation de la pièce en position (x,y) de 90, 180, 270, 360
-     * @param x : int
-     * @param y : int
-     * @param degree :int - 0, 1, 2, 3
-     * @author FOURMOND Jérôme
-     */
-    void rotatePiece(int x, int y, int degree);
 
     /**
      * Vérifie que la forme de la configuration correspond à la taille de l'instance

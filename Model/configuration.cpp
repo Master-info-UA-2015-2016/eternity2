@@ -210,6 +210,41 @@ void Configuration::permutation_two_pieces(int piece1_x, int piece1_y, int piece
     setPiece(piece2_x, piece2_y, tmp_pair);
 }
 
+bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y) {
+    int original_eval = countNbErrors();
+    int new_eval = original_eval;
+
+    bool permutation_done = false;
+    if(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y)) {
+        permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
+        permutation_done = true;
+    } else if(isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y)) {
+        permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
+        permutation_done = true;
+    } else if(!(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y))&&!(isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y))) {
+        permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
+        permutation_done = true;
+    }
+    if(permutation_done) {
+        new_eval = countNbErrors();
+        if(new_eval < original_eval)
+            return true;
+        // Rotation première pièce
+        for(int i=0 ; i<4 ; i++) {
+            rotatePiece(piece1_x, piece1_y, i);
+            if(new_eval < original_eval)
+                return true;
+        }
+        // Rotation seconde pièce
+        for(int i=0 ; i<4 ; i++) {
+            rotatePiece(piece2_x, piece2_y, i);
+            if(new_eval < original_eval)
+                return true;
+        }
+        return false;
+    } else return false;
+}
+
 bool Configuration::tryLoadFile(const string &fileName){
     if( instance->get_width() * instance->get_height() == 0){
         cerr << "Aucune instance n'est chargée" << endl;
@@ -301,8 +336,6 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
         return true;
     }
 }
-
-
 
 bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece){
     Piece current_piece= getPiece(ids_and_rots[indice_current_piece].first);
@@ -457,8 +490,7 @@ int Configuration::getPieceNbErrors(const Piece& current_piece) {
     return nb_errors;
 }
 
-int Configuration::rotationForBestPlace(int coord_x, int coord_y){
-
+int Configuration::rotationForBestPlace(int coord_x, int coord_y) {
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
     const Piece& piece= getPiece(coord_x, coord_y);
     Piece piece_test= piece;
@@ -468,7 +500,8 @@ int Configuration::rotationForBestPlace(int coord_x, int coord_y){
     int val_best_rot= local_nb_errors;
 
     for(int i= 1; i < 4; ++i){
-        piece_test.rotation(1);
+        // TODO Changement de @jfourmond ici
+        rotatePiece(coord_x, coord_y, i);
 
         int nb_current_errors= getPieceNbErrors(piece_test);
         if(val_best_rot > nb_current_errors){
