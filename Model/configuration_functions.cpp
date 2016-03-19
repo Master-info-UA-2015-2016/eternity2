@@ -464,24 +464,31 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
     int y = current_case / get_width();
 
     vector<pair<int, int> > adjacents = getAdjacents(x, y);
+#if DEBUG_CSP
+    cout << "Adjacents : "<< endl;
+    for (int i = 0; i < 4; ++i){
+        cout << adjacents[i].id<< ", "<<adjacents[i].rot <<endl;
+    }
+#endif
 
     pair<int, int> P;
     PairColors * other_colors;
     for(unsigned int i=0 ; i<adjacents.size() ; i++) {
         P = adjacents[i];
         // Si l'id est != 0 alors regarder la couleur
-        if(P.first != 0) {
-
+        if(P.id != 0) {
             //@TODO a verifier si c'est correct : get_rotated_motifs(P.first) ==> getRotatedMotifs(x, y)
             other_colors = getRotatedMotifs(x, y);
-            if(i == 0 && colors[i] != other_colors[2]) // Les couleurs Sud-Nord sont différentes
+//            other_colors = get_rotated_motifs(P.id);
+
+            if(colors[i] != other_colors[(i+2)%4]) // On vérifie que les motifs adjacents sont identiques
                 return false;
-            else if(i == 1 && colors[i] != other_colors[3]) // Les couleurs Ouest-Est sont différentes
-                return false;
-            else if(i == 2 && colors[i] != other_colors[0]) // Les couleurs Nord-Sud sont différentes
-                return false;
-            else if(i == 3 && colors[i] != other_colors[1]) // Les couleurs Est-Ouest sont différentes
-                return false;
+            #if DEBUG_CSP
+                cout << "Motif : "<< endl;
+                for (int i = 0; i < 4; ++i){
+                    cout << "comp "<< colors[i]<< " et "<<other_colors[(i+2) %4]<< "(id: "<< P.id<< ")"<< endl;
+                }
+            #endif
         }
     }
     // Pas de soucis d'adjacences, mais est-ce que l'emplacement est compatible avec les bordures ou l'angle ?
