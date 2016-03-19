@@ -83,7 +83,23 @@ class Algorithm
          * @author FOURMOND Jérôme
          */
         static Configuration * local_search(const Configuration * config);
-
+        /**
+         * Initalise le CSP : place la première pièce et retourne les pièces à ajouter
+         * @param config Configuration vide, à remplir
+         * @return
+         */
+        static std::list<Piece>* initCSP(Configuration* config);
+        /**
+         * Place toutes les pièces restantes dans la config
+         * @param config    Configuration à remplir
+         * @param remainingPieces   Pièces à placer dans la configuration
+         */
+        static void placeWithoutConstraints(Configuration* config, std::list<Piece>* remainingPieces);
+        /**
+         * Resolution CSP
+         * @param instance
+         * @return
+         */
         static Configuration* resolveWithCSP(const Instance * instance);
 
         /**

@@ -172,85 +172,73 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     return cStar;
 }
 
-//Configuration * Algorithm::build_Configuration(const Instance *instance) {
-//    Configuration * config = new Configuration(instance);
 
-//    list<Piece> pieces;
+// ###########################################
+//      PROGRAMMATION PAR CONTRAINTES
+// ###########################################
 
-//    for(const Piece & p : *(config->getPieces())) {
-//        pieces.push_back(config->getPiece(p.get_id()));
-//    }
-//    vector<bool> used(pieces.size(), false);
-
-//    bool found;
-//    for(int j=0 ; j<config->get_height() ; j++) {
-//        for(int i=0 ; i<config->get_width() ; i++) {
-//            // Pour chaque case, choisir une pièce s'accordant au mieux aux contraintes
-//            // de lignes, de colonnes et d'adjacences
-//            found = false;
-//            for(int k=0 ; k<(signed) pieces.size() && !found ; k++) {
-//                // Si la pièce n'est pas utilisé, on l'essaye
-//                if(!used[k]) {
-//                    Piece piece = pieces[k];
-//                    config->placePiece(make_pair(piece.get_id(), 0));
-//                    // Bien placé ?
-//                    if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
-//                        // Bien placé !
-//                        used[k] = true;
-//                        found = true;
-//                    } else {
-//                        config->removePiece();
-//                        // Tentative de rotation
-//                        for(int r=1 ; r<4 && !found; r++) {
-//                            config->placePiece(make_pair(piece.get_id(), r));
-//                            if(config->isConstraintColsXtremRespected(i, j) && config->isConstraintColsXtremRespected(i, j) && config->isConstraintEdgesRespected(i, j) && config->isConstraintAdjacencesRespected(i, j)) {
-//                                // Bien placé !
-//                                used[k] = true;
-//                                found = true;
-//                            } else config->removePiece();
-//                        }
-//                    }
-//                    // Si aucun de ces tests n'a fonctionné (found == false), on teste une autre pièce
-//                    // TODO BackTracking
-//                }
-//            }
-//        }
-//    }
-
-//    return config;
-//}
-
-Configuration* Algorithm::resolveWithCSP(const Instance *instance)
+list<Piece>* Algorithm::initCSP(Configuration * config)
 {
-    Configuration* solution = new Configuration(instance);
     bool has_first_corner= false;
 
-    list<Piece> available_pieces;
+    list<Piece>* available_pieces= new list<Piece>;
 
-    for(const Piece p : *(solution->getPieces())) {
+    for(const Piece p : *(config->getPieces())) {
         if (!has_first_corner && p.isCorner()){
-            solution->addPieceAsCorner(p.get_id(), 0,0);
+            config->addPieceAsCorner(p.get_id(), 0,0);
             has_first_corner= true;
 #if DEBUG_CSP
             cout << p<< " placée au coin"<< endl;
 #endif
         }
         else {
-            available_pieces.push_back(p);
+            available_pieces->push_back(p);
         }
     }
+
+    return available_pieces;
+}
+
+void Algorithm::placeWithoutConstraints(Configuration* config, list<Piece>* remainingPieces)
+{
+//    for (Piece piece : available_pieces){
+
+    unsigned ever_placed= config->get_ids_and_rots().size();
+
+    int y= ever_placed / config->get_height();
+    int x= ever_placed % config->get_width();
+    for ( ; y < config->get_height(); ++y){
+        for ( ; x < config->get_width(); ++x){
+            assert(remainingPieces->size() > 0);
+
+            // Placement de la pièce à la fin de la configuration
+            Piece piece= remainingPieces->front();
+            config->placePiece(piece, 0);
+            remainingPieces->pop_front();
+
+            // Tourne la pièce si une meilleure rotation est disponible
+            int best_rot= config->rotationForBestPlace(x, y);
+            config->rotatePiece(x, y, best_rot);
+        }
+    }
+}
+
+Configuration* Algorithm::resolveWithCSP(const Instance *instance)
+{
+    Configuration* solution = new Configuration(instance);
+    list<Piece>& available_pieces= *(initCSP(solution));
 
 #if DEBUG_CSP
     cout << "Nombre de pièces disponibles : "<< available_pieces.size()<< endl;
 #endif
 
+//    Debut de l'algo
+
     // Parcours du tableau @SEE si on l'améliore en escargot
-    for(int i= 2; i<= solution->get_width() * solution->get_height(); ++i){
-//    for (int y= 0; y < solution->get_height(); ++y){
-//        for (int x= 0; x < solution->get_width(); ++x){
+    for(int i= 2; i<= solution->get_width() * solution->get_height(); ++i) {
             Piece current_piece= available_pieces.front();
             available_pieces.pop_front();
-            // Je vérifie si la pièce a été ajoutée à la suite des autres
+
             unsigned int num_try= 0;
             bool placed= false;
             do {
@@ -259,17 +247,17 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
                 // La pièce ne peut pas être ajoutée, donc on la replace à la fin
                 //  de la liste des pièces disponibles
                 if (!placed){
-                #if DEBUG_CSP
-    //                cout << "Essai de placer "<< current_piece<< " en "<< x<< ";"<< y<< endl;
+                    available_pieces.push_back(current_piece);
+                    current_piece= available_pieces.front();
+                    available_pieces.pop_front();
+
+#if DEBUG_CSP
                     cout << "Essai num "<< num_try<< " : placer "<< current_piece<< " en "
                          << i<< " eme case (placé : "<< placed<< ")"<< endl;
                     cout << solution->get_ids_and_rots().size()<< " déjà placées, "<<
                          solution->get_width() * solution->get_height()-i +1<< " à placer"<< endl;
                     cout << available_pieces.size() +1<< " disponibles"<< endl;
-                #endif
-                    available_pieces.push_back(current_piece);
-                    current_piece= available_pieces.front();
-                    available_pieces.pop_front();
+#endif
                 }
             }while (!placed && num_try <= available_pieces.size());
 
@@ -283,8 +271,18 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 //        }
     }
 
+    // Pose des pièces restantes, sans vérifier les contraintes
+    placeWithoutConstraints(solution, &available_pieces);
+
+    /** Fin de l'algo **/
+    delete &available_pieces;
+
     return solution;
 }
+
+// ###########################################
+//              GENETIQUE
+// ###########################################
 
 std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*> configs){
     cout << "DEBUT ALGO GENETIC" << endl;
