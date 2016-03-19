@@ -119,8 +119,7 @@ void MainWindow::launch_resolution()
 #if DEBUG_LOCAL_SEARCH
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
         cout << *local;
-        cout << "\tPièces malplacées=>" << local->misplacedPieces() << endl;
-        cout << "\tContraintes d'adjacences->" << local->nbErrorsAdjacences() << endl;
+        cout << "Nombre d'erreurs :" << local->countNbErrors()  << endl;
 
         Board* board_final= new Board(local);
         BoardWidget* res_board= new BoardWidget(NULL, board_final);
