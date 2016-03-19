@@ -130,18 +130,23 @@ void MainWindow::launch_resolution()
         int nb_config= 10;
         vector<Configuration*> genetic, new_generation;
         Configuration * randomC = new Configuration("../eternity2/instances_puzzles/pieces_04x04.txt");
-        randomC->randomConfiguration();
 
         for (int i = 0; i < nb_config; ++i) {
+            randomC->randomConfiguration();
             genetic.push_back(randomC);
             new_generation.push_back(randomC);
         }
 
-        new_generation= Algorithm::genetic_search(genetic);
+        //new_generation= Algorithm::genetic_search(genetic);
 
         Board* board_final2= new Board(genetic[0]);
         BoardWidget* res_board2= new BoardWidget(NULL, board_final2);
+
+        Board* board_final3= new Board(genetic[1]);
+        BoardWidget* res_board3= new BoardWidget(NULL, board_final3);
+
         res_board2->show();
+        res_board3->show();
 
 #endif
 
