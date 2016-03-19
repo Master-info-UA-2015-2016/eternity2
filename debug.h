@@ -13,9 +13,9 @@
 #define DEBUG_INIT_CONFIG       0 //a remettre a 1
 #define DEBUG_CONSTRAINT        0
 #define DEBUG_SHOW_SOL_CONFIG   0
-#define DEBUG_LOCAL_SEARCH      0 //a remettre a 1
+#define DEBUG_LOCAL_SEARCH      1 //a remettre a 1
 #define DEBUG_CSP               0   // algorithm.cpp également
-#define DEBUG_GENETIC           1
+#define DEBUG_GENETIC           0
 
 
 //configuration
