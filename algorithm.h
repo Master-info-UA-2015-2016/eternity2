@@ -53,6 +53,14 @@ class Algorithm
         static std::vector<Configuration *> get_neighbours(Configuration & C, std::vector<Configuration * > configurations);
 
         /**
+         * Fabrique 2 enfants a partir des 2 parents et ajoute a la liste d'enfants
+         * @param children
+         * @param parent1
+         * @param parent2
+         */
+        static void add_child(std::vector<Configuration*>& children, Configuration* parent1, Configuration* parent2);
+
+        /**
          * A partir de 2 parents, fabrique des configurations "fils" et "fille" pour la nouvelle generation
          * @note Fonction de croisement
          * @param parent1

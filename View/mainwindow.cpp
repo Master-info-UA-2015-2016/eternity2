@@ -117,7 +117,6 @@ void MainWindow::launch_resolution()
         res_board->show();
 #endif
 #if DEBUG_LOCAL_SEARCH
-
         Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
         cout << *local;
         cout << "\tPièces malplacées=>" << local->misplacedPieces() << endl;

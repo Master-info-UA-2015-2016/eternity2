@@ -263,7 +263,7 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
             return true;
         else return false;
     // Permutation de deux pièces ni angles ni rebords
-    } else if(!(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y))&&!(isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y))) {
+    } else if(!(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y))&&!(isBorder(piece1_x, piece1_y) || isBorder(piece2_x, piece2_y))) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
         new_eval = countNbErrors();
         if(new_eval < original_eval)
@@ -271,12 +271,14 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         // Rotation première pièce
         for(int i=0 ; i<4 ; i++) {
             rotatePiece(piece1_x, piece1_y, i);
+            new_eval = countNbErrors();
             if(new_eval < original_eval)
                 return true;
         }
         // Rotation seconde pièce
         for(int i=0 ; i<4 ; i++) {
             rotatePiece(piece2_x, piece2_y, i);
+            new_eval = countNbErrors();
             if(new_eval < original_eval)
                 return true;
         }

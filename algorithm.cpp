@@ -70,6 +70,13 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
     return neightbours;
 }
 
+void Algorithm::add_child(std::vector<Configuration *> &children, Configuration *parent1, Configuration *parent2){
+    pair<Configuration*, Configuration*> new_children= make_children(parent1, parent2);
+    children.push_back(new_children.first);
+    children.push_back(new_children.second);
+
+}
+
 pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* parent1, Configuration* parent2){
     Configuration* son= new Configuration();
     Configuration* daughter= new Configuration();
@@ -284,15 +291,33 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*> configs){
     std::vector<Configuration*> new_generation, final_generation;
     //selection de 2 parents
+    //selection des configurations 2 à 2 dans "configs"
 
+    int taille_config= configs.size();
     //croisement (sur quel critere croiser ? Nombre d'erreurs par piece ?)
-    pair<Configuration*, Configuration*> children= make_children(configs[0], configs[1]);
-    new_generation.push_back(children.first);
-    new_generation.push_back(children.second);
+    if(0 == taille_config % 2) //nombre paire de parents
+    {
+        for(int k= 0; k < taille_config; k+=2){
+            add_child(new_generation, configs[k], configs[k+1]);
+        }
+    } else //nombre impaire de parents
+    {
+        if(1 != taille_config) //population d'un seul individu
+        {
+            for(int k= 0; k < taille_config-1; k+=2){
+                add_child(new_generation, configs[k], configs[k+1]);
+            }
+        }
+        //le parent qu'il reste est ajoute a la new generation
+        new_generation.push_back(configs[taille_config-1]);
 
-    //mutation (s'arranger pour tourner les pieces si besoin)
-    Configuration* new_son= Configuration::getBestRotatedConfig(children.first);
-    Configuration* new_daughter= Configuration::getBestRotatedConfig(children.second);
+    }
+
+    for(int m= 0; m < new_generation.size(); ++m) {
+        //mutation (s'arranger pour tourner les pieces si besoin)
+        new_generation[m]= Configuration::getBestRotatedConfig(new_generation[m]);
+
+    }
 
     //injection (fils = meilleure solution ?)
     for(unsigned int i= 0; i < configs.size(); ++i){
