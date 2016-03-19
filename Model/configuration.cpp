@@ -555,7 +555,7 @@ int Configuration::rotationForBestPlace(int coord_x, int coord_y) {
     int best_rot= 0;
     int val_best_rot= local_nb_errors;
 
-    for(int i= 1; i < 4; ++i){
+    for(int i= 0; i < 4; ++i){
         // TODO Changement de @jfourmond ici
         rotatePiece(coord_x, coord_y, i);
 
