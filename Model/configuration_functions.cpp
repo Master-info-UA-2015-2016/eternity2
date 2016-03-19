@@ -122,7 +122,6 @@ Configuration* Configuration::getBestRotatedConfig(const Configuration* config){
             }
         }
     }
-
     return tmp;
 }
 

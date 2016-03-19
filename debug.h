@@ -23,7 +23,7 @@
 //configuration
 #define DEBUG_CHECK_PIECES      0
 #define DEBUG_SHOW_MISPLACED    0
-#define DEBUG_ALTER_PIECES      0
+#define DEBUG_ALTER_PIECES      1
 
 #define DEBUG_SHOW_CONFIG       0
 

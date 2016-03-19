@@ -78,14 +78,15 @@ void Algorithm::add_child(std::vector<Configuration *> &children, Configuration 
 }
 
 pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* parent1, Configuration* parent2){
-    Configuration* son= new Configuration();
-    Configuration* daughter= new Configuration();
+    Configuration* son= new Configuration(*parent1);
+    Configuration* daughter= new Configuration(*parent2);
     //critere de croisement = pieces du parent 1 ayant le moins d'erreurs
     int erreurs_tolereees= 2;
     vector<int> ids_of_son, ids_of_daughter;
 
     for(int i= 0; i<parent1->get_height(); ++i){
-        for(int j= 0; j<parent1->get_width(); ++j){
+
+        for(int j= 0; j<parent1->get_height(); ++j){
             const Piece& piece_parent1= parent1->getPiece(i,j);
             pair<int,int> id_rot_p1= parent1->getPair(i,j);
             int errors_piece_ij= parent1->getPieceNbErrors(piece_parent1);
@@ -108,7 +109,7 @@ pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* par
     //Ici, le fils est rempli des meilleurs pieces de parent1 et la fille des pires pieces de parent1
     //on doit completer son & daughter avec les pieces de parent2
     for(int i= 0; i<parent2->get_height(); ++i){
-        for(int j= 0; j<parent2->get_width(); ++j){
+        for(int j= 0; j<parent2->get_height(); ++j){
             pair<int,int> id_rot_p2= parent2->getPair(i,j);
             int id_p2= id_rot_p2.first;
 
@@ -286,12 +287,14 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 }
 
 std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*> configs){
+    cout << "DEBUT ALGO GENETIC" << endl;
+
     std::vector<Configuration*> new_generation, final_generation;
-    //selection de 2 parents
-    //selection des configurations 2 à 2 dans "configs"
+    //selection des configurations 2 à 2 dans "configs" (2 parents)
 
     int taille_config= configs.size();
     //croisement (sur quel critere croiser ? Nombre d'erreurs par piece ?)
+    cout << "HERE IS THE PROBLEM" << endl;
     if(0 == taille_config % 2) //nombre paire de parents
     {
         for(int k= 0; k < taille_config; k+=2){
@@ -309,6 +312,8 @@ std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*
         new_generation.push_back(configs[taille_config-1]);
 
     }
+
+    cout << "STADE DE LA MUTATION" << endl;
 
     for(int m= 0; m < new_generation.size(); ++m) {
         //mutation (s'arranger pour tourner les pieces si besoin)
