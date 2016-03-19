@@ -361,7 +361,7 @@ bool Configuration::motifs_match(PairColors first_motif, PairColors second_motif
     }
 }
 
-bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece){
+bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece) const{
     Piece current_piece= getPiece(ids_and_rots[indice_current_piece].first);
     const PairColors* motifs_current_piece= current_piece.get_motif();
     PairColors motif_current_piece= motifs_current_piece[direction_neightboor_piece];
@@ -402,7 +402,7 @@ bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_ne
 return false;
 }
 
-int Configuration::getPieceNbErrors(const Piece& current_piece) {
+int Configuration::getPieceNbErrors(const Piece& current_piece) const {
     int nb_errors= 0;
     int indice_current_piece= current_piece.get_id();
 

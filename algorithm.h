@@ -53,6 +53,15 @@ class Algorithm
         static std::vector<Configuration *> get_neighbours(Configuration & C, std::vector<Configuration * > configurations);
 
         /**
+         * A partir de 2 parents, fabrique des configurations "fils" et "fille" pour la nouvelle generation
+         * @note Fonction de croisement
+         * @param parent1
+         * @param parent2
+         * @return les configurations fils et fille issues du croisement des 2 parents
+         */
+        std::pair<Configuration*, Configuration*> make_children(const Configuration* parent1, const Configuration* parent2);
+
+        /**
          * Fonction d'évaluation
          * @param C : Configuration
          * @return le nombre d'erreur de la Configuration
@@ -68,6 +77,13 @@ class Algorithm
         static Configuration * local_search(const Configuration * config);
 
         static Configuration* resolveWithCSP(const Instance * instance);
+
+        /**
+         * Algorithme de recherche genetique
+         * @param configs = un ensemble de configurations (generation actuelle - parents)
+         * @return un ensemble de configurations (nouvelle generation)
+         */
+        static Configuration** genetic_search(const Configuration **configs);
 };
 
 #endif // ALGORITHM_H
