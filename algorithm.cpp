@@ -295,7 +295,7 @@ std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*
     Configuration* new_daughter= Configuration::getBestRotatedConfig(children.second);
 
     //injection (fils = meilleure solution ?)
-    for(int i= 0; i < configs.size(); ++i){
+    for(unsigned int i= 0; i < configs.size(); ++i){
         if(Algorithm::evaluation(*configs[i]) > Algorithm::evaluation(*new_generation[i])) //ancienne generation meilleure
         {
             final_generation.push_back(configs[i]);
