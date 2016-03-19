@@ -59,7 +59,7 @@ class Algorithm
          * @param parent2
          * @return les configurations fils et fille issues du croisement des 2 parents
          */
-        std::pair<Configuration*, Configuration*> make_children(const Configuration* parent1, const Configuration* parent2);
+        static std::pair<Configuration*, Configuration*> make_children(Configuration* parent1, Configuration* parent2);
 
         /**
          * Fonction d'évaluation
@@ -83,7 +83,7 @@ class Algorithm
          * @param configs = un ensemble de configurations (generation actuelle - parents)
          * @return un ensemble de configurations (nouvelle generation)
          */
-        static Configuration** genetic_search(const Configuration **configs);
+        static std::vector<Configuration *> genetic_search(std::vector<Configuration *> configs);
 };
 
 #endif // ALGORITHM_H

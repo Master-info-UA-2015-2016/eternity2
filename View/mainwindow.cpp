@@ -128,6 +128,25 @@ void MainWindow::launch_resolution()
         res_board->show();
 #endif
 
+#if DEBUG_GENETIC
+        int nb_config= 10;
+        vector<Configuration*> genetic, new_generation;
+        for (int i = 0; i < nb_config; ++i) {
+            Configuration * randomC = new Configuration("../eternity2/instances_puzzles/pieces_03x03.txt");
+            new_generation.push_back(randomC);
+
+            randomC->randomConfiguration();
+            genetic.push_back(randomC);
+        }
+
+        new_generation= Algorithm::genetic_search(genetic);
+
+        Board* board_final2= new Board(genetic[0]);
+        BoardWidget* res_board2= new BoardWidget(NULL, board_final2);
+        res_board2->show();
+
+#endif
+
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)

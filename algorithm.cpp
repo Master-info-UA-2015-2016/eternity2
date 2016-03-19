@@ -70,7 +70,7 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
     return neightbours;
 }
 
-pair<Configuration*, Configuration*> Algorithm::make_children(const Configuration* parent1, const Configuration* parent2){
+pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* parent1, Configuration* parent2){
     Configuration* son= new Configuration();
     Configuration* daughter= new Configuration();
     //critere de croisement = pieces du parent 1 ayant le moins d'erreurs
@@ -281,11 +281,14 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
     return solution;
 }
 
-Configuration** Algorithm::genetic_search(const Configuration **configs){
+std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*> configs){
     //selection de 2 parents
     //croisement (sur quel critere croiser ?)
     //mutation (s'arranger pour tourner les pieces si besoin)
     //injection (fils = meilleure solution ?)
 
+    pair<Configuration*, Configuration*> children= make_children(configs[0], configs[1]);
+    cout << children.first << endl;
+    cout << children.second << endl;
 
 }
