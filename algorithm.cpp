@@ -69,12 +69,12 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
     return neightbours;
 }
 
-Configuration* Algorithm::make_son(const Configuration *parent1, const Configuration parent2){
+pair<Configuration*, Configuration*> Algorithm::make_children(const Configuration *parent1, const Configuration parent2){
     Configuration* son= new Configuration();
+    Configuration* daughter= new Configuration();
+    pair<Configuration*, Configuration*> children= make_pair(son, daughter);
 
-
-
-return son;
+return children;
 }
 
 int Algorithm::evaluation(const Configuration & C) {

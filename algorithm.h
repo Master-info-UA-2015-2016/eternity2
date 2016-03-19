@@ -58,7 +58,7 @@ class Algorithm
          * @param parent2
          * @return la configuration fils issue du croisement des 2 parents
          */
-        Configuration* make_son(const Configuration* parent1, const Configuration parent2);
+        std::pair<Configuration*, Configuration*> make_children(const Configuration* parent1, const Configuration parent2);
 
         /**
          * Fonction d'évaluation
