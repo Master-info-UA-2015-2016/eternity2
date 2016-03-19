@@ -387,14 +387,14 @@ public:
      * @return true si les pieces sont bien emboitees
      * @author GARNIER Antoine
      */
-    bool pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece);
+    bool pieces_match(int indice_current_piece, Cardinal direction_neightboor_piece) const;
 
     /**
      * Compte le nombre d'erreurs qu'il y a avec la piece positions[indice] (de 0 à 4 possibles)
      * @return Le nombre d'erreurs de la piece indice (de 0 à 4 selon la position)
      * @author GARNIER Antoine
      */
-    int getPieceNbErrors(const Piece &current_piece);
+    int getPieceNbErrors(const Piece &current_piece) const;
 
     /**
       * Retourne la rotation appliquee a la piece (x, y) si cette derniere provoque moins d'erreurs (0 si piece deja placee niquel)

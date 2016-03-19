@@ -69,12 +69,58 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
     return neightbours;
 }
 
-pair<Configuration*, Configuration*> Algorithm::make_children(const Configuration *parent1, const Configuration parent2){
+pair<Configuration*, Configuration*> Algorithm::make_children(const Configuration* parent1, const Configuration* parent2){
     Configuration* son= new Configuration();
     Configuration* daughter= new Configuration();
-    pair<Configuration*, Configuration*> children= make_pair(son, daughter);
+    //critere de croisement = pieces du parent 1 ayant le moins d'erreurs
+    int erreurs_tolereees= 2;
+    vector<int> ids_of_son, ids_of_daughter;
 
-return children;
+    for(int i= 0; i<parent1->get_height(); ++i){
+        for(int j= 0; j<parent1->get_width(); ++j){
+            const Piece& piece_parent1= parent1->getPiece(i,j);
+            pair<int,int> id_rot_p1= parent1->getPair(i,j);
+            int errors_piece_ij= parent1->getPieceNbErrors(piece_parent1);
+
+            if(2 >= errors_piece_ij) //piece de 2 erreurs max = copie dans fils
+            {
+                //on retient l'id de la piece ajoutee dans le fils
+                ids_of_son.push_back(id_rot_p1.first);
+                son->setPiece(i, j, id_rot_p1);
+            } else //la piece a trop d'erreurs dans parent1, on la prendra dans parent2
+            {
+                //on retient l'id de la piece ajoutee dans la fille
+                ids_of_daughter.push_back(id_rot_p1.first);
+                //les pieces non voulues vont dans la config fille
+                daughter->setPiece(i, j, id_rot_p1);
+            }
+        }
+    }
+
+    //Ici, le fils est rempli des meilleurs pieces de parent1 et la fille des pires pieces de parent1
+    //on doit completer son & daughter avec les pieces de parent2
+    for(int i= 0; i<parent2->get_height(); ++i){
+        for(int j= 0; j<parent2->get_width(); ++j){
+            const Piece& piece_parent2= parent2->getPiece(i,j);
+            pair<int,int> id_rot_p2= parent2->getPair(i,j);
+            int id_p2= id_rot_p2.first;
+
+            //la piece parent2[i][j] est-elle deja presente dans son ou dans daughter ?
+            if (find(ids_of_son.begin(), ids_of_son.end(), id_p2) != ids_of_son.end()) //id_p2 est un id deja present dans le fils
+            {
+                //on ajoute donc la piece dans daughter
+                daughter->setPiece(i, j, id_rot_p2);
+
+            } else //id_p2 n'est pas present dans le fils - ajout de la piece
+            {
+                //on ajoute la piece dans son
+                son->setPiece(i, j, id_rot_p2);
+            }
+        }
+    }
+
+    pair<Configuration*, Configuration*> children= make_pair(son, daughter);
+    return children;
 }
 
 int Algorithm::evaluation(const Configuration & C) {

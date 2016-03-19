@@ -54,11 +54,12 @@ class Algorithm
 
         /**
          * A partir de 2 parents, fabrique une configuration "fils" pour la nouvelle generation
+         * @note Fonction de croisement
          * @param parent1
          * @param parent2
          * @return la configuration fils issue du croisement des 2 parents
          */
-        std::pair<Configuration*, Configuration*> make_children(const Configuration* parent1, const Configuration parent2);
+        std::pair<Configuration*, Configuration*> make_children(const Configuration* parent1, const Configuration* parent2);
 
         /**
          * Fonction d'évaluation
