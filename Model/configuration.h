@@ -304,6 +304,13 @@ public:
      */
     static std::vector<Configuration*>&  generateRandomConfigurations(const Instance * instance, int limit);
 
+    /**
+     * Permet de verifier si en tournant les pieces on obtient moins d'erreurs
+     * @param config
+     * @return la configuration amelioree
+     */
+    static Configuration* getBestRotatedConfig(const Configuration* config);
+
 /*** VERIFICATION DES CONTRAINTES   ***/
 
     /**

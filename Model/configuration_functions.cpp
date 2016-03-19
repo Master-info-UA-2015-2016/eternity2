@@ -111,6 +111,21 @@ vector<Configuration*>&  Configuration::generateRandomConfigurations(const Insta
     return configurations;
 }
 
+Configuration* Configuration::getBestRotatedConfig(const Configuration* config){
+    Configuration* tmp= new Configuration(*config);
+    for(int i= 0; i < tmp->get_width(); ++i){
+        for(int j= 0; j < tmp->get_height(); ++j){
+            int best_rotation= tmp->rotationForBestPlace(i, j);
+            if(0 < best_rotation) //la piece pourrait etre mieux placee
+            {
+                tmp->rotatePiece(i, j, best_rotation);
+            }
+        }
+    }
+
+    return tmp;
+}
+
 
 int Configuration::countNbErrors() const{
     int nb_errors= 0;

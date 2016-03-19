@@ -282,13 +282,29 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 }
 
 std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*> configs){
+    std::vector<Configuration*> new_generation, final_generation;
     //selection de 2 parents
-    //croisement (sur quel critere croiser ?)
-    //mutation (s'arranger pour tourner les pieces si besoin)
-    //injection (fils = meilleure solution ?)
 
+    //croisement (sur quel critere croiser ? Nombre d'erreurs par piece ?)
     pair<Configuration*, Configuration*> children= make_children(configs[0], configs[1]);
-    cout << children.first << endl;
-    cout << children.second << endl;
+    new_generation.push_back(children.first);
+    new_generation.push_back(children.second);
 
+    //mutation (s'arranger pour tourner les pieces si besoin)
+    Configuration* new_son= Configuration::getBestRotatedConfig(children.first);
+    Configuration* new_daughter= Configuration::getBestRotatedConfig(children.second);
+
+    //injection (fils = meilleure solution ?)
+    for(int i= 0; i < configs.size(); ++i){
+        if(Algorithm::evaluation(*configs[i]) > Algorithm::evaluation(*new_generation[i])) //ancienne generation meilleure
+        {
+            final_generation.push_back(configs[i]);
+        } else //nouvelle generation meilleure (si autant d'erreurs, place a la jeunesse !
+        {
+            final_generation.push_back(new_generation[i]);
+        }
+
+    }
+
+    return final_generation;
 }

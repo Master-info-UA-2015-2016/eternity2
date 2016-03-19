@@ -131,12 +131,12 @@ void MainWindow::launch_resolution()
 #if DEBUG_GENETIC
         int nb_config= 10;
         vector<Configuration*> genetic, new_generation;
-        for (int i = 0; i < nb_config; ++i) {
-            Configuration * randomC = new Configuration("../eternity2/instances_puzzles/pieces_03x03.txt");
-            new_generation.push_back(randomC);
+        Configuration * randomC = new Configuration("../eternity2/instances_puzzles/pieces_04x04.txt");
+        randomC->randomConfiguration();
 
-            randomC->randomConfiguration();
+        for (int i = 0; i < nb_config; ++i) {
             genetic.push_back(randomC);
+            new_generation.push_back(randomC);
         }
 
         new_generation= Algorithm::genetic_search(genetic);
