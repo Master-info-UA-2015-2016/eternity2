@@ -69,12 +69,22 @@ public:
     /**
      * Récupération de la paire en position (x, y)
      * (x*nbRows + y*nbCols - (x+y))
-     * @param x : X
-     * @param y : Y
-     * @return position : int
+     * @param x : TODO
+     * @param y : TODO
+     * @return TODO
      * @author FOURMOND Jérôme
      */
     const std::pair<int, int> & getPair(int x, int y) const ;
+
+    /**
+     * Récupération de la paire en position (x, y)
+     * (x*nbRows + y*nbCols - (x+y))
+     * @param x : abscisse
+     * @param y : ordonnée
+     * @return la rotation de la pièce à la position donnée,
+     * @author DAVID Florian
+     */
+    int getRotation(int x, int y) const ;
 
     /**
      * Récupération de la pièce en position (x, y)

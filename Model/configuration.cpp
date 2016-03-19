@@ -22,7 +22,8 @@ Configuration::Configuration(const Configuration &C) {
     ids_and_rots = C.ids_and_rots;
 }
 
-const pair<int, int>& Configuration::getPair(int x, int y) const {
+const pair<int, int>& Configuration::getPair(int x, int y) const
+{
     // Cas où on essaye d'atteindre une pièce à en dehors des bords du plateau ou du plateau
     if(x < -1 || x > get_width() || y < -1 || y > get_height()) {
         cerr << "ERROR getPair : Traitement d'une case en dehors du plateau (" << x << "," << y << ")) " << endl;
@@ -40,6 +41,20 @@ const pair<int, int>& Configuration::getPair(int x, int y) const {
         return *id_and_rot;
     }
 }
+
+int Configuration::getRotation(int x, int y) const
+{
+    // Cas où on essaye d'atteindre une pièce à en dehors des bords du plateau ou du plateau
+    if(x < -1 || x > get_width() || y < -1 || y > get_height()) {
+        cerr << "ERROR getRotation : Traitement d'une case en dehors du plateau (" << x << "," << y << ")) " << endl;
+        throw out_of_range("getRotation");
+    }
+    else {
+        int rotation = ids_and_rots[x + y * instance->get_width()].rot;
+        return rotation;
+    }
+}
+
 
 const Piece & Configuration::getPiece(int x, int y) const {
     try{
@@ -60,9 +75,9 @@ PairColors * Configuration::getRotatedMotifs(int x, int y) const {
         cerr << "ERROR getRotatedMotif : Traitement d'une case en dehors du plateau"<< endl;
         throw out_of_range("getPiece");
     }
-    pair<int, int> piece_pair = getPair(x, y);
+    int rotation= getRotation(x, y);
     const Piece& piece = getPiece(x, y);
-    return piece.rotate(piece_pair.rot);
+    return piece.rotate(rotation);
 }
 
 int Configuration::searchPosition(const Piece& p) const {
