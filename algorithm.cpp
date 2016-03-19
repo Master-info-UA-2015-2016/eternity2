@@ -82,7 +82,7 @@ pair<Configuration*, Configuration*> Algorithm::make_children(const Configuratio
             pair<int,int> id_rot_p1= parent1->getPair(i,j);
             int errors_piece_ij= parent1->getPieceNbErrors(piece_parent1);
 
-            if(2 >= errors_piece_ij) //piece de 2 erreurs max = copie dans fils
+            if(erreurs_tolereees >= errors_piece_ij) //piece de 2 erreurs max = copie dans fils
             {
                 //on retient l'id de la piece ajoutee dans le fils
                 ids_of_son.push_back(id_rot_p1.first);
@@ -101,7 +101,6 @@ pair<Configuration*, Configuration*> Algorithm::make_children(const Configuratio
     //on doit completer son & daughter avec les pieces de parent2
     for(int i= 0; i<parent2->get_height(); ++i){
         for(int j= 0; j<parent2->get_width(); ++j){
-            const Piece& piece_parent2= parent2->getPiece(i,j);
             pair<int,int> id_rot_p2= parent2->getPair(i,j);
             int id_p2= id_rot_p2.first;
 
@@ -276,5 +275,6 @@ Configuration** Algorithm::genetic_search(const Configuration **configs){
     //croisement (sur quel critere croiser ?)
     //mutation (s'arranger pour tourner les pieces si besoin)
     //injection (fils = meilleure solution ?)
+
 
 }
