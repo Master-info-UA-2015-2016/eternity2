@@ -285,14 +285,11 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 // ###########################################
 
 std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*> configs){
-    cout << "DEBUT ALGO GENETIC" << endl;
-
     std::vector<Configuration*> new_generation, final_generation;
     //selection des configurations 2 à 2 dans "configs" (2 parents)
 
     int taille_config= configs.size();
     //croisement (sur quel critere croiser ? Nombre d'erreurs par piece ?)
-    cout << "HERE IS THE PROBLEM" << endl;
     if(0 == taille_config % 2) //nombre paire de parents
     {
         for(int k= 0; k < taille_config; k+=2){
@@ -311,9 +308,7 @@ std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*
 
     }
 
-    cout << "STADE DE LA MUTATION" << endl;
-
-    for(int m= 0; m < new_generation.size(); ++m) {
+    for(unsigned int m= 0; m < new_generation.size(); ++m) {
         //mutation (s'arranger pour tourner les pieces si besoin)
         new_generation[m]= Configuration::getBestRotatedConfig(new_generation[m]);
 
