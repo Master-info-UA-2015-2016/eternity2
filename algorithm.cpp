@@ -33,12 +33,8 @@ Configuration * Algorithm::getFirstBetterNeighbour(const Configuration &config) 
     Configuration  * cpy = new Configuration(config);
     for(int j=0 ; j<config.get_height() ; j++) {
         for(int i=0 ; i<config.get_width() ; i++) {
-            // On a admet que le premier coin est toujours bien placé
-            //if(i == 0 && j == 0) i++;
             for(int l=0 ; l<config.get_height() ; l++) {
                 for(int k=0 ; k<config.get_width() ; k++) {
-                    // On admet que le premier coin est toujours bien placé
-                    //if(i == 0 && k==0) k++;
                     bool res = cpy->better_permutation_two_pieces(i, j, k, l);
                     if(res) {
                        cout << "Premier meilleur voisin : " << cpy->countNbErrors() << endl;

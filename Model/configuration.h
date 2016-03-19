@@ -170,7 +170,7 @@ public:
     void permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
 
     /**
-     * Permute deux pièces du tableaux en adéquation
+     * Permute deux pièces du tableau en adéquation
      * @param piece1_x : coordonnée x de la première pièce
      * @param piece1_y : coordonnée y de la première pièce
      * @param piece2_x : coordonnée x de la seconde pièce
@@ -181,6 +181,11 @@ public:
      */
     bool better_permutation_two_pieces(int piece1_x, int piece1_y, int piece2_x, int piece2_y);
 
+    /**
+     * Permute deux pièces du tableau en adéquation aléatoirement
+     * @author FOURMOND Jérome
+     */
+    void random_permutation_two_pieces();
 
     /*** Recherche des pièces ***/
     /**

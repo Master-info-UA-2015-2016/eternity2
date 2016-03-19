@@ -13,8 +13,8 @@
 #define DEBUG_INIT_CONFIG       1
 #define DEBUG_CONSTRAINT        0
 #define DEBUG_SHOW_SOL_CONFIG   0
-#define DEBUG_LOCAL_SEARCH      0
-#define DEBUG_CSP               1   // algorithm.cpp également
+#define DEBUG_LOCAL_SEARCH      1
+#define DEBUG_CSP               0   // algorithm.cpp également
 
 //configuration
 #define DEBUG_CHECK_PIECES      0
