@@ -69,6 +69,14 @@ vector<Configuration *> Algorithm::get_neighbours(Configuration & C, vector<Conf
     return neightbours;
 }
 
+Configuration* Algorithm::make_son(const Configuration *parent1, const Configuration parent2){
+    Configuration* son= new Configuration();
+
+
+
+return son;
+}
+
 int Algorithm::evaluation(const Configuration & C) {
     return C.countNbErrors();
 }
@@ -215,4 +223,12 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
     }
 
     return solution;
+}
+
+Configuration** Algorithm::genetic_search(const Configuration **configs){
+    //selection de 2 parents
+    //croisement (sur quel critere croiser ?)
+    //mutation (s'arranger pour tourner les pieces si besoin)
+    //injection (fils = meilleure solution ?)
+
 }
