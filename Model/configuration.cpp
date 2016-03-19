@@ -565,23 +565,25 @@ int Configuration::getPieceNbErrors2(int x, int y) const {
 
 int Configuration::rotationForBestPlace(int coord_x, int coord_y) {
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
-    const Piece& piece= getPiece(coord_x, coord_y);
-    Piece piece_test= piece;
+    const Piece& piece_test= getPiece(coord_x, coord_y);
+    int old_rotation= getRotation(coord_x, coord_y);
+
     int local_nb_errors= getPieceNbErrors(piece_test);
 
     int best_rot= 0;
     int val_best_rot= local_nb_errors;
 
-    for(int i= 0; i < 4; ++i){
+    for(int i= 1; i < 4; ++i){
         // TODO Changement de @jfourmond ici
         rotatePiece(coord_x, coord_y, i);
 
         int nb_current_errors= getPieceNbErrors(piece_test);
-        if(val_best_rot > nb_current_errors){
+        if(nb_current_errors > val_best_rot){
             best_rot= i;
             val_best_rot= nb_current_errors;
         }
     }
+    rotatePiece(coord_x, coord_y, old_rotation);
 
     return best_rot;
 }
