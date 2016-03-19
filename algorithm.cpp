@@ -37,7 +37,7 @@ Configuration * Algorithm::getFirstBetterNeighbour(const Configuration &config) 
                 for(int k=0 ; k<config.get_width() ; k++) {
                     bool res = cpy->better_permutation_two_pieces(i, j, k, l);
                     if(res) {
-                       cout << "Premier meilleur voisin : " << cpy->countNbErrors() << endl;
+                       // cout << "Premier meilleur voisin : " << cpy->countNbErrors() << endl;
                        return cpy;
                     } else {
                         free(cpy);
@@ -147,7 +147,7 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     int eval_cStar = Algorithm::evaluation(*cStar);
     // 4. Tant que le critère d'arret n'est pas respecté faire
     Configuration * cprime;
-    while(nb_eval < 1000) {
+    while(nb_eval < 100) {
         // 5. Sélectionner une solution voisine x' ∈ N(x)
         cprime = getFirstBetterNeighbour(*c);
         // 6. x <- x'
@@ -160,14 +160,11 @@ Configuration * Algorithm::local_search(const Configuration * config) {
             cStar = c;  // Nouvelle meilleure solution
             eval_cStar = eval_c;
             nb_eval = 0;
-            cout << "Nouvelle meilleure solution : " << endl << *cStar << endl;
         }
-        /*
-        if(nb_eval > 93 && eval_cStar > 1) {
-            c->random_permutation_two_pieces();
-            cout << "Permutation aléatoire" << endl;
-        }*/
-
+//        if(nb_eval > 93 && eval_cStar > 2) {
+//            c->random_permutation_two_pieces();
+//            cout << "Permutation aléatoire" << endl;
+//        }
         // 9. fin
     } // 10. fin
     // 11. retourner x*

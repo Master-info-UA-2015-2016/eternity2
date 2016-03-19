@@ -241,11 +241,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         for(int i=0 ; i<4 && !areConstraintCornersRespected(piece2_x, piece2_y); i++) {
             rotatePiece(piece2_x, piece2_y, i);
         }
-        new_eval = countNbErrors();
-        if(new_eval < original_eval)
-            return true;
-        else
-            return false;
     // Permutation de deux rebords
     } else if((isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y)) && !(isCorner(piece1_x, piece1_y) || isCorner(piece2_x, piece2_y)) && !(piece1_x == piece2_x && piece1_y == piece2_y)) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
@@ -258,10 +253,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         for(int i=0 ; i<4 && !areConstraintRowsXtremRespected(piece2_x, piece2_y) && !areConstraintColsXtremRespected(piece2_x, piece2_y); i++) {
             rotatePiece(piece2_x, piece2_y, i);
         }
-        new_eval = countNbErrors();
-        if(new_eval < original_eval)
-            return true;
-        else return false;
     // Permutation de deux pièces ni angles ni rebords
     } else if(!(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y))&&!(isBorder(piece1_x, piece1_y) || isBorder(piece2_x, piece2_y))) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
@@ -283,7 +274,11 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
                 return true;
         }
         return false;
-    } else return false ;
+    }
+    new_eval = countNbErrors();
+    if(new_eval < original_eval)
+        return true;
+    else return false;
 }
 
 void Configuration::random_permutation_two_pieces() {
