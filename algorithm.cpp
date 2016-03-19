@@ -19,7 +19,7 @@ Configuration * Algorithm::getNeighbour(const Configuration & config) {
     int x, y;
     do {
         x = rand() % (config.get_width()-1);
-        y = rand() % (config.get_width()-1);
+        y = rand() % (config.get_height()-1);
     } while ( x==0 && y==0 );
 
     pair<int, int> piece = config.getPair(x, y);
@@ -137,21 +137,31 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     Configuration * c = c0;
     // 3. x* <- x (x* est la meilleure solution rencontrée au sens de f)
     Configuration * cStar = c;
+    int eval_cStar = Algorithm::evaluation(*cStar);
     // 4. Tant que le critère d'arret n'est pas respecté faire
     Configuration * cprime;
-    while(nb_eval < 100) {
+    while(nb_eval < 1000) {
         // 5. Sélectionner une solution voisine x' ∈ N(x)
         cprime = getFirstBetterNeighbour(*c);
         // 6. x <- x'
         c = cprime;
         nb_eval++;
         // 7. si f(x) > f(x*) alors
-        if(Algorithm::evaluation(*c) < Algorithm::evaluation(*cStar)) {
+        int eval_c = Algorithm::evaluation(*c);
+        if(eval_c < eval_cStar) {
             // 8. x* <- x
             cStar = c;  // Nouvelle meilleure solution
+            eval_cStar = eval_c;
             nb_eval = 0;
             cout << "Nouvelle meilleure solution : " << endl << *cStar << endl;
-        }   // 9. fin
+        }
+        /*
+        if(nb_eval > 93 && eval_cStar > 1) {
+            c->random_permutation_two_pieces();
+            cout << "Permutation aléatoire" << endl;
+        }*/
+
+        // 9. fin
     } // 10. fin
     // 11. retourner x*
     return cStar;

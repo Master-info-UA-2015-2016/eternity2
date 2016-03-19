@@ -234,7 +234,7 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
     // Permutation de deux rebords
     } else if((isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y)) && !(isCorner(piece1_x, piece1_y) || isCorner(piece2_x, piece2_y)) && !(piece1_x == piece2_x && piece1_y == piece2_y)) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
-        // Dans le cas des coins, on tourne jusqu'à ce que les contraintes de bords soit valides
+        // Dans le cas des coins, on tourne jusqu'à ce que les contraintes de bords soient valides
         // Rotation première pièce
         for(int i=0 ; i<4 && !areConstraintRowsXtremRespected(piece1_x, piece1_y) && !areConstraintColsXtremRespected(piece1_x, piece1_y); i++) {
             rotatePiece(piece1_x, piece1_y, i);
@@ -267,6 +267,19 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         }
         return false;
     } else return false ;
+}
+
+void Configuration::random_permutation_two_pieces() {
+    int x1, x2, y1, y2;
+    do {
+        x1 = rand() % (get_width()-1);
+        y1 = rand() % (get_height()-1);
+
+        x2 = rand() % (get_width()-1);
+        y2 = rand() % (get_height()-1);
+    } while (x1 == x2 && y1 == y2);
+
+    better_permutation_two_pieces(x1, y1, x2, y2);
 }
 
 bool Configuration::tryLoadFile(const string &fileName){
