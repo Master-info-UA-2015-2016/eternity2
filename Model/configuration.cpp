@@ -549,10 +549,10 @@ int Configuration::getPieceNbErrors2(int x, int y) const {
         pair<int, int> p_i = p_SWNE[i];
         if(p_i.first != 0) {
             PairColors * swne_aux = getPiece(p_i.first).rotate(p_i.second);
-            if(!motifs_match(swne[i], swne_aux[South])) ++nb_errors;
-            if(!motifs_match(swne[i], swne_aux[West])) ++nb_errors;
-            if(!motifs_match(swne[i], swne_aux[North])) ++nb_errors;
-            if(!motifs_match(swne[i], swne_aux[East])) ++nb_errors;
+            if(!motifs_match(swne[North], swne_aux[South])) ++nb_errors;
+            if(!motifs_match(swne[East], swne_aux[West])) ++nb_errors;
+            if(!motifs_match(swne[South], swne_aux[North])) ++nb_errors;
+            if(!motifs_match(swne[West], swne_aux[East])) ++nb_errors;
         }
     }
     return nb_errors;
