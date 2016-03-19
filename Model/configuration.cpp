@@ -241,11 +241,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         for(int i=0 ; i<4 && !areConstraintCornersRespected(piece2_x, piece2_y); i++) {
             rotatePiece(piece2_x, piece2_y, i);
         }
-        new_eval = countNbErrors();
-        if(new_eval < original_eval)
-            return true;
-        else
-            return false;
     // Permutation de deux rebords
     } else if((isBorder(piece1_x, piece1_y) && isBorder(piece2_x, piece2_y)) && !(isCorner(piece1_x, piece1_y) || isCorner(piece2_x, piece2_y)) && !(piece1_x == piece2_x && piece1_y == piece2_y)) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
@@ -258,10 +253,6 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
         for(int i=0 ; i<4 && !areConstraintRowsXtremRespected(piece2_x, piece2_y) && !areConstraintColsXtremRespected(piece2_x, piece2_y); i++) {
             rotatePiece(piece2_x, piece2_y, i);
         }
-        new_eval = countNbErrors();
-        if(new_eval < original_eval)
-            return true;
-        else return false;
     // Permutation de deux pièces ni angles ni rebords
     } else if(!(isCorner(piece1_x, piece1_y) && isCorner(piece2_x, piece2_y))&&!(isBorder(piece1_x, piece1_y) || isBorder(piece2_x, piece2_y))) {
         permutation_two_pieces(piece1_x, piece1_y, piece2_x, piece2_y);
@@ -283,7 +274,11 @@ bool Configuration::better_permutation_two_pieces(int piece1_x, int piece1_y, in
                 return true;
         }
         return false;
-    } else return false ;
+    }
+    new_eval = countNbErrors();
+    if(new_eval < original_eval)
+        return true;
+    else return false;
 }
 
 void Configuration::random_permutation_two_pieces() {
@@ -565,23 +560,26 @@ int Configuration::getPieceNbErrors2(int x, int y) const {
 
 int Configuration::rotationForBestPlace(int coord_x, int coord_y) {
     //tester si en tournant la piece indice_piece d'une rotation de val_rot, on obtient moins d'erreurs avec getPieceNbErrors
-    const Piece& piece= getPiece(coord_x, coord_y);
-    Piece piece_test= piece;
+    const Piece& piece_test= getPiece(coord_x, coord_y);
+    int old_rotation= getRotation(coord_x, coord_y);
+
     int local_nb_errors= getPieceNbErrors(piece_test);
 
     int best_rot= 0;
     int val_best_rot= local_nb_errors;
 
-    for(int i= 0; i < 4; ++i){
+    //@SEE la rotation initiale est-elle bien inchangee ?
+    for(int i= 1; i < 4; ++i){
         // TODO Changement de @jfourmond ici
         rotatePiece(coord_x, coord_y, i);
 
         int nb_current_errors= getPieceNbErrors(piece_test);
-        if(val_best_rot > nb_current_errors){
+        if(nb_current_errors > val_best_rot){
             best_rot= i;
             val_best_rot= nb_current_errors;
         }
     }
+    rotatePiece(coord_x, coord_y, old_rotation);
 
     return best_rot;
 }
