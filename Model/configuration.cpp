@@ -415,115 +415,134 @@ bool Configuration::pieces_match(int indice_current_piece, Cardinal direction_ne
 return false;
 }
 
-int Configuration::getPieceNbErrors(const Piece& current_piece) const {
+int Configuration::getPieceNbErrors(const Piece& piece) const {
     int nb_errors= 0;
-    int indice_current_piece= current_piece.get_id();
+    int piece_id= piece.get_id();
 
     //position de la piece courante (combien de voisins ?)
-    int current_piece_pos= searchPosition(indice_current_piece);
-    int current_x= current_piece_pos % get_width();
-    int current_y= current_piece_pos / get_width();
+    int piece_pos= searchPosition(piece_id);
+    int x= piece_pos % get_width();
+    int y= piece_pos / get_width();
 
-    if(0 == current_x) //premiere ligne
+    if(0 == x) //premiere ligne
     {
-        if(0 == current_y) //coin nord gauche
+        if(0 == y) //coin nord gauche
         {
             //comparaison piece courante / piece est
-            if(!pieces_match(indice_current_piece, East)) ++nb_errors;
+            if(!pieces_match(piece_id, East)) ++nb_errors;
 
             //comparaison piece courante / piece sud
-            if(!pieces_match(indice_current_piece, South)) ++nb_errors;
+            if(!pieces_match(piece_id, South)) ++nb_errors;
 
-        } else if(get_width()-1 == current_y) //coin nord droit
+        } else if(get_width()-1 == y) //coin nord droit
         {
             //comparaison piece courante / piece ouest
-            if(!pieces_match(indice_current_piece, West)) ++nb_errors;
+            if(!pieces_match(piece_id, West)) ++nb_errors;
 
             //comparaison piece courante / piece sud
-            if(!pieces_match(indice_current_piece, South)) ++nb_errors;
+            if(!pieces_match(piece_id, South)) ++nb_errors;
 
         } else //bord nord
         {
             //comparaison piece courante / piece ouest
-            if(!pieces_match(indice_current_piece, West)) ++nb_errors;
+            if(!pieces_match(piece_id, West)) ++nb_errors;
 
             //comparaison piece courante / piece sud
-            if(!pieces_match(indice_current_piece, South)) ++nb_errors;
+            if(!pieces_match(piece_id, South)) ++nb_errors;
 
             //comparaison piece courante / piece est
-            if(!pieces_match(indice_current_piece, East)) ++nb_errors;
+            if(!pieces_match(piece_id, East)) ++nb_errors;
 
         }
-    } else if(get_height()-1 == current_x) // derniere ligne
+    } else if(get_height()-1 == x) // derniere ligne
     {
-        if(0 == current_y) //coin sud gauche
+        if(0 == y) //coin sud gauche
         {
             //comparaison piece_courante / piece nord
-            if(!pieces_match(indice_current_piece, North)) ++nb_errors;
+            if(!pieces_match(piece_id, North)) ++nb_errors;
 
             //comparaison piece courante / piece est
-            if(!pieces_match(indice_current_piece, East)) ++nb_errors;
+            if(!pieces_match(piece_id, East)) ++nb_errors;
 
-        } else if(get_width()-1 == current_y) //coin sud droit
+        } else if(get_width()-1 == y) //coin sud droit
         {
             //comparaison piece courante / piece ouest
-            if(!pieces_match(indice_current_piece, West)) ++nb_errors;
+            if(!pieces_match(piece_id, West)) ++nb_errors;
 
             //comparaison piece courante / piece nord
-            if(!pieces_match(indice_current_piece, North)) ++nb_errors;
+            if(!pieces_match(piece_id, North)) ++nb_errors;
 
         } else //bord sud
         {
             //comparaison piece courante / piece ouest
-            if(!pieces_match(indice_current_piece, West)) ++nb_errors;
+            if(!pieces_match(piece_id, West)) ++nb_errors;
 
             //comparaison piece courante / piece nord
-            if(!pieces_match(indice_current_piece, North)) ++nb_errors;
+            if(!pieces_match(piece_id, North)) ++nb_errors;
 
             //comparaison piece courante / piece est
-            if(!pieces_match(indice_current_piece, East)) ++nb_errors;
+            if(!pieces_match(piece_id, East)) ++nb_errors;
 
         }
     } else //ni premiere colonne ni premiere ligne
     {
-        if(0 == current_y) // bord ouest
+        if(0 == y) // bord ouest
         {
             //comparaison piece courante / piece nord
-            if(!pieces_match(indice_current_piece, North)) ++nb_errors;
+            if(!pieces_match(piece_id, North)) ++nb_errors;
 
             //comparaison piece courante / piece est
-            if(!pieces_match(indice_current_piece, East)) ++nb_errors;
+            if(!pieces_match(piece_id, East)) ++nb_errors;
 
             //comparaison piece courante / piece sud
-            if(!pieces_match(indice_current_piece, South)) ++nb_errors;
+            if(!pieces_match(piece_id, South)) ++nb_errors;
 
-        } else if(get_height()-1 == current_y) // bord est
+        } else if(get_height()-1 == y) // bord est
         {
             //comparaison piece courante / piece nord
-            if(!pieces_match(indice_current_piece, North)) ++nb_errors;
+            if(!pieces_match(piece_id, North)) ++nb_errors;
 
             //comparaison piece courante / piece ouest
-            if(!pieces_match(indice_current_piece, West)) ++nb_errors;
+            if(!pieces_match(piece_id, West)) ++nb_errors;
 
             //comparaison piece courante / piece sud
-            if(!pieces_match(indice_current_piece, South)) ++nb_errors;
+            if(!pieces_match(piece_id, South)) ++nb_errors;
 
         } else // interieur puzzle (pieces avec 4 voisins)
         {
             //comparaison piece courante / piece nord
-            if(!pieces_match(indice_current_piece, North)) ++nb_errors;
+            if(!pieces_match(piece_id, North)) ++nb_errors;
 
             //comparaison piece courante / piece ouest
-            if(!pieces_match(indice_current_piece, West)) ++nb_errors;
+            if(!pieces_match(piece_id, West)) ++nb_errors;
 
             //comparaison piece courante / piece sud
-            if(!pieces_match(indice_current_piece, South)) ++nb_errors;
+            if(!pieces_match(piece_id, South)) ++nb_errors;
 
             //comparaison piece courante / piece est
-            if(!pieces_match(indice_current_piece, East)) ++nb_errors;
+            if(!pieces_match(piece_id, East)) ++nb_errors;
         }
     }
 
+    return nb_errors;
+}
+
+int Configuration::getPieceNbErrors2(int x, int y) const {
+    int nb_errors= 0;
+    pair<int, int> piece = getPair(x, y);
+    PairColors * swne = getPiece(piece.first).rotate(piece.second);
+
+    vector<pair<int, int> > p_SWNE = getAdjacents(x, y);
+    for(int i = 0 ; i<4 ; i++) {
+        pair<int, int> p_i = p_SWNE[i];
+        if(p_i.first != 0) {
+            PairColors * swne_aux = getPiece(p_i.first).rotate(p_i.second);
+            if(!motifs_match(swne[i], swne_aux[South])) ++nb_errors;
+            if(!motifs_match(swne[i], swne_aux[West])) ++nb_errors;
+            if(!motifs_match(swne[i], swne_aux[North])) ++nb_errors;
+            if(!motifs_match(swne[i], swne_aux[East])) ++nb_errors;
+        }
+    }
     return nb_errors;
 }
 
