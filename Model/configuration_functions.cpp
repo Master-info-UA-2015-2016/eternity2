@@ -491,14 +491,15 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
     }
 #endif
 
-    pair<int, int> P;
+    pair<int, int> other_id_and_rot;
     PairColors * other_colors;
-    for(unsigned int i=0 ; i<adjacents.size() ; i++) {
-        P = adjacents[i];
+    for(unsigned int i=0 ; i < 4 ; i++) {
+        other_id_and_rot = adjacents[i];
+        const Piece& other_piece= getPiece(other_id_and_rot.id);
         // Si l'id est != 0 alors regarder la couleur
-        if(P.id != 0) {
+        if(other_id_and_rot.id != 0) {
             //@TODO a verifier si c'est correct : get_rotated_motifs(P.first) ==> getRotatedMotifs(x, y)
-            other_colors = getRotatedMotifs(x, y);
+            other_colors = other_piece.rotate(other_id_and_rot.rot);
 //            other_colors = get_rotated_motifs(P.id);
 
             if(colors[i] != other_colors[(i+2)%4]) // On vérifie que les motifs adjacents sont identiques
@@ -506,7 +507,7 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
             #if DEBUG_CSP
                 cout << "Motif : "<< endl;
                 for (int i = 0; i < 4; ++i){
-                    cout << "comp "<< colors[i]<< " et "<<other_colors[(i+2) %4]<< "(id: "<< P.id<< ")"<< endl;
+                    cout << "comp "<< colors[i]<< " et "<<other_colors[(i+2) %4]<< "(id: "<< other_id_and_rot.id<< ")"<< endl;
                 }
             #endif
         }
