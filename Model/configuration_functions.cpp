@@ -495,12 +495,10 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
     PairColors * other_colors;
     for(unsigned int i=0 ; i < 4 ; i++) {
         other_id_and_rot = adjacents[i];
-        const Piece& other_piece= getPiece(other_id_and_rot.id);
-        // Si l'id est != 0 alors regarder la couleur
-        if(other_id_and_rot.id != 0) {
-            //@TODO a verifier si c'est correct : get_rotated_motifs(P.first) ==> getRotatedMotifs(x, y)
+        // Si l'id est valide, alors regarder le motif
+        if(other_id_and_rot.id > 0) {
+            const Piece& other_piece= getPiece(other_id_and_rot.id);
             other_colors = other_piece.rotate(other_id_and_rot.rot);
-//            other_colors = get_rotated_motifs(P.id);
 
             if(colors[i] != other_colors[(i+2)%4]) // On vérifie que les motifs adjacents sont identiques
                 return false;
@@ -510,6 +508,11 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
                     cout << "comp "<< colors[i]<< " et "<<other_colors[(i+2) %4]<< "(id: "<< other_id_and_rot.id<< ")"<< endl;
                 }
             #endif
+        } // Sinon, vérifier que le motif est un bord (noir)
+        else if(other_id_and_rot.id == 0) {
+            if(colors[i] != Black_Black){
+                return false;
+            }
         }
     }
     // Pas de soucis d'adjacences, mais est-ce que l'emplacement est compatible avec les bordures ou l'angle ?
