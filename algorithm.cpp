@@ -22,8 +22,8 @@ Configuration * Algorithm::getNeighbour(const Configuration & config) {
         y = rand() % (config.get_height()-1);
     } while ( x==0 && y==0 );
 
-    pair<int, int> piece = config.getPair(x, y);
-    int rot_add =((rand() % (4)) + piece.second) % 4;
+    int rotation = config.getRotation(x, y);
+    int rot_add =((rand() % (4)) + rotation) % 4;
 
     voisin->rotatePiece(x, y, rot_add);
     return voisin;
