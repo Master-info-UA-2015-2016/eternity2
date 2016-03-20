@@ -247,6 +247,11 @@ public:
      */
     bool tryLoadFile(const std::string& fileName);
 
+    /**
+     * Sauvegarde d'une configuration dans un fichier
+     * @param fileName chemin et nom du fichier
+     * @author FOURMOND Jérôme
+     */
     void writeFile(const std::string& fileName);
 
     /**
