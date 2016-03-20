@@ -149,8 +149,8 @@ bool Configuration::addPieceAsBorder(int p_id, int x, int y) {
 }
 
 ostream& Configuration::print(ostream& out) const{
-    for(int i=0 ; i<instance->get_width() ; ++i) {
-        for(int j=0 ; j<instance->get_height() ; ++j) {
+    for(int j=0 ; j<instance->get_height() ; ++j) {
+        for(int i=0 ; i<instance->get_width() ; ++i) {
             pair<int, int> p = getPair(i, j);
 
             out << "Case (" << i << "," << j << ") : \tID = " << p.first << "\tRotation = " << p.second << "\tSONE = ";

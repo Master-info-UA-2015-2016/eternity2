@@ -218,8 +218,11 @@ void Algorithm::placeWithoutConstraints(Configuration* config, list<Piece>* rema
             remainingPieces->pop_front();
 
             // Tourne la pièce si une meilleure rotation est disponible
+            /** TODO modifier rotationForBestPlace, pour pouvoir prendre
+             *  en compte les cases vides
             int best_rot= config->rotationForBestPlace(x, y);
             config->rotatePiece(x, y, best_rot);
+            */
         }
     }
 }
@@ -236,7 +239,9 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 //    Debut de l'algo
 
     // Parcours du tableau @SEE si on l'améliore en escargot
-    for(int i= 2; i<= solution->get_width() * solution->get_height(); ++i) {
+    bool forward_checked= true;
+    for(int i= 2; i<= solution->get_width() * solution->get_height()
+        && forward_checked; ++i) {
             Piece current_piece= available_pieces.front();
             available_pieces.pop_front();
 
@@ -267,6 +272,7 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
                 available_pieces.push_front(current_piece);
                 clog << "IL FAUT PLACER LES PIECES SUIVANTES SANS RESPECTER LES CONTRAINTES"
                         " OU FAIRE DU BACKTRACKING"<< endl;
+                forward_checked= false;
             }
 
 //        }

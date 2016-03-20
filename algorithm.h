@@ -83,6 +83,8 @@ class Algorithm
          * @author FOURMOND Jérôme
          */
         static Configuration * local_search(const Configuration * config);
+
+        /*** Programmation par contrainte ***/
         /**
          * Initalise le CSP : place la première pièce et retourne les pièces à ajouter
          * @param config Configuration vide, à remplir
@@ -101,6 +103,8 @@ class Algorithm
          * @return
          */
         static Configuration* resolveWithCSP(const Instance * instance);
+
+        /*** Génétique ***/
 
         /**
          * Algorithme de recherche genetique
