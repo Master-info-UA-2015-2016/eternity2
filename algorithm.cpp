@@ -148,6 +148,7 @@ Configuration * Algorithm::local_search(const Configuration * config) {
     int eval_cStar = Algorithm::evaluation(*cStar);
     // 4. Tant que le critère d'arret n'est pas respecté faire
     Configuration * cprime;
+    int eval_c;
     while(nb_eval < 100) {
         // 5. Sélectionner une solution voisine x' ∈ N(x)
         cprime = getFirstBetterNeighbour(*c);
@@ -155,7 +156,7 @@ Configuration * Algorithm::local_search(const Configuration * config) {
         c = cprime;
         nb_eval++;
         // 7. si f(x) > f(x*) alors
-        int eval_c = Algorithm::evaluation(*c);
+        eval_c = Algorithm::evaluation(*c);
         if(eval_c < eval_cStar) {
             // 8. x* <- x
             cStar = c;  // Nouvelle meilleure solution
