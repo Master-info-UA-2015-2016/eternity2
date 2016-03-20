@@ -224,6 +224,7 @@ void Algorithm::placeWithoutConstraints(Configuration* config, list<Piece>* rema
             config->rotatePiece(x, y, best_rot);
             */
         }
+        x= 0; // On recommence au début de la ligne suivante
     }
 }
 
