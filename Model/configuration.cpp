@@ -187,6 +187,47 @@ ostream& Configuration::print(ostream& out) const{
     return out;
 }
 
+bool Configuration::tryLoadFile(const string &fileName){
+    if( instance->get_width() * instance->get_height() == 0){
+        cerr << "Aucune instance n'est chargée" << endl;
+        return false;
+    }else{
+        ifstream f(fileName.c_str());
+
+        if(!f){
+            cerr << "Erreur pendant l'ouverture du fichier" << endl;
+            return false;
+        } else {
+
+            string line;
+
+            while(getline(f,line)){
+
+                vector<string>& tokens = explode(line);
+
+                ids_and_rots.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
+            }
+
+            if(ids_and_rots.size() != (unsigned)(instance->get_width() * instance->get_height()) ){
+                cerr << "Fichier de configuration incomplet" << endl;
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+}
+
+void Configuration::writeFile(const string &fileName) {
+    ofstream file;
+    file.open (fileName);
+    file << "Configuration " << get_width() << "x" << get_height() << endl;
+    for(pair<int, int> id_and_rot : ids_and_rots) {
+        file << id_and_rot.id << "\t" << id_and_rot.rot << endl;
+    }
+    file.close();
+}
+
 void Configuration::setPiece(int x, int y, pair<int, int> id_and_rot) {
 #if DEBUG_ALTER_PIECES
       cout << "Essaie de placer la pièce (id,rot) : "<< id_and_rot.id<< ","<< id_and_rot.rot <<
@@ -292,37 +333,6 @@ void Configuration::random_permutation_two_pieces() {
     } while (x1 == x2 && y1 == y2);
 
     better_permutation_two_pieces(x1, y1, x2, y2);
-}
-
-bool Configuration::tryLoadFile(const string &fileName){
-    if( instance->get_width() * instance->get_height() == 0){
-        cerr << "Aucune instance n'est chargée" << endl;
-        return false;
-    }else{
-        ifstream f(fileName.c_str());
-
-        if(!f){
-            cerr << "Erreur pendant l'ouverture du fichier" << endl;
-            return false;
-        } else {
-
-            string line;
-
-            while(getline(f,line)){
-
-                vector<string>& tokens = explode(line);
-
-                ids_and_rots.push_back( pair<int,int>( atoi(tokens[0].c_str()) , atoi(tokens[1].c_str()) ) );
-            }
-
-            if(ids_and_rots.size() != (unsigned)(instance->get_width() * instance->get_height()) ){
-                cerr << "Fichier de configuration incomplet" << endl;
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
 }
 
 const Piece& Configuration::getClosePiece(int current_piece, Cardinal neightboor_card) const {

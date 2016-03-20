@@ -125,6 +125,8 @@ void MainWindow::launch_resolution()
         Board* board_final= new Board(local);
         BoardWidget* res_board= new BoardWidget(NULL, board_final);
         res_board->show();
+
+        local->writeFile("local_search_3x3.txt");
 #endif
 
 #if DEBUG_GENETIC

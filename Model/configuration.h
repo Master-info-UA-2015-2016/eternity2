@@ -236,13 +236,8 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Configuration& r)
     { return r.print(out); }
 
-    /**
-     * Vérifie que la forme de la configuration correspond à la taille de l'instance
-     * @return vrai la configuration est bien formée
-     * @author FOURMOND Jérôme
-     */
-    bool isValid() { return (unsigned)(instance->get_width()* instance->get_height()) == ids_and_rots.size(); }
 
+    /*** Lecture & Ecriture  ***/
     /**
      * Chargement d'un graphe sous forme de matrice
      * à partir d'un fichier d'exemple
@@ -251,6 +246,15 @@ public:
      * @author Ugo Rayer
      */
     bool tryLoadFile(const std::string& fileName);
+
+    void writeFile(const std::string& fileName);
+
+    /**
+     * Vérifie que la forme de la configuration correspond à la taille de l'instance
+     * @return vrai la configuration est bien formée
+     * @author FOURMOND Jérôme
+     */
+    bool isValid() { return (unsigned)(instance->get_width()* instance->get_height()) == ids_and_rots.size(); }
 
     /**
      * Retourne la piece situee au neightboord_card (Sud, Ouest, Nord ou Est) de la piece courante

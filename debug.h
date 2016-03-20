@@ -9,7 +9,7 @@
 // algorithm
 #define DEBUG_CSP               0   // mainwindow et canBePlaced également
 #define DEBUG_GENETIC           0   // mainwindow également
-#define DEBUG_LOCAL_SEARCH      0   // mainwindow également
+#define DEBUG_LOCAL_SEARCH      1  // mainwindow également
 
 // mainwindow
 #define DEBUG_UI                1
