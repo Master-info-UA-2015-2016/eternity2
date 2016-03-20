@@ -124,10 +124,8 @@ bool Configuration::addPieceAsCorner(int p_id, int x, int y) {
         setPiece(x, y, make_pair(p_id, p_rot));
     }
 
-    cout << p_id << " " << x << " " << y <<  p_rot << endl;
-
     if (p_rot == 4) {// Si on est sorti de la boucle car on avait essayé toutes les rotations :
-        cerr << "Impossible de placer la pièce dans le coin" << endl;
+        cerr << "Impossible de placer la pièce " << p_id << "dans le coin (" << x << "," << y << ")" << endl;
         return false;
     }
     else return true;

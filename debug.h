@@ -8,14 +8,14 @@
 
 // algorithm
 #define DEBUG_CSP               0   // mainwindow et canBePlaced également
-#define DEBUG_GENETIC           1   // mainwindow également
+#define DEBUG_GENETIC           0   // mainwindow également
 #define DEBUG_LOCAL_SEARCH      0   // mainwindow également
 
 // mainwindow
 #define DEBUG_UI                1
 #define DEBUG_DRAW_WIDGETS      0
 #define DEBUG_SHOW_PIECES       0
-#define DEBUG_INIT_CONFIG       0 //a remettre a 1
+#define DEBUG_INIT_CONFIG       1    //a remettre a 1
 #define DEBUG_CONSTRAINT        0
 #define DEBUG_SHOW_SOL_CONFIG   0
 
@@ -23,7 +23,7 @@
 //configuration
 #define DEBUG_CHECK_PIECES      0
 #define DEBUG_SHOW_MISPLACED    0
-#define DEBUG_ALTER_PIECES      1
+#define DEBUG_ALTER_PIECES      0
 
 #define DEBUG_SHOW_CONFIG       0
 

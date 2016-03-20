@@ -51,6 +51,7 @@ bool MainWindow::init_configuration(std::string instance_filename)
 
         Configuration* config= new Configuration(instance);
         config->randomConfiguration();
+
 #if DEBUG_SHOW_PIECES
         for(auto c : *(config->getPieces())) {
             cout << c << endl;

@@ -56,6 +56,10 @@ void Configuration::randomConfiguration() {
             pieces_remaining.push_back(piece.get_id());
     }
 
+    for(int I : corner_pieces) {
+        cout << I << endl;
+    }
+
     // Mélange aléatoire
     random_shuffle(edge_pieces.begin(), edge_pieces.end());
     random_shuffle(corner_pieces.begin(), corner_pieces.end());
@@ -336,7 +340,7 @@ int Configuration::nbErrorsCorners() const {
 
 bool Configuration::areConstraintCornersRespected(int x, int y) const {
     int rotation= getRotation(x, y);
-    const Piece & piece = getPiece(rotation);
+    const Piece & piece = getPiece(x,y);
     const PairColors * swne = piece.rotate(rotation);
 
     if(x == 0 && y == 0)
