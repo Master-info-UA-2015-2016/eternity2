@@ -139,10 +139,23 @@ list<Piece>* Algorithm::initCSP(Configuration * config)
     return available_pieces;
 }
 
+//Piece* Algorithm::tryNextValidPiece(Configuration * config, std::list<Piece>* availables, int& firstToCheck)
+//{
+//    int nb_availables= availables->size();
+
+//    bool= false;
+//    Piece* current_piece;
+//    for (int i= firstToCheck; i < nb_availables && !found; ++i){
+//        current_piece= availables->front();
+//        availables->pop_front();
+
+//        placed= config->tryPlaceAtEnd(current_piece);
+//    }
+
+//}
+
 void Algorithm::placeWithoutConstraints(Configuration* config, list<Piece>* remainingPieces)
 {
-//    for (Piece piece : available_pieces){
-
     unsigned ever_placed= config->get_ids_and_rots().size();
 
     int y= ever_placed / config->get_height();
@@ -167,62 +180,99 @@ void Algorithm::placeWithoutConstraints(Configuration* config, list<Piece>* rema
     }
 }
 
+
+std::list<std::pair<Piece, int> > *Algorithm::getValidPieces(Configuration *config, std::list<Piece> *availables)
+{
+    list< PieceRot >* valid_pieces= new list<PieceRot>;
+
+    for (Piece& piece : *availables) {
+        for (int rotation= 0; rotation < 4; ++rotation) {
+            if (config->canBePlaceAtEnd(piece, rotation)) {
+                valid_pieces->push_back(make_pair(piece, rotation));
+            }
+        }
+    }
+
+    return valid_pieces;
+}
+
+Configuration* forwardCheck(Configuration * config, std::list<Piece>* availables)
+{
+#if DEBUG_CSP
+    cout << config->get_ids_and_rots().size()<< " déjà placées, "<<
+         config->get_width() * config->get_height()-i +1<< " à placer"<< endl;
+        cout << availables.size() +1<< " disponibles"<< endl;
+#endif
+
+    // Si il n'y a plus de pièces disponibles, c'est qu'une solution a été trouvée
+    if (availables->empty()){
+        return config;
+    }
+    else {
+        Configuration* solution= new Configuration(*config);
+        list< PieceRot >* valids= Algorithm::getValidPieces(solution, availables);
+        Configuration* full_solution= NULL;
+
+        // Tant que je n'ai pas de solution et que j'ai des pièces à ajouter, je fais un forward checking
+        while (full_solution == NULL && !valids->empty()){
+            PieceRot current_PieceRot= valids->front();
+            Piece& current_piece= current_PieceRot.first;
+            int rotation= current_PieceRot.second;
+
+            // On place la pièce avec la rotation correspondante à la position suivante, @SEE si on fait parcours en escargot
+            solution->placePiece(current_piece, rotation);
+            valids->pop_front();
+            availables->remove(current_piece); // On enlève la pièce ajoutée des pièces disponibles, @SEE COUTEUX, car recherche
+
+            // On lance le forward checking avec la pièce placée sur la nouvelle configuration
+            full_solution= forwardCheck(solution, availables);
+
+            // Si une solution est trouvée, on s'arrête
+            if (full_solution != NULL){
+                delete solution;
+                solution= full_solution;
+            }
+            else {
+                // La pièce ne permet pas d'arriver à une solution, donc on la replace à la FIN
+                //  de la liste des pièces disponibles
+                availables->push_back(current_piece);
+            }
+        }
+
+        return full_solution;
+    } // FIN_else solution trouvée
+
+}
+
 Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 {
     Configuration* solution = new Configuration(instance);
-    list<Piece>& available_pieces= *(initCSP(solution));
+    list<Piece>* available_pieces= initCSP(solution);
 
 #if DEBUG_CSP
     cout << "Nombre de pièces disponibles : "<< available_pieces.size()<< endl;
 #endif
 
 //    Debut de l'algo
+    bool full;
 
-    // Parcours du tableau @SEE si on l'améliore en escargot
-    bool forward_checked= true;
-    for(int i= 2; i<= solution->get_width() * solution->get_height()
-        && forward_checked; ++i) {
-            Piece current_piece= available_pieces.front();
-            available_pieces.pop_front();
+    solution= forwardCheck(solution, available_pieces);
 
-            unsigned int num_try= 0;
-            bool placed= false;
-            do {
-                placed= solution->tryPlaceAtEnd(current_piece);
-                 ++num_try;
-                // La pièce ne peut pas être ajoutée, donc on la replace à la fin
-                //  de la liste des pièces disponibles
-                if (!placed){
-                    available_pieces.push_back(current_piece);
-                    current_piece= available_pieces.front();
-                    available_pieces.pop_front();
-
-#if DEBUG_CSP
-                    cout << "Essai num "<< num_try<< " : placer "<< current_piece<< " en "
-                         << i<< " eme case (placé : "<< placed<< ")"<< endl;
-                    cout << solution->get_ids_and_rots().size()<< " déjà placées, "<<
-                         solution->get_width() * solution->get_height()-i +1<< " à placer"<< endl;
-                    cout << available_pieces.size() +1<< " disponibles"<< endl;
-#endif
-                }
-            }while (!placed && num_try <= available_pieces.size());
-
-            // En cas d'echec de placement de la pièce suivante
-            if (!placed){
-                available_pieces.push_front(current_piece);
-                clog << "IL FAUT PLACER LES PIECES SUIVANTES SANS RESPECTER LES CONTRAINTES"
-                        " OU FAIRE DU BACKTRACKING"<< endl;
-                forward_checked= false;
-            }
-
-//        }
+    // En cas d'echec de placement de la pièce suivante
+    if ( (int) (solution->getPieces()->size()) < solution->get_width() * solution->get_height())
+    {
+        clog << "IL FAUT PLACER LES PIECES SUIVANTES SANS RESPECTER LES CONTRAINTES"
+                " OU FAIRE DU BACKTRACKING"<< endl;
+        full= false;
     }
 
-    // Pose des pièces restantes, sans vérifier les contraintes
-    placeWithoutConstraints(solution, &available_pieces);
+    if (!full){
+        // Pose des pièces restantes, sans vérifier les contraintes
+        placeWithoutConstraints(solution, available_pieces);
+    }
 
     /** Fin de l'algo **/
-    delete &available_pieces;
+    delete available_pieces;
 
     return solution;
 }

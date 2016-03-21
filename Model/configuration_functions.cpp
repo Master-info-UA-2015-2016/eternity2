@@ -527,6 +527,11 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
     return true;
 }
 
+bool Configuration::canBePlaceAtEnd(const Piece &piece, int rotation)
+{
+    return canBePlaced(piece, rotation);
+}
+
 bool Configuration::tryPlaceAtEnd(const Piece &piece)
 {
     bool is_placed= false;

@@ -10,6 +10,8 @@
 #include "Model/configuration.h"
 #include "Model/board.h"
 
+typedef std::pair<Piece, int> PieceRot ;
+
 /**
  * Contient les différentes algorithmes implémentés pour la résolution du
  * problème
@@ -74,6 +76,27 @@ class Algorithm
          * @return
          */
         static std::list<Piece>* initCSP(Configuration* config);
+        /**
+         * Cherche les pièces pouvant aller à une position donnée
+         * @param config Configuration sur laquelle on travaille (courante)
+         * @param col abscisse
+         * @param row ordonnée
+         * @return la liste des pièces pouvant aller sur la position donnée
+         */
+//        static Piece* tryNextValidPiece(Configuration * config, std::list<Piece>* availables, int nbToCheck, int col, int row);
+        /**
+         * Cherche les pièces pouvant aller à une position donnée
+         * @param config Configuration sur laquelle on travaille (courante)
+         * @return la liste des pièces pouvant aller sur la position donnée
+         */
+        static std::list< PieceRot > *getValidPieces(Configuration * config, std::list<Piece>* availables);
+        /**
+         * Effectue un chainage avant (récursif)
+         * @param config Configuration sur laquelle on travaille (courante)
+         * @param valids Pièce allant à la position courante
+         * @return la configuration finale si il y a une trouvée NULL sinon
+         */
+        static Configuration* forwardCheck(Configuration * config, std::list<Piece>* availables);
         /**
          * Place toutes les pièces restantes dans la config
          * @param config    Configuration à remplir

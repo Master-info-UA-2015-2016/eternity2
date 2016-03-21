@@ -453,11 +453,19 @@ public:
     bool canBePlaced(const Piece& piece, int rotation);
 
     /**
+     * Vérifie si une pièce peut être placée à la suite des autres :
+     *  vérifie qu'il y a de la place dans le plateau et teste les 4 rotations
+     * @param piece pièce à placer dans le plateau
+     * @return false si on ne peut pas placer la pièce
+     * @author DAVID Florian
+     */
+    bool canBePlaceAtEnd(const Piece& piece, int rotation);
+    /**
      * Essai de placer une pièce à la suite des autres :
      *  vérifie qu'il y a de la place dans le plateau et  teste les 4 rotations
      * @param piece pièce à placer dans le plateau
      * @return false si on n'a pas réussi à placer la pièce
-     * @author FOURMOND Jérôme
+     * @author DAVID Florian
      */
     bool tryPlaceAtEnd(const Piece& piece);
 
