@@ -81,33 +81,6 @@ void MainWindow::testShowConfig() const
 
 void MainWindow::launch_resolution()
 {
-    // TODO REMOVE AT THE END
-#if DEBUG_SHOW_SOL_CONFIG
-//        Configuration * solution = new Configuration( (ui->board->getConfig()) );
-        Configuration * solution = new Configuration("../eternity2/instances_puzzles/pieces_03x03.txt");
-
-        solution->placePiece(make_pair(1, 1));
-        solution->placePiece(make_pair(7, 2));
-        solution->placePiece(make_pair(2, 2));
-        solution->placePiece(make_pair(5, 1));
-        solution->placePiece(make_pair(9, 1));
-        solution->placePiece(make_pair(8, 3));
-        solution->placePiece(make_pair(3, 0));
-        solution->placePiece(make_pair(6, 0));
-        solution->placePiece(make_pair(4, 3));
-
-        Board* board_sol= new Board(solution);
-        BoardWidget* sol_board= new BoardWidget(NULL, board_sol);
-        sol_board->show();
-
-        cout << "###########    SOLUTION    ##########" << endl;
-
-        cout << "Nombre d'erreurs :" << solution->countNbErrors()  << endl;
-        cout << *solution;
-        cout << "\tPièces malplacées=> " << solution->misplacedPieces() << endl;
-//        cout << "\tContraintes d'adjacances->"  << solution->constraintAdjacences() << endl;
-
-#endif
 #if DEBUG_CSP
         Configuration * CSP = Algorithm::resolveWithCSP(instance);
         cout << "##########\tCSP\t##########" << endl;
@@ -117,18 +90,6 @@ void MainWindow::launch_resolution()
         BoardWidget* res_board= new BoardWidget(NULL, board_final);
         res_board->show();
 #endif
-#if DEBUG_LOCAL_SEARCH
-        Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
-        cout << *local;
-        cout << "Nombre d'erreurs :" << local->countNbErrors()  << endl;
-
-        Board* board_final= new Board(local);
-        BoardWidget* res_board= new BoardWidget(NULL, board_final);
-        res_board->show();
-
-        local->writeFile("local_search_3x3.txt");
-#endif
-
 #if DEBUG_GENETIC
         int nb_config= 10;
         std::vector<Configuration *> genetic= Algorithm::initGenetic(instance, nb_config);
@@ -144,6 +105,16 @@ void MainWindow::launch_resolution()
         res_board3->show();
 #endif
 
+}
+
+void MainWindow::launch_local_search() {
+    Configuration * local = Algorithm::local_search(&(ui->board->getConfig()));
+    cout << *local;
+    cout << "Nombre d'erreurs :" << local->countNbErrors()  << endl;
+
+    Board* board_final= new Board(local);
+    BoardWidget* res_board= new BoardWidget(NULL, board_final);
+    res_board->show();
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)
