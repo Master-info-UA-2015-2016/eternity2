@@ -82,13 +82,7 @@ void MainWindow::testShowConfig() const
 void MainWindow::launch_resolution()
 {
 #if DEBUG_CSP
-        Configuration * CSP = Algorithm::resolveWithCSP(instance);
-        cout << "##########\tCSP\t##########" << endl;
-        cout << (*CSP) << endl;
-        cout << "##########\tFIN CSP\t##########" << endl;
-        Board* board_final= new Board(CSP);
-        BoardWidget* res_board= new BoardWidget(NULL, board_final);
-        res_board->show();
+    launch_CSP();
 #endif
 #if DEBUG_GENETIC
         int nb_config= 10;
@@ -105,6 +99,19 @@ void MainWindow::launch_resolution()
         res_board3->show();
 #endif
 
+}
+
+void MainWindow::launch_CSP()
+{
+    Configuration * CSP = Algorithm::resolveWithCSP(instance);
+    cout << "##########\tCSP\t##########" << endl;
+    cout << (*CSP) << endl;
+    cout << "##########\tFIN CSP\t##########" << endl;
+    cout << "Nombre d'erreurs : "<< CSP->countNbErrors()<< endl;
+
+    Board* board_final= new Board(CSP);
+    BoardWidget* res_board= new BoardWidget(NULL, board_final);
+    res_board->show();
 }
 
 void MainWindow::launch_local_search() {

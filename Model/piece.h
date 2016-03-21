@@ -30,7 +30,7 @@ public:
     /**
      * Constructeur
      */
-    Piece(int _id, PairColors tab[]);
+    Piece(int _id, const PairColors tab[]);
 
     /**
      * Getters

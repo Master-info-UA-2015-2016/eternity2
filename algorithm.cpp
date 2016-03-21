@@ -199,9 +199,10 @@ std::list<std::pair<Piece, int> > *Algorithm::getValidPieces(Configuration *conf
 Configuration* forwardCheck(Configuration * config, std::list<Piece>* availables)
 {
 #if DEBUG_CSP
-    cout << config->get_ids_and_rots().size()<< " déjà placées, "<<
-         config->get_width() * config->get_height()-i +1<< " à placer"<< endl;
-        cout << availables.size() +1<< " disponibles"<< endl;
+    int placed= config->get_ids_and_rots().size();
+    cout << placed<< " déjà placées, "<<
+         config->get_width() * config->get_height() -placed<< " à placer"<< endl;
+        cout << availables->size() +1<< " disponibles"<< endl;
 #endif
 
     // Si il n'y a plus de pièces disponibles, c'est qu'une solution a été trouvée
@@ -216,7 +217,7 @@ Configuration* forwardCheck(Configuration * config, std::list<Piece>* availables
         // Tant que je n'ai pas de solution et que j'ai des pièces à ajouter, je fais un forward checking
         while (full_solution == NULL && !valids->empty()){
             PieceRot current_PieceRot= valids->front();
-            Piece& current_piece= current_PieceRot.first;
+            Piece current_piece(current_PieceRot.first.get_id(), current_PieceRot.first.get_motif());
             int rotation= current_PieceRot.second;
 
             // On place la pièce avec la rotation correspondante à la position suivante, @SEE si on fait parcours en escargot
@@ -250,7 +251,7 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
     list<Piece>* available_pieces= initCSP(solution);
 
 #if DEBUG_CSP
-    cout << "Nombre de pièces disponibles : "<< available_pieces.size()<< endl;
+    cout << "Nombre de pièces disponibles : "<< available_pieces->size()<< endl;
 #endif
 
 //    Debut de l'algo
