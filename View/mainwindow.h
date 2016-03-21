@@ -55,6 +55,12 @@ public slots:
      */
     void launch_resolution();
 
+    /**
+     * Exécute l'algorithme de recherche local sur la configuration du plateau
+     * @author FOURMOND Jérôme
+     */
+    void launch_local_search();
+
 protected:
     void paintEvent(QPaintEvent* event);
 
