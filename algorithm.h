@@ -106,12 +106,14 @@ class Algorithm
 
         /*** Génétique ***/
 
+        static std::vector<Configuration*> initGenetic(const Instance * instance, int nb_config);
+
         /**
          * Algorithme de recherche genetique
          * @param configs = un ensemble de configurations (generation actuelle - parents)
          * @return un ensemble de configurations (nouvelle generation)
          */
-        static std::vector<Configuration *> genetic_search(std::vector<Configuration *> configs);
+        static std::vector<Configuration *> geneticSearch(std::vector<Configuration *> configs);
 };
 
 #endif // ALGORITHM_H
