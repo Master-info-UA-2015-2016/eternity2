@@ -516,6 +516,9 @@ bool Configuration::canBePlaced(const Piece & piece, int rotation) {
             if(colors[i] != Black_Black){
                 return false;
             }
+        } // Si la case adjacente est vide, on vérifie que l'on ne place pas un bord
+        else if (colors[i] == Black_Black){
+            return false;
         }
     }
     // Pas de soucis d'adjacences, mais est-ce que l'emplacement est compatible avec les bordures ou l'angle ?

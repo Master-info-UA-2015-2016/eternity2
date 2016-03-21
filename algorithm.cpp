@@ -95,7 +95,7 @@ pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* par
             {
                 //on retient l'id de la piece ajoutee dans le fils
                 ids_of_son.push_back(id_rot_p1.first);
-                son->setPiece(i, j, id_rot_p1);
+                son->setPiece(i, j, id_rot_p1); // TODO A supprimer (inutile car déjà dans le fils)
             } else //la piece a trop d'erreurs dans parent1, on la prendra dans parent2
             {
                 //on retient l'id de la piece ajoutee dans la fille
@@ -117,7 +117,7 @@ pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* par
             if (find(ids_of_son.begin(), ids_of_son.end(), id_p2) != ids_of_son.end()) //id_p2 est un id deja present dans le fils
             {
                 //on ajoute donc la piece dans daughter
-                daughter->setPiece(i, j, id_rot_p2);
+                daughter->setPiece(i, j, id_rot_p2);  // TODO A supprimer (inutile car déjà dans la fille)
 
             } else //id_p2 n'est pas present dans le fils - ajout de la piece
             {
@@ -292,7 +292,19 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 //              GENETIQUE
 // ###########################################
 
-std::vector<Configuration*> Algorithm::genetic_search(std::vector<Configuration*> configs){
+std::vector<Configuration*> Algorithm::initGenetic(const Instance *instance, int nb_config){
+    vector<Configuration*> first_generation;
+    Configuration * randomC = new Configuration(instance);
+
+    for (int i = 0; i < nb_config; ++i) {
+        randomC->randomConfiguration();
+        first_generation.push_back(randomC);
+    }
+
+    return first_generation;
+}
+
+std::vector<Configuration*> Algorithm::geneticSearch(std::vector<Configuration*> configs){
     std::vector<Configuration*> new_generation, final_generation;
     //selection des configurations 2 à 2 dans "configs" (2 parents)
 
