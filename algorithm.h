@@ -53,23 +53,6 @@ class Algorithm
         static std::vector<Configuration *> get_neighbours(Configuration & C, std::vector<Configuration * > configurations);
 
         /**
-         * Fabrique 2 enfants a partir des 2 parents et ajoute a la liste d'enfants
-         * @param children
-         * @param parent1
-         * @param parent2
-         */
-        static void add_child(std::vector<Configuration*>& children, Configuration* parent1, Configuration* parent2);
-
-        /**
-         * A partir de 2 parents, fabrique des configurations "fils" et "fille" pour la nouvelle generation
-         * @note Fonction de croisement
-         * @param parent1
-         * @param parent2
-         * @return les configurations fils et fille issues du croisement des 2 parents
-         */
-        static std::pair<Configuration*, Configuration*> make_children(Configuration* parent1, Configuration* parent2);
-
-        /**
          * Fonction d'évaluation
          * @param C : Configuration
          * @return le nombre d'erreur de la Configuration
@@ -106,6 +89,29 @@ class Algorithm
 
         /*** Génétique ***/
 
+        /**
+         * Fabrique 2 enfants a partir des 2 parents et ajoute a la liste d'enfants
+         * @param children
+         * @param parent1
+         * @param parent2
+         */
+        static void add_child(std::vector<Configuration*>& children, Configuration* parent1, Configuration* parent2);
+
+        /**
+         * A partir de 2 parents, fabrique des configurations "fils" et "fille" pour la nouvelle generation
+         * @note Fonction de croisement
+         * @param parent1
+         * @param parent2
+         * @return les configurations fils et fille issues du croisement des 2 parents
+         */
+        static std::pair<Configuration*, Configuration*> make_children(Configuration* parent1, Configuration* parent2);
+
+        /**
+         * Creation de "nb_config" Configurations à partir de l'instance "instance"
+         * @param instance
+         * @param nb_config : nombre de configurations voulues
+         * @return
+         */
         static std::vector<Configuration*> initGenetic(const Instance * instance, int nb_config);
 
         /**
