@@ -113,6 +113,13 @@ class Algorithm
         /*** Génétique ***/
 
         /**
+         * Retourne l'indice de la configuration ayant le moins d'erreurs dans new_generation
+         * @param new_generation
+         * @return l'indice de la meilleure configuration dans new_generation
+         */
+        static int getBestConfig(std::vector<Configuration *> new_generation);
+
+        /**
          * Fabrique 2 enfants a partir des 2 parents et ajoute a la liste d'enfants
          * @param children
          * @param parent1

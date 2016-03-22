@@ -283,6 +283,21 @@ Configuration* Algorithm::resolveWithCSP(const Instance *instance)
 //              GENETIQUE
 // ###########################################
 
+int Algorithm::getBestConfig(std::vector<Configuration *> new_generation){
+    int ind_best_config= 0;
+    int nb_erreurs_best_config= evaluation(*new_generation[0]);
+
+    for(unsigned int i= 1; i < new_generation.size(); ++i){
+        int nb_err= evaluation(*new_generation[i]);
+        if(nb_err < nb_erreurs_best_config){
+            nb_erreurs_best_config= nb_err;
+            ind_best_config= i;
+        }
+    }
+
+    return ind_best_config;
+}
+
 void Algorithm::add_child(std::vector<Configuration *> &children, Configuration *parent1, Configuration *parent2){
     pair<Configuration*, Configuration*> new_children= make_children(parent1, parent2);
     children.push_back(new_children.first);

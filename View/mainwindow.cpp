@@ -90,13 +90,12 @@ void MainWindow::launch_resolution()
             new_generation= Algorithm::geneticSearch(genetic);
         }
 
-        Board* board_final2= new Board(new_generation[0]);
+        int ind_best_child= Algorithm::getBestConfig(new_generation);
+
+        Board* board_final2= new Board(new_generation[ind_best_child]);
         BoardWidget* res_board2= new BoardWidget(NULL, board_final2);
         res_board2->show();
 
-        Board* board_final3= new Board(new_generation[1]);
-        BoardWidget* res_board3= new BoardWidget(NULL, board_final3);
-        res_board3->show();
 #endif
 
 }
