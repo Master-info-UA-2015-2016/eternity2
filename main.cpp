@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
         window.testShowConfig();
         window.show();
         window.launch_resolution();
+//        window.launch_local_search();
+//        window.launch_CSP();
 
         return app.exec();
     } else {

@@ -230,11 +230,11 @@ Configuration* Algorithm::forwardCheck(Configuration * config, std::list<Piece>*
             full_solution= forwardCheck(solution, availables);
 
             // Si une solution est trouvée, on s'arrête
-            if (full_solution != NULL){
-                delete solution;
-                solution= full_solution;
-            }
-            else {
+            if (full_solution == NULL){
+//                delete solution;
+//                solution= full_solution;
+//            }
+//            else {
                 // La pièce ne permet pas d'arriver à une solution, donc on la replace au début
                 //  de la liste des pièces disponibles
                 availables->push_front(current_piece);
