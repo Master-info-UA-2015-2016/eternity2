@@ -81,9 +81,6 @@ void MainWindow::testShowConfig() const
 
 void MainWindow::launch_resolution()
 {
-#if DEBUG_CSP
-    launch_CSP();
-#endif
 #if DEBUG_GENETIC
         int nb_config= 10;
         std::vector<Configuration *> genetic= Algorithm::initGenetic(instance, nb_config);

@@ -235,9 +235,9 @@ Configuration* Algorithm::forwardCheck(Configuration * config, std::list<Piece>*
                 solution= full_solution;
             }
             else {
-                // La pièce ne permet pas d'arriver à une solution, donc on la replace à la FIN
+                // La pièce ne permet pas d'arriver à une solution, donc on la replace au début
                 //  de la liste des pièces disponibles
-                availables->push_back(current_piece);
+                availables->push_front(current_piece);
             }
         }
 
