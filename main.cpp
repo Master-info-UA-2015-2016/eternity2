@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     MainWindow window;
-    if (window.init_configuration("../eternity2/instances_puzzles/pieces_05x05.txt")) {
+    if (window.init_configuration("../eternity2/instances_puzzles/pieces_04x04.txt")) {
         window.testShowConfig();
         window.show();
         window.launch_resolution();

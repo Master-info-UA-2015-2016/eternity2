@@ -84,8 +84,11 @@ void MainWindow::launch_resolution()
 #if DEBUG_GENETIC
         int nb_config= 10;
         std::vector<Configuration *> genetic= Algorithm::initGenetic(instance, nb_config);
+        std::vector<Configuration *> new_generation;
 
-        std::vector<Configuration *> new_generation= Algorithm::geneticSearch(genetic);
+        for(int i= 0; i < nb_config; ++i){
+            new_generation= Algorithm::geneticSearch(genetic);
+        }
 
         Board* board_final2= new Board(new_generation[0]);
         BoardWidget* res_board2= new BoardWidget(NULL, board_final2);

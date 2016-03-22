@@ -326,18 +326,21 @@ pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* par
         }
     }
 
+
     //Ici, le fils est rempli des meilleurs pieces de parent1 et la fille des pires pieces de parent1
     //on doit completer son & daughter avec les pieces de parent2 en se servant des places libres dans chacun des enfants
     for(int i= 0; i<parent2->get_height(); ++i){
         for(int j= 0; j<parent2->get_height(); ++j){
             pair<int,int> id_rot_p2= parent2->getPair(i,j);
             int id_p2= id_rot_p2.first;
+            int taille_free_places_son= free_places_son.size();
+            int taille_free_places_daughter= free_places_daughter.size();
 
             //la piece parent2[i][j] est-elle deja presente dans son ou dans daughter ?
             if (find(ids_of_son.begin(), ids_of_son.end(), id_p2) != ids_of_son.end()) //id_p2 est un id deja present dans le fils
             {
                 //prochaine case disponible de daughter
-                pair<int, int> coord_xy= free_places_daughter[0];
+                pair<int, int> coord_xy= free_places_daughter[taille_free_places_daughter-1];
                 int free_x= coord_xy.first;
                 int free_y= coord_xy.second;
                 //on ajoute donc la piece dans daughter
@@ -348,7 +351,7 @@ pair<Configuration*, Configuration*> Algorithm::make_children(Configuration* par
             } else //id_p2 n'est pas present dans le fils - ajout de la piece
             {
                 //prochaine case disponible de son
-                pair<int, int> coord_xy= free_places_son[0];
+                pair<int, int> coord_xy= free_places_son[taille_free_places_son-1];
                 int free_x= coord_xy.first;
                 int free_y= coord_xy.second;
                 //on ajoute la piece dans son
