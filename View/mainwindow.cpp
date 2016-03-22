@@ -96,6 +96,9 @@ void MainWindow::launch_resolution()
         BoardWidget* res_board2= new BoardWidget(NULL, board_final2);
         res_board2->show();
 
+        cout << (*new_generation[ind_best_child]) << endl;
+        cout << "Nb erreurs : " << new_generation[ind_best_child]->countNbErrors() << endl;
+
 #endif
 
 }
