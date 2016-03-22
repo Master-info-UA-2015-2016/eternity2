@@ -56,16 +56,21 @@ public slots:
     void launch_resolution();
 
     /**
-     * Exécute l'algorithme de recherche local sur la configuration du plateau
-     * @author FOURMOND Jérôme
+     * Exécute l'algorithme de CSP sur l'instance de la classe
+     * @author DAVID Florian
      */
-    void launch_local_search();
+    void launch_CSP();
 
 protected:
     void paintEvent(QPaintEvent* event);
 
     /*** Loads and saves  ***/
 public slots:
+    /**
+     * Exécute l'algorithme de recherche local sur la configuration du plateau
+     * @author FOURMOND Jérôme
+     */
+    void launch_local_search();
     /**
      * Ouvre un explorateur et charge une instance à partir du fichier sélectionné
      */

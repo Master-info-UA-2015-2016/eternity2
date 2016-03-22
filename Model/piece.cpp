@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Piece::Piece(int _id, PairColors tab[]) :
+Piece::Piece(int _id, const PairColors tab[]) :
     id(_id)
 {
     for(int i=0; i<MAX_CARD; ++i){

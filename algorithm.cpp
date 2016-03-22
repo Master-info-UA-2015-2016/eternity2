@@ -218,7 +218,7 @@ Configuration* Algorithm::forwardCheck(Configuration * config, std::list<Piece>*
             Configuration* solution= new Configuration(*config);
 
             PieceRot current_PieceRot= valids->front();
-            Piece& current_piece= current_PieceRot.first;
+            Piece current_piece(current_PieceRot.first.get_id(), current_PieceRot.first.get_motif());
             int rotation= current_PieceRot.second;
 
             // On place la pièce avec la rotation correspondante à la position suivante, @SEE si on fait parcours en escargot
