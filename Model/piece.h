@@ -89,6 +89,16 @@ public:
     { return r.print(out); }
 
     /**
+     * Comparaison de 2 pièces
+     * @param
+     * @param
+     * @return vrai si les 2 pièces sont identiques
+     * @author DAVID Florian
+     */
+    friend bool operator==(const Piece& piece, const Piece& other)
+    { return piece.get_id() == other.get_id(); }
+
+    /**
      * Applique une rotation a une piece et retourne les motifs de cette piece
      * @param nbRotation
      * @return

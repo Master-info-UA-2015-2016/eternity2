@@ -459,7 +459,7 @@ public:
      * @return false si on ne peut pas placer la pièce
      * @author DAVID Florian
      */
-    bool canBePlaceAtEnd(const Piece& piece, int rotation);
+    bool canBePlaceAtEnd(Piece piece, int rotation);
     /**
      * Essai de placer une pièce à la suite des autres :
      *  vérifie qu'il y a de la place dans le plateau et  teste les 4 rotations
