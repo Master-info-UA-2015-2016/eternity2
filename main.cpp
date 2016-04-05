@@ -11,6 +11,8 @@
 
 using namespace std;
 
+#define DEBUG_CSP   0
+
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
@@ -20,10 +22,8 @@ int main(int argc, char *argv[])
     MainWindow window;
     if (window.init_configuration("../eternity2/instances_puzzles/pieces_04x04.txt")) {
         window.testShowConfig();
+        window.launch_CSP();
         window.show();
-        window.launch_resolution();
-//        window.launch_local_search();
-//        window.launch_CSP();
 
         return app.exec();
     } else {

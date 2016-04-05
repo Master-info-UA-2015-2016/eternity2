@@ -7,8 +7,8 @@
 #define DEBUG_PAINT             0
 
 // algorithm
-#define DEBUG_CSP               0   // mainwindow et canBePlaced également
-#define DEBUG_GENETIC           1   // mainwindow également
+//#define DEBUG_CSP               0   // mainwindow et canBePlaced également
+#define DEBUG_GENETIC           0   // mainwindow également
 
 // mainwindow
 #define DEBUG_UI                1

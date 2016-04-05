@@ -1,8 +1,0 @@
-Backtrack(S)
-    Si S viole une contrainte, alors retourner FAUX ;
-    Si S est solution, alors retourner VRAI ;
-    Choisir une variable x non instanciée;
-    Pour chaque valeur v dans le domaine Dx
-	T=S∪{x←v}
-	Si Backtrack(T), alors retourner VRAI
-    Retourner FAUX ;
