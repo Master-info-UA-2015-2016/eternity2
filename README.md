@@ -23,4 +23,4 @@ Le projet peut être ouvert dans QtCreator à l'aide du fichier "eternity2.pro"
 -----------------------------------------|
 [@Seymour49](https://github.com/seymour49) |
   
-Projet développé par [Florian DAVID](https://github.com/flodavid) (modélisation et affichage) en collaboration avec [Jérôme FOURMOND](https://github.com/jfourmond) |  et [Antoine GARNIER](https://github.com/ascris)) avec la participation de [Ugo RAYER](https://github.com/seymour49)
+Projet développé par [Florian DAVID](https://github.com/flodavid) (modélisation et affichage) en collaboration avec [Jérôme FOURMOND](https://github.com/jfourmond) et [Antoine GARNIER](https://github.com/ascris)) avec la participation de [Ugo RAYER](https://github.com/seymour49)
